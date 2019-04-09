@@ -1,47 +1,57 @@
 #' Produce summary figure of risk of bias assessments.
 #' @description TBC.
-#' @param data A .csv file of your summary (domain) level risk of bias assessments, #' with the first column containing the study name, and the second column containing the first domain of your assessments.
+#' @param data A .csv file of your summary (domain) level risk of bias assessments, with the first column containing the study name, and the second column containing the first domain of your assessments.
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
+#' @param save An option to save the plot as the specified file type. Default is "No", and available extensions are eps/ps, tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
 #' @return Risk of bias assessment figure in .png output.
 #' @examples
-#' rob_summary(data, tool="ROB2", save=FALSE)
+#' rob_summary(data, tool="ROB2", save="No")
 #' @export
 
-rob_summary <- function(data, tool, save = FALSE) {
-  #1st column will be author/study/year
-  start <- 2
-
+rob_summary <- function(data, tool, save = "No") {
   #End column depends on number of domains in tool (end <- no. of domains+  1)
-  if(tool == "ROB2"){end <- 6}
   if(tool == "ROBINS-I"){end <- 8}
   if(tool == "QUADAS-2"){end<-5}
 
-  # Convert to tidy format
-  rob.tidy <- suppressWarnings(tidyr::gather(data,
-                                             domain, judgement,
-                                             start:end,
-                                             factor_key = FALSE))
-
   if (tool == "ROB2") {
-    rob.tidy <-
-      dplyr::mutate(
-        rob.tidy,
-        domain_renamed = dplyr::case_when(
-          domain == "D1" ~ "Bias due to randomisation",
-          domain == "D2" ~ "Bias due to deviations from intended intervention",
-          domain == "D3" ~ "Bias due to missing data",
-          domain == "D4" ~ "Bias due to outcome measurement",
-          domain == "D5" ~ "Bias due to selection of reported result",
-          TRUE ~ domain
-        )
-      )
+    start <- 2
+    end <- 6
+    data.tmp <- data
+    print("Renaming columns...")
+    names(data.tmp)[2]<-  "Bias due to randomisation"
+    names(data.tmp)[3]<-  "Bias due to deviations from intended intervention"
+    names(data.tmp)[4] <- "Bias due to missing data"
+    names(data.tmp)[5] <- "Bias due to outcome measurement"
+    names(data.tmp)[6] <- "Bias due to selection of reported result"
+
+    rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                             domain, judgement,
+                                             start:end))
+    print("Data tidied")
+
+    # rob.tidy <-
+    #   dplyr::mutate(
+    #     rob.tidy,
+    #     domain_renamed = dplyr::case_when(
+    #       domain == "D1" ~ "Bias due to randomisation",
+    #       domain == "D2" ~ "Bias due to deviations from intended intervention",
+    #       domain == "D3" ~ "Bias due to missing data",
+    #       domain == "D4" ~ "Bias due to outcome measurement",
+    #       domain == "D5" ~ "Bias due to selection of reported result",
+    #       TRUE ~ domain
+    #     )
+      # )
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+    rob.tidy$domain <- as.factor(rob.tidy$domain)
 
-    rob.tidy$domain_renamed <- as.factor(rob.tidy$domain_renamed)
+    # rob.tidy$domain_renamed <- as.factor(rob.tidy$domain_renamed)
 
-    rob.tidy$domain_renamed <- factor(rob.tidy$domain_renamed,
-                                      levels(rob.tidy$domain_renamed)[c(5, 2, 3, 1, 4)])
+    # rob.tidy$domain_renamed <- factor(rob.tidy$domain_renamed,
+    #                                   levels(rob.tidy$domain_renamed)[c(5, 2, 3, 1, 4)])
+
+    rob.tidy$domain <- factor(rob.tidy$domain,
+                                      levels(rob.tidy$domain)[c(5, 2, 3, 1, 4)])
 
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
@@ -49,7 +59,7 @@ rob_summary <- function(data, tool, save = FALSE) {
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       geom_bar(
-        mapping = aes(x = domain_renamed, fill = judgement),
+        mapping = aes(x = domain, fill = judgement),
         width = 0.7,
         position = "fill",
         color = "black"
@@ -236,9 +246,10 @@ rob_summary <- function(data, tool, save = FALSE) {
       )
   }
 
-  if (save == "TRUE") {
-    filename <- paste(tool, "_summary_figure.png", sep = "")
-    ggplot2::ggsave(filename, width = 8)
+  if (save != "No") {
+    extension <- paste(save)
+    filename <- paste(tool, "_summary_figure",extension, sep = "")
+    ggplot2::ggsave(filename, width = 8, height = 2.41)
   }
 
   return(plot)
