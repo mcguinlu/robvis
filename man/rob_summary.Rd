@@ -4,7 +4,7 @@
 \alias{rob_summary}
 \title{Produce summary figure of risk of bias assessments.}
 \usage{
-rob_summary(data, tool, save = "FALSE")
+rob_summary(data, tool, save = FALSE)
 }
 \arguments{
 \item{data}{A .csv file of your summary (domain) level risk of bias assessments,

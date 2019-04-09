@@ -10,7 +10,7 @@
 #' rob_summary(data, tool="ROB2", save=FALSE)
 #' @export
 
-rob_summary <- function(data, tool, save = "FALSE") {
+rob_summary <- function(data, tool, save = FALSE) {
   rob.df <- data.frame(data)
 
   rob.df[, c(1)] <- NULL
