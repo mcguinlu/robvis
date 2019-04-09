@@ -7,12 +7,9 @@
 rob_summary(data, tool, save = FALSE)
 }
 \arguments{
-\item{data}{A .csv file of your summary (domain) level risk of bias assessments,
-with the first column containing the study name, and the second column containing
-the first domain of your assessments.}
+\item{data}{A .csv file of your summary (domain) level risk of bias assessments, #' with the first column containing the study name, and the second column containing the first domain of your assessments.}
 
-\item{tool}{The risk of bias assessment tool used. RoB2.0 (tool="ROB2"),
-ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2")}
+\item{tool}{The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.}
 }
 \value{
 Risk of bias assessment figure in .png output.

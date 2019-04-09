@@ -1,29 +1,25 @@
 #' Produce summary figure of risk of bias assessments.
 #' @description TBC.
-#' @param data A .csv file of your summary (domain) level risk of bias assessments,
-#' with the first column containing the study name, and the second column containing
-#' the first domain of your assessments.
-#' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"),
-#' ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2")
+#' @param data A .csv file of your summary (domain) level risk of bias assessments, #' with the first column containing the study name, and the second column containing the first domain of your assessments.
+#' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @return Risk of bias assessment figure in .png output.
 #' @examples
 #' rob_summary(data, tool="ROB2", save=FALSE)
 #' @export
 
 rob_summary <- function(data, tool, save = FALSE) {
-  rob.df <- data.frame(data)
+  #1st column will be author/study/year
+  start <- 2
 
-  rob.df[, c(1)] <- NULL
+  #End column depends on number of domains in tool (end <- no. of domains+  1)
+  if(tool == "ROB2"){end <- 6}
+  if(tool == "ROBINS-I"){end <- 8}
+  if(tool == "QUADAS-2"){end<-5}
 
-  ncol.rob.df <- ncol(rob.df)
-
-  last <- colnames(rob.df[ncol.rob.df])
-
-  first <- colnames(rob.df[1])
-
+  # Convert to tidy format
   rob.tidy <- suppressWarnings(tidyr::gather(data,
                                              domain, judgement,
-                                             first:last,
+                                             start:end,
                                              factor_key = FALSE))
 
   if (tool == "ROB2") {
