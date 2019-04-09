@@ -4,8 +4,6 @@
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param save An option to save the plot as the specified file type. Default is "No", and available extensions are eps/ps, tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
 #' @return Risk of bias assessment figure in .png output.
-#' @examples
-#' rob_summary(data, tool="ROB2", save="No")
 #' @export
 
 rob_summary <- function(data, tool, save = "No") {

@@ -19,6 +19,3 @@ Risk of bias assessment figure in .png output.
 \description{
 TBC.
 }
-\examples{
-rob_summary(data, tool="ROB2", save="No")
-}
