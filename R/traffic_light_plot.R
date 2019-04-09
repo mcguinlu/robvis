@@ -28,9 +28,10 @@ rob.long$Levelofconcern = factor(rob.long$Levelofconcern, levels = c('Low','High
   geom_point(shape = 1, colour = "black", aes(size = cex)) +
   scale_x_discrete(position = "top", name = "Domains") +
   scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
- scale_colour_brewer(palette = "Dark2") +
+  scale_colour_brewer(palette = "Dark2") +
   scale_size_continuous(range = c(5,20)) +
   theme_bw() +
   theme(panel.border = element_rect(colour = "grey"),
+        strip.text.y = element_text(angle = 180),
         panel.spacing = unit(0, "line"),
         legend.position = "none")
