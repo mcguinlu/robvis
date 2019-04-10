@@ -10,7 +10,6 @@ rob_summary <- function(data, tool, save = "No") {
 
 if (tool == "ROB2") {
     data.tmp <- data
-    print("Renaming columns...")
     names(data.tmp)[2] <- "Bias due to randomisation"
     names(data.tmp)[3] <- "Bias due to deviations from intended intervention"
     names(data.tmp)[4] <- "Bias due to missing data"
@@ -23,9 +22,8 @@ if (tool == "ROB2") {
                                              domain, judgement,
                                              -Weight))
 
-    print("Data tidied")
-
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
@@ -81,7 +79,6 @@ if (tool == "ROBINS-I") {
     start <- 2
     end <- 9
     data.tmp <- data
-    print("Renaming columns...")
     names(data.tmp)[2] <- "Bias due to confounding"
     names(data.tmp)[3] <- "Bias due to selection of participants"
     names(data.tmp)[4] <- "Bias in classification of interventions"
@@ -94,7 +91,6 @@ if (tool == "ROBINS-I") {
                                                domain, judgement,
                                                start:end,
                                                -Weight))
-    print("Data tidied")
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
@@ -167,9 +163,7 @@ if (tool == "QUADAS-2") {
                                              domain, judgement,
                                              start:end,
                                              -Weight))
-  print("Data tidied")
-
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
@@ -227,7 +221,6 @@ if (tool == "QUADAS-2") {
     extension <- paste(save)
     filename <- paste(tool, "_summary_figure",extension, sep = "")
     ggplot2::ggsave(filename, width = 8, height = 2.41)
-    print("Figure saved")
   }
 
   return(plot)
