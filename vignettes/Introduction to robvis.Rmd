@@ -1,5 +1,5 @@
 ---
-title: "Introduction to robvis"
+title: "Introduction to robvis, a visualisation tool for risk-of-bias assessments"
 author: "Luke A McGuinness"
 date: "`r Sys.Date()`"
 vignette: >
@@ -17,31 +17,27 @@ knitr::opts_chunk$set(
   library(ggplot2)
   library(robvis)
 ```
-## Introduction to robvis, a visualisation tool for risk-of-bias assessments
+The robvis package takes the summary table from risk-of-bias assessments, converts it to tidy data, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot by the tool used.
 
-The tool takes the summary table from risk-of-bias assessments, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot by the tool used.
+Users can currently produce summary plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2
+
+
+```{r headrob}
+head(data_rob)
+```
+
 
 ### RoB2.0 tool for randomised controlled trials
-
 ```{r rob2summary}
-# data_rob: example dataset for ROBINS-I tool
-# Produce barchart summarising risk of bias for each domain, weighted by study precision.
 rob_summary(data_rob, tool = "ROB2", save = "No")
 ```
 
-Users can also produce summary plots for two other commonly used tools: ROBINS-I and QUADAS-2
-
 ### ROBINS-I tool for non-randomised studies of interventions
 ```{r robinssummary}
-# data_robins: example dataset for ROBINS-I tool
-# Produce barchart summarising risk of bias for each domain, weighted by study precision.
 rob_summary(data_robins, tool = "ROBINS-I", save = "No")
 ```
 
-
 ### QUADAS-2 for diagnostic test accuracy studies
 ```{r quadassummary}
-#Import data for ROB2.0 based risk-of-bias assessments
-# Produce barchart summarising risk of bias for each domain, weighted by study precision.
 rob_summary(data_quadas, tool = "QUADAS-2", save = "No")
 ```
