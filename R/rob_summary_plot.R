@@ -7,17 +7,8 @@
 #' @export
 
 rob_summary <- function(data, tool, save = "No") {
-  #End column depends on number of domains in tool (end <- no. of domains + 1)
-  if (tool == "ROBINS-I") {
-    end <- 8
-  }
-  if (tool == "QUADAS-2") {
-    end <- 5
-  }
 
 if (tool == "ROB2") {
-    start <- 2
-    end <- 6
     data.tmp <- data
     print("Renaming columns...")
     names(data.tmp)[2] <- "Bias due to randomisation"
@@ -25,32 +16,27 @@ if (tool == "ROB2") {
     names(data.tmp)[4] <- "Bias due to missing data"
     names(data.tmp)[5] <- "Bias due to outcome measurement"
     names(data.tmp)[6] <- "Bias due to selection of reported result"
+    names(data.tmp)[7] <- "Weight"
+    data.tmp <- data.tmp[,c(2:7)]
 
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement,
-                                             start:end))
-    print("Data tidied")
+                                             -Weight))
 
-    # rob.tidy <-
+    print("Data tidied")
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
-    # rob.tidy$domain <- as.factor(rob.tidy$domain)
-
-    # rob.tidy$domain <- factor(rob.tidy$domain,
-    #                                   levels(rob.tidy$domain)[c(5, 2, 3, 1, 4)])
-
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(5, 2, 3, 1, 4)])
-
+                                      levels(rob.tidy$domain)[c(5, 3, 2, 1, 4)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       geom_bar(
-        mapping = aes(x = domain, fill = judgement),
+        mapping = aes(x = domain, fill = judgement,weight = Weight),
         width = 0.7,
         position = "fill",
         color = "black"
@@ -93,7 +79,7 @@ if (tool == "ROB2") {
 
 if (tool == "ROBINS-I") {
     start <- 2
-    end <- 8
+    end <- 9
     data.tmp <- data
     print("Renaming columns...")
     names(data.tmp)[2] <- "Bias due to confounding"
@@ -106,8 +92,8 @@ if (tool == "ROBINS-I") {
 
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                                domain, judgement,
-                                               start:end))
-
+                                               start:end,
+                                               -Weight))
     print("Data tidied")
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
@@ -169,7 +155,7 @@ if (tool == "ROBINS-I") {
 
 if (tool == "QUADAS-2") {
   start <- 2
-  end <- 5
+  end <- 6
   data.tmp <- data
   print("Renaming columns...")
   names(data.tmp)[2] <- "Patient selection"
@@ -179,7 +165,8 @@ if (tool == "QUADAS-2") {
 
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement,
-                                             start:end))
+                                             start:end,
+                                             -Weight))
   print("Data tidied")
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
@@ -204,13 +191,14 @@ if (tool == "QUADAS-2") {
       scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "Low" = "#66c2a5",
+          "High" = "#fc8d62",
           "Some concerns" = "#808080",
-          "High" = "#fc8d62"
+          "Low" = "#66c2a5"
         ),
-        labels = c("  Low risk of bias   ",
-                   "  Some concerns      ",
-                   "  High risk of bias  ")
+        labels = c(
+          "  High risk of bias   ",
+          "  Some concerns      ",
+          "  Low risk of bias  ")
       ) +
       scale_y_continuous(labels = scales::percent) +
       theme(

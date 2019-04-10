@@ -14,20 +14,31 @@ knitr::opts_chunk$set(
   comment = "#>",
   warning = FALSE,
   fig.width = 8,
-  fig.height = 2.41,
+  fig.height = 2.41)
   library(tidyverse)
-)
+library(robvis)
 ```
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r robsummary}
-#Import data 
-data_rob <- read.csv("../data/data_rob.csv", header = TRUE)
+```{r rob2summary}
+#Import data for ROB2.0 based risk-of-bias assessments
 
-# Produce summary barchart, detailing % of included studies that were at a given risk of bias for a certain domain of the RoB2.0 tool.
-robvis::rob_summary(data_rob, tool = "ROB2", save = "No")
+# Produce barchart summarising risk of bias for each domain, weighted by study precision.
+robvis::rob_summary(robvis::data_rob, tool = "ROB2", save = "No")
+```
+
+Users can also produce summary plots for two other commonly used tools: ROBINS-I and QUADAS-2
+
+```{r robinssummary}
+#Import data for ROB2.0 based risk-of-bias assessments
+# Produce barchart summarising risk of bias for each domain, weighted by study precision.
+robvis::rob_summary(data_robins, tool = "ROBINS-I", save = "No")
+```
+
+```{r quadassummary}
+#Import data for ROB2.0 based risk-of-bias assessments
+# Produce barchart summarising risk of bias for each domain, weighted by study precision.
+robvis::rob_summary(data_quadas, tool = "QUADAS-2", save = "No")
 ```
