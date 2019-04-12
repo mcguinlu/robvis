@@ -11,5 +11,17 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Depends:
+  R (>= 2.10)
 Imports:
-  ggplot2
+  ggplot2,
+  tidyr,
+  scales
+Suggests:
+  knitr,
+  rmarkdown,
+VignetteBuilder: 
+  knitr, 
+  rmarkdown
+BugReports: https://github.com/mcguinlu/robvis
+URL: https://github.com/mcguinlu/robvis 
