@@ -42,16 +42,16 @@ if (tool == "ROB2") {
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
-    plot <- ggplot(data = rob.tidy) +
-      geom_bar(
-        mapping = aes(x = domain, fill = judgement,weight = Weight),
+    plot <- ggplot2::ggplot(data = rob.tidy) +
+      ggplot2::geom_bar(
+        mapping = ggplot2::aes(x = domain, fill = judgement,weight = Weight),
         width = 0.7,
         position = "fill",
         color = "black"
       ) +
-      coord_flip(ylim = c(0, 1)) +
-      guides(fill = guide_legend(reverse = TRUE)) +
-      scale_fill_manual(
+      ggplot2::coord_flip(ylim = c(0, 1)) +
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
+      ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
           "Low" = "#66c2a5",
@@ -62,26 +62,26 @@ if (tool == "ROB2") {
                    "  Some concerns      ",
                    "  Low risk of bias   ")
       ) +
-      scale_y_continuous(labels = scales::percent) +
-      theme(
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_text(size = 10, color = "black"),
-        axis.line.x = element_line(
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = 10, color = "black"),
+        axis.line.x = ggplot2::element_line(
           colour = "black",
           size = 0.5,
           linetype = "solid"
         ),
         legend.position = "bottom",
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        legend.background = element_rect(linetype = "solid",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(linetype = "solid",
                                          colour = "black"),
-        legend.title = element_blank(),
-        legend.key.size = unit(0.75, "cm"),
-        legend.text = element_text(size = 8)
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.text = ggplot2::element_text(size = 8)
       )
   }
 
@@ -119,16 +119,16 @@ if (tool == "ROBINS-I") {
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 2, 4, 3)])
 
-    plot <- ggplot(data = rob.tidy) +
-      geom_bar(
-        mapping = aes(x = domain, fill = judgement),
+    plot <- ggplot2::ggplot(data = rob.tidy) +
+      ggplot2::geom_bar(
+        mapping = ggplot2::aes(x = domain, fill = judgement),
         width = 0.7,
         position = "fill",
         color = "black"
       ) +
-      coord_flip(ylim = c(0, 1)) +
-      guides(fill = guide_legend(reverse = TRUE)) +
-      scale_fill_manual(
+      ggplot2::coord_flip(ylim = c(0, 1)) +
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
+      ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
           "High" = "#fc8d62",
@@ -143,26 +143,26 @@ if (tool == "ROBINS-I") {
           "  Low risk of bias  "
         )
       ) +
-      scale_y_continuous(labels = scales::percent) +
-      theme(
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_text(size = 10, color = "black"),
-        axis.line.x = element_line(
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = 10, color = "black"),
+        axis.line.x = ggplot2::element_line(
           colour = "black",
           size = 0.5,
           linetype = "solid"
         ),
         legend.position = "bottom",
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        legend.background = element_rect(linetype = "solid",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(linetype = "solid",
                                          colour = "black"),
-        legend.title = element_blank(),
-        legend.key.size = unit(0.75, "cm"),
-        legend.text = element_text(size = 7)
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.text = ggplot2::element_text(size = 7)
       )
   }
 
@@ -198,16 +198,16 @@ if (tool == "QUADAS-2") {
     rob.tidy$domain <- factor(rob.tidy$domain,
                                       levels(rob.tidy$domain)[c(3,1,5,2,4)])
 
-    plot <- ggplot(data = rob.tidy) +
-      geom_bar(
-        mapping = aes(x = domain, fill = judgement),
+    plot <- ggplot2::ggplot(data = rob.tidy) +
+      ggplot2::geom_bar(
+        mapping = ggplot2::aes(x = domain, fill = judgement),
         width = 0.7,
         position = "fill",
         color = "black"
       ) +
-      coord_flip(ylim = c(0, 1)) +
-      guides(fill = guide_legend(reverse = TRUE)) +
-      scale_fill_manual(
+      ggplot2::coord_flip(ylim = c(0, 1)) +
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
+      ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
           "High" = "#fc8d62",
@@ -219,33 +219,33 @@ if (tool == "QUADAS-2") {
           "  Some concerns      ",
           "  Low risk of bias  ")
       ) +
-      scale_y_continuous(labels = scales::percent) +
-      theme(
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.text.y = element_text(size = 12, color = "black"),
-        axis.line.x = element_line(
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = 12, color = "black"),
+        axis.line.x = ggplot2::element_line(
           colour = "black",
           size = 0.5,
           linetype = "solid"
         ),
         legend.position = "bottom",
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        legend.background = element_rect(linetype = "solid",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(linetype = "solid",
                                          colour = "black"),
-        legend.title = element_blank(),
-        legend.key.size = unit(0.75, "cm"),
-        legend.text = element_text(size = 10)
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.text = ggplot2::element_text(size = 10)
       )
   }
 
   if (save != FALSE) {
     extension <- paste(save)
     filename <- paste(tool, "_summary_figure",extension, sep = "")
-    ggsave(filename, width = 8, height = 2.41)
+    ggplot2::ggsave(filename, width = 8, height = 2.41)
   }
 
   return(plot)
