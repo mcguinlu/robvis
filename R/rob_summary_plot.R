@@ -86,8 +86,6 @@ if (tool == "ROB2") {
   }
 
 if (tool == "ROBINS-I") {
-    start <- 2
-    end <- 9
     data.tmp <- data
     if(NCOL(data.tmp) < 10){stop("Column missing (number of columns < 10). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to confounding"
@@ -109,7 +107,6 @@ if (tool == "ROBINS-I") {
     }
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                                domain, judgement,
-                                               start:end,
                                                -Weight))
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
@@ -117,7 +114,7 @@ if (tool == "ROBINS-I") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(7, 6, 3, 5, 2, 4, 1)])
+                                      levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 2, 4, 3)])
@@ -170,8 +167,6 @@ if (tool == "ROBINS-I") {
   }
 
 if (tool == "QUADAS-2") {
-  start <- 2
-  end <- 6
   data.tmp <- data
   if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7). Likely that a column detailing weights for each study is missing.")}
   names(data.tmp)[2] <- "Patient selection"
@@ -191,8 +186,8 @@ if (tool == "QUADAS-2") {
 
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement,
-                                             start:end,
                                              -Weight))
+
   rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$domain <- as.factor(rob.tidy$domain)
@@ -201,7 +196,7 @@ if (tool == "QUADAS-2") {
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(1, 4, 2, 3)])
+                                      levels(rob.tidy$domain)[c(3,1,5,2,4)])
 
     plot <- ggplot(data = rob.tidy) +
       geom_bar(
