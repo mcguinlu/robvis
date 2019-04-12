@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 ^data_raw$
 ^R/exampledataprep\.R$
 ^robvis\.Rproj$
