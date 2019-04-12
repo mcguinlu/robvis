@@ -1,6 +1,6 @@
 ---
 title: "Introduction to robvis, a visualisation tool for risk-of-bias assessments"
-author: "Luke A McGuinness"
+author: ""
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{Introduction to robvis}
@@ -17,13 +17,13 @@ knitr::opts_chunk$set(
   library(ggplot2)
   library(robvis)
 ```
-The robvis package takes the summary table from risk-of-bias assessments, converts it to tidy data, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot by the tool used.
+The `robvis` package takes the summary table from risk-of-bias assessments, converts it to tidy data, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot by the tool used.
 
 Users can currently produce summary plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2
 
-
+### Common structure of risk-of-bias assessment output (usually in Excel)
 ```{r headrob}
-head(data_rob)
+knitr::kable(data_rob)
 ```
 
 

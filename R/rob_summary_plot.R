@@ -1,22 +1,32 @@
 #' Produce summary figure of risk of bias assessments.
-#' @description TBC.
+#' @description A function to convert standard risk-of-bias output to tidy data .
 #' @param data A .csv file of your summary (domain) level risk of bias assessments, with the first column containing the study name, and the second column containing the first domain of your assessments.
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param save An option to save the plot as the specified file type. Default is "No", and available extensions are eps/ps, tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
+#' @param overall An option to include a bar for overall risk-of-bias in the figure. Default is FALSE.
 #' @return Risk of bias assessment figure in .png output.
 #' @export
 
-rob_summary <- function(data, tool, save = "No") {
+rob_summary <- function(data, tool, overall = FALSE, save = FALSE) {
 
 if (tool == "ROB2") {
     data.tmp <- data
+    if(NCOL(data.tmp) < 8){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to randomisation"
     names(data.tmp)[3] <- "Bias due to deviations from intended intervention"
     names(data.tmp)[4] <- "Bias due to missing data"
     names(data.tmp)[5] <- "Bias due to outcome measurement"
     names(data.tmp)[6] <- "Bias due to selection of reported result"
-    names(data.tmp)[7] <- "Weight"
-    data.tmp <- data.tmp[,c(2:7)]
+    names(data.tmp)[7] <- "Overall risk of bias"
+    names(data.tmp)[8] <- "Weight"
+
+    #Define dataframe based on value of "overall"
+    if (overall == "FALSE") {
+      data.tmp <- data.tmp[, c(2:6, 8)]
+    }
+    else{
+      data.tmp <- data.tmp[, c(2:8)]
+    }
 
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement,
@@ -27,12 +37,12 @@ if (tool == "ROB2") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(5, 3, 2, 1, 4)])
+                                      levels(rob.tidy$domain)[c(6, 5, 3, 2, 1, 4)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
-    plot <- ggplot2::ggplot(data = rob.tidy) +
+    plot <- ggplot(data = rob.tidy) +
       geom_bar(
         mapping = aes(x = domain, fill = judgement,weight = Weight),
         width = 0.7,
@@ -79,6 +89,7 @@ if (tool == "ROBINS-I") {
     start <- 2
     end <- 9
     data.tmp <- data
+    if(NCOL(data.tmp) < 10){stop("Column missing (number of columns < 10). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to confounding"
     names(data.tmp)[3] <- "Bias due to selection of participants"
     names(data.tmp)[4] <- "Bias in classification of interventions"
@@ -86,7 +97,16 @@ if (tool == "ROBINS-I") {
     names(data.tmp)[6] <- "Bias due to missing data"
     names(data.tmp)[7] <- "Bias in measurement of outcomes"
     names(data.tmp)[8] <- "Bias in selection of the reported result"
+    names(data.tmp)[9] <- "Overall risk of bias"
+    names(data.tmp)[10] <- "Weight"
 
+    #Define dataframe based on value of "overall"
+    if (overall == "FALSE") {
+      data.tmp <- data.tmp[, c(2:8, 10)]
+    }
+    else{
+      data.tmp <- data.tmp[, c(2:10)]
+    }
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                                domain, judgement,
                                                start:end,
@@ -102,7 +122,7 @@ if (tool == "ROBINS-I") {
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 2, 4, 3)])
 
-    plot <- ggplot2::ggplot(data = rob.tidy) +
+    plot <- ggplot(data = rob.tidy) +
       geom_bar(
         mapping = aes(x = domain, fill = judgement),
         width = 0.7,
@@ -153,11 +173,21 @@ if (tool == "QUADAS-2") {
   start <- 2
   end <- 6
   data.tmp <- data
-  print("Renaming columns...")
+  if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7). Likely that a column detailing weights for each study is missing.")}
   names(data.tmp)[2] <- "Patient selection"
   names(data.tmp)[3] <- "Index test"
   names(data.tmp)[4] <- "Reference standard"
   names(data.tmp)[5] <- "Flow & timing"
+  names(data.tmp)[6] <- "Overall risk of bias"
+  names(data.tmp)[7] <- "Weight"
+
+  #Define dataframe based on value of "overall"
+  if (overall == "FALSE") {
+    data.tmp <- data.tmp[, c(2:5, 7)]
+  }
+  else{
+    data.tmp <- data.tmp[, c(2:7)]
+  }
 
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement,
@@ -173,7 +203,7 @@ if (tool == "QUADAS-2") {
     rob.tidy$domain <- factor(rob.tidy$domain,
                                       levels(rob.tidy$domain)[c(1, 4, 2, 3)])
 
-    plot <- ggplot2::ggplot(data = rob.tidy) +
+    plot <- ggplot(data = rob.tidy) +
       geom_bar(
         mapping = aes(x = domain, fill = judgement),
         width = 0.7,
@@ -217,10 +247,10 @@ if (tool == "QUADAS-2") {
       )
   }
 
-  if (save != "No") {
+  if (save != FALSE) {
     extension <- paste(save)
     filename <- paste(tool, "_summary_figure",extension, sep = "")
-    ggplot2::ggsave(filename, width = 8, height = 2.41)
+    ggsave(filename, width = 8, height = 2.41)
   }
 
   return(plot)

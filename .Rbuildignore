@@ -1,2 +1,4 @@
+^data_raw$
+^R/exampledataprep\.R$
 ^robvis\.Rproj$
 ^\.Rproj\.user$

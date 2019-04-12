@@ -1,13 +1,13 @@
-Study,D1,D2,D3,D4,Weight
-Study 1,Low,Low,Low,Low,33.33333333
-Study 2,Some concerns,Low,Low,Low,33.33333333
-Study 3,Some concerns,Low,Some concerns,Low,0.142857143
-Study 4,Low,Low,High,Low,9.090909091
-Study 5,High,High,Low,Low,12.5
-Study 6,Low,High,Some concerns,Low,25
-Study 7,Low,Some concerns,Some concerns,High,200
-Study 8,Low,Some concerns,Low,Low,11.11111111
-Study 9,Low,Low,High,Low,1.111111111
-Study 10,Some concerns,Low,Low,High,33.33333333
-Study 11,Some concerns,High,Some concerns,Low,0.142857143
-Study 12,Low,Low,Low,Low,9.090909091
+Study,D1,D2,D3,D4,Overall,Weight
+Study 1,Low,Low,Low,Low,Low,33.33333333
+Study 2,Some concerns,Low,Low,Low,Some concerns,33.33333333
+Study 3,Some concerns,Low,Some concerns,Low,Some concerns,0.142857143
+Study 4,Low,Low,High,Low,High,9.090909091
+Study 5,High,High,Low,Low,High,12.5
+Study 6,Low,High,Some concerns,Low,Low,25
+Study 7,Low,Some concerns,Some concerns,High,Low,200
+Study 8,Low,Some concerns,Low,Low,Low,11.11111111
+Study 9,Low,Low,High,Low,Low,1.111111111
+Study 10,Some concerns,Low,Low,High,Some concerns,33.33333333
+Study 11,Some concerns,High,Some concerns,Low,Some concerns,0.142857143
+Study 12,Low,Low,Low,Low,Low,9.090909091

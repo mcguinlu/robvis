@@ -4,12 +4,14 @@
 \alias{rob_summary}
 \title{Produce summary figure of risk of bias assessments.}
 \usage{
-rob_summary(data, tool, save = "No")
+rob_summary(data, tool, overall = FALSE, save = FALSE)
 }
 \arguments{
 \item{data}{A .csv file of your summary (domain) level risk of bias assessments, with the first column containing the study name, and the second column containing the first domain of your assessments.}
 
 \item{tool}{The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.}
+
+\item{overall}{An option to include a bar for overall risk-of-bias in the figure. Default is FALSE.}
 
 \item{save}{An option to save the plot as the specified file type. Default is "No", and available extensions are eps/ps, tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).}
 }
@@ -17,5 +19,5 @@ rob_summary(data, tool, save = "No")
 Risk of bias assessment figure in .png output.
 }
 \description{
-TBC.
+A function to convert standard risk-of-bias output to tidy data .
 }
