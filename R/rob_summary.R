@@ -10,6 +10,11 @@
 
 rob_summary <- function(data, tool, overall = FALSE, save = FALSE, quiet = FALSE) {
 
+judgement <- NULL
+Weight <- NULL
+domain <- NULL
+
+
 if (tool == "ROB2") {
     data.tmp <- data
     if(NCOL(data.tmp) < 8){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
