@@ -1,6 +1,6 @@
 ---
 title: "Introduction to robvis, a visualisation tool for risk-of-bias assessments"
-author: ""
+author: "LAM"
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{Introduction to robvis}
@@ -29,15 +29,15 @@ knitr::kable(data_rob)
 
 ### RoB2.0 tool for randomised controlled trials
 ```{r rob2summary}
-rob_summary(data_rob, tool = "ROB2", save = "No")
+rob_summary(data_rob, tool = "ROB2")
 ```
 
 ### ROBINS-I tool for non-randomised studies of interventions
 ```{r robinssummary}
-rob_summary(data_robins, tool = "ROBINS-I", save = "No")
+rob_summary(data_robins, tool = "ROBINS-I")
 ```
 
 ### QUADAS-2 for diagnostic test accuracy studies
 ```{r quadassummary}
-rob_summary(data_quadas, tool = "QUADAS-2", save = "No")
+rob_summary(data_quadas, tool = "QUADAS-2")
 ```
