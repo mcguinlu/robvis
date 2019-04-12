@@ -1,13 +1,13 @@
 Package: robvis
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
+Title: Quickly Visualise The Results Of Risk-Of-Bias (ROB) Assessments
+Version: 0.1.0
+Authors@R: c( 
+    person("Luke", "McGuinness",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "luke.mcguinness@bristol.ac.uk"),
+    person("Emily", "Kothe", role = "ctb")          )
+Description: This package allows for the visualisation of risk-of-bias assessments performed using three major tools: ROB2.0 (for randomised controlled trials), ROBINS-I (for non-randomised studies of interventions), and QUADAS-2 (for diagnostic accuracy studies).
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
