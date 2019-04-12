@@ -6,11 +6,6 @@
 \alias{robvis-package}
 \title{robvis: A package for producing risk of bias assessment summary figures.}
 \description{
-The robvis package provides two useful functions to produce summary level
+The robvis package is designed to help users produce summary level
 risk of bias assessment figures.
 }
-\section{robvis functions}{
-
-The functions ...
-}
-

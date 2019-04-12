@@ -1,6 +1,5 @@
-#' Produce summary figure of risk of bias assessments.
-#' @description A function to convert standard risk-of-bias output to tidy data .
-#' @return Risk of bias assessment figure in .png output.
+#' List tools covered by rob_summary().
+#' @description rob_sumary_tools() will list the tools that can currently be plotted using the rob_summary() function.
 #' @export
 
 rob_summary_tools <- function(){

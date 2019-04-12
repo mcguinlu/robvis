@@ -2,13 +2,10 @@
 % Please edit documentation in R/rob_summary_tools.R
 \name{rob_summary_tools}
 \alias{rob_summary_tools}
-\title{Produce summary figure of risk of bias assessments.}
+\title{List tools covered by rob_summary().}
 \usage{
 rob_summary_tools()
 }
-\value{
-Risk of bias assessment figure in .png output.
-}
 \description{
-A function to convert standard risk-of-bias output to tidy data .
+rob_sumary_tools() will list the tools that can currently be plotted using the rob_summary() function.
 }
