@@ -9,8 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+  out.width = "90%",
+  fig.width= 8, 
+  fig.height=3)
 ```
 # `robvis`: an R pacakge for quick visualisation of risk-of-bias assessment results
 

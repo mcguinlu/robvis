@@ -65,7 +65,7 @@ plot_rob <- rob_summary(data = data_rob, tool = "ROB2")
 plot_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="90%" />
 
 **For the ROBINS-I tool for non-randomised studies of interventions:**
 
@@ -74,7 +74,7 @@ plot_robins <- rob_summary(data = data_robins, tool = "ROBINS-I")
 plot_robins
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="90%" />
 
 **For the QUADAS-2 tool for diagnostic accuracy studies:**
 
@@ -83,7 +83,7 @@ plot_quadas <- rob_summary(data = data_quadas, tool = "QUADAS-2")
 plot_quadas
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="90%" />
 
 ### Include overall risk-of-bias judgements
 
@@ -92,7 +92,7 @@ plot_rob <- rob_summary(data = data_robins, tool = "ROBINS-I", overall = TRUE)
 plot_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
 
 Additional usage
 ----------------
@@ -108,7 +108,7 @@ plot_rob +
   ggtitle("Summary of RoB2.0 assessments")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
 
 License
 -------
