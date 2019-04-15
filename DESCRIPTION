@@ -14,9 +14,10 @@ RoxygenNote: 6.1.1
 Depends:
   R (>= 2.10)
 Imports:
-  ggplot2,
-  tidyr,
-  scales
+    ggplot2,
+    tidyr,
+    scales,
+    usethis
 Suggests:
   knitr,
   rmarkdown,
