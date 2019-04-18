@@ -5,6 +5,8 @@
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Build Status](https://travis-ci.org/mcguinlu/robvis.svg?branch=master)](https://travis-ci.org/mcguinlu/robvis)
 
+Part of the [metaverse](https://github.com/rmetaverse/metaverse)
+
 Description
 -----------
 

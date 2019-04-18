@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/mcguinlu/robvis.svg?branch=master)](https://travis-ci.org/mcguinlu/robvis)
 
+Part of the [metaverse](https://github.com/rmetaverse/metaverse)
+
 ## Description
 The `robvis` package takes the summary table from risk-of-bias assessments, converts it to tidy data, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot according to the assessment tool used.
 
