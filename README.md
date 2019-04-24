@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-`robvis`: an R pacakge for quick visualisation of risk-of-bias assessment results
-=================================================================================
+robvis <img src="man/figures/robvis_hex_box.png" align="right" width="18%" height="18%" />
+==========================================================================================
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Build Status](https://travis-ci.org/mcguinlu/robvis.svg?branch=master)](https://travis-ci.org/mcguinlu/robvis)
 
@@ -115,7 +115,7 @@ plot_rob +
 License
 -------
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mcguinlu/robvis/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 Acknowledgments
 ---------------
