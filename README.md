@@ -20,7 +20,7 @@ Returns a ggplot object displaying a weighted barchart of the risk of bias of in
 
 ### rob\_summary\_tools()
 
-Outputs a list of the risk of bias assessment tools for which a template currently exists in rob\_suumary(). Users can currently produce summary plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2. We expect this list to be updated in the near future to inlcude tools such as ROBIS (tool for assessing risk of bias in systematic reviews).
+Outputs a list of the risk of bias assessment tools for which a template currently exists in rob\_summary(). Users can currently produce summary plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2. We expect this list to be updated in the near future to inlcude tools such as ROBIS (tool for assessing risk of bias in systematic reviews).
 
     rob_summary_tools()
     [1] "ROB2"
@@ -115,9 +115,10 @@ plot_rob +
 License
 -------
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mcguinlu/robvis/blob/traffic_light_plot/LICENSE) file for details.
 
 Acknowledgments
 ---------------
 
--   Emily Kothe for contribution to `ggplot2` coding issues
+-   [Emily Kothe](https://github.com/ekothe) for help in fixing `ggplot2` coding issues.
+-   [Eliza Grames](https://github.com/elizagrames) for creating the `robvis` hex sticker.
