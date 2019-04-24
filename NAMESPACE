@@ -2,3 +2,4 @@
 
 export(rob_summary)
 export(rob_summary_tools)
+export(rob_traffic_light)
