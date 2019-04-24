@@ -1,5 +1,5 @@
 #' Produce summary weighted barplots of risk-of-bias assessments.
-#' @description A function to convert standard risk-of-bias output to tidy data .
+#' @description A function to convert standard risk-of-bias output to tidy data and plot a summary barplot.
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param save An option to save the plot as the specified file type. Default is FALSE, and available extensions are ".eps", ".ps", ".tex", ".pdf", ".jpeg", ".tiff", ".png" and ".bmp".
