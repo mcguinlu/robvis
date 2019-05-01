@@ -109,7 +109,7 @@ plot_robins <- rob_summary(data = data_robins, tool = "ROBINS-I")
 plot_robins
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="90%" />
 
 #### QUADAS-2 tool for diagnostic accuracy studies:\*\*
 
@@ -118,7 +118,7 @@ plot_quadas <- rob_summary(data = data_quadas, tool = "QUADAS-2")
 plot_quadas
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
 
 ## Additional usage
 
@@ -134,7 +134,7 @@ plot_rob +
   ggtitle("Summary of RoB2.0 assessments")
 ```
 
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
 
 ## Planned updates
 
