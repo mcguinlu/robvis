@@ -45,7 +45,7 @@ plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2. We
 expect this list to be updated in the near future to inlcude tools such
 as ROBIS (tool for assessing risk of bias in systematic reviews).
 
-    rob_summary_tools()
+    rob_tools()
     [1] "ROB2"
     [1] "ROBINS-I"
     [1] "QUADAS-2"
