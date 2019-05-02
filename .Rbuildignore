@@ -6,3 +6,4 @@
 ^R/exampledataprep\.R$
 ^robvis\.Rproj$
 ^\.Rproj\.user$
+^\.github$
