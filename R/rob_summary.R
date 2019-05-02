@@ -14,8 +14,15 @@ judgement <- NULL
 Weight <- NULL
 domain <- NULL
 
-
 if (tool == "ROB2") {
+
+    # Data preprocessing
+    for (i in 2:7) {
+      data[[i]] <- tolower(data[[i]])
+      data[[i]] <- trimws(data[[i]])
+      data[[i]] <- substr(data[[i]], 0, 1)
+      }
+
     data.tmp <- data
     if(NCOL(data.tmp) < 8){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to randomisation"
@@ -60,9 +67,9 @@ if (tool == "ROB2") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "Low" = "#66c2a5",
-          "Some concerns" = "#808080",
-          "High" = "#fc8d62"
+          "l" = "#66c2a5",
+          "s" = "#808080",
+          "h" = "#fc8d62"
         ),
         labels = c("  High risk of bias  ",
                    "  Some concerns      ",
@@ -92,6 +99,14 @@ if (tool == "ROB2") {
   }
 
 if (tool == "ROBINS-I") {
+
+    # Data preprocessing
+    for (i in 2:9) {
+      data[[i]] <- tolower(data[[i]])
+      data[[i]] <- trimws(data[[i]])
+      data[[i]] <- substr(data[[i]], 0, 1)
+    }
+
     data.tmp <- data
     if(NCOL(data.tmp) < 10){stop("Column missing (number of columns < 10). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to confounding"
@@ -137,10 +152,10 @@ if (tool == "ROBINS-I") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "High" = "#fc8d62",
-          "Some concerns" = "#808080",
-          "Low" = "#66c2a5",
-          "Critical" = "#ff0000"
+          "h" = "#fc8d62",
+          "s" = "#808080",
+          "l" = "#66c2a5",
+          "c" = "#ff0000"
         ),
         labels = c(
           "  Critical risk of bias  ",
@@ -173,6 +188,14 @@ if (tool == "ROBINS-I") {
   }
 
 if (tool == "QUADAS-2") {
+
+  # Data preprocessing
+  for (i in 2:6) {
+    data[[i]] <- tolower(data[[i]])
+    data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 1)
+  }
+
   data.tmp <- data
   if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7). Likely that a column detailing weights for each study is missing.")}
   names(data.tmp)[2] <- "Patient selection"
@@ -216,9 +239,9 @@ if (tool == "QUADAS-2") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "High" = "#fc8d62",
-          "Some concerns" = "#808080",
-          "Low" = "#66c2a5"
+          "h" = "#fc8d62",
+          "s" = "#808080",
+          "l" = "#66c2a5"
         ),
         labels = c(
           "  High risk of bias   ",
