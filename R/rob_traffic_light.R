@@ -15,6 +15,13 @@ domain <- NULL
 
 
 if (tool == "ROB2") {
+
+  for (i in 2:7) {
+    data[[i]] <- tolower(data[[i]])
+    data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 1)
+  }
+
   data.tmp <- data
   if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7).")}
   names(data.tmp)[2] <- "D1"
@@ -63,6 +70,13 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
   }
 
 if (tool == "ROBINS-I") {
+
+  for (i in 2:9) {
+    data[[i]] <- tolower(data[[i]])
+    data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 1)
+  }
+
   data.tmp <- data
   if(NCOL(data.tmp) < 9){stop("Column missing (number of columns < 9).")}
   names(data.tmp)[2] <- "D1"
@@ -117,6 +131,13 @@ if (tool == "ROBINS-I") {
   }
 
 if (tool == "QUADAS-2") {
+
+  for (i in 2:6) {
+    data[[i]] <- tolower(data[[i]])
+    data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 1)
+  }
+
   data.tmp <- data
   if(NCOL(data.tmp) < 6){stop("Column missing (number of columns < 6).")}
   names(data.tmp)[2] <- "D1"
