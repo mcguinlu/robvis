@@ -10,7 +10,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
 [![metaverse
 Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
-<br>
+
+<br> <br>
 
 ## Description
 
