@@ -15,10 +15,12 @@ knitr::opts_chunk$set(
 ```
 # robvis <img src="man/figures/robvis_hex_box.png" align="right" width="18%" height="18%" />
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Build Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
 
-Part of the [metaverse](https://github.com/rmetaverse/metaverse)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Build Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis) 
+[![metaverse Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
+<br>
+
 
 ## Description
 **UPDATE**: `robvis` now exists as a [web-app](https://mcguinlu.shinyapps.io/robvis), aimed at those who are not confident with R/those who want to explore the package's functionality.
