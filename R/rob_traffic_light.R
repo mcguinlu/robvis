@@ -2,12 +2,11 @@
 #' @description A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
-#' @param save An option to save the plot as the specified file type. Default is FALSE, and available extensions are ".eps", ".ps", ".tex", ".pdf", ".jpeg", ".tiff", ".png" and ".bmp".
 #' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
 #' @return Risk-of-bias assessment traffic light plot ggplot2::ggplot2 object
 #' @export
 
-rob_traffic_light <- function(data, tool, save = FALSE, quiet = FALSE) {
+rob_traffic_light <- function(data, tool, quiet = FALSE) {
 
 judgement <- NULL
 Study <- NULL
@@ -182,13 +181,6 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
           strip.text.y = ggplot2::element_text(angle = 180, size = 10),
           plot.caption = ggplot2::element_text(hjust = 0))
 
-  }
-
-
-  if (save != FALSE) {
-    extension <- paste(save)
-    filename <- paste(tool, "_traffic_light_plot",extension, sep = "")
-    ggplot2::ggsave(filename, width = 8, height = 2.41, dpi = 800)
   }
 
   if(quiet != TRUE) {

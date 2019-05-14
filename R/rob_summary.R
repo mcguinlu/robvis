@@ -2,17 +2,19 @@
 #' @description A function to convert standard risk-of-bias output to tidy data and plot a summary barplot.
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
-#' @param save An option to save the plot as the specified file type. Default is FALSE, and available extensions are ".eps", ".ps", ".tex", ".pdf", ".jpeg", ".tiff", ".png" and ".bmp".
 #' @param overall An option to include a bar for overall risk-of-bias in the figure. Default is FALSE.
 #' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
+#' @param weighted An option to specify whether weights should be used in the barplot. Default is TRUE, in line with current Cochrane Collaboration guidance.
 #' @return Risk of bias assessment barplot figure..
 #' @export
 
-rob_summary <- function(data, tool, overall = FALSE, save = FALSE, quiet = FALSE) {
+rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE, quiet = FALSE) {
 
-judgement <- NULL
-Weight <- NULL
-domain <- NULL
+  judgement <- NULL
+  Weights <- NULL
+  domain <- NULL
+
+# ROB2 =========================================================================
 
 if (tool == "ROB2") {
 
@@ -21,43 +23,54 @@ if (tool == "ROB2") {
       data[[i]] <- tolower(data[[i]])
       data[[i]] <- trimws(data[[i]])
       data[[i]] <- substr(data[[i]], 0, 1)
-      }
+    }
 
+    # Define weights if FALSE and check if there is a weight column if TRUE
+    if(weighted == FALSE) {
+      data[,8] <- rep(1,length(nrow(data)))
+    } else {
+      if(NCOL(data) < 8){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
+    }
+
+    # Rename column headings
     data.tmp <- data
-    if(NCOL(data.tmp) < 8){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to randomisation"
     names(data.tmp)[3] <- "Bias due to deviations from intended intervention"
     names(data.tmp)[4] <- "Bias due to missing data"
     names(data.tmp)[5] <- "Bias due to outcome measurement"
     names(data.tmp)[6] <- "Bias due to selection of reported result"
     names(data.tmp)[7] <- "Overall risk of bias"
-    names(data.tmp)[8] <- "Weight"
+    names(data.tmp)[8] <- "Weights"
+
 
     #Define dataframe based on value of "overall"
     if (overall == "FALSE") {
       data.tmp <- data.tmp[, c(2:6, 8)]
     }
-    else{
+    else {
       data.tmp <- data.tmp[, c(2:8)]
     }
 
+
+    #Gather data, convert to factors and set levels
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                             domain, judgement,
-                                             -Weight))
+                                               domain, judgement,
+                                               -Weights))
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(6, 5, 3, 2, 1, 4)])
+                              levels(rob.tidy$domain)[c(6, 5, 3, 2, 1, 4)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
+    # Create plot
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
-        mapping = ggplot2::aes(x = domain, fill = judgement,weight = Weight),
+        mapping = ggplot2::aes(x = domain, fill = judgement, weight = Weights),
         width = 0.7,
         position = "fill",
         color = "black"
@@ -91,14 +104,16 @@ if (tool == "ROB2") {
         panel.grid.minor = ggplot2::element_blank(),
         panel.background = ggplot2::element_blank(),
         legend.background = ggplot2::element_rect(linetype = "solid",
-                                         colour = "black"),
+                                                  colour = "black"),
         legend.title = ggplot2::element_blank(),
         legend.key.size = ggplot2::unit(0.75, "cm"),
         legend.text = ggplot2::element_text(size = 8)
       )
   }
 
-if (tool == "ROBINS-I") {
+
+# ROBINS-I =====================================================================
+  if (tool == "ROBINS-I") {
 
     # Data preprocessing
     for (i in 2:9) {
@@ -107,8 +122,15 @@ if (tool == "ROBINS-I") {
       data[[i]] <- substr(data[[i]], 0, 1)
     }
 
+    # Define weights if FALSE and check if there is a weight column if TRUE
+    if(weighted == FALSE) {
+      data[,10] <- rep(1,length(nrow(data)))
+    } else {
+      if(NCOL(data) < 10){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
+    }
+
+
     data.tmp <- data
-    if(NCOL(data.tmp) < 10){stop("Column missing (number of columns < 10). Likely that a column detailing weights for each study is missing.")}
     names(data.tmp)[2] <- "Bias due to confounding"
     names(data.tmp)[3] <- "Bias due to selection of participants"
     names(data.tmp)[4] <- "Bias in classification of interventions"
@@ -117,7 +139,7 @@ if (tool == "ROBINS-I") {
     names(data.tmp)[7] <- "Bias in measurement of outcomes"
     names(data.tmp)[8] <- "Bias in selection of the reported result"
     names(data.tmp)[9] <- "Overall risk of bias"
-    names(data.tmp)[10] <- "Weight"
+    names(data.tmp)[10] <- "Weights"
 
     #Define dataframe based on value of "overall"
     if (overall == "FALSE") {
@@ -126,23 +148,25 @@ if (tool == "ROBINS-I") {
     else{
       data.tmp <- data.tmp[, c(2:10)]
     }
+
+
     rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                                domain, judgement,
-                                               -Weight))
+                                               -Weights))
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
+                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1, 2, 4, 3)])
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
-        mapping = ggplot2::aes(x = domain, fill = judgement),
+        mapping = ggplot2::aes(x = domain, fill = judgement, weight = Weights),
         width = 0.7,
         position = "fill",
         color = "black"
@@ -180,44 +204,52 @@ if (tool == "ROBINS-I") {
         panel.grid.minor = ggplot2::element_blank(),
         panel.background = ggplot2::element_blank(),
         legend.background = ggplot2::element_rect(linetype = "solid",
-                                         colour = "black"),
+                                                  colour = "black"),
         legend.title = ggplot2::element_blank(),
         legend.key.size = ggplot2::unit(0.75, "cm"),
         legend.text = ggplot2::element_text(size = 7)
       )
   }
 
+# QUADAS-2 =====================================================================
+
 if (tool == "QUADAS-2") {
 
-  # Data preprocessing
-  for (i in 2:6) {
-    data[[i]] <- tolower(data[[i]])
-    data[[i]] <- trimws(data[[i]])
-    data[[i]] <- substr(data[[i]], 0, 1)
-  }
+    # Data preprocessing
+    for (i in 2:6) {
+      data[[i]] <- tolower(data[[i]])
+      data[[i]] <- trimws(data[[i]])
+      data[[i]] <- substr(data[[i]], 0, 1)
+    }
 
-  data.tmp <- data
-  if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7). Likely that a column detailing weights for each study is missing.")}
-  names(data.tmp)[2] <- "Patient selection"
-  names(data.tmp)[3] <- "Index test"
-  names(data.tmp)[4] <- "Reference standard"
-  names(data.tmp)[5] <- "Flow & timing"
-  names(data.tmp)[6] <- "Overall risk of bias"
-  names(data.tmp)[7] <- "Weight"
+    # Define weights if FALSE and check if there is a weight column if TRUE
+    if(weighted == FALSE) {
+      data[,7] <- rep(1,length(nrow(data)))
+    } else {
+      if(NCOL(data) < 7){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
+    }
 
-  #Define dataframe based on value of "overall"
-  if (overall == "FALSE") {
-    data.tmp <- data.tmp[, c(2:5, 7)]
-  }
-  else{
-    data.tmp <- data.tmp[, c(2:7)]
-  }
+    data.tmp <- data
+    names(data.tmp)[2] <- "Patient selection"
+    names(data.tmp)[3] <- "Index test"
+    names(data.tmp)[4] <- "Reference standard"
+    names(data.tmp)[5] <- "Flow & timing"
+    names(data.tmp)[6] <- "Overall risk of bias"
+    names(data.tmp)[7] <- "Weights"
 
-  rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                             domain, judgement,
-                                             -Weight))
+    #Define dataframe based on value of "overall"
+    if (overall == "FALSE") {
+      data.tmp <- data.tmp[, c(2:5, 7)]
+    }
+    else{
+      data.tmp <- data.tmp[, c(2:7)]
+    }
 
-  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+    rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                               domain, judgement,
+                                               -Weights))
+
+    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
@@ -225,11 +257,11 @@ if (tool == "QUADAS-2") {
                                  levels(rob.tidy$judgement)[c(1, 3, 2)])
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                                      levels(rob.tidy$domain)[c(3,1,5,2,4)])
+                              levels(rob.tidy$domain)[c(3,1,5,2,4)])
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
-        mapping = ggplot2::aes(x = domain, fill = judgement),
+        mapping = ggplot2::aes(x = domain, fill = judgement, weight = Weights),
         width = 0.7,
         position = "fill",
         color = "black"
@@ -264,19 +296,16 @@ if (tool == "QUADAS-2") {
         panel.grid.minor = ggplot2::element_blank(),
         panel.background = ggplot2::element_blank(),
         legend.background = ggplot2::element_rect(linetype = "solid",
-                                         colour = "black"),
+                                                  colour = "black"),
         legend.title = ggplot2::element_blank(),
         legend.key.size = ggplot2::unit(0.75, "cm"),
         legend.text = ggplot2::element_text(size = 10)
       )
   }
 
-  if (save != FALSE) {
-    extension <- paste(save)
-    filename <- paste(tool, "_summary_figure",extension, sep = "")
-    ggplot2::ggsave(filename, width = 8, height = 2.41, dpi = 800)
-  }
+# Return plot ==================================================================
+
   if(quiet != TRUE) {
-  return(plot)
+    return(plot)
   }
 }
