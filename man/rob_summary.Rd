@@ -2,7 +2,7 @@
 % Please edit documentation in R/rob_summary.R
 \name{rob_summary}
 \alias{rob_summary}
-\title{Produce summary barplots of risk-of-bias assessments.}
+\title{Produce summary weighted barplots of risk-of-bias assessments.}
 \usage{
 rob_summary(data, tool, overall = FALSE, weighted = TRUE,
   quiet = FALSE)
