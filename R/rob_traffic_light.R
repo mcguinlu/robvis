@@ -2,11 +2,12 @@
 #' @description A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
+#' @param colour An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").
 #' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
-#' @return Risk-of-bias assessment traffic light plot ggplot2::ggplot2 object
+#' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @export
 
-rob_traffic_light <- function(data, tool, quiet = FALSE) {
+rob_traffic_light <- function(data, tool, colour = "cochrane", quiet = FALSE) {
 
 judgement <- NULL
 Study <- NULL
@@ -14,6 +15,27 @@ domain <- NULL
 
 
 if (tool == "ROB2") {
+
+  # Define colouring
+  if (length(colour) > 1) {
+    low_colour <- colour[c(1)]
+    concerns_colour <- colour[c(2)]
+    high_colour <- colour[c(3)]
+  }
+  else {
+    if (colour == "colourblind") {
+      low_colour <- "#fee8c8"
+      concerns_colour <- "#fdbb84"
+      high_colour <- "#e34a33"
+    }
+    if (colour == "cochrane") {
+      low_colour <- "#02C100"
+      concerns_colour <- "#E2DF07"
+      high_colour <- "#BF0000"
+    }
+  }
+
+
 
   for (i in 2:7) {
     data[[i]] <- tolower(data[[i]])
@@ -56,7 +78,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
   D5: Bias due to selection of reported result.") +
   ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
   ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-  ggplot2::scale_colour_manual(values =c("#fc8d62","#66c2a5","#808080")) +
+  ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour)) +
   ggplot2::scale_shape_manual(values = c(45,43,63)) +
   ggplot2::scale_size(range = c(5,20)) +
   ggplot2::theme_bw() +
@@ -69,6 +91,28 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
   }
 
 if (tool == "ROBINS-I") {
+
+  # Define colouring
+  if (length(colour) > 1) {
+    low_colour <- colour[c(1)]
+    concerns_colour <- colour[c(2)]
+    high_colour <- colour[c(3)]
+    critical_colour <- colour[c(4)]
+  }
+  else {
+    if (colour == "colourblind") {
+      low_colour <- "#fef0d9"
+      concerns_colour <- "#fdcc8a"
+      high_colour <- "#fc8d59"
+      critical_colour <- "#d7301f"
+    }
+    if (colour == "cochrane") {
+      low_colour <- "#02C100"
+      concerns_colour <- "#E2DF07"
+      high_colour <- "#BF0000"
+      critical_colour <- "#820000"
+    }
+  }
 
   for (i in 2:9) {
     data[[i]] <- tolower(data[[i]])
@@ -117,7 +161,7 @@ if (tool == "ROBINS-I") {
   D7: Bias in selection of the reported result.") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c("#ff0000","#fc8d62","#66c2a5","#808080")) +
+    ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,low_colour,concerns_colour)) +
     ggplot2::scale_shape_manual(values = c(33,45,43,63)) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
@@ -130,6 +174,25 @@ if (tool == "ROBINS-I") {
   }
 
 if (tool == "QUADAS-2") {
+
+  # Define colouring
+  if (length(colour) > 1) {
+    low_colour <- colour[c(1)]
+    concerns_colour <- colour[c(2)]
+    high_colour <- colour[c(3)]
+  }
+  else {
+    if (colour == "colourblind") {
+      low_colour <- "#fee8c8"
+      concerns_colour <- "#fdbb84"
+      high_colour <- "#e34a33"
+    }
+    if (colour == "cochrane") {
+      low_colour <- "#02C100"
+      concerns_colour <- "#E2DF07"
+      high_colour <- "#BF0000"
+    }
+  }
 
   for (i in 2:6) {
     data[[i]] <- tolower(data[[i]])
@@ -165,12 +228,12 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
     ggplot2::geom_point(shape = 1, colour = "black", size = psize) +
     ggplot2::geom_point(size =ssize, colour = "black", ggplot2::aes(shape=judgement)) +
     ggplot2::labs(caption = "  D1: Patient selection.
-    D2: Index test.
-    D3: Reference standard.
-    D4: Flow & timing.") +
+  D2: Index test.
+  D3: Reference standard.
+  D4: Flow & timing.") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c("#fc8d62","#66c2a5","#808080")) +
+    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour)) +
     ggplot2::scale_shape_manual(values = c(45,43,63)) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +

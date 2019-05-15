@@ -4,11 +4,12 @@
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param overall An option to include a bar for overall risk-of-bias in the figure. Default is FALSE.
 #' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
+#' @param colour An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").
 #' @param weighted An option to specify whether weights should be used in the barplot. Default is TRUE, in line with current Cochrane Collaboration guidance.
-#' @return Risk of bias assessment barplot figure..
+#' @return Risk of bias assessment barplot figure.
 #' @export
 
-rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE, quiet = FALSE) {
+rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE, colour = "cochrane", quiet = FALSE) {
 
   judgement <- NULL
   Weights <- NULL
@@ -17,6 +18,25 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE, quiet = FA
 # ROB2 =========================================================================
 
 if (tool == "ROB2") {
+
+    # Define colouring
+    if (length(colour) > 1) {
+      low_colour <- colour[c(1)]
+      concerns_colour <- colour[c(2)]
+      high_colour <- colour[c(3)]
+    }
+    else {
+      if (colour == "colourblind") {
+        low_colour <- "#fee8c8"
+        concerns_colour <- "#fdbb84"
+        high_colour <- "#e34a33"
+      }
+      if (colour == "cochrane") {
+        low_colour <- "#02C100"
+        concerns_colour <- "#E2DF07"
+        high_colour <- "#BF0000"
+      }
+    }
 
     # Data preprocessing
     for (i in 2:7) {
@@ -80,9 +100,9 @@ if (tool == "ROB2") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "l" = "#66c2a5",
-          "s" = "#808080",
-          "h" = "#fc8d62"
+          "l" = low_colour,
+          "s" = concerns_colour,
+          "h" = high_colour
         ),
         labels = c("  High risk of bias  ",
                    "  Some concerns      ",
@@ -114,6 +134,29 @@ if (tool == "ROB2") {
 
 # ROBINS-I =====================================================================
   if (tool == "ROBINS-I") {
+
+    # Define colouring
+    if (length(colour) > 1) {
+      low_colour <- colour[c(1)]
+      concerns_colour <- colour[c(2)]
+      high_colour <- colour[c(3)]
+      critical_colour <- colour[c(4)]
+    }
+    else {
+      if (colour == "colourblind") {
+        low_colour <- "#fef0d9"
+        concerns_colour <- "#fdcc8a"
+        high_colour <- "#fc8d59"
+        critical_colour <- "#d7301f"
+      }
+      if (colour == "cochrane") {
+        low_colour <- "#02C100"
+        concerns_colour <- "#E2DF07"
+        high_colour <- "#BF0000"
+        critical_colour <- "#820000"
+      }
+    }
+
 
     # Data preprocessing
     for (i in 2:9) {
@@ -176,10 +219,10 @@ if (tool == "ROB2") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "h" = "#fc8d62",
-          "s" = "#808080",
-          "l" = "#66c2a5",
-          "c" = "#ff0000"
+          "h" = high_colour,
+          "s" = concerns_colour,
+          "l" = low_colour,
+          "c" = critical_colour
         ),
         labels = c(
           "  Critical risk of bias  ",
@@ -214,6 +257,25 @@ if (tool == "ROB2") {
 # QUADAS-2 =====================================================================
 
 if (tool == "QUADAS-2") {
+
+    if (length(colour) > 1) {
+      low_colour <- colour[c(1)]
+      concerns_colour <- colour[c(2)]
+      high_colour <- colour[c(3)]
+    }
+    else {
+      if (colour == "colourblind") {
+        low_colour <- "#fee8c8"
+        concerns_colour <- "#fdbb84"
+        high_colour <- "#e34a33"
+      }
+      if (colour == "cochrane") {
+        low_colour <- "#02C100"
+        concerns_colour <- "#E2DF07"
+        high_colour <- "#BF0000"
+      }
+    }
+
 
     # Data preprocessing
     for (i in 2:6) {
@@ -271,9 +333,9 @@ if (tool == "QUADAS-2") {
       ggplot2::scale_fill_manual(
         "Risk of Bias",
         values = c(
-          "h" = "#fc8d62",
-          "s" = "#808080",
-          "l" = "#66c2a5"
+          "h" = high_colour,
+          "s" = concerns_colour,
+          "l" = low_colour
         ),
         labels = c(
           "  High risk of bias   ",
