@@ -5,7 +5,7 @@
 \title{Produce summary weighted barplots of risk-of-bias assessments.}
 \usage{
 rob_summary(data, tool, overall = FALSE, weighted = TRUE,
-  quiet = FALSE)
+  colour = "cochrane", quiet = FALSE)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).}
@@ -16,10 +16,12 @@ rob_summary(data, tool, overall = FALSE, weighted = TRUE,
 
 \item{weighted}{An option to specify whether weights should be used in the barplot. Default is TRUE, in line with current Cochrane Collaboration guidance.}
 
+\item{colour}{An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").}
+
 \item{quiet}{An option to quietly produce and save the plot without it displaying in R/Rstudio.}
 }
 \value{
-Risk of bias assessment barplot figure..
+Risk of bias assessment barplot figure.
 }
 \description{
 A function to convert standard risk-of-bias output to tidy data and plot a summary barplot.
