@@ -365,6 +365,129 @@ if (tool == "QUADAS-2") {
       )
   }
 
+# ROB-1/Generic=================================================================
+
+  if (tool == "ROB1") {
+    # Define colouring
+
+    if (length(colour) > 1) {
+      low_colour <- colour[c(1)]
+      concerns_colour <- colour[c(2)]
+      high_colour <- colour[c(3)]
+    }
+    else {
+      if (colour == "colourblind") {
+        low_colour <- "#fee8c8"
+        concerns_colour <- "#fdbb84"
+        high_colour <- "#e34a33"
+      }
+      if (colour == "cochrane") {
+        low_colour <- "#02C100"
+        concerns_colour <- "#E2DF07"
+        high_colour <- "#BF0000"
+      }
+    }
+
+    # Data preprocessing
+    for (i in 2:(ncol(data)-1)) {
+      data[[i]] <- tolower(data[[i]])
+      data[[i]] <- trimws(data[[i]])
+      data[[i]] <- substr(data[[i]], 0, 1)
+    }
+
+    # Define weights if FALSE and check if there is a weight column if TRUE
+    if(weighted == FALSE) {
+      data[,ncol(data)] <- rep(1,length(nrow(data)))
+    } else {
+      if(is.numeric(data[2,ncol(data)]) == FALSE){stop("Error. The final column does not seem to contain numeric values (expected for weights).")}
+    }
+
+    # Clean and rename column headings. as needed
+    data.tmp <- data
+    for (i in 2:(ncol(data)-1)) {
+      names(data.tmp)[i] <- invisible(gsub(".", " ", names(data.tmp)[i], fixed = TRUE))
+    }
+    names(data.tmp)[ncol(data.tmp)] <- "Weights"
+
+
+
+    # Define dataframe based on value of "overall"
+
+
+    if (overall == "FALSE") {
+      data.tmp <- data.tmp[, c(2:(ncol(data.tmp)-2), ncol(data.tmp))]
+    } else {
+      data.tmp <- data.tmp[, c(2:ncol(data.tmp))]
+    }
+
+    #Gather data, convert to factors and set levels
+    rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                               domain, judgement,
+                                               -Weights))
+
+    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+    rob.tidy$domain <- as.factor(rob.tidy$domain)
+
+    rob.tidy$domain <- factor(rob.tidy$domain)
+
+    i<-1
+    while(i != (ncol(data.tmp))){
+    levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
+    i<-i+1
+    }
+
+    rob.tidy$domain <- factor(rob.tidy$domain, levels = rev(levels(rob.tidy$domain)))
+
+    rob.tidy$judgement <- factor(rob.tidy$judgement,
+                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
+
+    # Create plot
+    plot <- ggplot2::ggplot(data = rob.tidy) +
+      ggplot2::geom_bar(
+        mapping = ggplot2::aes(x = domain, fill = judgement, weight = Weights),
+        width = 0.7,
+        position = "fill",
+        color = "black"
+      ) +
+      ggplot2::coord_flip(ylim = c(0, 1)) +
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
+      ggplot2::scale_fill_manual(
+        "Risk of Bias",
+        values = c(
+          "l" = low_colour,
+          "s" = concerns_colour,
+          "h" = high_colour
+        ),
+        labels = c("  High risk of bias  ",
+                   "  Some concerns      ",
+                   "  Low risk of bias   ")
+      ) +
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = 10, color = "black"),
+        axis.line.x = ggplot2::element_line(
+          colour = "black",
+          size = 0.5,
+          linetype = "solid"
+        ),
+        legend.position = "bottom",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(linetype = "solid",
+                                                  colour = "black"),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.text = ggplot2::element_text(size = 8)
+      )
+  }
+
+
+
 # Return plot ==================================================================
 
   if(quiet != TRUE) {
