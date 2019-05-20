@@ -374,8 +374,7 @@ if (tool == "QUADAS-2") {
       low_colour <- colour[c(1)]
       concerns_colour <- colour[c(2)]
       high_colour <- colour[c(3)]
-    }
-    else {
+    } else {
       if (colour == "colourblind") {
         low_colour <- "#fee8c8"
         concerns_colour <- "#fdbb84"
@@ -427,20 +426,14 @@ if (tool == "QUADAS-2") {
 
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-    rob.tidy$domain <- as.factor(rob.tidy$domain)
+    rob.tidy$judgement <- factor(rob.tidy$judgement,
+                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
 
-    rob.tidy$domain <- factor(rob.tidy$domain)
-
-    i<-1
-    while(i != (ncol(data.tmp))){
+    for (i in 1:(ncol(data.tmp)-1)) {
     levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
-    i<-i+1
     }
 
     rob.tidy$domain <- factor(rob.tidy$domain, levels = rev(levels(rob.tidy$domain)))
-
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
 
     # Create plot
     plot <- ggplot2::ggplot(data = rob.tidy) +
