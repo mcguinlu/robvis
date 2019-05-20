@@ -13,6 +13,7 @@ judgement <- NULL
 Study <- NULL
 domain <- NULL
 
+# ROB 2 ========================================================================
 
 if (tool == "ROB2") {
 
@@ -89,6 +90,8 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
         strip.text.y = ggplot2::element_text(angle = 180, size = 10),
         plot.caption = ggplot2::element_text(hjust = 0))
   }
+
+# ROBINS-I =====================================================================
 
 if (tool == "ROBINS-I") {
 
@@ -173,6 +176,8 @@ if (tool == "ROBINS-I") {
           plot.caption = ggplot2::element_text(hjust = 0))
   }
 
+# QUADAS-2 =====================================================================
+
 if (tool == "QUADAS-2") {
 
   # Define colouring
@@ -245,6 +250,101 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
           plot.caption = ggplot2::element_text(hjust = 0))
 
   }
+
+
+# ROB-1/Generic=================================================================
+
+if (tool == "ROB1") {
+
+  # Define colouring
+  if (length(colour) > 1) {
+    low_colour <- colour[c(1)]
+    concerns_colour <- colour[c(2)]
+    high_colour <- colour[c(3)]
+  } else {
+    if (colour == "colourblind") {
+      low_colour <- "#fee8c8"
+      concerns_colour <- "#fdbb84"
+      high_colour <- "#e34a33"
+    }
+    if (colour == "cochrane") {
+      low_colour <- "#02C100"
+      concerns_colour <- "#E2DF07"
+      high_colour <- "#BF0000"
+    }
+  }
+
+  for (i in 2:(ncol(data)-1)) {
+    data[[i]] <- tolower(data[[i]])
+    data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 1)
+  }
+
+  data.tmp <- data
+
+  #Select relevant columns (excluding weights)
+  data.tmp <- data.tmp[, c(1:(ncol(data.tmp)-1))]
+
+  #Remove dots from column names
+  for (i in 1:(ncol(data.tmp))) {
+    names(data.tmp)[i] <- invisible(gsub(".", " ", names(data.tmp)[i], fixed = TRUE))
+  }
+
+  # Create caption
+  captiondf <- data.frame()
+  for (i in 2:(ncol(data.tmp)-1)) {
+    if (i == 2) {
+    captiondf[i-1,1] <- paste0(" D",i-1,": ", names(data.tmp)[i],"\n")
+    }else{
+    captiondf[i-1,1] <- paste0("D",i-1,": ", names(data.tmp)[i],"\n")
+    }
+  }
+
+  caption <- paste(captiondf$V1, collapse=" ")
+
+  # Rename columns headings
+  for (i in 2:(ncol(data.tmp)-1)) {
+    names(data.tmp)[i] <- paste0("D",i-1)
+  }
+
+
+
+
+  # Convert to long format
+  rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                             domain, judgement, -Study))
+
+  #Relevel rob.tidy$domain
+  for (i in 1:(ncol(data.tmp))) {
+    levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
+  }
+
+  rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
+
+  # Set sizes
+  psize <- 20
+  ssize <- psize - (psize/4)
+
+  # PLot graph
+  trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
+    ggplot2::facet_grid(Study ~ factor(domain), switch = "y", space = "free") +
+    ggplot2::geom_point(size = psize) +
+    ggplot2::geom_point(shape = 1, colour = "black", size = psize) +
+    ggplot2::geom_point(size =ssize, colour = "black", ggplot2::aes(shape=judgement)) +
+    ggplot2::labs(caption = caption) +
+    ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
+    ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
+    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour)) +
+    ggplot2::scale_shape_manual(values = c(45,43,63)) +
+    ggplot2::scale_size(range = c(5,20)) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
+                   panel.spacing = ggplot2::unit(0, "line"),
+                   legend.position = "none",
+                   strip.text.x = ggplot2::element_text(size = 10),
+                   strip.text.y = ggplot2::element_text(angle = 180, size = 10),
+                   plot.caption = ggplot2::element_text(hjust = 0))
+}
 
   if(quiet != TRUE) {
     return(trafficlightplot)
