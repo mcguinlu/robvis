@@ -23,13 +23,13 @@ Users can currently produce summary plots for three commonly used tools: ROB2.0,
 
 ### Common structure of risk-of-bias assessment output (usually in Excel)
 ```{r headrob}
-knitr::kable(data_rob)
+knitr::kable(data_rob2)
 ```
 
 
 ### RoB2.0 tool for randomised controlled trials
 ```{r rob2summary}
-rob_summary(data_rob, tool = "ROB2")
+rob_summary(data_rob2, tool = "ROB2")
 ```
 
 ### ROBINS-I tool for non-randomised studies of interventions

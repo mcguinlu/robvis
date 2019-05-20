@@ -9,10 +9,10 @@ knitr::opts_chunk$set(
   library(robvis)
 
 ## ----headrob-------------------------------------------------------------
-knitr::kable(data_rob)
+knitr::kable(data_rob2)
 
 ## ----rob2summary---------------------------------------------------------
-rob_summary(data_rob, tool = "ROB2")
+rob_summary(data_rob2, tool = "ROB2")
 
 ## ----robinssummary-------------------------------------------------------
 rob_summary(data_robins, tool = "ROBINS-I")
