@@ -54,11 +54,11 @@ if (tool == "ROB2") {
 
     # Rename column headings
     data.tmp <- data
-    names(data.tmp)[2] <- "Bias due to randomisation"
-    names(data.tmp)[3] <- "Bias due to deviations from intended intervention"
-    names(data.tmp)[4] <- "Bias due to missing data"
-    names(data.tmp)[5] <- "Bias due to outcome measurement"
-    names(data.tmp)[6] <- "Bias due to selection of reported result"
+    names(data.tmp)[2] <- "Bias arising from the randomization process"
+    names(data.tmp)[3] <- "Bias due to deviations from intended interventions"
+    names(data.tmp)[4] <- "Bias due to missing outcome data"
+    names(data.tmp)[5] <- "Bias in measurement of the outcome"
+    names(data.tmp)[6] <- "Bias in selection of the reported result"
     names(data.tmp)[7] <- "Overall risk of bias"
     names(data.tmp)[8] <- "Weights"
 
