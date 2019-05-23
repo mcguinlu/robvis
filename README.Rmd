@@ -108,7 +108,7 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8"
 summary_rob
 ```
 
-### Created an unweighted summary barplot:
+### Created an unweighted summary barplot
 By default, the `rob_summary()` function creates a barplot weighted by some measure of a study's precision. This can be prevented using the "weighted" argument. For example, compare the following two plots:
 
 ```{r, fig.height=3}

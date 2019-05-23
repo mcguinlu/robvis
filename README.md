@@ -129,7 +129,7 @@ summary_rob
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
 
-### Created an unweighted summary barplot:
+### Created an unweighted summary barplot
 
 By default, the `rob_summary()` function creates a barplot weighted by
 some measure of a study’s precision. This can be prevented using the
