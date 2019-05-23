@@ -46,6 +46,7 @@ if (tool == "ROB2") {
 
   data.tmp <- data
   if(NCOL(data.tmp) < 7){stop("Column missing (number of columns < 7).")}
+  names(data.tmp)[1] <- "Study"
   names(data.tmp)[2] <- "D1"
   names(data.tmp)[3] <- "D2"
   names(data.tmp)[4] <- "D3"
@@ -125,6 +126,7 @@ if (tool == "ROBINS-I") {
 
   data.tmp <- data
   if(NCOL(data.tmp) < 9){stop("Column missing (number of columns < 9).")}
+  names(data.tmp)[1] <- "Study"
   names(data.tmp)[2] <- "D1"
   names(data.tmp)[3] <- "D2"
   names(data.tmp)[4] <- "D3"
@@ -207,6 +209,7 @@ if (tool == "QUADAS-2") {
 
   data.tmp <- data
   if(NCOL(data.tmp) < 6){stop("Column missing (number of columns < 6).")}
+  names(data.tmp)[1] <- "Study"
   names(data.tmp)[2] <- "D1"
   names(data.tmp)[3] <- "D2"
   names(data.tmp)[4] <- "D3"
@@ -303,12 +306,10 @@ if (tool == "ROB1") {
   caption <- paste(captiondf$V1, collapse=" ")
 
   # Rename columns headings
+  names(data.tmp)[1] <- "Study"
   for (i in 2:(ncol(data.tmp)-1)) {
     names(data.tmp)[i] <- paste0("D",i-1)
   }
-
-
-
 
   # Convert to long format
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
