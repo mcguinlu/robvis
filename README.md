@@ -52,8 +52,8 @@ mydata <- read.csv("path/to/mydata.csv", header = TRUE)
 ```
 
 To help users explore `robvis`, we have included example datasets in the
-package, one for each fo the tool templates that currently exist within
-`rob_summary()`. The `data_rob2` dataset ([view it
+package, one for each of the tool templates that currently exist within
+the package. The `data_rob2` dataset ([view it
 here](https://github.com/mcguinlu/robvis/blob/master/data_raw/data_rob2.csv)),
 which contains example risk-of-bias assessments performed using the
 RoB2.0 tool for randomized controlled trials, is used to create the
