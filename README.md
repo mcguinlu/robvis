@@ -11,50 +11,20 @@ Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travi
 [![metaverse
 Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
 
-<br>
+**UPDATE**: `robvis` now exists as a
+[web-app](https://mcguinlu.shinyapps.io/robvis), aimed at those who are
+not familiar with R or who want to explore the package’s functionality
+before installing it locally.
 
 ## Description
 
-**UPDATE**: `robvis` now exists as a
-[web-app](https://mcguinlu.shinyapps.io/robvis), aimed at those who are
-not confident with R/those who want to explore the package’s
-functionality.
-
 The `robvis` package takes the summary table from risk-of-bias
-assessments, converts it to tidy data, produces a summary plot
-(incorporating some measure of weighting for each study), and formats
-the plot according to the assessment tool used.
-
-The package contains three functions:
-
-### rob\_summary()
-
-Returns a ggplot object displaying a weighted barchart of the risk of
-bias of included studies across the domains of the specified tool.
-
-### rob\_traffic\_light()
-
-Returns a ggplot object displaying a [“traffic light
-plot”](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm),
-displaying the risk of bias judgement made in each domain for each
-study.
-
-### rob\_tools()
-
-Outputs a list of the risk of bias assessment tools for which a template
-currently exists in rob\_summary(). Users can currently produce summary
-plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2. We
-expect this list to be updated in the near future to inlcude tools such
-as ROBIS (tool for assessing risk of bias in systematic reviews).
-
-    rob_tools()
-    [1] "ROB2"
-    [1] "ROBINS-I"
-    [1] "QUADAS-2"
+assessments, converts it to tidy data, and produces summary plots
+formatted according to the assessment tool used.
 
 ## Getting started
 
-### Install the `robvis` R package
+### Install the `robvis` pacakage
 
 First ensure you have the `devtools` package installed:
 
@@ -75,90 +45,126 @@ command again.
 
 ### Load data
 
-Load your own data (mostly likely from a .csv)
+To load your own data from a .csv file:
 
 ``` r
 mydata <- read.csv("path/to/mydata.csv", header = TRUE)
 ```
 
-To familiarise users with the package, we have included three example
-datasets, one for each fo the tool templates that currently exist within
-`rob_summary()`. These datasets are used to create the example plots
-below.
+To help users explore `robvis`, we have included example datasets in the
+package, one for each fo the tool templates that currently exist within
+`rob_summary()`. The `data_rob2` dataset ([view it
+here](https://github.com/mcguinlu/robvis/blob/master/data_raw/data_rob2.csv)),
+which contains example risk-of-bias assessments performed using the
+RoB2.0 tool for randomized controlled trials, is used to create the
+plots in subsequent sections.
 
-### Create basic plots
+### Create plots
 
-#### RoB2.0 tool for randomized controlled trials:
+The package contains two plotting functions:
+
+#### 1\. rob\_summary()
+
+Returns a ggplot object displaying a weighted barchart of the risk of
+bias of included studies across the domains of the specified tool.
 
 ``` r
-plot_rob <- rob_summary(data = data_rob, tool = "ROB2")
-plot_rob
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
+summary_rob
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="90%" />
 
+#### 2\. rob\_traffic\_light()
+
+Returns a ggplot object displaying a [“traffic light
+plot”](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm),
+displaying the risk of bias judgement in each domain for each study.
+
 ``` r
-trafficlight_rob <- rob_traffic_light(data = data_rob, tool = "ROB2")
+trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
 trafficlight_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="90%" />
+<img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/>
 
-#### ROBINS-I tool for non-randomised studies of interventions:\*\*
+### Other functions
+
+#### rob\_tools()
+
+Outputs a list of the risk of bias assessment tools for which a template
+currently exists in rob\_summary(). We expect this list to be updated in
+the near future to inlcude tools such as ROBIS (tool for assessing risk
+of bias in systematic reviews).
+
+    rob_tools()
+    [1] "ROB2"
+    [1] "ROBINS-I"
+    [1] "QUADAS-2"
+    [1] "ROB1"
+
+## Advanced usage
+
+### Change the colour scheme
+
+The `colour` argument of both plotting functions allows users to select
+from two predefined colour schemes (“cochrane” or “colourblind”) or to
+define their own pallete by providing a vector of hex codes.
+
+For example, to use the predefined “colourblind” palette:
 
 ``` r
-plot_robins <- rob_summary(data = data_robins, tool = "ROBINS-I")
-plot_robins
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
+summary_rob
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="90%" />
 
-#### QUADAS-2 tool for diagnostic accuracy studies:\*\*
+And to define your own colour scheme:
 
 ``` r
-plot_quadas <- rob_summary(data = data_quadas, tool = "QUADAS-2")
-plot_quadas
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+summary_rob
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
 
-## Additional usage
+### Created an unweighted summary barplot:
 
-Because the output (`plot_tool` in the above examples) is a ggplot2
-object, it is easy to adjust the plot to your own preferences.
-
-For example, to add a title to the RoB2.0 plot created above:
+By default, the `rob_summary()` function creates a barplot weighted by
+some measure of a study’s precision. This can be prevented using the
+“weighted” argument. For example, compare the following two plots:
 
 ``` r
-library(ggplot2)
-
-plot_rob +
-  ggtitle("Summary of RoB2.0 assessments")
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
+summary_rob
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
 
-## Planned updates
+``` r
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", weighted = FALSE)
+summary_rob
+```
 
-  - Templates for additional risk of bias tools, including:
-      - Cochrane risk of bias tool for randomised controlled trials (RoB
-        Version 1)
-      - PROBAST
-      - ROBIS
-  - Ability to specify file type extension when saving image. Priority
-    being Window
-  - Additional functionality to specify the element of QUADAS-2 that you
-    want to visualise (applicability or risk of bias)
-  - Choice of colour schemes (or ability to specify your own colours,
-    have not decided yet)
-  - Improved text processing to allow for imperfect matching of
-    judgements, primarily to allow for differences in cases (e.g. “low”
-    will match with “Low”" and for minor spelling errors (e.g. “loq”
-    will match with “Low”)
-  - A planned function to provide a brief draft paragraph summarising
-    the risk-of-bias assessment results, which authors can then
-    edit/elaborate on as needed. This element of the project was
-    inspired by the reporter function in `metafor`
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
+
+### Editing the plots
+
+Finally, because the output (`summary_rob` and `trafficlight_rob` in the
+examples above) is a ggplot2 object, it is easy to adjust the plot to
+your own preferences.
+
+For example, to add a title to the unweighted RoB2.0 plot created above:
+
+``` r
+library(ggplot2)
+
+summary_rob +
+  ggtitle("Summary of RoB2.0 assessments")
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
 
 ## License
 
