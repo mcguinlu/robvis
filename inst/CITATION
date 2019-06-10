@@ -1,0 +1,14 @@
+citHeader("To cite robvis in publications, please use:")
+
+citEntry(
+  entry    = "Misc",
+  title    = "robvis: Quickly Visualise Risk-of-bias Assessments",
+  author   = "Luke A McGuinness",
+  year     = "2019",
+  url      = "https://github.com/mcguinlu/robvis",
+  textVersion = paste(
+  "Luke A McGuinness (2019).",
+  "robvis: Quickly Visualise Risk-of-bias Assessments.",
+  "Available at https://github.com/mcguinlu/robvis"
+  )
+)
