@@ -323,7 +323,7 @@ if (tool == "ROB1") {
   rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
 
   # Set sizes
-  psize <- 20
+  psize <- 10
   ssize <- psize - (psize/4)
 
   # PLot graph
