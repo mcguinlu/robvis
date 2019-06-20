@@ -7,3 +7,4 @@
 ^robvis\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^appveyor\.yml$
