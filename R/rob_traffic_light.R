@@ -3,11 +3,12 @@
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").
+#' @param psize Controll the size of the traffic lights
 #' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @export
 
-rob_traffic_light <- function(data, tool, colour = "cochrane", quiet = FALSE) {
+rob_traffic_light <- function(data, tool, colour = "cochrane", psize = 20, quiet = FALSE) {
 
 judgement <- NULL
 Study <- NULL
@@ -60,8 +61,9 @@ if (tool == "ROB2") {
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                             domain, judgement, -Study))
 
-  psize <- 20
   ssize <- psize - (psize/4)
+
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
   ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -142,8 +144,10 @@ if (tool == "ROBINS-I") {
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement, -Study))
 
-  psize <- 20
   ssize <- psize - (psize/4)
+
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+
 
   trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -223,8 +227,9 @@ if (tool == "QUADAS-2") {
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement, -Study))
 
-  psize <- 20
   ssize <- psize - (psize/4)
+
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -253,6 +258,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
           plot.caption = ggplot2::element_text(hjust = 0))
 
   }
+
 
 
 # ROB-1/Generic=================================================================
@@ -323,7 +329,6 @@ if (tool == "ROB1") {
   rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
 
   # Set sizes
-  psize <- 10
   ssize <- psize - (psize/4)
 
   # PLot graph
