@@ -17,8 +17,7 @@ Imports:
     ggplot2,
     tidyr,
     scales,
-    usethis, 
-    dplyr
+    usethis
 Suggests:
   knitr,
   rmarkdown,

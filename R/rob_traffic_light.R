@@ -63,7 +63,7 @@ if (tool == "ROB2") {
 
   ssize <- psize - (psize/4)
 
-  rob.tidy <- dplyr::mutate(rob.tidy, Study = factor(Study, unique(Study)))
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
   ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -145,7 +145,9 @@ if (tool == "ROBINS-I") {
                                              domain, judgement, -Study))
 
   ssize <- psize - (psize/4)
-  rob.tidy <- dplyr::mutate(rob.tidy, Study = factor(Study, unique(Study)))
+
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+
 
   trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -226,7 +228,8 @@ if (tool == "QUADAS-2") {
                                              domain, judgement, -Study))
 
   ssize <- psize - (psize/4)
-  rob.tidy <- dplyr::mutate(rob.tidy, Study = factor(Study, unique(Study)))
+
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
