@@ -108,7 +108,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
         legend.text = ggplot2::element_text(size=9),
         legend.title = ggplot2::element_text(size=9),
         strip.background = ggplot2::element_rect(fill="#a9a9a9"),
-        plot.caption = ggplot2::element_text(hjust = 0, vjust = 1)) +
+        plot.caption = ggplot2::element_text(size = 10,hjust = 0, vjust = 1)) +
   ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill=NA))) +
   ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
   }
@@ -212,7 +212,7 @@ if (tool == "ROBINS-I") {
                    legend.text = ggplot2::element_text(size=9),
                    legend.title = ggplot2::element_text(size=9),
                    strip.background = ggplot2::element_rect(fill="#a9a9a9"),
-                   plot.caption = ggplot2::element_text(hjust = 0, vjust = 1)) +
+                   plot.caption = ggplot2::element_text(size = 10, hjust = 0, vjust = 1)) +
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill=NA))) +
     ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
   }
@@ -306,7 +306,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                    legend.text = ggplot2::element_text(size=9),
                    legend.title = ggplot2::element_text(size=9),
                    strip.background = ggplot2::element_rect(fill="#a9a9a9"),
-                   plot.caption = ggplot2::element_text(hjust = 0, vjust = 1))+
+                   plot.caption = ggplot2::element_text(size = 10,hjust = 0, vjust = 1))+
   ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill=NA))) +
   ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
 
@@ -414,7 +414,7 @@ if (tool == "ROB1") {
                    legend.text = ggplot2::element_text(size=9),
                    legend.title = ggplot2::element_text(size=9),
                    strip.background = ggplot2::element_rect(fill="#a9a9a9"),
-                   plot.caption = ggplot2::element_text(hjust = 0, vjust = 1)) +
+                   plot.caption = ggplot2::element_text(size = 10,hjust = 0, vjust = 1)) +
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill=NA))) +
     ggplot2::labs(shape = "Judgement", colour = "Judgement")
 }
