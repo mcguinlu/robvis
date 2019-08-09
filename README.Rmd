@@ -154,6 +154,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 ## Acknowledgments
 
-* The `rob_summary()` function was based on code forwarded by a colleague. I have recently learnt that this code was adapted from the wonderful "[Doing Meta-Analysis in R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)" guide, so I would like to retrospectively acknowledge the authors for their indirect help. 
+* The `rob_summary()` function was based on code forwarded by a colleague. I have recently learnt that this code was adapted from that presented in the wonderful "[Doing Meta-Analysis in R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/plotting-the-summary.html)" guide, so I would like to acknowledge the authors here. 
 * [Emily Kothe](https://github.com/ekothe) for help in fixing `ggplot2` coding issues.
 * [Eliza Grames](https://github.com/elizagrames) for creating the `robvis` hex sticker.
