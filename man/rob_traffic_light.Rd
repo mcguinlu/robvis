@@ -16,7 +16,7 @@ rob_traffic_light(data, tool, colour = "cochrane", psize = 20,
 
 \item{psize}{Controll the size of the traffic lights}
 
-\item{quiet}{An option to quietly produce and save the plot without it displaying in R/Rstudio.}
+\item{quiet}{An option to quietly produce the plot without displaying it.}
 }
 \value{
 Risk-of-bias assessment traffic light plot (ggplot2 object)

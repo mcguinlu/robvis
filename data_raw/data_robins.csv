@@ -1,13 +1,13 @@
 Study,D1,D2,D3,D4,D5,D6,D7,Overall,Weight
-Study 1,Critical,Low,Critical,Critical,Low,Low,High,Critical,33.33333333
-Study 2,Some concerns,Low,Low,Critical,Low,Some concerns,Low,Low,33.33333333
-Study 3,Some concerns,Low,Some concerns,Critical,Critical,Low,High,High,0.142857143
-Study 4,Low,Low,High,Critical,Some concerns,Low,Critical,Low,9.090909091
-Study 5,High,High,Low,Low,Some concerns,Low,Some concerns,High,12.5
-Study 6,Critical,High,Some concerns,Critical,Critical,Some concerns,High,High,25
-Study 7,Critical,Some concerns,Some concerns,High,Critical,High,High,Some concerns,200
-Study 8,Critical,Some concerns,Low,Low,Low,Low,Critical,Some concerns,11.11111111
-Study 9,Critical,Low,High,Low,Low,High,Low,Low,1.111111111
-Study 10,Some concerns,Low,Critical,High,Some concerns,Some concerns,High,Low,0.142857143
-Study 11,Some concerns,High,Some concerns,Critical,High,Low,Critical,High,9.090909091
+Study 1,Critical,Low,Critical,Critical,Low,Low,Serious,Critical,33.33333333
+Study 2,Moderate,Low,Low,Critical,Low,Moderate,Low,Low,33.33333333
+Study 3,Moderate,Low,Moderate,Critical,Critical,Low,Serious,Serious,0.142857143
+Study 4,Low,Low,Serious,Critical,Moderate,Low,Critical,Low,9.090909091
+Study 5,Serious,Serious,Low,Low,Moderate,Low,Moderate,Serious,12.5
+Study 6,Critical,Serious,Moderate,Critical,Critical,Moderate,Serious,Serious,25
+Study 7,Critical,Moderate,Moderate,Serious,Critical,Serious,Serious,Moderate,200
+Study 8,Critical,Moderate,Low,Low,Low,Low,Critical,Moderate,11.11111111
+Study 9,Critical,Low,Serious,Low,Low,Serious,Low,Low,1.111111111
+Study 10,Moderate,Low,Critical,Serious,Moderate,Moderate,Serious,Low,0.142857143
+Study 11,Moderate,Serious,Moderate,Critical,Serious,Low,Critical,Serious,9.090909091
 Study 12,Critical,Critical,Low,Critical,Critical,Critical,Critical,Critical,12.5
