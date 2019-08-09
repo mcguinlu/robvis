@@ -94,7 +94,7 @@ ggplot2::ggsave(
           dpi = 800, 
           limitsize = FALSE)
 ```
-<center><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></center>
+<div style="text-align:center"><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></div>
 
 ### Other functions
 #### rob_tools()

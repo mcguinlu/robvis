@@ -88,11 +88,11 @@ trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
 trafficlight_rob
 ```
 
-<center>
+<div style="text-align:center">
 
 <img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/>
 
-</center>
+</div>
 
 ### Other functions
 
