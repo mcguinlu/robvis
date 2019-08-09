@@ -163,10 +163,18 @@ if (tool == "ROBINS-I") {
 
   ssize <- psize - (psize/4)
 
+
+
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-  trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                                 levels(rob.tidy$judgement)[c(1,4,3,2)])
+
+
+  trafficlightplot <-
+    ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
                                                "D2",
                                                "D3",
@@ -181,6 +189,7 @@ if (tool == "ROBINS-I") {
                        ymin = -Inf,ymax = Inf, show.legend = FALSE) +
     ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain=="Overall"),],fill="#d3d3d3",xmin = -Inf,xmax = Inf,
                        ymin = -Inf,ymax = Inf, show.legend = FALSE) +
+
     ggplot2::geom_point(size = psize, show.legend = FALSE) +
     ggplot2::geom_point(shape = 1, colour = "black", size = psize, show.legend = FALSE) +
     ggplot2::geom_point(size =ssize, colour = "black", ggplot2::aes(shape=judgement), show.legend = FALSE) +
@@ -196,8 +205,8 @@ if (tool == "ROBINS-I") {
                   ") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(critical_colour,low_colour,concerns_colour,high_colour), labels = c("Critical", "Low","Some concerns", "High")) +
-    ggplot2::scale_shape_manual(values = c(33,43,63,45), labels = c("Critical", "Low","Some concerns", "High")) +
+    ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
+    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -214,6 +223,7 @@ if (tool == "ROBINS-I") {
     ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill=NA))) +
     ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
 }
+
 
 # ROBINS-I ONLINE ==============================================================
 
@@ -262,15 +272,24 @@ if (tool == "ROBINS-I Online") {
   names(data.tmp)[8] <- "D7"
   names(data.tmp)[9] <- "Overall"
 
+
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                              domain, judgement, -Study))
 
   ssize <- psize - (psize/4)
 
+
+
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-  trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,4,3,2)])
+
+
+  trafficlightplot <-
+    ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
                                                         "D2",
                                                         "D3",
@@ -285,6 +304,7 @@ if (tool == "ROBINS-I Online") {
                        ymin = -Inf,ymax = Inf, show.legend = FALSE) +
     ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain=="Overall"),],fill="#d3d3d3",xmin = -Inf,xmax = Inf,
                        ymin = -Inf,ymax = Inf, show.legend = FALSE) +
+
     ggplot2::geom_point(size = psize, show.legend = FALSE) +
     ggplot2::geom_point(shape = 1, colour = "black", size = psize, show.legend = FALSE) +
     ggplot2::geom_point(size =ssize, colour = "black", ggplot2::aes(shape=judgement), show.legend = FALSE) +
@@ -300,8 +320,8 @@ if (tool == "ROBINS-I Online") {
                   ") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(critical_colour,low_colour,concerns_colour,high_colour), labels = c("Critical", "Low","Some concerns", "High")) +
-    ggplot2::scale_shape_manual(values = c(33,43,63,45), labels = c("Critical", "Low","Some concerns", "High")) +
+    ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
+    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
