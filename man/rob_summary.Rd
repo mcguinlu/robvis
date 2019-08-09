@@ -18,7 +18,7 @@ rob_summary(data, tool, overall = FALSE, weighted = TRUE,
 
 \item{colour}{An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").}
 
-\item{quiet}{An option to quietly produce and save the plot without it displaying in R/Rstudio.}
+\item{quiet}{An option to quietly produce the plot without displaying it.}
 }
 \value{
 Risk of bias assessment barplot figure.

@@ -4,7 +4,7 @@
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool="ROB2"), ROBINS-I (tool="ROBINS-I"), and QUADAS-2 (tool="QUADAS-2") are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is "cochrane" which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = "colourblind").
 #' @param psize Controll the size of the traffic lights
-#' @param quiet An option to quietly produce and save the plot without it displaying in R/Rstudio.
+#' @param quiet An option to quietly produce the plot without displaying it.
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @export
 
