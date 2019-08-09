@@ -29,6 +29,7 @@ knitr::opts_chunk$set(
 ## Description
 ```{r include = FALSE}
 library(robvis)
+
 library(kableExtra)
 library(magrittr)
 ```
@@ -76,11 +77,24 @@ summary_rob
 #### 2. rob_traffic_light()
 Returns a ggplot object displaying a ["traffic light plot"](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm), displaying the risk of bias judgement in each domain for each study.
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
 trafficlight_rob
-```    
-<img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/>
+```
+
+``` {r, include=FALSE}
+trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
+ggplot2::ggsave(
+          "man/figures/rob2trafficlight.png",
+          plot = trafficlight_rob,
+          device = "png",
+          width = 6,
+          height = 9,
+          units = "in",
+          dpi = 800, 
+          limitsize = FALSE)
+```
+<center><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></center>
 
 ### Other functions
 #### rob_tools()
@@ -140,5 +154,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 ## Acknowledgments
 
+* The `rob_summary()` function was based on code forwarded by a colleague. I have recently learnt that this code was adapted from the wonderful "[Doing Meta-Analysis in R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)" guide, so I would like to retrospectively acknowledge the authors for their indirect help. 
 * [Emily Kothe](https://github.com/ekothe) for help in fixing `ggplot2` coding issues.
 * [Eliza Grames](https://github.com/elizagrames) for creating the `robvis` hex sticker.

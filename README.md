@@ -88,7 +88,11 @@ trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
 trafficlight_rob
 ```
 
+<center>
+
 <img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/>
+
+</center>
 
 ### Other functions
 
@@ -120,7 +124,7 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblin
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
 
 And to define your own colour scheme:
 
@@ -129,7 +133,7 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8"
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
 
 ### Created an unweighted summary barplot
 
@@ -142,14 +146,14 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
 
 ``` r
 summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", weighted = FALSE)
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
 
 ### Editing the plots
 
@@ -166,7 +170,7 @@ summary_rob +
   ggtitle("Summary of RoB2.0 assessments")
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
 
 ## License
 
@@ -176,6 +180,12 @@ file for details.
 
 ## Acknowledgments
 
+  - The `rob_summary()` function was based on code forwarded by a
+    colleague. I have recently learnt that this code was adapted from
+    the wonderful “[Doing Meta-Analysis in
+    R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)”
+    guide, so I would like to retrospectively acknowledge the authors
+    for their indirect help.
   - [Emily Kothe](https://github.com/ekothe) for help in fixing
     `ggplot2` coding issues.
   - [Eliza Grames](https://github.com/elizagrames) for creating the
