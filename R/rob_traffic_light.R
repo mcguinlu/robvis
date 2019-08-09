@@ -446,6 +446,7 @@ if (tool == "ROB1") {
     data[[i]] <- tolower(data[[i]])
     data[[i]] <- trimws(data[[i]])
     data[[i]] <- substr(data[[i]], 0, 1)
+    data[[i]] <- gsub("u","s",data[[i]])
   }
 
   data.tmp <- data

@@ -518,6 +518,7 @@ if (tool == "QUADAS-2") {
       data[[i]] <- tolower(data[[i]])
       data[[i]] <- trimws(data[[i]])
       data[[i]] <- substr(data[[i]], 0, 1)
+      data[[i]] <- gsub("u","s",data[[i]])
     }
 
     # Define weights if FALSE and check if there is a weight column if TRUE
