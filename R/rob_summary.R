@@ -257,8 +257,8 @@ if (tool == "ROB2") {
                                                    reverse = TRUE))
   }
 
-# ROBINS-I  ONLINE============================================================
-  if (tool == "ROBINS-I") {
+# ROBINS-I ONLINE============================================================
+  if (tool == "ROBINS-I Online") {
 
     # Define colouring
     if (length(colour) > 1) {
