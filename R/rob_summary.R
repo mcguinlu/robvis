@@ -163,6 +163,7 @@ if (tool == "ROB2") {
       data[[i]] <- tolower(data[[i]])
       data[[i]] <- trimws(data[[i]])
       data[[i]] <- substr(data[[i]], 0, 1)
+      data[[i]] <- gsub("m","s",data[[i]])
     }
 
     # Define weights if FALSE and check if there is a weight column if TRUE
@@ -172,6 +173,131 @@ if (tool == "ROB2") {
       if(NCOL(data) < 10){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
     }
 
+
+    data.tmp <- data
+    names(data.tmp)[2] <- "Bias due to confounding"
+    names(data.tmp)[3] <- "Bias due to selection of participants"
+    names(data.tmp)[4] <- "Bias in classification of interventions"
+    names(data.tmp)[5] <- "Bias due to deviations from intended interventions"
+    names(data.tmp)[6] <- "Bias due to missing data"
+    names(data.tmp)[7] <- "Bias in measurement of outcomes"
+    names(data.tmp)[8] <- "Bias in selection of the reported result"
+    names(data.tmp)[9] <- "Overall risk of bias"
+    names(data.tmp)[10] <- "Weights"
+
+    #Define dataframe based on value of "overall"
+    if (overall == "FALSE") {
+      data.tmp <- data.tmp[, c(2:8, 10)]
+    }
+    else{
+      data.tmp <- data.tmp[, c(2:10)]
+    }
+
+
+    rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                               domain, judgement,
+                                               -Weights))
+
+    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+    rob.tidy$domain <- as.factor(rob.tidy$domain)
+
+    rob.tidy$domain <- factor(rob.tidy$domain,
+                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
+
+    rob.tidy$judgement <- factor(rob.tidy$judgement,
+                                 levels(rob.tidy$judgement)[c(1, 2, 4, 3)])
+
+    plot <- ggplot2::ggplot(data = rob.tidy) +
+      ggplot2::geom_bar(
+        mapping = ggplot2::aes(x = domain, fill = judgement, weight = Weights),
+        width = 0.7,
+        position = "fill",
+        color = "black"
+      ) +
+      ggplot2::coord_flip(ylim = c(0, 1)) +
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
+      ggplot2::scale_fill_manual(
+        "Risk of Bias",
+        values = c(
+          "h" = high_colour,
+          "s" = concerns_colour,
+          "l" = low_colour,
+          "c" = critical_colour
+        ),
+        labels = c(
+          "  Critical risk of bias  ",
+          "  High risk of bias  ",
+          "  Some concerns  ",
+          "  Low risk of bias  "
+        )
+      ) +
+      ggplot2::scale_y_continuous(labels = scales::percent) +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = 10, color = "black"),
+        axis.line.x = ggplot2::element_line(
+          colour = "black",
+          size = 0.5,
+          linetype = "solid"
+        ),
+        legend.position = "bottom",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(linetype = "solid",
+                                                  colour = "black"),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.text = ggplot2::element_text(size = 7)
+      )
+  }
+
+# ROBINS-I ONLINE ==============================================================
+  if (tool == "ROBINS-I Online") {
+
+    # Define colouring
+    if (length(colour) > 1) {
+      low_colour <- colour[c(1)]
+      concerns_colour <- colour[c(2)]
+      high_colour <- colour[c(3)]
+      critical_colour <- colour[c(4)]
+    }
+    else {
+      if (colour == "colourblind") {
+        low_colour <- "#fef0d9"
+        concerns_colour <- "#fdcc8a"
+        high_colour <- "#fc8d59"
+        critical_colour <- "#d7301f"
+      }
+      if (colour == "cochrane") {
+        low_colour <- "#02C100"
+        concerns_colour <- "#E2DF07"
+        high_colour <- "#BF0000"
+        critical_colour <- "#820000"
+      }
+    }
+
+    data <- data[,grepl("studyId|RBJ_answer",names(data))]
+    data <- data[,which(is.na(data) == FALSE)]
+
+    # Data preprocessing
+    for (i in 2:9) {
+      data[[i]] <- tolower(data[[i]])
+      data[[i]] <- trimws(data[[i]])
+      data[[i]] <- substr(data[[i]], 0, 1)
+      data[[i]] <- gsub("s","h",data[[i]])
+      data[[i]] <- gsub("m","s",data[[i]])
+    }
+
+    # Define weights if FALSE and check if there is a weight column if TRUE
+    if(weighted == FALSE) {
+      data[,10] <- rep(1,length(nrow(data)))
+    } else {
+      if(NCOL(data) < 10){stop("Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing.")}
+    }
 
     data.tmp <- data
     names(data.tmp)[2] <- "Bias due to confounding"
