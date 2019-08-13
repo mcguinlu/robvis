@@ -10,6 +10,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
+[![Codecov test
+coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
 [![metaverse
 Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
 
