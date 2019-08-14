@@ -19,8 +19,10 @@ Imports:
     scales,
     usethis
 Suggests:
-  knitr,
-  rmarkdown,
+    knitr,
+    rmarkdown,
+    covr,
+    testthat
 VignetteBuilder: 
   knitr, 
   rmarkdown

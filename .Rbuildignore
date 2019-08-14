@@ -8,3 +8,4 @@
 ^\.Rproj\.user$
 ^\.github$
 ^appveyor\.yml$
+^codecov\.yml$

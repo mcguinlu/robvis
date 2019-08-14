@@ -64,6 +64,15 @@ if (tool == "ROB2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,3,2)])
+
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
   ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -92,8 +101,8 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                 ") +
   ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
   ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-  ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour), labels = c("High","Low","Some concerns")) +
-  ggplot2::scale_shape_manual(values = c(45,43,63), labels = c("High","Low","Some concerns")) +
+  ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour), labels = c("High","Some concerns","Low")) +
+  ggplot2::scale_shape_manual(values = c(120,45,43), labels = c("High","Some concerns","Low")) +
   ggplot2::scale_size(range = c(5,20)) +
   ggplot2::theme_bw() +
   ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -101,7 +110,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
         legend.position = "bottom",
         legend.justification = "right",
         legend.direction = "vertical",
-        legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+        legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
         strip.text.x = ggplot2::element_text(size = 10),
         strip.text.y = ggplot2::element_text(angle = 180, size = 10),
         legend.text = ggplot2::element_text(size=9),
@@ -172,6 +181,11 @@ if (tool == "ROBINS-I") {
   rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1,4,3,2)])
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+  if(length(unique(rob.tidy$judgement))==5){adjust_caption <- -3.7}
 
   trafficlightplot <-
     ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
@@ -206,14 +220,14 @@ if (tool == "ROBINS-I") {
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
-    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
+    ggplot2::scale_shape_manual(values = c(33,120,45,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
                    panel.spacing = ggplot2::unit(0, "line"),legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-3.1, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -287,6 +301,10 @@ if (tool == "ROBINS-I Online") {
   rob.tidy$judgement <- factor(rob.tidy$judgement,
                                levels(rob.tidy$judgement)[c(1,4,3,2)])
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
 
   trafficlightplot <-
     ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
@@ -321,14 +339,14 @@ if (tool == "ROBINS-I Online") {
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
-    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
+    ggplot2::scale_shape_manual(values = c(33,120,45,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
                    panel.spacing = ggplot2::unit(0, "line"),legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-3.1, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -384,6 +402,16 @@ if (tool == "QUADAS-2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,3,2)])
+
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
                                                "D2",
@@ -409,8 +437,8 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                   ") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour),labels = c("High","Low","Some concerns") ) +
-    ggplot2::scale_shape_manual(values = c(45,43,63),labels = c("High","Low","Some concerns")) +
+    ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour),labels = c("High","Some concerns","Low") ) +
+    ggplot2::scale_shape_manual(values = c(120,45,43),labels = c("High","Some concerns","Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -418,7 +446,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                    legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -441,16 +469,20 @@ if (tool == "ROB1") {
     low_colour <- colour[c(1)]
     concerns_colour <- colour[c(2)]
     high_colour <- colour[c(3)]
-  } else {
+    critical_colour <- colour[c(4)]
+  }
+  else {
     if (colour == "colourblind") {
-      low_colour <- "#fee8c8"
-      concerns_colour <- "#fdbb84"
-      high_colour <- "#e34a33"
+      low_colour <- "#fef0d9"
+      concerns_colour <- "#fdcc8a"
+      high_colour <- "#fc8d59"
+      critical_colour <- "#d7301f"
     }
     if (colour == "cochrane") {
       low_colour <- "#02C100"
       concerns_colour <- "#E2DF07"
       high_colour <- "#BF0000"
+      critical_colour <- "#820000"
     }
   }
 
@@ -463,6 +495,7 @@ if (tool == "ROB1") {
       data[[i]] <- trimws(data[[i]])
       data[[i]] <- substr(data[[i]], 0, 1)
       data[[i]] <- gsub("u","s",data[[i]])
+      data[[i]] <- gsub("m","s",data[[i]])
     }
 
     #Select relevant columns, excluding the "Weights" column
@@ -473,6 +506,7 @@ if (tool == "ROB1") {
     data[[i]] <- trimws(data[[i]])
     data[[i]] <- substr(data[[i]], 0, 1)
     data[[i]] <- gsub("u","s",data[[i]])
+    data[[i]] <- gsub("m","s",data[[i]])
   }}
 
   #Remove dots from column names
@@ -509,6 +543,19 @@ if (tool == "ROB1") {
 
   rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
 
+  rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(2,3,4,1)])
+
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+  if(length(unique(rob.tidy$judgement))==5){adjust_caption <- -3.7}
+
   # Set sizes
   ssize <- psize - (psize/4)
 
@@ -527,8 +574,8 @@ if (tool == "ROB1") {
     ggplot2::labs(caption = caption) +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour),labels = c("High","Low","Some concerns")) +
-    ggplot2::scale_shape_manual(values = c(45,43,63),labels = c("High","Low","Some concerns")) +
+    ggplot2::scale_colour_manual(values =c(low_colour,concerns_colour,high_colour,critical_colour), labels = c("Low","Unclear","High","Critical")) +
+    ggplot2::scale_shape_manual(values = c(43,45,120,33), labels = c("Low","Unclear", "High","Critical")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -536,7 +583,7 @@ if (tool == "ROB1") {
                    legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
