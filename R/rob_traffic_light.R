@@ -64,6 +64,10 @@ if (tool == "ROB2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
 
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
   ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
@@ -101,7 +105,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
         legend.position = "bottom",
         legend.justification = "right",
         legend.direction = "vertical",
-        legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+        legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
         strip.text.x = ggplot2::element_text(size = 10),
         strip.text.y = ggplot2::element_text(angle = 180, size = 10),
         legend.text = ggplot2::element_text(size=9),
@@ -172,6 +176,11 @@ if (tool == "ROBINS-I") {
   rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1,4,3,2)])
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+  if(length(unique(rob.tidy$judgement))==5){adjust_caption <- -3.7}
 
   trafficlightplot <-
     ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
@@ -213,7 +222,7 @@ if (tool == "ROBINS-I") {
                    panel.spacing = ggplot2::unit(0, "line"),legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-3.1, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -287,6 +296,10 @@ if (tool == "ROBINS-I Online") {
   rob.tidy$judgement <- factor(rob.tidy$judgement,
                                levels(rob.tidy$judgement)[c(1,4,3,2)])
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
 
   trafficlightplot <-
     ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
@@ -328,7 +341,7 @@ if (tool == "ROBINS-I Online") {
                    panel.spacing = ggplot2::unit(0, "line"),legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-3.1, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -384,6 +397,11 @@ if (tool == "QUADAS-2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+
 trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = judgement)) +
     ggplot2::facet_grid(Study ~ factor(domain, levels=c("D1",
                                                "D2",
@@ -418,7 +436,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                    legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
@@ -509,6 +527,12 @@ if (tool == "ROB1") {
 
   rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
 
+  if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
+  if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
+  if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
+  if(length(unique(rob.tidy$judgement))==4){adjust_caption <- -3.1}
+  if(length(unique(rob.tidy$judgement))==5){adjust_caption <- -3.7}
+
   # Set sizes
   ssize <- psize - (psize/4)
 
@@ -536,7 +560,7 @@ if (tool == "ROB1") {
                    legend.position = "bottom",
                    legend.justification = "right",
                    legend.direction = "vertical",
-                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=-2.5, l=-10, unit="cm"),
+                   legend.margin=ggplot2::margin(t=-0.2, r=0, b=adjust_caption, l=-10, unit="cm"),
                    strip.text.x = ggplot2::element_text(size = 10),
                    strip.text.y = ggplot2::element_text(angle = 180, size = 10),
                    legend.text = ggplot2::element_text(size=9),
