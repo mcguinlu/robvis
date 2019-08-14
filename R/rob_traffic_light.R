@@ -102,7 +102,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
   ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
   ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
   ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour), labels = c("High","Some concerns","Low")) +
-  ggplot2::scale_shape_manual(values = c(45,63,43), labels = c("High","Some concerns","Low")) +
+  ggplot2::scale_shape_manual(values = c(120,45,43), labels = c("High","Some concerns","Low")) +
   ggplot2::scale_size(range = c(5,20)) +
   ggplot2::theme_bw() +
   ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -220,7 +220,7 @@ if (tool == "ROBINS-I") {
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
-    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
+    ggplot2::scale_shape_manual(values = c(33,120,45,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -339,7 +339,7 @@ if (tool == "ROBINS-I Online") {
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(critical_colour,high_colour,concerns_colour,low_colour), labels = c("Critical","Serious", "Moderate","Low" )) +
-    ggplot2::scale_shape_manual(values = c(33,45,63,43), labels = c("Critical", "Serious","Moderate", "Low")) +
+    ggplot2::scale_shape_manual(values = c(33,120,45,43), labels = c("Critical", "Serious","Moderate", "Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -438,7 +438,7 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour),labels = c("High","Some concerns","Low") ) +
-    ggplot2::scale_shape_manual(values = c(45,63,43),labels = c("High","Some concerns","Low")) +
+    ggplot2::scale_shape_manual(values = c(120,45,43),labels = c("High","Some concerns","Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -567,7 +567,7 @@ if (tool == "ROB1") {
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
     ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour),labels = c("High","Some concerns","Low")) +
-    ggplot2::scale_shape_manual(values = c(45,63,43),labels = c("High","Some concerns","Low")) +
+    ggplot2::scale_shape_manual(values = c(120,45,43),labels = c("High","Some concerns","Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
