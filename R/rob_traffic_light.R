@@ -64,6 +64,11 @@ if (tool == "ROB2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,3,2)])
+
   if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
   if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
   if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
@@ -96,8 +101,8 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                 ") +
   ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
   ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-  ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour), labels = c("High","Low","Some concerns")) +
-  ggplot2::scale_shape_manual(values = c(45,43,63), labels = c("High","Low","Some concerns")) +
+  ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour), labels = c("High","Some concerns","Low")) +
+  ggplot2::scale_shape_manual(values = c(45,63,43), labels = c("High","Some concerns","Low")) +
   ggplot2::scale_size(range = c(5,20)) +
   ggplot2::theme_bw() +
   ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -397,6 +402,11 @@ if (tool == "QUADAS-2") {
 
   rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,3,2)])
+
   if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
   if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
   if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
@@ -427,8 +437,8 @@ trafficlightplot <-  ggplot2::ggplot(rob.tidy, ggplot2::aes(x=1, y=1, colour = j
                   ") +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour),labels = c("High","Low","Some concerns") ) +
-    ggplot2::scale_shape_manual(values = c(45,43,63),labels = c("High","Low","Some concerns")) +
+    ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour),labels = c("High","Some concerns","Low") ) +
+    ggplot2::scale_shape_manual(values = c(45,63,43),labels = c("High","Some concerns","Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
@@ -527,6 +537,11 @@ if (tool == "ROB1") {
 
   rob.tidy$domain <- factor(rob.tidy$domain, levels = levels(rob.tidy$domain))
 
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <- factor(rob.tidy$judgement,
+                               levels(rob.tidy$judgement)[c(1,4,3,2)])
+
   if(length(unique(rob.tidy$judgement))==1){adjust_caption <- -1.3}
   if(length(unique(rob.tidy$judgement))==2){adjust_caption <- -1.9}
   if(length(unique(rob.tidy$judgement))==3){adjust_caption <- -2.5}
@@ -551,8 +566,8 @@ if (tool == "ROB1") {
     ggplot2::labs(caption = caption) +
     ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
     ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL, breaks = NULL, name = "Study", position = "left") +
-    ggplot2::scale_colour_manual(values =c(high_colour,low_colour,concerns_colour),labels = c("High","Low","Some concerns")) +
-    ggplot2::scale_shape_manual(values = c(45,43,63),labels = c("High","Low","Some concerns")) +
+    ggplot2::scale_colour_manual(values =c(high_colour,concerns_colour,low_colour),labels = c("High","Some concerns","Low")) +
+    ggplot2::scale_shape_manual(values = c(45,63,43),labels = c("High","Some concerns","Low")) +
     ggplot2::scale_size(range = c(5,20)) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
