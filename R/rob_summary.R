@@ -216,7 +216,6 @@ if (tool == "ROB2") {
       ) +
       ggplot2::coord_flip(ylim = c(0, 1)) +
       ggplot2::scale_fill_manual(
-        "Risk of Bias",
         values = c(
           "m" = concerns_colour,
           "s" = high_colour,
@@ -224,10 +223,10 @@ if (tool == "ROB2") {
           "c" = critical_colour
         ),
         labels = c(
-          "  Critical risk  ",
-          "  Serious risk  ",
-          "  Moderate risk ",
-          "  Low risk  "
+          " Critical risk  ",
+          " Serious risk  ",
+          " Moderate risk ",
+          " Low risk  "
         )
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
@@ -247,8 +246,8 @@ if (tool == "ROB2") {
         panel.background = ggplot2::element_blank(),
         legend.background = ggplot2::element_rect(linetype = "solid",
                                                   colour = "black"),
-        legend.title = ggplot2::element_text(size=9, face = "bold"),
-        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.7, "cm"),
         legend.text = ggplot2::element_text(size = 8)
       ) +
       ggplot2::guides(fill = ggplot2::guide_legend(title = "Risk of bias judgement",
@@ -343,7 +342,7 @@ if (tool == "ROB2") {
       ) +
       ggplot2::coord_flip(ylim = c(0, 1)) +
       ggplot2::scale_fill_manual(
-        "Risk of Bias",
+
         values = c(
           "m" = concerns_colour,
           "s" = high_colour,
@@ -351,10 +350,10 @@ if (tool == "ROB2") {
           "c" = critical_colour
         ),
         labels = c(
-          "  Critical risk  ",
-          "  Serious risk  ",
-          "  Moderate risk ",
-          "  Low risk  "
+          " Critical risk  ",
+          " Serious risk  ",
+          " Moderate risk ",
+          " Low risk  "
         )
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
@@ -368,14 +367,13 @@ if (tool == "ROB2") {
           size = 0.5,
           linetype = "solid"
         ),
-        legend.position = "bottom",
         panel.grid.major = ggplot2::element_blank(),
         panel.grid.minor = ggplot2::element_blank(),
         panel.background = ggplot2::element_blank(),
         legend.background = ggplot2::element_rect(linetype = "solid",
                                                   colour = "black"),
-        legend.title = ggplot2::element_text(size=9, face = "bold"),
-        legend.key.size = ggplot2::unit(0.75, "cm"),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.7, "cm"),
         legend.text = ggplot2::element_text(size = 8)
       ) +
       ggplot2::guides(fill = ggplot2::guide_legend(title = "Risk of bias judgement",
