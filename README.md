@@ -110,7 +110,6 @@ of bias in systematic reviews).
     [1] "ROBINS-I"
     [1] "QUADAS-2"
     [1] "ROB1"
-    [1] "ROBINS-I Online"
 
 ## Advanced usage
 
@@ -192,4 +191,3 @@ file for details.
     `ggplot2` coding issues.
   - [Eliza Grames](https://github.com/elizagrames) for creating the
     `robvis` hex sticker.
-    
