@@ -30,9 +30,6 @@
         delay: 5s
     	  message: "Thanks for making your first contribution! :slightly_smiling_face:"
 
-    merges:
-      # Delete branch after merging the PR
-      - action: delete_branch
 
     # All maintainer comments containing the pattern "duplicate of"
     # will apply the duplicate label

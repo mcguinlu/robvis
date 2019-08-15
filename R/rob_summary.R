@@ -82,10 +82,10 @@ if (tool == "ROB2") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                              levels(rob.tidy$domain)[c(6, 5, 3, 2, 1, 4)])
+                              levels(rob.tidy$domain)[c(6, 5, 4, 3, 2, 1)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
+                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
 
     # Create plot
     plot <- ggplot2::ggplot(data = rob.tidy) +
@@ -104,9 +104,10 @@ if (tool == "ROB2") {
           "s" = concerns_colour,
           "h" = high_colour
         ),
-        labels = c("  High risk of bias  ",
-                   "  Some concerns      ",
-                   "  Low risk of bias   ")
+        labels = c(
+          "h" = "  High risk of bias  ",
+          "s" = "  Some concerns      ",
+          "l" = "  Low risk of bias   ")
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
       ggplot2::theme(
@@ -202,7 +203,7 @@ if (tool == "ROB2") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
+                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 2, 5,  4, 1)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1,4,3,2)])
@@ -223,10 +224,10 @@ if (tool == "ROB2") {
           "c" = critical_colour
         ),
         labels = c(
-          " Critical risk  ",
-          " Serious risk  ",
-          " Moderate risk ",
-          " Low risk  "
+          "c" =  "Critical risk  ",
+          "s" = " Serious risk  ",
+          "m" = " Moderate risk ",
+          "l" = " Low risk  "
         )
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
@@ -328,7 +329,7 @@ if (tool == "ROB2") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
-                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 5, 2, 4, 1)])
+                              levels(rob.tidy$domain)[c(8, 7, 6, 3, 2, 5,  4, 1)])
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
                                  levels(rob.tidy$judgement)[c(1,4,3,2)])
@@ -350,10 +351,10 @@ if (tool == "ROB2") {
           "c" = critical_colour
         ),
         labels = c(
-          " Critical risk  ",
-          " Serious risk  ",
-          " Moderate risk ",
-          " Low risk  "
+          "c" =  "Critical risk  ",
+          "s" = " Serious risk  ",
+          "m" = " Moderate risk ",
+          "l" = " Low risk  "
         )
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
@@ -444,10 +445,17 @@ if (tool == "QUADAS-2") {
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
+                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
 
-    rob.tidy$domain <- factor(rob.tidy$domain,
+    if(overall==TRUE) {
+      rob.tidy$domain <- factor(rob.tidy$domain,
                               levels(rob.tidy$domain)[c(3,1,5,2,4)])
+    } else {
+      rob.tidy$domain <- factor(rob.tidy$domain,
+                                levels(rob.tidy$domain)[c(1,4,2,3)])
+    }
+
+
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
@@ -466,9 +474,9 @@ if (tool == "QUADAS-2") {
           "l" = low_colour
         ),
         labels = c(
-          "  High risk of bias   ",
-          "  Some concerns      ",
-          "  Low risk of bias  ")
+          "h" = "  High risk of bias   ",
+          "s" = "  Some concerns      ",
+          "l" = "  Low risk of bias  ")
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
       ggplot2::theme(
@@ -556,7 +564,7 @@ if (tool == "QUADAS-2") {
     rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
     rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1, 3, 2)])
+                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
 
     for (i in 1:(ncol(data.tmp)-1)) {
     levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
@@ -581,9 +589,10 @@ if (tool == "QUADAS-2") {
           "s" = concerns_colour,
           "h" = high_colour
         ),
-        labels = c("  High risk of bias  ",
-                   "  Some concerns      ",
-                   "  Low risk of bias   ")
+        labels = c(
+          "h" = "  High risk of bias  ",
+          "s" = "  Some concerns      ",
+          "l" = "  Low risk of bias   ")
       ) +
       ggplot2::scale_y_continuous(labels = scales::percent) +
       ggplot2::theme(
