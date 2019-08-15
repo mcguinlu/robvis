@@ -26,6 +26,6 @@ pull_request_rules:
 
   - name: comment on PR
     conditions:
-      - author!=@mcguinlu
+      - author != mcguinlu
     actions:
       comment: Thanks for your PR - I'll review it as soon as possible!
