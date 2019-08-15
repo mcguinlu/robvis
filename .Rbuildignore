@@ -9,3 +9,4 @@
 ^\.github$
 ^appveyor\.yml$
 ^codecov\.yml$
+^.mergify\.yml$
