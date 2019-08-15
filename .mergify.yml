@@ -23,9 +23,3 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-
-  - name: comment on PR
-    conditions:
-      - author != @mcguinlu
-    actions:
-      comment: Thanks for your PR - I'll review it as soon as possible!
