@@ -77,15 +77,12 @@ if (tool == "ROB2") {
                                                domain, judgement,
                                                -Weights))
 
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
                               levels(rob.tidy$domain)[c(6, 5, 4, 3, 2, 1)])
 
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
+    rob.tidy$judgement <- factor(rob.tidy$judgement,levels = c("h", "s","l" ))
 
     # Create plot
     plot <- ggplot2::ggplot(data = rob.tidy) +
@@ -198,15 +195,13 @@ if (tool == "ROB2") {
                                                domain, judgement,
                                                -Weights))
 
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
                               levels(rob.tidy$domain)[c(8, 7, 6, 3, 2, 5,  4, 1)])
 
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1,4,3,2)])
+
+    rob.tidy$judgement <- factor(rob.tidy$judgement,levels = c("c","s", "m","l" ))
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
@@ -324,15 +319,12 @@ if (tool == "ROB2") {
                                                domain, judgement,
                                                -Weights))
 
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
     rob.tidy$domain <- factor(rob.tidy$domain,
                               levels(rob.tidy$domain)[c(8, 7, 6, 3, 2, 5,  4, 1)])
 
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(1,4,3,2)])
+    rob.tidy$judgement <- factor(rob.tidy$judgement,levels = c("c","s", "m","l" ))
 
     plot <- ggplot2::ggplot(data = rob.tidy) +
       ggplot2::geom_bar(
@@ -440,12 +432,9 @@ if (tool == "QUADAS-2") {
                                                domain, judgement,
                                                -Weights))
 
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
     rob.tidy$domain <- as.factor(rob.tidy$domain)
 
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
+    rob.tidy$judgement <- factor(rob.tidy$judgement,levels = c("h", "s","l" ))
 
     if(overall==TRUE) {
       rob.tidy$domain <- factor(rob.tidy$domain,
@@ -529,6 +518,7 @@ if (tool == "QUADAS-2") {
       data[[i]] <- trimws(data[[i]])
       data[[i]] <- substr(data[[i]], 0, 1)
       data[[i]] <- gsub("u","s",data[[i]])
+      data[[i]] <- gsub("m","s",data[[i]])
     }
 
     # Define weights if FALSE and check if there is a weight column if TRUE
@@ -561,10 +551,7 @@ if (tool == "QUADAS-2") {
                                                domain, judgement,
                                                -Weights))
 
-    rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
-    rob.tidy$judgement <- factor(rob.tidy$judgement,
-                                 levels(rob.tidy$judgement)[c(2, 3, 1)])
+    rob.tidy$judgement <- factor(rob.tidy$judgement,levels = c("h", "s","l" ))
 
     for (i in 1:(ncol(data.tmp)-1)) {
     levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
