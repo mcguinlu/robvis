@@ -1,3 +1,19 @@
+# robvis 0.3.0 (August 2019)
+
+* Major updates
+  * `rob_traffic_light()` can now handle a summary table with or without a "Weight column". `rob_summary()` still requires a "Weight" column, as it is strongly encouraged that weights be used to create the summary barplot. 
+  * Functions can now handle summary tables with less than the expected number of judgements. For example, for ROB2, a sheet with only "Low" and "Some concerns" would cause the resulting graph to be inverted and mess up the ordering of the legend. This issue is now fixed for both `rob_summary()` and `rob_traffic_light()`.
+  * The shapes indicating the risk-of-bias level in `rob_traffic_light()` have been updated.
+  * `rob_traffic_light()` no longer orders studies alphabetically, instead retaining the order from the uploaded CSV.
+  * The order of the domains in `rob_summary()` has been corrected to accurately reflect the order of domains in each tool, rather than presenting them in alphabetical order.
+  * Legends for `rob_traffic_light()` are now ordered by ascending/descending (depending on the tool) risk of bias. 
+   
+* Minor updates
+  * `CODE_OF_CONDUCT` and `CONTRIBUTING` documents have been added to the GitHub repo.
+  * A PR template has been added to the GitHub repo.
+
+
+
 # robvis 0.2.0 (May 2019)
 
 * Major updates
