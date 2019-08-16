@@ -174,6 +174,12 @@ summary_rob +
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
 
+## Code of conduct
+
+Please note that the ‘robvis’ project is released with a [Contributor
+Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
+you agree to abide by its terms.
+
 ## License
 
 This project is licensed under the MIT License - see the
