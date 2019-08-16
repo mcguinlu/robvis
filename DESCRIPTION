@@ -1,6 +1,6 @@
 Package: robvis
 Title: Quickly Visualise The Results Of Risk-Of-Bias (ROB) Assessments
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c( 
     person("Luke", "McGuinness",
            role = c("aut", "cre"),
