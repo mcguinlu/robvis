@@ -16,13 +16,13 @@ Depends:
 Imports:
     ggplot2,
     tidyr,
-    scales,
-    randomcoloR
+    scales
 Suggests:
     knitr,
     rmarkdown,
     covr,
-    testthat
+    testthat,
+    pkgdown
 VignetteBuilder: 
   knitr, 
   rmarkdown

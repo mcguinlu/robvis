@@ -35,11 +35,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-            }
         }
 
 
@@ -159,12 +154,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
                 critical_colour <- "#820000"
-            }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-                critical_colour <- randomcoloR::randomColor()
             }
         }
 
@@ -295,12 +284,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 high_colour <- "#BF0000"
                 critical_colour <- "#820000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-                critical_colour <- randomcoloR::randomColor()
-            }
         }
 
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
@@ -425,11 +408,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-            }
         }
 
         for (i in 2:6) {
@@ -546,12 +524,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
                 critical_colour <- "#820000"
-            }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-                critical_colour <- randomcoloR::randomColor()
             }
         }
 
