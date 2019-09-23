@@ -17,7 +17,7 @@ Imports:
     ggplot2,
     tidyr,
     scales,
-    usethis
+    randomcoloR
 Suggests:
     knitr,
     rmarkdown,
