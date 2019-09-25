@@ -1,10 +1,14 @@
 ---
-title: "Introduction to robvis, a visualisation tool for risk-of-bias assessments"
-author: "LAM"
+title: "Introduction to `robvis`, a visualization tool for risk-of-bias assessments"
+author: "Luke A McGuinness"
 date: "`r Sys.Date()`"
-vignette: >
-  %\VignetteIndexEntry{Introduction to robvis}
-  %\VignetteEngine{knitr::rmarkdown}
+output:
+  html_document:
+    toc: yes
+    toc_depth: 4
+vignette: |
+  %\VignetteIndexEntry{Introduction to robvis} 
+  %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
 ---
 ```{r setup, include=FALSE}
@@ -14,30 +18,216 @@ knitr::opts_chunk$set(
   warning = FALSE,
   fig.width = 8,
   fig.height = 2.41)
-  library(ggplot2)
-  library(robvis)
+
+library(robvis)
+
 ```
-The `robvis` package takes the summary table from risk-of-bias assessments, converts it to tidy data, produces a summary plot (incorporating some measure of weighting for each study), and formats the plot by the tool used.
 
-Users can currently produce summary plots for three commonly used tools: ROB2.0, ROBINS-I and QUADAS-2
+# Introduction
 
-### Common structure of risk-of-bias assessment output (usually in Excel)
-```{r headrob}
+The `robvis` package provides functions to convert a risk-of-bias assessment summary table into a summary plot or a traffic-light plot, formatted based on the specific risk-of-bias assessment tool used. 
+
+`robvis` currently contains templates for the following tools:
+
+* ROB2 
+* ROBINS-I
+* QUADAS-2
+* ROB1
+
+Users can find the exact assessment tool name expected by the `tool` argument of the `rob_summary()` and `rob_traffic_light()` functions by running:
+
+```{r, eval = FALSE}
+rob_tools()
+#> [1] "ROB2"
+#> [1] "ROBINS-I"
+#> [1] "QUADAS-2"
+#> [1] "ROB1"
+```
+
+## Loading your data
+
+`robvis` expects certain facts about the data you provide it.
+
+1. The first column contains the study identifier 
+1. The second-to-last column will contain the overall risk-of-bias judgments
+1. The last column will contain the weights, which can all be set to 1 if the relevant weights are not available.
+1. The first row of the data does not contain column headings. This can be achieved using the `header = TRUE` option (which indicates that the first line contains column headings) when reading in your summary table:
+
+```{r, eval=FALSE}
+data <- read.csv("path/to/summary_table.csv", header = TRUE)
+```
+
+All other columns are expected to contain the results of the risk-of bias assessments for a specific domain. To elaborate, consider as an example the ROB2.0 tool which has 5 domains. The resulting data set that `robvis` would expect for this tool would have 8 columns:
+
+  * Column 1: Study identifier
+  * Column 2-6: One RoB2 domain per column
+  * Column 7: Overall risk-of-bias judgments
+  * Column 8: Weights
+  
+  
+The only exception to this is the `"ROB1"` template, which is discussed [below.](#rob1)
+
+
+## Example data sets {#example-data-sets}
+
+To help users explore `robvis`, we have included an example data set for each tool template that exists in the package. For example, the `data_rob2` data set, which contains example risk-of-bias assessments performed using the RoB2.0 tool for randomized controlled trials, is presented below:
+
+```{r headrob, echo = FALSE}
 knitr::kable(data_rob2)
 ```
 
+<br>
+<hr>
+<br>
 
-### RoB2.0 tool for randomised controlled trials
-```{r rob2summary}
+# Summary plots (`rob_summary()`)
+
+This function returns a `ggplot` object displaying a weighted bar-chart of the distribution of risk-of-bias judgments across the domains of the specified tool.
+
+## Examples:
+### RoB2.0 tool for randomized controlled trials
+```{r}
 rob_summary(data_rob2, tool = "ROB2")
 ```
 
-### ROBINS-I tool for non-randomised studies of interventions
-```{r robinssummary}
+### ROBINS-I tool for non-randomized studies of interventions
+```{r}
 rob_summary(data_robins, tool = "ROBINS-I")
 ```
 
-### QUADAS-2 for diagnostic test accuracy studies
-```{r quadassummary}
+### QUADAS-2 tool for diagnostic test accuracy studies
+```{r}
 rob_summary(data_quadas, tool = "QUADAS-2")
+```
+
+## `rob_summary()` options
+### Overall risk-of-bias judgments (`overall`)
+
+By default, a bar representing the overall risk-of-bias judgments is not included in the plot. If you would like to include this, set `overall = TRUE`. For example:
+
+```{r}
+rob_summary(data_rob2, tool = "ROB2", overall = TRUE)
+```
+
+### Weighted or un-weighted bar plots (`weighted`)
+
+By default, the barplot is weighted by some measure of study precision (see [Example data sets](#example-data-sets)). You can turn off this option by setting `weighted = FALSE`. For example, compare this plot with that produced by the based `rob_summary()` function using the `data_rob2` data set.
+
+```{r}
+rob_summary(data_rob2, tool = "ROB2", weighted = FALSE)
+```
+
+
+### Colour scheme (`colour`)
+
+__NB: Please note the non-US English spelling of colour__
+
+The `colour` argument of both plotting functions allows users to select from two predefined colour schemes, "cochrane" (default) or "colourblind", or to define their own palette by providing a vector of hex codes.
+
+For example, to use the predefined "colourblind" palette:
+
+```{r}
+rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
+```
+
+And to define your own colour scheme:
+```{r}
+rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+```
+
+When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. "Low"/"Moderate"/"High"/"Critical") and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. "Low" -> "Critical"), with the first hex corresponding to "Low" risk of bias.
+
+<br>
+<hr>
+<br>
+
+# Traffic light plots (`rob_traffic_light()`)
+
+This function returns a `ggplot` object displaying the risk-of-bias judgement in each domain for each study, as well as the overall risk-of-bias judgement for that study.
+
+## Examples:
+### RoB2.0 tool for randomized controlled trials
+```{r, fig.width = 6, fig.height = 9, fig.align="center"}
+rob_traffic_light(data_rob2, tool = "ROB2")
+```
+
+### ROBINS-I tool for non-randomized studies of interventions
+```{r, fig.width = 7.5, fig.height = 10.5, fig.align="center"}
+rob_traffic_light(data_robins, tool = "ROBINS-I")
+```
+
+### QUADAS-2 tool for diagnostic test accuracy studies
+```{r, fig.width = 7.5, fig.height = 10.5, fig.align="center"}
+rob_traffic_light(data_quadas, tool = "QUADAS-2")
+```
+
+## `rob_traffic_light()` options
+
+### Point size (`psize`)
+
+By default, the size of each point is set to 20. However, if you have a large number of studies, it is useful to be able to reduce the point size so that the resulting graphic is not too large.
+
+```{r, fig.width = 6, fig.height = 9, fig.align="center"}
+# Generate larger dataset
+data <- rbind(data_rob2, data_rob2)
+data$Study <- paste("Study",seq(1,18))
+
+# Plot with reduced point size
+rob_traffic_light(data, tool = "ROB2", psize = 10)
+```
+
+### Colour scheme (`colour`)
+
+__NB: Please note the non-US English spelling of colour__
+
+The `colour` argument of both plotting functions allows users to select from two predefined colour schemes, "cochrane" (default) or "colourblind", or to define their own palette by providing a vector of hex codes.
+
+For example, to use the predefined "colourblind" palette:
+
+```{r, fig.width = 6, fig.height = 9, fig.align="center"}
+rob_traffic_light(data = data_rob2, tool = "ROB2", colour = "colourblind")
+```
+
+And to define your own colour scheme:
+```{r, fig.width = 6, fig.height = 9, fig.align="center"}
+rob_traffic_light(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+```
+
+When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. "Low"/"Moderate"/"High"/"Critical") and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. "Low" -> "Critical"), with the first hex corresponding to "Low" risk of bias.
+
+<br>
+<hr>
+<br>
+
+# The "ROB1" template {#rob1}
+
+## Motivation
+This template offers increased flexibility in the domains that are included in the plot. It can handle any number of user defined domains and uses the user defined column headings as domains titles in the resulting figures.
+
+
+## Varying numbers of domains
+The `"ROB1"` option can handle varying numbers of columns, as authors using the ROB1 assessment tool frequently add or remove bias domains within this tool. __However, we would discourage authors from doing so with any tool other than ROB1.__ Authors using other published tools (ROB2, QUADAS-2, ROBINS-I) should use the stricter templates presented above to ensure they conform with the guidance.
+
+## Domain names
+For the other tools listed above, the names of the columns containing the domain-level risk of bias judgments are not important. However, this is not the case when using the `"ROB1"` template.
+
+Compare for example, the first row of the `data_rob2` and the `data_rob1`, and the resulting figures.
+
+```{r}
+colnames(data_rob2)
+
+colnames(data_rob1)
+```
+
+The domain columns (Columns 2-6) in the ROB2 example have been given arbitrary names of D1-D5, as they will be overwritten by the function to correspond to the correct domain titles as per the ROB2 guidance.
+
+In contrast, the domain columns (Columns 2-8) in the ROB1 example use their true title as the column heading, as these will be used in the figures produced by `rob_summary()` and `rob_traffic_light()`. As an example, suppose we change the name of the "Random.sequence.generation" column to something else. In the `rob_summary()` figure, the title of the first bar is changed, while in the `rob_traffic_light()` figure, the caption is updated to reflect this change.
+
+```{r, echo = FALSE}
+colnames(data_rob1)[2] <- "This is a test"
+rob_summary(data_rob1, tool = "ROB1")
+```
+
+```{r, fig.width = 7, fig.height = 9, fig.align="center", echo = FALSE}
+rob_traffic_light(data_rob1, tool = "ROB1")
 ```
