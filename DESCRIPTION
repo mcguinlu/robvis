@@ -24,7 +24,7 @@ Suggests:
     covr,
     testthat
 VignetteBuilder: 
-  knitr, 
-  rmarkdown
+    knitr, 
+    rmarkdown
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
