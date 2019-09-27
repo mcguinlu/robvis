@@ -304,7 +304,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         }
 
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
-        data <- data[, which(is.na(data) == FALSE)]
+        data <- data[, colSums(is.na(data)) != nrow(data)]
 
         for (i in 2:9) {
             data[[i]] <- tolower(data[[i]])
@@ -338,8 +338,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            4, 3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1, 4, 3, 2)])
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
