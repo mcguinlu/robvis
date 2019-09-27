@@ -13,7 +13,6 @@
   * A PR template has been added to the GitHub repo.
 
 
-
 # robvis 0.2.0 (May 2019)
 
 * Major updates
