@@ -24,7 +24,7 @@ Suggests:
     testthat,
     pkgdown
 VignetteBuilder: 
-  knitr, 
-  rmarkdown
+    knitr, 
+    rmarkdown
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
