@@ -236,7 +236,7 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
         }
 
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
-        data <- data[, which(is.na(data) == FALSE)]
+        data <- data[, colSums(is.na(data)) != nrow(data)]
 
         # Data preprocessing
         for (i in 2:9) {
