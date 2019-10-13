@@ -36,11 +36,6 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-            }
         }
 
         # Data preprocessing
@@ -137,12 +132,6 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
                 critical_colour <- "#820000"
-            }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-                critical_colour <- randomcoloR::randomColor()
             }
         }
 
@@ -244,12 +233,6 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
                 high_colour <- "#BF0000"
                 critical_colour <- "#820000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-                critical_colour <- randomcoloR::randomColor()
-            }
         }
 
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
@@ -346,11 +329,6 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
             }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
-            }
         }
 
 
@@ -445,11 +423,6 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
                 low_colour <- "#02C100"
                 concerns_colour <- "#E2DF07"
                 high_colour <- "#BF0000"
-            }
-            if (colour == "random") {
-                low_colour <- randomcoloR::randomColor()
-                concerns_colour <- randomcoloR::randomColor()
-                high_colour <- randomcoloR::randomColor()
             }
         }
 
