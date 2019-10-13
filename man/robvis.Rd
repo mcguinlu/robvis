@@ -4,8 +4,8 @@
 \name{robvis}
 \alias{robvis}
 \alias{robvis-package}
-\title{robvis: A package for producing risk of bias assessment summary figures.}
+\title{robvis: A package for producing risk-of-bias assessment figures.}
 \description{
-The robvis package is designed to help users produce summary level
-risk of bias assessment figures.
+The robvis package is designed to help users produce publication quality
+risk-of-bias assessment figures.
 }
