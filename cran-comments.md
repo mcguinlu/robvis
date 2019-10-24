@@ -1,3 +1,8 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Fully specified two URLs that were invalid in the previous submission
+
 ## Test environments
 * Windows 10 (local), R 3.5.0 
 * Ubuntu 16.04 (on travis-ci), devel and release
