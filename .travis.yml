@@ -1,4 +1,15 @@
 language: r
 
+sudo: required
+
+r:
+  - release
+  - devel
+
+addons:
+  apt:
+    packages:
+      - libv8-dev
+
 after_success:
   - Rscript -e 'covr::codecov()'

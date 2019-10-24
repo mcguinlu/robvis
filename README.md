@@ -28,8 +28,6 @@ formatted according to the assessment tool used.
 
 ## Getting started
 
-### Install the `robvis` pacakage
-
 First ensure you have the `devtools` package installed:
 
 ``` r
@@ -83,7 +81,7 @@ summary_rob
 
 Returns a ggplot object displaying a [“traffic light
 plot”](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm),
-displaying the risk of bias judgement in each domain for each study.
+displaying the risk of bias judgment in each domain for each study.
 
 ``` r
 trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
@@ -102,7 +100,7 @@ trafficlight_rob
 
 Outputs a list of the risk of bias assessment tools for which a template
 currently exists in rob\_summary(). We expect this list to be updated in
-the near future to inlcude tools such as ROBIS (tool for assessing risk
+the near future to include tools such as ROBIS (tool for assessing risk
 of bias in systematic reviews).
 
     rob_tools()
@@ -117,7 +115,7 @@ of bias in systematic reviews).
 
 The `colour` argument of both plotting functions allows users to select
 from two predefined colour schemes (“cochrane” or “colourblind”) or to
-define their own pallete by providing a vector of hex codes.
+define their own palette by providing a vector of hex codes.
 
 For example, to use the predefined “colourblind” palette:
 
@@ -177,19 +175,20 @@ summary_rob +
 ## Code of conduct
 
 Please note that the ‘robvis’ project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
-you agree to abide by its terms.
+Code of
+Conduct](https://github.com/mcguinlu/robvis/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 ## License
 
 This project is licensed under the MIT License - see the
-[LICENSE.md](https://github.com/mcguinlu/robvis/blob/traffic_light_plot/LICENSE)
+[LICENSE.md](https://github.com/mcguinlu/robvis/blob/master/LICENSE)
 file for details.
 
 ## Acknowledgments
 
   - The `rob_summary()` function was based on code forwarded by a
-    colleague. I have recently learnt that this code was adapted from
+    colleague. I recently discovered that this code was adapted from
     that presented in the wonderful “[Doing Meta-Analysis in
     R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/plotting-the-summary.html)”
     guide, so I would like to acknowledge the authors here.

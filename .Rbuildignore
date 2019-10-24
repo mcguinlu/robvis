@@ -1,3 +1,5 @@
+^revdep$
+^cran-comments\.md$
 ^README\.Rmd$
 ^\.travis\.yml$
 ^Meta$
@@ -12,3 +14,4 @@
 ^.mergify\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
+^CRAN-RELEASE$

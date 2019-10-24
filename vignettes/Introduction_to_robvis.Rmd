@@ -143,7 +143,7 @@ When defining your own colour scheme, you must ensure that the number of discret
 
 # Traffic light plots (`rob_traffic_light()`)
 
-This function returns a `ggplot` object displaying the risk-of-bias judgement in each domain for each study, as well as the overall risk-of-bias judgement for that study.
+This function returns a `ggplot` object displaying the risk-of-bias judgment in each domain for each study, as well as the overall risk-of-bias judgement for that study.
 
 ## Examples:
 ### RoB2.0 tool for randomized controlled trials
