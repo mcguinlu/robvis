@@ -1,9 +1,9 @@
 #' Produce traffic-light plots of risk-of-bias assessments.
 #' @description A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
-#' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
+#' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
-#' @param psize Controll the size of the traffic lights
+#' @param psize Control the size of the traffic lights. Default is 20.
 #' @param quiet An option to quietly produce the plot without displaying it.
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @export
