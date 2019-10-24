@@ -35,6 +35,7 @@ environment:
   # see https://github.com/krlmlr/r-appveyor#readme for details
   USE_RTOOLS: true
   _R_CHECK_FORCE_SUGGESTS_: false
+  PKGTYPE: both
 
   # R_REMOTES_STANDALONE: true
 
