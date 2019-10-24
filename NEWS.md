@@ -1,4 +1,4 @@
-# robvis 0.3.0 (August 2019)
+# robvis 0.3.0 (October 2019)
 
 * Major updates
   * `rob_traffic_light()` can now handle a summary table with or without a "Weight column". `rob_summary()` still requires a "Weight" column, as it is strongly encouraged that weights be used to create the summary barplot. 
