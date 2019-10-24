@@ -150,13 +150,13 @@ summary_rob +
 ## Code of conduct
 
 Please note that the 'robvis' project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+[Contributor Code of Conduct](https://github.com/mcguinlu/robvis/blob/master/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mcguinlu/robvis/blob/traffic_light_plot/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mcguinlu/robvis/blob/master/LICENSE) file for details.
 
 ## Acknowledgments
 
