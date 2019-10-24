@@ -1,8 +1,6 @@
 ^revdep$
 ^cran-comments\.md$
 ^README\.Rmd$
-^README\.md$
-^NEWS\.md$
 ^\.travis\.yml$
 ^Meta$
 ^doc$
