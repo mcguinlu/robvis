@@ -1,8 +1,8 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Omitted the redundant 'Quickly' from your title (requested change).
-* Added links to relevant references to the description field of the DESCRIPTION (requested change).
+* Omitted the redundant 'Quickly' from the title field of the DESCRIPTION file
+* Added links to relevant references to the description field of the DESCRIPTION
 
 ## Test environments
 * Windows 10 (local), R 3.5.0 
