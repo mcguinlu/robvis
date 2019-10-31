@@ -1,5 +1,5 @@
 Package: robvis
-Title: Quickly Visualize the Results of Risk-of-Bias (ROB) Assessments
+Title: Visualize the Results of Risk-of-Bias (ROB) Assessments
 Version: 0.3.0
 Authors@R: c( 
     person("Luke", "McGuinness",
@@ -13,9 +13,11 @@ Description: Helps users in quickly visualizing risk-of-bias
     specific domain-level judgments for each study. The resulting figures are 
     of publication quality and are formatted according the risk-of-bias 
     assessment tool use to perform the assessments. Currently, the supported 
-    tools are ROB2.0 (for randomized controlled trials), ROBINS-I (for 
-    non-randomised studies of interventions), and QUADAS-2 (for diagnostic 
-    accuracy studies).
+    tools are ROB2.0 (for randomized controlled trials; Sterne et al (2019)  
+    <doi:10.1136/bmj.l4898> ), ROBINS-I (for non-randomised studies of 
+    interventions; Sterne et al (2016) <doi:10.1136/bmj.i4919> ), and QUADAS-2 
+    (for diagnostic accuracy studies; Whiting et al (2011) 
+    <doi:10.7326/0003-4819-155-8-201110180-00009>).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -30,8 +32,7 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    testthat,
-    pkgdown
+    testthat
 VignetteBuilder: 
     knitr, 
     rmarkdown

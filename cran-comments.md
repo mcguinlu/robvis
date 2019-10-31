@@ -1,7 +1,8 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fully specified two URLs that were invalid in the previous submission
+* Omitted the redundant 'Quickly' from your title (requested change).
+* Added links to relevant references to the description field of the DESCRIPTION (requested change).
 
 ## Test environments
 * Windows 10 (local), R 3.5.0 
