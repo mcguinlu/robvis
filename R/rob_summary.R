@@ -7,6 +7,21 @@
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
 #' @param weighted An option to specify whether weights should be used in the barplot. Default is TRUE, in line with current Cochrane Collaboration guidance.
 #' @return Risk of bias assessment barplot figure.
+#' @examples
+#'
+#' data <- data.frame(stringsAsFactors=FALSE,
+#'                    Study = c("Study 1", "Study 2"),
+#'                    D1 = c("Low", "Some concerns"),
+#'                    D2 = c("Low", "Low"),
+#'                    D3 = c("Low", "Low"),
+#'                    D4 = c("Low", "Low"),
+#'                    D5 = c("Low", "Low"),
+#'                    Overall = c("Low", "Low"),
+#'                    Weight = c(33.33333333, 33.33333333)
+#'                    )
+#'
+#' rob_summary(data, "ROB2")
+#'
 #' @export
 
 rob_summary <-

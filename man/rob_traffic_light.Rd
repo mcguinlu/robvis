@@ -24,3 +24,19 @@ Risk-of-bias assessment traffic light plot (ggplot2 object)
 \description{
 A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
 }
+\examples{
+
+data <- data.frame(stringsAsFactors=FALSE,
+                   Study = c("Study 1", "Study 2"),
+                   D1 = c("Low", "Some concerns"),
+                   D2 = c("Low", "Low"),
+                   D3 = c("Low", "Low"),
+                   D4 = c("Low", "Low"),
+                   D5 = c("Low", "Low"),
+                   Overall = c("Low", "Low"),
+                   Weight = c(33.33333333, 33.33333333)
+                   )
+
+rob_traffic_light(data, "ROB2")
+
+}
