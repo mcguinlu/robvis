@@ -9,7 +9,7 @@ Authors@R: c(
 Description: Helps users in quickly visualizing risk-of-bias 
     assessments performed as part of a systematic review. It allows users to 
     create weighted bar-plots of the distribution of risk-of-bias judgments 
-    within each bias domain, in addition to “traffic light” plots of the 
+    within each bias domain, in addition to traffic-light plots of the 
     specific domain-level judgments for each study. The resulting figures are 
     of publication quality and are formatted according the risk-of-bias 
     assessment tool use to perform the assessments. Currently, the supported 
