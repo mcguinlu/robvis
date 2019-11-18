@@ -1,8 +1,10 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Omitted the redundant 'Quickly' from the title field of the DESCRIPTION file
-* Added links to relevant references to the description field of the DESCRIPTION
+* Removed the directed quotations in the Description field of the DESCRIPTION 
+file, e.g. "traffic light" is now traffic light.
+* Added small executable examples to the Rd-files of the functions contained
+in this package.
 
 ## Test environments
 * Windows 10 (local), R 3.5.0 
