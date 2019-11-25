@@ -17,9 +17,13 @@ knitr::opts_chunk$set(
 
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN Badge.](https://www.r-pkg.org/badges/version/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+[![CRAN Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+<br>
 [![Build Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis) 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
 [![Codecov test coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
+<br>
 [![metaverse Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
 
 
@@ -34,20 +38,20 @@ library(robvis)
 library(kableExtra)
 library(magrittr)
 ```
-The `robvis` package takes the summary table from risk-of-bias assessments, converts it to tidy data, and produces summary plots formatted according to the assessment tool used.
+The `robvis` package takes the summary table from risk-of-bias assessments and produces plots formatted according to the assessment tool used.
 
 ## Getting started
-First ensure you have the `devtools` package installed:
 
+Install the CRAN version:
 ```{r, eval=FALSE}
-install.packages("devtools")
-library(devtools)
+install.packages("robvis")
 ```
 
-Then, to install:
+Alternatively, the development version can be installed using:
+
 ```{r, eval=FALSE}   
-install_github("mcguinlu/robvis")
-library(robvis)
+install.packages("devtools")
+devtools::install_github("mcguinlu/robvis")
 ```
 
 To update the package, run the `install_github("mcguinlu/robvis")` command again.
