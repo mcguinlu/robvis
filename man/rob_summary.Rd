@@ -26,3 +26,19 @@ Risk of bias assessment barplot figure.
 \description{
 A function to convert standard risk-of-bias output to tidy data and plot a summary barplot.
 }
+\examples{
+
+data <- data.frame(stringsAsFactors=FALSE,
+                   Study = c("Study 1", "Study 2"),
+                   D1 = c("Low", "Some concerns"),
+                   D2 = c("Low", "Low"),
+                   D3 = c("Low", "Low"),
+                   D4 = c("Low", "Low"),
+                   D5 = c("Low", "Low"),
+                   Overall = c("Low", "Low"),
+                   Weight = c(33.33333333, 33.33333333)
+                   )
+
+rob_summary(data, "ROB2")
+
+}
