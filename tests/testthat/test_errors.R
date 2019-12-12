@@ -13,11 +13,6 @@ test_that("Tool specified", {
           expect_error(rob_traffic_light(data_rob2))
           })
 
-test_that("Tool case", {
-  expect_error(rob_summary(data_rob2, "Rob2"))
-  expect_error(rob_traffic_light(data_rob2, "Rob2"))
-})
-
 
 test_that("Colour errors", {
           expect_error(rob_summary(data_rob2, "ROB2", colour = c("#FFFFFF")))

@@ -25,12 +25,3 @@ test_that("Size of rob1", {
   expect_equal(length(rownames(data_rob1)),9)
 }
 )
-
-
-test_that("Data crosscheck", {
-  expect_identical(data_robins, read.csv("data_raw/data_robins.csv"))
-  expect_identical(data_rob2, read.csv("data_raw/data_rob2.csv"))
-  expect_identical(data_quadas, read.csv("data_raw/data_quadas.csv"))
-  expect_identical(data_rob1, read.csv("data_raw/data_rob1.csv"))
-})
-

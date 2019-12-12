@@ -4,8 +4,14 @@
 \alias{rob_summary}
 \title{Produce summary weighted barplots of risk-of-bias assessments.}
 \usage{
-rob_summary(data, tool, overall = FALSE, weighted = TRUE,
-  colour = "cochrane", quiet = FALSE)
+rob_summary(
+  data,
+  tool,
+  overall = FALSE,
+  weighted = TRUE,
+  colour = "cochrane",
+  quiet = FALSE
+)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).}
