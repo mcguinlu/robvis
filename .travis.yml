@@ -11,8 +11,7 @@ addons:
     packages:
       - libv8-dev
 
-brew_packages:
-- gcc
+fortran: true
 
 after_success:
   - Rscript -e 'covr::codecov()'
