@@ -1,5 +1,9 @@
 language: r
 
+before_install:
+  - curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+  - sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
+
 sudo: required
 
 r:
@@ -10,8 +14,6 @@ addons:
   apt:
     packages:
       - libv8-dev
-
-fortran: true
 
 after_success:
   - Rscript -e 'covr::codecov()'
