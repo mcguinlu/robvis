@@ -15,8 +15,8 @@ Description: Helps users in quickly visualizing risk-of-bias
     assessment tool use to perform the assessments. Currently, the supported 
     tools are ROB2.0 (for randomized controlled trials; Sterne et al (2019)  
     <doi:10.1136/bmj.l4898>), ROBINS-I (for non-randomised studies of 
-    interventions; Sterne et al (2016) <doi:10.1136/bmj.i4919>), and QUADAS-2 
-    (for diagnostic accuracy studies; Whiting et al (2011) 
+    interventions; Sterne (2016) <doi:10.1136/bmj.i4919>), and Quality &
+    Applicability of Diagnostic Accuracy Studies V2 (Whiting et al (2011) 
     <doi:10.7326/0003-4819-155-8-201110180-00009>).
 License: MIT + file LICENSE
 Encoding: UTF-8
