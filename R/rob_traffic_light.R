@@ -40,10 +40,10 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         ni_colour <- colour[c(4)]
       } else {
         if (colour == "colourblind") {
-          low_colour <- "#fee8c8"
-          concerns_colour <- "#fdbb84"
-          high_colour <- "#e34a33"
-          ni_colour <- "#4EA1F7"
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          ni_colour <- "#ffffff"
         }
         if (colour == "cochrane") {
           low_colour <- "#02C100"
@@ -53,29 +53,29 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         }
       }
     }else{
-    if (length(colour) > 1) {
-      low_colour <- colour[c(1)]
-      concerns_colour <- colour[c(2)]
-      high_colour <- colour[c(3)]
-      critical_colour <- colour[c(4)]
-      ni_colour <- colour[c(5)]
-    } else {
-      if (colour == "colourblind") {
-        low_colour <- "#fef0d9"
-        concerns_colour <- "#fdcc8a"
-        high_colour <- "#fc8d59"
-        critical_colour <- "#d7301f"
-        ni_colour <- "#4EA1F7"
-      }
-      if (colour == "cochrane") {
-        low_colour <- "#02C100"
-        concerns_colour <- "#E2DF07"
-        high_colour <- "#BF0000"
-        critical_colour <- "#820000"
-        ni_colour <- "#4EA1F7"
+      if (length(colour) > 1) {
+        low_colour <- colour[c(1)]
+        concerns_colour <- colour[c(2)]
+        high_colour <- colour[c(3)]
+        critical_colour <- colour[c(4)]
+        ni_colour <- colour[c(5)]
+      } else {
+        if (colour == "colourblind") {
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          critical_colour <- "#993404"
+          ni_colour <- "#ffffff"
+        }
+        if (colour == "cochrane") {
+          low_colour <- "#02C100"
+          concerns_colour <- "#E2DF07"
+          high_colour <- "#BF0000"
+          critical_colour <- "#820000"
+          ni_colour <- "#4EA1F7"
+        }
       }
     }
-  }
 
 
 # ROB-2=========================================================================
@@ -109,8 +109,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            4, 2, 3)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -208,8 +207,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            5, 3, 2, 4)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c","s", "m", "l", "n"))
+
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -318,7 +317,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1, 4, 3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "s", "m", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -417,8 +416,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            4, 2, 3)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -554,10 +552,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(2,
-            3, 4, 1, 5)])
-
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
