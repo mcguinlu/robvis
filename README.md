@@ -175,6 +175,18 @@ summary_rob +
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
 
+## Examples of `robvis` in published papers
+
+  - Habadi, Mohammed Ibrahim, et al. “[Prevalence of Panic Disorders in
+    the Primary Health Care Setting: A Systematic Review and
+    Meta-Analysis.](https://www.ecronicon.com/ecmi/pdf/prevalence-of-panic-disorders-in-the-primary-health-care-setting-a-systematic-review-and-meta-analysis.pdf)”
+    EC Microbiology 16.1 (2019): 01-09.
+  - Gibb, Kate, et al. “[The consistent burden in published estimates of
+    delirium occurrence in medical inpatients over four decades: a
+    systematic review and meta-analysis
+    study.](https://www.medrxiv.org/content/medrxiv/early/2019/08/29/19005165.full.pdf)”
+    medRxiv (2019): 19005165.
+
 ## Code of conduct
 
 Please note that the ‘robvis’ project is released with a [Contributor
