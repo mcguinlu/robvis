@@ -1,0 +1,72 @@
+---
+title: "RSM-paper"
+bibliography: references.bib
+csl: nature.csl
+output:
+  bookdown::word_document2:
+      toc: false
+      toc_depth: 3
+      reference_docx: word-styles-reference-01.docx
+  bookdown::pdf_document2:
+  bookdown::html_document2:
+      toc: true
+      toc_depth: 2
+---
+
+## Type
+
+Either of:
+
+__Brief Method Notes__ describe or critique a particular method, procedure, or graphic display. A Brief Method Note should focus on what is innovative or useful, or problematic about the method. The method or procedure should be presented clearly and with sufficient detail. Brief Method Notes are limited to 1,500 words (excluding References).
+
+__Computational Tools and Methods__ describe software tools and computational methods for facilitating evidence synthesis. These types of articles are expected to at least in part describe accompanying software (e.g., an R package or a web-based tool). Typically, these are written upon invitation from the Computational Tools and Methods feature Editor . However, suggestions are always welcome and should be sent directly to the Software Review Editor . Computational Tools and Methods articles are expected to be relatively brief, but we do not impose a formal limit.
+
+
+## Authors
+
+## Funding
+
+Acknowledge the Bristol Alumni Foundation, the Evidence Synthesis Hackathon and the NIHR.
+
+## Introduction
+
+No other visualisation software exists explicitly for the purpose of visualising risk of bias assessments
+
+## Development
+
+Time 
+
+ESH
+
+Community involvement
+
+## R package
+
+## Shiny web-app
+
+## Example: choose review and apply
+
+## Discussion
+
+Anyone can design. 
+
+`robvis` forms one part of the `metaverse`, a collection of tools written using R that cover. A key example is `revtools`, original published in this journal
+
+## Back matter
+
+
+
+### Acknowledgements
+
+
+
+### Supporting information
+
+All code for this project is freely available at www.github.com/mcguinlu/robvis
+
+### Figures
+
+
+
+
+
