@@ -35,6 +35,17 @@ rob_summary <-
     Weights <- NULL
     domain <- NULL
 
+
+    if((tool %in% rob_tools())==FALSE) {
+      stop(
+        paste("\nTool name \"",
+              tool,
+              "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
+      )
+    }
+
+
+
     # ROB-2=========================================================================
 
     if (tool == "ROB2") {
