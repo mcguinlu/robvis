@@ -35,7 +35,6 @@ rob_summary <-
     Weights <- NULL
     domain <- NULL
 
-
     if((tool %in% rob_tools())==FALSE) {
       stop(
         paste("\nTool name \"",
@@ -44,28 +43,55 @@ rob_summary <-
       )
     }
 
-
-
-    # ROB-2=========================================================================
-
-    if (tool == "ROB2") {
-      # Define colouring
+    # Define colours
+    if (tool == "ROB-2" || tool == "QUADAS-2") {
       if (length(colour) > 1) {
         low_colour <- colour[c(1)]
         concerns_colour <- colour[c(2)]
         high_colour <- colour[c(3)]
+        ni_colour <- colour[c(4)]
       } else {
         if (colour == "colourblind") {
-          low_colour <- "#fee8c8"
-          concerns_colour <- "#fdbb84"
-          high_colour <- "#e34a33"
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          ni_colour <- "#ffffff"
         }
         if (colour == "cochrane") {
           low_colour <- "#02C100"
           concerns_colour <- "#E2DF07"
           high_colour <- "#BF0000"
+          ni_colour <- "#4EA1F7"
         }
       }
+    }else{
+      if (length(colour) > 1) {
+        low_colour <- colour[c(1)]
+        concerns_colour <- colour[c(2)]
+        high_colour <- colour[c(3)]
+        critical_colour <- colour[c(4)]
+        ni_colour <- colour[c(5)]
+      } else {
+        if (colour == "colourblind") {
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          critical_colour <- "#993404"
+          ni_colour <- "#ffffff"
+        }
+        if (colour == "cochrane") {
+          low_colour <- "#02C100"
+          concerns_colour <- "#E2DF07"
+          high_colour <- "#BF0000"
+          critical_colour <- "#820000"
+          ni_colour <- "#4EA1F7"
+        }
+      }
+    }
+
+    # ROB-2=========================================================================
+
+    if (tool == "ROB2") {
 
       # Data preprocessing
       for (i in 2:7) {
@@ -119,8 +145,7 @@ rob_summary <-
                                                           5, 4, 3, 2, 1)])
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("h",
-                                              "s", "l"))
+        factor(rob.tidy$judgement, levels = c("n", "h", "s", "l"))
 
       # Create plot
       plot <- ggplot2::ggplot(data = rob.tidy) +
@@ -139,10 +164,14 @@ rob_summary <-
         ggplot2::scale_fill_manual(
           "Risk of Bias",
           values = c(l = low_colour,
-                     s = concerns_colour, h = high_colour),
-          labels = c(h = "  High risk of bias  ",
-                     s = "  Some concerns      ",
-                     l = "  Low risk of bias   ")
+                     s = concerns_colour,
+                     h = high_colour,
+                     n = ni_colour),
+          labels = c(n = "  No information  ",
+                     h = "  High risk       ",
+                     s = "  Some concerns   ",
+                     l = "  Low risk        "
+                     )
         ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
@@ -164,7 +193,7 @@ rob_summary <-
                                                     colour = "black"),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
-          legend.text = ggplot2::element_text(size = 8)
+          legend.text = ggplot2::element_text(size = 6)
         )
     }
 
@@ -172,27 +201,6 @@ rob_summary <-
     # ROBINS-I======================================================================
 
     if (tool == "ROBINS-I") {
-      # Define colouring
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        critical_colour <- colour[c(4)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fef0d9"
-          concerns_colour <- "#fdcc8a"
-          high_colour <- "#fc8d59"
-          critical_colour <- "#d7301f"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          critical_colour <- "#820000"
-        }
-      }
-
 
       # Data preprocessing
       for (i in 2:9) {
@@ -247,7 +255,8 @@ rob_summary <-
 
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("c",
+        factor(rob.tidy$judgement, levels = c("n",
+                                              "c",
                                               "s",
                                               "m",
                                               "l"))
@@ -268,13 +277,15 @@ rob_summary <-
                                      1)) +
         ggplot2::scale_fill_manual(
           values = c(
+            n= ni_colour,
             m = concerns_colour,
             s = high_colour,
             l = low_colour,
             c = critical_colour
           ),
           labels = c(
-            c = "Critical risk  ",
+            n = " No information ",
+            c = " Critical risk  ",
             s = " Serious risk  ",
             m = " Moderate risk ",
             l = " Low risk  "
@@ -300,41 +311,14 @@ rob_summary <-
                                                     colour = "black"),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.7, "cm"),
-          legend.text = ggplot2::element_text(size = 8)
+          legend.text = ggplot2::element_text(size = 5)
         ) +
-        ggplot2::guides(
-          fill = ggplot2::guide_legend(
-            title = "Risk of bias judgement",
-            title.position = "bottom",
-            title.hjust = 0.5,
-            reverse = TRUE
-          )
-        )
+        ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
     }
 
     # ROBINS-I-ONLINE===============================================================
 
     if (tool == "ROBINS-I Online") {
-      # Define colouring
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        critical_colour <- colour[c(4)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fef0d9"
-          concerns_colour <- "#fdcc8a"
-          high_colour <- "#fc8d59"
-          critical_colour <- "#d7301f"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          critical_colour <- "#820000"
-        }
-      }
 
       data <- data[, grepl("studyId|RBJ_answer", names(data))]
       data <- data[, colSums(is.na(data)) != nrow(data)]
@@ -392,8 +376,11 @@ rob_summary <-
                                                           7, 6, 3, 2, 5, 4, 1)])
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("c",
-                                              "s", "m", "l"))
+        factor(rob.tidy$judgement, levels = c("n",
+                                              "c",
+                                              "s",
+                                              "m",
+                                              "l"))
 
       plot <-
         ggplot2::ggplot(data = rob.tidy) +
@@ -411,12 +398,14 @@ rob_summary <-
                                      1)) +
         ggplot2::scale_fill_manual(
           values = c(
+            n = ni_colour,
             m = concerns_colour,
             s = high_colour,
             l = low_colour,
             c = critical_colour
           ),
           labels = c(
+            n =  "No information",
             c = "Critical risk  ",
             s = " Serious risk  ",
             m = " Moderate risk ",
@@ -444,36 +433,12 @@ rob_summary <-
           legend.key.size = ggplot2::unit(0.7, "cm"),
           legend.text = ggplot2::element_text(size = 8)
         ) +
-        ggplot2::guides(
-          fill = ggplot2::guide_legend(
-            title = "Risk of bias judgement",
-            title.position = "bottom",
-            title.hjust = 0.5,
-            reverse = TRUE
-          )
-        )
+        ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
     }
 
     # QUADAS-2======================================================================
 
     if (tool == "QUADAS-2") {
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fee8c8"
-          concerns_colour <- "#fdbb84"
-          high_colour <- "#e34a33"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-        }
-      }
-
 
       # Data preprocessing
       for (i in 2:6) {
@@ -515,8 +480,10 @@ rob_summary <-
       rob.tidy$domain <- as.factor(rob.tidy$domain)
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("h",
-                                              "s", "l"))
+        factor(rob.tidy$judgement, levels = c("n",
+                                              "h",
+                                              "s",
+                                              "l"))
 
       if (overall == TRUE) {
         rob.tidy$domain <-
@@ -547,10 +514,14 @@ rob_summary <-
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(h = high_colour,
-                     s = concerns_colour, l = low_colour),
-          labels = c(h = "  High risk of bias   ",
-                     s = "  Some concerns      ", l = "  Low risk of bias  ")
+          values = c(n = ni_colour,
+                     h = high_colour,
+                     s = concerns_colour,
+                     l = low_colour),
+          labels = c(n = "  No information   ",
+                     h = "  High risk of bias   ",
+                     s = "  Some concerns      ",
+                     l = "  Low risk of bias  ")
         ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
@@ -572,31 +543,13 @@ rob_summary <-
                                                     colour = "black"),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
-          legend.text = ggplot2::element_text(size = 10)
+          legend.text = ggplot2::element_text(size = 6)
         )
     }
 
     # ROB-1/Generic=================================================================
 
     if (tool == "ROB1") {
-      # Define colouring
-
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fee8c8"
-          concerns_colour <- "#fdbb84"
-          high_colour <- "#e34a33"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-        }
-      }
 
       # Data preprocessing
       for (i in 2:(ncol(data) - 1)) {
@@ -644,8 +597,10 @@ rob_summary <-
                                                  domain, judgement, -Weights))
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("h",
-                                              "s", "l"))
+        factor(rob.tidy$judgement, levels = c("n",
+                                              "h",
+                                              "s",
+                                              "l"))
 
       for (i in 1:(ncol(data.tmp) - 1)) {
         levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
@@ -673,8 +628,11 @@ rob_summary <-
         ggplot2::scale_fill_manual(
           "Risk of Bias",
           values = c(l = low_colour,
-                     s = concerns_colour, h = high_colour),
-          labels = c(h = "  High risk of bias  ",
+                     s = concerns_colour,
+                     h = high_colour,
+                     n= ni_colour),
+          labels = c(n= "No information",
+                     h = "  High risk of bias  ",
                      s = "  Some concerns      ",
                      l = "  Low risk of bias   ")
         ) +
@@ -698,7 +656,7 @@ rob_summary <-
                                                     colour = "black"),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
-          legend.text = ggplot2::element_text(size = 8)
+          legend.text = ggplot2::element_text(size = 6)
         )
     }
 

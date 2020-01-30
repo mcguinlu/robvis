@@ -1,4 +1,10 @@
 # robvis 0.3.0.900 (Development)
+* Major updates
+Added functionality so that `robvis` now supports "No information"" as a judgement.
+New colour scheme for the `colour = "colourblind"`argument
+
+* Minor updates
+
 
 
 # robvis 0.3.0 (October 2019)
