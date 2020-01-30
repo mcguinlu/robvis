@@ -21,13 +21,14 @@ Description: Helps users in quickly visualizing risk-of-bias
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 Depends:
   R (>= 2.10)
 Imports:
     ggplot2,
     tidyr,
-    scales
+    scales, 
+    vdiffr
 Suggests:
     knitr,
     rmarkdown,
