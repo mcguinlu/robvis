@@ -40,7 +40,7 @@ rob_summary <-
         paste("\nTool name \"",
               tool,
               "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
-      )
+        )
     }
 
     # Define colours
