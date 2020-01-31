@@ -35,6 +35,14 @@ rob_summary <-
     Weights <- NULL
     domain <- NULL
 
+    if((tool %in% rob_tools())==FALSE) {
+      stop(
+        paste("\nTool name \"",
+              tool,
+              "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
+        )
+    }
+
     # Define colours
     if (tool == "ROB-2" || tool == "QUADAS-2") {
       if (length(colour) > 1) {
