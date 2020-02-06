@@ -7,9 +7,10 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN
-Badge.](https://www.r-pkg.org/badges/version/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
 [![CRAN
 Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3552342.svg)](https://doi.org/10.5281/zenodo.3552342)
 <br> [![Build
 Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
 [![AppVeyor Build
@@ -177,6 +178,17 @@ summary_rob +
 
 ## Examples of `robvis` in published papers
 
+  - Veloso, Andreia, Selene G. Vicente, and Marisa G. Filipe.
+    “[Effectiveness of Cognitive Training for School-Aged Children and
+    Adolescents With Attention Deficit/Hyperactivity Disorder: A
+    Systematic
+    Review.](https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02983/full)”
+    Frontiers in Psychology 10 (2020): 2983.
+  - Simillis, Constantinos, et al. “[Postoperative chemotherapy improves
+    survival in patients with resected high‐risk stage II colorectal
+    cancer: results of a systematic review and
+    meta‐analysis.](https://onlinelibrary.wiley.com/doi/pdf/10.1111/codi.14994)”
+    Colorectal Disease (2020).
   - Habadi, Mohammed Ibrahim, et al. “[Prevalence of Panic Disorders in
     the Primary Health Care Setting: A Systematic Review and
     Meta-Analysis.](https://www.ecronicon.com/ecmi/pdf/prevalence-of-panic-disorders-in-the-primary-health-care-setting-a-systematic-review-and-meta-analysis.pdf)”
