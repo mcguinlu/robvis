@@ -406,7 +406,7 @@ rob_summary <- function(data, tool, overall = FALSE, weighted = TRUE,
 
 # ROB-1/Generic=================================================================
 
-    if (tool == "ROB1") {
+    if (tool == "Generic") {
         # Define colouring
 
         if (length(colour) > 1) {

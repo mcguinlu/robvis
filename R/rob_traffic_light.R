@@ -504,7 +504,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
 # ROB-1/Generic=================================================================
 
-    if (tool == "ROB1") {
+    if (tool == "Generic") {
 
         # Define colouring
         if (length(colour) > 1) {
