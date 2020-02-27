@@ -1,11 +1,26 @@
 #' Produce traffic-light plots of risk-of-bias assessments.
 #' @description A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
-#' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).
+#' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
-#' @param psize Controll the size of the traffic lights
+#' @param psize Control the size of the traffic lights. Default is 20.
 #' @param quiet An option to quietly produce the plot without displaying it.
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
+#' @examples
+#'
+#' data <- data.frame(stringsAsFactors=FALSE,
+#'                    Study = c("Study 1", "Study 2"),
+#'                    D1 = c("Low", "Some concerns"),
+#'                    D2 = c("Low", "Low"),
+#'                    D3 = c("Low", "Low"),
+#'                    D4 = c("Low", "Low"),
+#'                    D5 = c("Low", "Low"),
+#'                    Overall = c("Low", "Low"),
+#'                    Weight = c(33.33333333, 33.33333333)
+#'                    )
+#'
+#' rob_traffic_light(data, "ROB2")
+#'
 #' @export
 
 rob_traffic_light <- function(data, tool, colour = "cochrane",
@@ -15,29 +30,64 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
     Study <- NULL
     domain <- NULL
 
+    if((tool %in% rob_tools())==FALSE) {
+      stop(
+        paste("\nTool name \"",
+              tool,
+              "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
+      )
+    }
+
+    # Define colours
+    if (tool == "ROB-2" || tool == "QUADAS-2") {
+      if (length(colour) > 1) {
+        low_colour <- colour[c(1)]
+        concerns_colour <- colour[c(2)]
+        high_colour <- colour[c(3)]
+        ni_colour <- colour[c(4)]
+      } else {
+        if (colour == "colourblind") {
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          ni_colour <- "#ffffff"
+        }
+        if (colour == "cochrane") {
+          low_colour <- "#02C100"
+          concerns_colour <- "#E2DF07"
+          high_colour <- "#BF0000"
+          ni_colour <- "#4EA1F7"
+        }
+      }
+    }else{
+      if (length(colour) > 1) {
+        low_colour <- colour[c(1)]
+        concerns_colour <- colour[c(2)]
+        high_colour <- colour[c(3)]
+        critical_colour <- colour[c(4)]
+        ni_colour <- colour[c(5)]
+      } else {
+        if (colour == "colourblind") {
+          low_colour <- "#fed98e"
+          concerns_colour <- "#fe9929"
+          high_colour <- "#d95f0e"
+          critical_colour <- "#993404"
+          ni_colour <- "#ffffff"
+        }
+        if (colour == "cochrane") {
+          low_colour <- "#02C100"
+          concerns_colour <- "#E2DF07"
+          high_colour <- "#BF0000"
+          critical_colour <- "#820000"
+          ni_colour <- "#4EA1F7"
+        }
+      }
+    }
+
+
 # ROB-2=========================================================================
 
     if (tool == "ROB2") {
-
-        # Define colouring
-        if (length(colour) > 1) {
-            low_colour <- colour[c(1)]
-            concerns_colour <- colour[c(2)]
-            high_colour <- colour[c(3)]
-        } else {
-            if (colour == "colourblind") {
-                low_colour <- "#fee8c8"
-                concerns_colour <- "#fdbb84"
-                high_colour <- "#e34a33"
-            }
-            if (colour == "cochrane") {
-                low_colour <- "#02C100"
-                concerns_colour <- "#E2DF07"
-                high_colour <- "#BF0000"
-            }
-        }
-
-
 
         for (i in 2:7) {
             data[[i]] <- tolower(data[[i]])
@@ -57,8 +107,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         names(data.tmp)[6] <- "D5"
         names(data.tmp)[7] <- "Overall"
 
-
-
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
 
@@ -68,8 +116,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -113,10 +160,10 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(h = high_colour,
-                s = concerns_colour, l = low_colour), labels = c(h = "High",
-                s = "Some concerns", l = "Low")) + ggplot2::scale_shape_manual(values = c(h = 120,
-            s = 45, l = 43), labels = c(h = "High", s = "Some concerns",
-            l = "Low")) + ggplot2::scale_size(range = c(5,
+                s = concerns_colour, l = low_colour, n= ni_colour), labels = c(h = "High",
+                s = "Some concerns", l = "Low", n= "No information")) + ggplot2::scale_shape_manual(values = c(h = 120,
+            s = 45, l = 43, n = 63), labels = c(h = "High", s = "Some concerns",
+            l = "Low", n= "No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
@@ -135,27 +182,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 # ROBINS-I======================================================================
 
     if (tool == "ROBINS-I") {
-
-        # Define colouring
-        if (length(colour) > 1) {
-            low_colour <- colour[c(1)]
-            concerns_colour <- colour[c(2)]
-            high_colour <- colour[c(3)]
-            critical_colour <- colour[c(4)]
-        } else {
-            if (colour == "colourblind") {
-                low_colour <- "#fef0d9"
-                concerns_colour <- "#fdcc8a"
-                high_colour <- "#fc8d59"
-                critical_colour <- "#d7301f"
-            }
-            if (colour == "cochrane") {
-                low_colour <- "#02C100"
-                concerns_colour <- "#E2DF07"
-                high_colour <- "#BF0000"
-                critical_colour <- "#820000"
-            }
-        }
 
         for (i in 2:9) {
             data[[i]] <- tolower(data[[i]])
@@ -177,8 +203,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         names(data.tmp)[8] <- "D7"
         names(data.tmp)[9] <- "Overall"
 
-
-
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
 
@@ -190,8 +214,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            4, 3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c","s", "m", "l", "n"))
+
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -240,11 +264,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(c = critical_colour,
-                s = high_colour, m = concerns_colour, l = low_colour),
+                s = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
                 labels = c(c = "Critical", s = "Serious", m = "Moderate",
-                  l = "Low")) + ggplot2::scale_shape_manual(values = c(c = 33,
-            s = 120, m = 45, l = 43), labels = c(c = "Critical",
-            s = "Serious", m = "Moderate", l = "Low")) + ggplot2::scale_size(range = c(5,
+                  l = "Low", n = "No information")) + ggplot2::scale_shape_manual(values = c(c = 33,
+            s = 120, m = 45, l = 43, n =63), labels = c(c = "Critical",
+            s = "Serious", m = "Moderate", l = "Low",n = "No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
@@ -265,29 +289,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
     if (tool == "ROBINS-I Online") {
 
-        # Define colouring
-        if (length(colour) > 1) {
-            low_colour <- colour[c(1)]
-            concerns_colour <- colour[c(2)]
-            high_colour <- colour[c(3)]
-            critical_colour <- colour[c(4)]
-        } else {
-            if (colour == "colourblind") {
-                low_colour <- "#fef0d9"
-                concerns_colour <- "#fdcc8a"
-                high_colour <- "#fc8d59"
-                critical_colour <- "#d7301f"
-            }
-            if (colour == "cochrane") {
-                low_colour <- "#02C100"
-                concerns_colour <- "#E2DF07"
-                high_colour <- "#BF0000"
-                critical_colour <- "#820000"
-            }
-        }
-
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
-        data <- data[, which(is.na(data) == FALSE)]
+        data <- data[, colSums(is.na(data)) != nrow(data)]
 
         for (i in 2:9) {
             data[[i]] <- tolower(data[[i]])
@@ -321,8 +324,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            4, 3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "s", "m", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -335,6 +337,9 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         }
         if (length(unique(rob.tidy$judgement)) == 4) {
             adjust_caption <- -3.1
+        }
+        if (length(unique(rob.tidy$judgement)) == 5) {
+          adjust_caption <- -3.7
         }
 
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
@@ -392,24 +397,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
     if (tool == "QUADAS-2") {
 
-        # Define colouring
-        if (length(colour) > 1) {
-            low_colour <- colour[c(1)]
-            concerns_colour <- colour[c(2)]
-            high_colour <- colour[c(3)]
-        } else {
-            if (colour == "colourblind") {
-                low_colour <- "#fee8c8"
-                concerns_colour <- "#fdbb84"
-                high_colour <- "#e34a33"
-            }
-            if (colour == "cochrane") {
-                low_colour <- "#02C100"
-                concerns_colour <- "#E2DF07"
-                high_colour <- "#BF0000"
-            }
-        }
-
         for (i in 2:6) {
             data[[i]] <- tolower(data[[i]])
             data[[i]] <- trimws(data[[i]])
@@ -436,8 +423,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(1,
-            3, 2)])
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -480,10 +466,10 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(h = high_colour,
-                s = concerns_colour, l = low_colour), labels = c(h = "High",
-                s = "Some concerns", l = "Low")) + ggplot2::scale_shape_manual(values = c(h = 120,
-            s = 45, l = 43), labels = c(h = "High", s = "Some concerns",
-            l = "Low")) + ggplot2::scale_size(range = c(5,
+                s = concerns_colour, l = low_colour, n = ni_colour), labels = c(h = "High",
+                s = "Some concerns", l = "Low", n = "No information")) + ggplot2::scale_shape_manual(values = c(h = 120,
+            s = 45, l = 43, n= 63), labels = c(h = "High", s = "Some concerns",
+            l = "Low", n = "No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
@@ -505,28 +491,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 # ROB-1/Generic=================================================================
 
     if (tool == "Generic") {
-
-        # Define colouring
-        if (length(colour) > 1) {
-            low_colour <- colour[c(1)]
-            concerns_colour <- colour[c(2)]
-            high_colour <- colour[c(3)]
-            critical_colour <- colour[c(4)]
-        } else {
-            if (colour == "colourblind") {
-                low_colour <- "#fef0d9"
-                concerns_colour <- "#fdcc8a"
-                high_colour <- "#fc8d59"
-                critical_colour <- "#d7301f"
-            }
-            if (colour == "cochrane") {
-                low_colour <- "#02C100"
-                concerns_colour <- "#E2DF07"
-                high_colour <- "#BF0000"
-                critical_colour <- "#820000"
-            }
-        }
-
 
         # Determine if the uploaded dataset contains weights
         if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
@@ -559,8 +523,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 names(data.tmp)[i], fixed = TRUE))
         }
 
-        # Create caption
-        captiondf <- data.frame()
+        # Create caption vector, and add line breaks to maintain spacing
+        captiondf <- data.frame(V1 = rep("",8), stringsAsFactors = FALSE)
         for (i in 2:(ncol(data.tmp) - 1)) {
             if (i == 2) {
                 captiondf[i - 1, 1] <- paste0(" D", i - 1,
@@ -571,8 +535,9 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             }
         }
 
-        caption <- paste(captiondf$V1, collapse = " ")
+        captiondf[captiondf == ""] <- "\n"
 
+        caption <- paste(captiondf$V1, collapse = " ")
         # Rename columns headings
         names(data.tmp)[1] <- "Study"
         for (i in 2:(ncol(data.tmp) - 1)) {
@@ -594,10 +559,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels(rob.tidy$judgement)[c(2,
-            3, 4, 1)])
-
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -639,11 +601,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(l = low_colour,
-                s = concerns_colour, h = high_colour, c = critical_colour),
+                s = concerns_colour, h = high_colour, c = critical_colour, n = ni_colour),
                 labels = c(l = "Low", s = "Unclear", h = "High",
-                  c = "Critical")) + ggplot2::scale_shape_manual(values = c(l = 43,
-            s = 45, h = 120, c = 33), labels = c(l = "Low",
-            s = "Unclear", h = "High", c = "Critical")) + ggplot2::scale_size(range = c(5,
+                  c = "Critical", n = "No information")) + ggplot2::scale_shape_manual(values = c(l = 43,
+            s = 45, h = 120, c = 33, n= 63), labels = c(l = "Low",
+            s = "Unclear", h = "High", c = "Critical", n="No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",

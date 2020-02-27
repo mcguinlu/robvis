@@ -1,3 +1,5 @@
+^revdep$
+^cran-comments\.md$
 ^README\.Rmd$
 ^\.travis\.yml$
 ^Meta$
@@ -16,3 +18,5 @@
 ^RSM-paper$
 R/rob_paired_plot.R
 cran-comments.md
+^CRAN-RELEASE$
+

@@ -14,7 +14,7 @@ rob_summary(
 )
 }
 \arguments{
-\item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgements, 1 for overall judgements, and 1 for weights, in that order).}
+\item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).}
 
 \item{tool}{The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.}
 
@@ -31,4 +31,20 @@ Risk of bias assessment barplot figure.
 }
 \description{
 A function to convert standard risk-of-bias output to tidy data and plot a summary barplot.
+}
+\examples{
+
+data <- data.frame(stringsAsFactors=FALSE,
+                   Study = c("Study 1", "Study 2"),
+                   D1 = c("Low", "Some concerns"),
+                   D2 = c("Low", "Low"),
+                   D3 = c("Low", "Low"),
+                   D4 = c("Low", "Low"),
+                   D5 = c("Low", "Low"),
+                   Overall = c("Low", "Low"),
+                   Weight = c(33.33333333, 33.33333333)
+                   )
+
+rob_summary(data, "ROB2")
+
 }

@@ -6,13 +6,18 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Build
+[![CRAN
+Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+[![CRAN
+Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3552342.svg)](https://doi.org/10.5281/zenodo.3552342)
+<br> [![Build
 Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
 [![Codecov test
 coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
-[![metaverse
+<br> [![metaverse
 Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
 
 **UPDATE**: `robvis` now exists as a
@@ -23,25 +28,22 @@ before installing it locally.
 ## Description
 
 The `robvis` package takes the summary table from risk-of-bias
-assessments, converts it to tidy data, and produces summary plots
-formatted according to the assessment tool used.
+assessments and produces plots formatted according to the assessment
+tool used.
 
 ## Getting started
 
-### Install the `robvis` pacakage
+Install the CRAN version:
 
-First ensure you have the `devtools` package installed:
+``` r
+install.packages("robvis")
+```
+
+Alternatively, the development version can be installed using:
 
 ``` r
 install.packages("devtools")
-library(devtools)
-```
-
-Then, to install:
-
-``` r
-install_github("mcguinlu/robvis")
-library(robvis)
+devtools::install_github("mcguinlu/robvis")
 ```
 
 To update the package, run the `install_github("mcguinlu/robvis")`
@@ -83,7 +85,7 @@ summary_rob
 
 Returns a ggplot object displaying a [“traffic light
 plot”](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm),
-displaying the risk of bias judgement in each domain for each study.
+displaying the risk of bias judgment in each domain for each study.
 
 ``` r
 trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
@@ -102,7 +104,7 @@ trafficlight_rob
 
 Outputs a list of the risk of bias assessment tools for which a template
 currently exists in rob\_summary(). We expect this list to be updated in
-the near future to inlcude tools such as ROBIS (tool for assessing risk
+the near future to include tools such as ROBIS (tool for assessing risk
 of bias in systematic reviews).
 
     rob_tools()
@@ -117,7 +119,7 @@ of bias in systematic reviews).
 
 The `colour` argument of both plotting functions allows users to select
 from two predefined colour schemes (“cochrane” or “colourblind”) or to
-define their own pallete by providing a vector of hex codes.
+define their own palette by providing a vector of hex codes.
 
 For example, to use the predefined “colourblind” palette:
 
@@ -174,22 +176,46 @@ summary_rob +
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
 
+## Examples of `robvis` in published papers
+
+  - Veloso, Andreia, Selene G. Vicente, and Marisa G. Filipe.
+    “[Effectiveness of Cognitive Training for School-Aged Children and
+    Adolescents With Attention Deficit/Hyperactivity Disorder: A
+    Systematic
+    Review.](https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02983/full)”
+    Frontiers in Psychology 10 (2020): 2983.
+  - Simillis, Constantinos, et al. “[Postoperative chemotherapy improves
+    survival in patients with resected high‐risk stage II colorectal
+    cancer: results of a systematic review and
+    meta‐analysis.](https://onlinelibrary.wiley.com/doi/pdf/10.1111/codi.14994)”
+    Colorectal Disease (2020).
+  - Habadi, Mohammed Ibrahim, et al. “[Prevalence of Panic Disorders in
+    the Primary Health Care Setting: A Systematic Review and
+    Meta-Analysis.](https://www.ecronicon.com/ecmi/pdf/prevalence-of-panic-disorders-in-the-primary-health-care-setting-a-systematic-review-and-meta-analysis.pdf)”
+    EC Microbiology 16.1 (2019): 01-09.
+  - Gibb, Kate, et al. “[The consistent burden in published estimates of
+    delirium occurrence in medical inpatients over four decades: a
+    systematic review and meta-analysis
+    study.](https://www.medrxiv.org/content/medrxiv/early/2019/08/29/19005165.full.pdf)”
+    medRxiv (2019): 19005165.
+
 ## Code of conduct
 
 Please note that the ‘robvis’ project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
-you agree to abide by its terms.
+Code of
+Conduct](https://github.com/mcguinlu/robvis/blob/master/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 ## License
 
 This project is licensed under the MIT License - see the
-[LICENSE.md](https://github.com/mcguinlu/robvis/blob/traffic_light_plot/LICENSE)
+[LICENSE.md](https://github.com/mcguinlu/robvis/blob/master/LICENSE)
 file for details.
 
 ## Acknowledgments
 
   - The `rob_summary()` function was based on code forwarded by a
-    colleague. I have recently learnt that this code was adapted from
+    colleague. I recently discovered that this code was adapted from
     that presented in the wonderful “[Doing Meta-Analysis in
     R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/plotting-the-summary.html)”
     guide, so I would like to acknowledge the authors here.
