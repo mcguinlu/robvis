@@ -14,3 +14,5 @@
 ^CONTRIBUTING\.md$
 ^JOSS-paper$
 ^RSM-paper$
+R/rob_paired_plot.R
+cran-comments.md
