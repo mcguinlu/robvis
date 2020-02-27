@@ -30,7 +30,10 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
     Study <- NULL
     domain <- NULL
 
-    if((tool %in% rob_tools())==FALSE) {
+    # Allow for depreciated "ROB1" argument
+    tools <- c(rob_tools(),"ROB1")
+
+    if((tool %in% tools)==FALSE) {
       stop(
         paste("\nTool name \"",
               tool,
@@ -490,7 +493,17 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
 # ROB-1/Generic=================================================================
 
-    if (tool == "Generic") {
+    if (tool %in% c("Generic", "ROB1")) {
+
+      if (tool == "ROB1") {
+        message(
+          paste0(
+            "Note: In future versions of robvis, the 'tool = \"ROB1\"' ",
+            "argument will be depreciated.\n",
+            "Please use 'tool = \"Generic\"' instead."
+          )
+        )
+      }
 
         # Determine if the uploaded dataset contains weights
         if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
