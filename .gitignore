@@ -3,4 +3,6 @@ doc
 .Rhistory
 .RData
 .Rproj.user
+cran-comments.md
+RSM-paper/figs/*
 inst/doc

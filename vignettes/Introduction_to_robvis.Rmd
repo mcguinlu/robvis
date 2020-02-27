@@ -38,10 +38,7 @@ Users can find the exact assessment tool name expected by the `tool` argument of
 
 ```{r, eval = FALSE}
 rob_tools()
-#> [1] "ROB2"
-#> [1] "ROBINS-I"
-#> [1] "QUADAS-2"
-#> [1] "ROB1"
+#> [1] "ROB2"            "ROBINS-I"        "QUADAS-2"        "Generic"         "ROBINS-I ONLINE"
 ```
 
 ## Loading your data
@@ -65,7 +62,7 @@ All other columns are expected to contain the results of the risk-of bias assess
   * Column 8: Weights
   
   
-The only exception to this is the `"ROB1"` template, which is discussed [below.](#rob1)
+The only exception to this is the `"Generic"` template, which is discussed [below.](#rob1)
 
 
 ## Example data sets {#example-data-sets}
@@ -199,17 +196,17 @@ When defining your own colour scheme, you must ensure that the number of discret
 <hr>
 <br>
 
-# The "ROB1" template {#rob1}
+# The "Generic" template {#rob1}
 
 ## Motivation
 This template offers increased flexibility in the domains that are included in the plot. It can handle any number of user defined domains and uses the user defined column headings as domains titles in the resulting figures.
 
 
 ## Varying numbers of domains
-The `"ROB1"` option can handle varying numbers of columns, as authors using the ROB1 assessment tool frequently add or remove bias domains within this tool. __However, we would discourage authors from doing so with any tool other than ROB1.__ Authors using other published tools (ROB2, QUADAS-2, ROBINS-I) should use the stricter templates presented above to ensure they conform with the guidance.
+The `"Generic"` option can handle varying numbers of columns, as authors using the ROB1 assessment tool frequently add or remove bias domains within this tool. __However, we would discourage authors from doing so with any tool other than ROB1.__ Authors using other published tools (ROB2, QUADAS-2, ROBINS-I) should use the stricter templates presented above to ensure they conform with the guidance.
 
 ## Domain names
-For the other tools listed above, the names of the columns containing the domain-level risk of bias judgments are not important. However, this is not the case when using the `"ROB1"` template.
+For the other tools listed above, the names of the columns containing the domain-level risk of bias judgments are not important. However, this is not the case when using the `"Generic"` template.
 
 Compare for example, the first row of the `data_rob2` and the `data_rob1`, and the resulting figures.
 
@@ -225,9 +222,9 @@ In contrast, the domain columns (Columns 2-8) in the ROB1 example use their true
 
 ```{r, echo = FALSE}
 colnames(data_rob1)[2] <- "This is a test"
-rob_summary(data_rob1, tool = "ROB1")
+rob_summary(data_rob1, tool = "Generic")
 ```
 
 ```{r, fig.width = 7, fig.height = 9, fig.align="center", echo = FALSE}
-rob_traffic_light(data_rob1, tool = "ROB1")
+rob_traffic_light(data_rob1, tool = "Generic")
 ```

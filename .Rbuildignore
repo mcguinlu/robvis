@@ -14,4 +14,9 @@
 ^.mergify\.yml$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
+^JOSS-paper$
+^RSM-paper$
+R/rob_paired_plot.R
+cran-comments.md
 ^CRAN-RELEASE$
+

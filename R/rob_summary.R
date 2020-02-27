@@ -549,7 +549,7 @@ rob_summary <-
 
     # ROB-1/Generic=================================================================
 
-    if (tool == "ROB1") {
+    if (tool == "Generic") {
 
       # Data preprocessing
       for (i in 2:(ncol(data) - 1)) {

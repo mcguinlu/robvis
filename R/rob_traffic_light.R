@@ -490,7 +490,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
 # ROB-1/Generic=================================================================
 
-    if (tool == "ROB1") {
+    if (tool == "Generic") {
 
         # Determine if the uploaded dataset contains weights
         if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",

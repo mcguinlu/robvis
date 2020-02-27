@@ -27,7 +27,7 @@ Depends:
 Imports:
     ggplot2,
     tidyr,
-    scales, 
+    scales,
     vdiffr
 Suggests:
     knitr,
