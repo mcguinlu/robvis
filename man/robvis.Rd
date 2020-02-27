@@ -3,7 +3,6 @@
 \docType{package}
 \name{robvis}
 \alias{robvis}
-\alias{robvis-package}
 \title{robvis: A package for producing risk of bias assessment summary figures.}
 \description{
 The robvis package is designed to help users produce summary level
