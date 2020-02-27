@@ -12,7 +12,7 @@ Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project
 Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3552342.svg)](https://doi.org/10.5281/zenodo.3552342)
 <br> [![Build
-Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.org/mcguinlu/robvis)
+Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.com/mcguinlu/robvis)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
 [![Codecov test
@@ -178,10 +178,14 @@ summary_rob +
 
 ## Examples of `robvis` in published papers
 
-  - Veloso, Andreia, Selene G. Vicente, and Marisa G. Filipe.
-    “[Effectiveness of Cognitive Training for School-Aged Children and
-    Adolescents With Attention Deficit/Hyperactivity Disorder: A
-    Systematic
+  - Tanneru, Karthik, et al. “[Meta-analysis and systematic review of
+    intermediate-term follow-up of prostatic urethral lift for benign
+    prostatic
+    hyperplasia.](https://link.springer.com/article/10.1007/s11255-020-02408-y)”
+    International Urology and Nephrology (2020): 1-10.
+  - Veloso, Andreia, et al.. “[Effectiveness of Cognitive Training for
+    School-Aged Children and Adolescents With Attention
+    Deficit/Hyperactivity Disorder: A Systematic
     Review.](https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02983/full)”
     Frontiers in Psychology 10 (2020): 2983.
   - Simillis, Constantinos, et al. “[Postoperative chemotherapy improves
