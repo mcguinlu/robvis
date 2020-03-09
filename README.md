@@ -178,6 +178,11 @@ summary_rob +
 
 ## Examples of `robvis` in published papers
 
+  - Adile, Ashley A., et al. “[Salvage therapy for progressive,
+    treatment-refractory or recurrent pediatric medulloblastoma: a
+    systematic review
+    protocol.](https://systematicreviewsjournal.biomedcentral.com/articles/10.1186/s13643-020-01307-8)”
+    Systematic Reviews 9.1 (2020): 1-9.
   - Tanneru, Karthik, et al. “[Meta-analysis and systematic review of
     intermediate-term follow-up of prostatic urethral lift for benign
     prostatic
