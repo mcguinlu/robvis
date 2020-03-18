@@ -1,5 +1,10 @@
 context("rob_summary()")
 
+test_that("ROB - Summary",{
+
+skip_on_cran()
+skip_on_appveyor()
+
 vdiffr::expect_doppelganger("ROB2 - Basic", rob_summary(data_rob2,"ROB2"))
 vdiffr::expect_doppelganger("ROB2 - Weighted", rob_summary(data_rob2,"ROB2", weighted = FALSE))
 vdiffr::expect_doppelganger("ROB2 - Overall", rob_summary(data_rob2,"ROB2", overall = TRUE))
@@ -27,3 +32,5 @@ vdiffr::expect_doppelganger("QUADAS - Overall", rob_summary(data_quadas,"QUADAS-
 vdiffr::expect_doppelganger("QUADAS - Colour - cochrane", rob_summary(data_quadas,"QUADAS-2", colour = "cochrane"))
 vdiffr::expect_doppelganger("QUADAS - Colour - colourblind", rob_summary(data_quadas,"QUADAS-2", colour = "colourblind"))
 vdiffr::expect_doppelganger("QUADAS - Colour - custom", rob_summary(data_quadas,"QUADAS-2", colour = c("#f442c8","#bef441","#000000")))
+
+})

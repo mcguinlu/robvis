@@ -1,5 +1,10 @@
 context("rob_traffic_light()")
 
+test_that("ROB - Traffic light",{
+
+skip_on_cran()
+skip_on_appveyor()
+
 vdiffr::expect_doppelganger("TF - ROB2 - Basic", rob_traffic_light(data_rob2,"ROB2"))
 vdiffr::expect_doppelganger("TF - ROB2 - Point Size", rob_traffic_light(data_rob2,"ROB2", psize = 10))
 vdiffr::expect_doppelganger("TF - ROB2 - Colour - cochrane", rob_traffic_light(data_rob2,"ROB2", colour = "cochrane"))
@@ -23,3 +28,5 @@ vdiffr::expect_doppelganger("TF - QUADAS - Point size", rob_traffic_light(data_q
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - cochrane", rob_traffic_light(data_quadas,"QUADAS-2", colour = "cochrane"))
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - colourblind", rob_traffic_light(data_quadas,"QUADAS-2", colour = "colourblind"))
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - custom", rob_traffic_light(data_quadas,"QUADAS-2", colour = c("#f442c8","#bef441","#000000")))
+
+})
