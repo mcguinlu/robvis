@@ -267,7 +267,7 @@ ggplot2::ggsave(
           plot = tfplot,
           width = 7,
           height = 8,
-          dpi = 1500
+          dpi = 600
           )
 
 ggplot2::ggsave(
@@ -295,7 +295,7 @@ ggplot2::ggsave(
           plot = sumplot,
           width = 8,
           height = 2.41,
-          dpi = 1500
+          dpi = 600
           )
 
 ggplot2::ggsave(

@@ -178,6 +178,16 @@ summary_rob +
 
 ## Examples of `robvis` in published papers
 
+  - Perivoliotis, Konstantinos, et al. “[Comparing the efficacy and
+    safety of laparoscopic and robotic adrenalectomy: a meta-analysis
+    and trial sequential
+    analysis.](https://link.springer.com/article/10.1007/s00423-020-01860-9)”
+    Langenbeck’s Archives of Surgery (2020): 1-11.
+  - Adile, Ashley A., et al. “[Salvage therapy for progressive,
+    treatment-refractory or recurrent pediatric medulloblastoma: a
+    systematic review
+    protocol.](https://systematicreviewsjournal.biomedcentral.com/articles/10.1186/s13643-020-01307-8)”
+    Systematic Reviews 9.1 (2020): 1-9.
   - Tanneru, Karthik, et al. “[Meta-analysis and systematic review of
     intermediate-term follow-up of prostatic urethral lift for benign
     prostatic
