@@ -3,6 +3,7 @@ context("rob_summary()")
 test_that("ROB - Summary",{
 
 skip_on_cran()
+skip_on_travis()
 skip_on_appveyor()
 
 vdiffr::expect_doppelganger("ROB2 - Basic", rob_summary(data_rob2,"ROB2"))
