@@ -5,4 +5,5 @@ doc
 .Rproj.user
 cran-comments.md
 RSM-paper/figs/*
+RSM-paper/reviewer-comments/*
 inst/doc

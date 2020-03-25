@@ -151,11 +151,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 size = psize, show.legend = FALSE) + ggplot2::geom_point(size = ssize,
             colour = "black", ggplot2::aes(shape = judgement),
             show.legend = FALSE) + ggplot2::labs(caption = "  Domains:
-  D1: Bias due to randomisation.
+  D1: Bias arising from the randomization process
   D2: Bias due to deviations from intended intervention.
-  D3: Bias due to missing data.
-  D4: Bias due to outcome measurement.
-  D5: Bias due to selection of reported result.
+  D3: Bias due to missing outcome data.
+  D4: Bias in measurement of the outcome.
+  D5: Bias in selection of the reported result.
 
 
                 ") +
