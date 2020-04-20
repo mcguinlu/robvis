@@ -1,5 +1,5 @@
 ---
-title: "RSM - Call for papers on data visualization"
+title: ""
 bibliography: references.bib
 csl: ama.csl
 output:
@@ -25,11 +25,11 @@ knitr::opts_chunk$set(eval=FALSE)
 
 # Front Matter
 __Title: __  
-Risk-Of-Bias VISualization (robvis): an R package and Shiny web app for visualizing risk-of-bias assessments
+Risk-Of-Bias VISualization (`robvis`): an R package and Shiny web app for visualizing risk-of-bias assessments
 
 &nbsp;
 
-__Authors and Affliations__
+__Authors and Affiliations__
 
 Luke A McGuinness^1,2^ (ORCID: 0000-0001-8730-9761), 
 Julian PT Higgins^1,2^ (ORCID: 0000-0002-8323-2514)
@@ -61,7 +61,7 @@ LAM is supported by an NIHR Doctoral Research Fellowship (DRF-2018-11-ST2-048). 
 
 __Keywords__
 
-Risk of bias; Evidence synthesis; Data visualisation; R
+Risk of bias; Evidence synthesis; Data visualization; R
 
 
 #####
@@ -78,7 +78,7 @@ Synthesis of evidence from the totality of relevant research is becoming more im
 
 Researchers can face a number of barriers in creating these plots. While some evidence synthesis platforms, such as Cochrane’s Review Manager,[@cochrane2014review] can produce these visualizations, not all researchers use these systems to conduct their systematic reviews, and copying the risk-of-bias data into these systems solely to produce the plots is inefficient and error prone. On the other hand, creating the figures "by hand", through software such as MS PowerPoint or Adobe Illustrator, may lead to unintentional errors and require the plots to be redrawn when a review is updated. Additionally, while the field of evidence synthesis software has grown rapidly in recent years,[@marshall2015systematic] this growth has not been equally distributed across the different aspects of the systematic review process. For example, a recent review found several software offerings aimed specifically at the abstract screening stage of the review process,[@harrison2020software] but no similar time- and error-reducing tool has been proposed for visualizing the results of risk-of-bias assessments.
 
-It is now straightforward to produce such a tool, thanks to the availability of powerful computing offerings including R, RStudio and `Shiny` (an R package for building interactive web apps) [@rref; @rstudioref; @shinyref] Here, we present `robvis` (Risk Of Bias Visualiation),[@mcguinness2019a] an R package and `Shiny` web-app that allows users to create publication-ready risk-of-bias plots quickly and easily. While primarily designed for use with the major risk-of-bias assessment tools used in health research (ROB2, ROBINS-I & QUADAS-2), the tool allows users to visualize the results from any domain-based risk-of-bias assessment or quality appraisal tool.
+It is now straightforward to produce such a tool, thanks to the availability of powerful computing offerings including R, RStudio and `Shiny` (an R package for building interactive web apps) [@rref; @rstudioref; @shinyref] Here, we present `robvis` (Risk Of Bias VISualization),[@mcguinness2019a] an R package and `Shiny` web-app that allows users to create publication-ready risk-of-bias plots quickly and easily. While primarily designed for use with the major risk-of-bias assessment tools used in health research (ROB2, ROBINS-I & QUADAS-2), the tool allows users to visualize the results from any domain-based risk-of-bias assessment or quality appraisal tool.
 
 The tool is open-source and available to use free of charge. Users can download a stable version of the R package from CRAN ([https://cran.r-project.org/package=robvis](https://cran.r-project.org/package=robvis)); or access and contribute to the open-source code that powers the package via GitHub ([https://github.com/mcguinlu/robvis](https://github.com/mcguinlu/robvis)). Extended guidance for the tool, including a step-by-step walk-through for those new to the R programming environment, is also available via the “Doing Meta-Analysis in R” online guide.[@mathias_harrer_2019_2551803] Below, we discuss the tool's development and key functionality.
 
@@ -95,7 +95,7 @@ Development of `robvis` began in April 2019 at the Evidence Synthesis Hackathon 
 
 At the time of writing, the tool includes templates for three major tools: the Cochrane RoB 2 tool for assessing randomized trials,[@sterne2019rob] the ROBINS-I tool for assessing non-randomized studies of interventions,[@sterne2016robins] and the QUADAS-2 tool for assessing diagnostic accuracy studies.[@whiting2011quadas] These templates automatically apply the correct risk-of-bias domain names to the figures, and label the judgement levels appropriately (e.g. “Low”, “Some Concerns”, “High” in the case of the RoB 2 tool). In addition, `robvis` contains a general template that can be used to visualize the result of any domain-based assessment tool. The generic template has greater flexibility than the tool-specific templates, allowing a user-specified number of domains and custom domain titles to be used. It is suitable for use with the original version of the Cochrane risk-of-bias tool for randomized trials,[@higgins2011] in which flexibility in the specification of domains was permitted. Since users of more recent tools such as RoB 2 and ROBINS-I are not permitted to modify the domains, we strongly encourage use of the in-built templates for these.
 
-In order to help users familiarize themselves with the package and its functionality, `robvis` contains built-in example datasets for each template. We illustrate the example data for the RoB 2 tool for assessing risk of bias in randomized trials in Table  \@ref(tab:robdata).
+In order to help users familiarize themselves with the package and its functionality, `robvis` contains built-in example data-sets for each template. We illustrate the example data for the RoB 2 tool for assessing risk of bias in randomized trials in Table  \@ref(tab:robdata).
 
 ### Data import
 
@@ -104,7 +104,7 @@ In order to help users familiarize themselves with the package and its functiona
 
 ### Functions
 
-`robvis` contains two main functions. The first, `rob_traffic_light()`, creates a _traffic light plot_. This displays every risk-of-bias judgement in a matrix, with domains along the horizontal and results/studies down the vertical, similar to the data set. The second function, `rob_summary()`, creates a _weighted bar plot_. This shows the proportion of information with each risk-of-bias judgement seperately for each domain in the assessment tool specified.
+`robvis` contains two main functions. The first, `rob_traffic_light()`, creates a _traffic light plot_. This displays every risk-of-bias judgement in a matrix, with domains along the horizontal and results/studies down the vertical, similar to the data set. The second function, `rob_summary()`, creates a _weighted bar plot_. This shows the proportion of information with each risk-of-bias judgement separately for each domain in the assessment tool specified.
 
 A worked example using these functions is outlined below, illustrating the simple steps involved in creating risk-of-bias plots using `robvis`. A detailed description of the additional options that can be used with each function is presented in Table 2. All examples produced in this article are created using the stable version available from CRAN.
 
@@ -185,7 +185,7 @@ Although `robvis` was originally designed for use in the command-line–based R 
 
 Creating a package using R has a number of particular advantages. R provides access to a range of powerful tools including the `ggplot` infrastructure as demonstrated above, and RMarkdown, which enables creation of documents that can be rendered in a range of formats such as PDF, HTML, or Word.[@xie2018r] Furthermore, and focusing specifically on evidence synthesis, building new tools as packages in R allows for easy integration with the range of existing evidence synthesis packages. Recently, the `metaverse` project,[@variousauthors2020] of which `robvis` is a part, has begun to curate a collection of R packages that cover different aspects of the systematic review and meta-analysis process which, when taken together, form a coherent end-to-end open-source alternative to commercial offerings such as Covidence or Review Manager. Key offerings in this suite of packages include `litsearcher`, which facilitates systematic search strategy development, `revtools`, a package for managing the review process and performing title and abstract screening, `metaDigitise`, a package for automatic extraction of data from figures in research papers, and `metafor`, a package for conducting meta-analyses in R.[@grames2019automated; @metaforref; @pick2018; @westgate2019revtools]
 
-While `robvis` is a stable package, a range of additional functionality could be added. At present, the number of tools with a specific template included in `robvis` is limited - adding additional templates is a priority. For example, a template for ROBIS, the risk-of-bias assessment tool for systematic reviews,[@whiting2016robis] is in developement. Additionally, the `robvis` tool does not yet allow for the production of paired forest plots, where the risk-of-bias judgement is presented alongside each specific result included in the meta-analysis.[@cochranechpt7] This was initially considered to be beyond the scope of the tool, as it involves the visualization of something other than risk-of-bias assessments. However, following user-driven demand, this functionality is in development and will be available in the near future. Finally, we would like to add similar functionality to that provided by the `metafor::reporter()` function, which generates a brief paragraph of text describing the results of a meta-analysis. The future `robvis::reporter()` function would provide a boilerplate description of the assessment tool used and the key domains at risk of bias.
+While `robvis` is a stable package, a range of additional functionality could be added. At present, the number of tools with a specific template included in `robvis` is limited - adding additional templates is a priority. For example, a template for ROBIS, the risk-of-bias assessment tool for systematic reviews,[@whiting2016robis] is in development. Additionally, the `robvis` tool does not yet allow for the production of paired forest plots, where the risk-of-bias judgement is presented alongside each specific result included in the meta-analysis.[@cochranechpt7] This was initially considered to be beyond the scope of the tool, as it involves the visualization of something other than risk-of-bias assessments. However, following user-driven demand, this functionality is in development and will be available in the near future. Finally, we would like to add similar functionality to that provided by the `metafor::reporter()` function, which generates a brief paragraph of text describing the results of a meta-analysis. The future `robvis::reporter()` function would provide a boilerplate description of the assessment tool used and the key domains at risk of bias.
 
 
 #####
@@ -237,7 +237,7 @@ arguments <- data.frame(stringsAsFactors=FALSE,
 "Defines the dataframe containing the summary (domain) level risk-of-bias assessments. See the text and Table 1 for the format expected by `robvis`",
 "Defines the risk of bias assessment tool used. The RoB2 (`tool=\"ROB2\"`), ROBINS-I (`tool=\"ROBINS-I\"`), and QUADAS-2 (`tool=\"QUADAS-2\"`) assessments tools are currently supported. Other tools can be visualized using the generic template (`tool = \"Generic\"`) [Note 1]",
 "Defines the colour scheme for the plot. The default is `colour = \"cochrane\"` which uses the \"Cochrane\" (red, yellow, green) colours, while a preset option for a colour-blind friendly palette is also available (`colour = \"colourblind\"`). Alternatively, users can specify their own colour scheme e.g. `colour = c(\"#f442c8\", \"#bef441\", \"#000000\")`",
-"Defines whether to include an additional bar showing the distibution of overall risk of bias judgements in the summary barplot figure. Default is `overall = FALSE`.",
+"Defines whether to include an additional bar showing the distribution of overall risk of bias judgments in the summary barplot figure. Default is `overall = FALSE`.",
 "Defines whether weights should be used to produce the summary barplot figure. Default is `weighted = TRUE`, in line with current Cochrane Collaboration guidance.",
 "Defines the size of the points in the traffic light plot. Default is `psize = 20`."))
 
