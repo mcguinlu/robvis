@@ -25,7 +25,7 @@ RoxygenNote: 7.0.1
 Depends:
   R (>= 2.10)
 Imports:
-    ggplot2,
+    ggplot2 (>= 3.3.0),
     tidyr,
     scales,
     vdiffr

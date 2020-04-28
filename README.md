@@ -10,14 +10,15 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
 [![CRAN
 Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3552342.svg)](https://doi.org/10.5281/zenodo.3552342)
 <br> [![Build
 Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.com/mcguinlu/robvis)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
 [![Codecov test
 coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
-<br> [![metaverse
+<br>
+[![DOI](https://img.shields.io/static/v1.svg?label=Publication&message=10.1002/jrsm.1411&color=informational)](https://doi.org/10.1002/jrsm.1411)
+[![metaverse
 Identifier](https://img.shields.io/static/v1.svg?label=Part%20of%20the&message=metaverse&color=informational)](https://www.github.com/rmetaverse/metaverse)
 
 **UPDATE**: `robvis` now exists as a
