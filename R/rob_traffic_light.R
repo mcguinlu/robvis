@@ -668,7 +668,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
       rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-      rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c","s", "m", "l", "n"))
+      rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("s", "m", "l", "n"))
 
 
       if (length(unique(rob.tidy$judgement)) == 1) {
@@ -719,7 +719,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
           s = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
           labels = c(s = "High", m = "Moderate",
                      l = "Low", n = "No information")) +
-        ggplot2::scale_shape_manual(values = c(s = 45, m = 45, l = 43, n = 63),
+        ggplot2::scale_shape_manual(values = c(s = 120, m = 45, l = 43, n = 63),
                                     labels = c(s = "High", m = "Moderate", l = "Low", n = "No information")) +
         ggplot2::scale_size(range = c(5, 20)) +
         ggplot2::theme_bw() +
@@ -735,7 +735,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                        legend.title = ggplot2::element_text(size = 9),
                        strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
                        plot.caption = ggplot2::element_text(size = 10,
-                       hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
+                       hjust = 0, vjust = 1)) +
+        ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
         ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
     }
 
