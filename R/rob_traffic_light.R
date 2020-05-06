@@ -67,21 +67,18 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         low_colour <- colour[c(1)]
         concerns_colour <- colour[c(2)]
         high_colour <- colour[c(3)]
-        critical_colour <- colour[c(4)]
-        ni_colour <- colour[c(5)]
+        ni_colour <- colour[c(4)]
       } else {
         if (colour == "colourblind") {
           low_colour <- "#fed98e"
           concerns_colour <- "#fe9929"
           high_colour <- "#d95f0e"
-          critical_colour <- "#993404"
           ni_colour <- "#ffffff"
         }
         if (colour == "cochrane") {
           low_colour <- "#02C100"
           concerns_colour <- "#E2DF07"
           high_colour <- "#BF0000"
-          critical_colour <- "#820000"
           ni_colour <- "#4EA1F7"
         }
       }
