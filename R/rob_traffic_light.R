@@ -615,7 +615,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 labels = c(l = "Low", s = "Unclear", h = "High",
                   n = "No information")) +
           ggplot2::scale_shape_manual(values = c(l = 43,
-            s = 45, h = 120, c = 33, n= 63), labels = c(l = "Low",
+            s = 45, h = 120, n= 63), labels = c(l = "Low",
             s = "Unclear", h = "High", n="No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
