@@ -266,11 +266,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(c = critical_colour,
+            ggplot2::scale_colour_manual(values = c(
                 s = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
-                labels = c(c = "Critical", s = "Serious", m = "Moderate",
+                labels = c(s = "Serious", m = "Moderate",
                   l = "Low", n = "No information")) + ggplot2::scale_shape_manual(values = c(c = 33,
-            s = 120, m = 45, l = 43, n =63), labels = c(c = "Critical",
+            s = 120, m = 45, l = 43, n =63), labels = c(
             s = "Serious", m = "Moderate", l = "Low",n = "No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
@@ -375,11 +375,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(c = critical_colour,
+            ggplot2::scale_colour_manual(values = c(
                 s = high_colour, m = concerns_colour, l = low_colour),
-                labels = c(c = "Critical", s = "Serious", m = "Moderate",
+                labels = c(s = "Serious", m = "Moderate",
                   l = "Low")) + ggplot2::scale_shape_manual(values = c(c = 33,
-            s = 120, m = 45, l = 43), labels = c(c = "Critical",
+            s = 120, m = 45, l = 43), labels = c(
             s = "Serious", m = "Moderate", l = "Low")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
@@ -572,7 +572,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "h", "s", "l", "n"))
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "s", "l", "n"))
 
         if (length(unique(rob.tidy$judgement)) == 1) {
             adjust_caption <- -1.3
@@ -614,11 +614,12 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(l = low_colour,
-                s = concerns_colour, h = high_colour, c = critical_colour, n = ni_colour),
+                s = concerns_colour, h = high_colour, n = ni_colour),
                 labels = c(l = "Low", s = "Unclear", h = "High",
-                  c = "Critical", n = "No information")) + ggplot2::scale_shape_manual(values = c(l = 43,
+                  n = "No information")) +
+          ggplot2::scale_shape_manual(values = c(l = 43,
             s = 45, h = 120, c = 33, n= 63), labels = c(l = "Low",
-            s = "Unclear", h = "High", c = "Critical", n="No information")) + ggplot2::scale_size(range = c(5,
+            s = "Unclear", h = "High", n="No information")) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
