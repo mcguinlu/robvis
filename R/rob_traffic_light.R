@@ -657,18 +657,18 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
       names(data.tmp)[7] <- "D6"
       names(data.tmp)[8] <- "Overall"
 
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Study))
+      rob.tidy <- tidyr::pivot_longer(data.tmp,
+                                      cols = -Study,
+                                      names_to = "domain",
+                                      values_to = "judgement")
 
       ssize <- psize - (psize/4)
 
 
 
-      rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+      rob.tidy$Study <- ordered(rob.tidy$Study, levels = unique(data.tmp$Study))
 
-      rob.tidy$judgement <- as.factor(rob.tidy$judgement)
-
-      rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("s", "m", "l", "n"))
+      rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "m", "l", "n"))
 
 
       if (length(unique(rob.tidy$judgement)) == 1) {
@@ -716,11 +716,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                                     breaks = NULL, name = "Study", position = "left") +
         ggplot2::scale_colour_manual(values = c(
-          s = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
-          labels = c(s = "High", m = "Moderate",
+          h = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
+          labels = c(h = "High", m = "Moderate",
                      l = "Low", n = "No information")) +
-        ggplot2::scale_shape_manual(values = c(s = 120, m = 45, l = 43, n = 63),
-                                    labels = c(s = "High", m = "Moderate", l = "Low", n = "No information")) +
+        ggplot2::scale_shape_manual(values = c(h = 120, m = 45, l = 43, n = 26),
+                                    labels = c(h = "High", m = "Moderate", l = "Low", n = "No information")) +
         ggplot2::scale_size(range = c(5, 20)) +
         ggplot2::theme_bw() +
         ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
