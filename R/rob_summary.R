@@ -552,7 +552,7 @@ rob_summary <-
 
     # Generic=================================================================
 
-    if (tool %in% c("Generic", "ROB1")) {
+    if (tool %in% c("Generic", "ROB1", "QUIPS")) {
 
       if (tool == "ROB1") {
         message(

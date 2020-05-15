@@ -604,7 +604,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 xmax = Inf, ymin = -Inf, ymax = Inf, show.legend = FALSE) +
             ggplot2::geom_point(size = psize, show.legend = FALSE) +
             ggplot2::geom_point(shape = 1, colour = "black",
-                size = psize, show.legend = FALSE) + ggplot2::geom_point(size = ssize,
+                size = psize, show.legend = FALSE) +
+          ggplot2::geom_point(size = ssize,
             colour = "black", ggplot2::aes(shape = judgement),
             show.legend = FALSE) + ggplot2::labs(caption = caption) +
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
@@ -631,6 +632,116 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
             ggplot2::labs(shape = "Judgement", colour = "Judgement")
     }
+
+
+# QUIPS ======================================================================
+
+    if (tool == "QUIPS") {
+
+      for (i in 2:8) {
+        data[[i]] <- tolower(data[[i]])
+        data[[i]] <- trimws(data[[i]])
+        data[[i]] <- substr(data[[i]], 0, 1)
+      }
+
+      data.tmp <- data[, c(1:8)]
+      if (NCOL(data.tmp) < 8) {
+        stop("Column missing (number of columns < 8).")
+      }
+      names(data.tmp)[1] <- "Study"
+      names(data.tmp)[2] <- "D1"
+      names(data.tmp)[3] <- "D2"
+      names(data.tmp)[4] <- "D3"
+      names(data.tmp)[5] <- "D4"
+      names(data.tmp)[6] <- "D5"
+      names(data.tmp)[7] <- "D6"
+      names(data.tmp)[8] <- "Overall"
+
+      rob.tidy <- tidyr::pivot_longer(data.tmp,
+                                      cols = -Study,
+                                      names_to = "domain",
+                                      values_to = "judgement")
+
+      ssize <- psize - (psize/4)
+
+
+
+      rob.tidy$Study <- ordered(rob.tidy$Study, levels = unique(data.tmp$Study))
+
+      rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("h", "m", "l", "n"))
+
+
+      if (length(unique(rob.tidy$judgement)) == 1) {
+        adjust_caption <- -1.3
+      }
+      if (length(unique(rob.tidy$judgement)) == 2) {
+        adjust_caption <- -1.9
+      }
+      if (length(unique(rob.tidy$judgement)) == 3) {
+        adjust_caption <- -2.5
+      }
+      if (length(unique(rob.tidy$judgement)) == 4) {
+        adjust_caption <- -3.1
+      }
+      if (length(unique(rob.tidy$judgement)) == 5) {
+        adjust_caption <- -3.7
+      }
+
+      trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1, y = 1, colour = judgement)) +
+                          ggplot2::facet_grid(Study ~ factor(domain, levels = c("D1", "D2", "D3", "D4", "D5", "D6", "Overall")),
+                                              switch = "y", space = "free") +
+                          ggplot2::geom_point(size = 6) +
+                          ggplot2::geom_point(size = 4, colour = "black",
+                            ggplot2::aes(shape = judgement)) +
+                          ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain != "Overall"), ], fill = "#ffffff", xmin = -Inf, xmax = Inf,
+                                                                                  ymin = -Inf, ymax = Inf, show.legend = FALSE) +
+                          ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain ==
+                                                   "Overall"), ], fill = "#d3d3d3", xmin = -Inf,
+                                                     xmax = Inf, ymin = -Inf, ymax = Inf, show.legend = FALSE) +
+
+        ggplot2::geom_point(size = psize, show.legend = FALSE) +
+        ggplot2::geom_point(shape = 1, colour = "black",
+                            size = psize, show.legend = FALSE) +
+        ggplot2::geom_point(size = ssize, colour = "black", ggplot2::aes(shape = judgement),
+                                                show.legend = FALSE) +
+        ggplot2::labs(caption = "  Domains:
+  D1: Bias due to participation
+  D2: Bias due to attrition
+  D3: Bias due to prognostic factor measurement
+  D4: Bias due to outcome measurement
+  D5: Bias due to confounding
+  D6: Bias in statistical analysis and reporting
+                  ") +
+        ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
+        ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
+                                    breaks = NULL, name = "Study", position = "left") +
+        ggplot2::scale_colour_manual(values = c(
+          h = high_colour, m = concerns_colour, l = low_colour, n = ni_colour),
+          labels = c(h = "High", m = "Moderate",
+                     l = "Low", n = "No information")) +
+        ggplot2::scale_shape_manual(values = c(h = 120, m = 45, l = 43, n = 26),
+                                    labels = c(h = "High", m = "Moderate", l = "Low", n = "No information")) +
+        ggplot2::scale_size(range = c(5, 20)) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
+                       panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
+                       legend.justification = "right", legend.direction = "vertical",
+                       legend.margin = ggplot2::margin(t = -0.2, r = 0,
+                                                      b = adjust_caption, l = -10, unit = "cm"),
+                       strip.text.x = ggplot2::element_text(size = 10),
+                       strip.text.y.left = ggplot2::element_text(angle = 0,
+                                                                size = 10),
+                       legend.text = ggplot2::element_text(size = 9),
+                       legend.title = ggplot2::element_text(size = 9),
+                       strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
+                       plot.caption = ggplot2::element_text(size = 10,
+                       hjust = 0, vjust = 1)) +
+        ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
+        ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
+    }
+
+
+
 
 # Return-plot===================================================================
 
