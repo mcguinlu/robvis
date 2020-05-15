@@ -5,5 +5,5 @@
 #' @export
 
 rob_tools <- function() {
-    c("ROB2", "ROBINS-I", "QUADAS-2", "Generic", "ROBINS-I ONLINE", "podium")
+    c("ROB2", "ROBINS-I", "QUADAS-2", "Generic", "ROBINS-I ONLINE", "QUIPS")
 }

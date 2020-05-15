@@ -634,9 +634,9 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
     }
 
 
-# QUIPS (PODIUM)======================================================================
+# QUIPS ======================================================================
 
-    if (tool == "podium") {
+    if (tool == "QUIPS") {
 
       for (i in 2:8) {
         data[[i]] <- tolower(data[[i]])
