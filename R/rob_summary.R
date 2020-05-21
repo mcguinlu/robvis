@@ -47,6 +47,7 @@ rob_summary <-
     }
 
     # Define colours
+    na_colour <- "#cccccc"
     if (tool == "ROB-2" || tool == "QUADAS-2") {
       if (length(colour) > 1) {
         low_colour <- colour[c(1)]
