@@ -1,7 +1,7 @@
 Study,D1,D2,D3,D4,D5,Overall,Weight
 Study 1,Low,Low,Low,Low,Low,Low,33.33333333
 Study 2,Some concerns,Low,Low,Low,Low,Low,33.33333333
-Study 3,Some concerns,Low,Some concerns,Low,Low,Some concerns,0.142857143
+Study 3,No information,Low,Some concerns,Low,Low,Some concerns,0.142857143
 Study 4,Low,Low,High,Low,Some concerns,High,9.090909091
 Study 5,High,High,Low,Low,Some concerns,Low,12.5
 Study 6,Low,High,Some concerns,Low,Low,Some concerns,25
