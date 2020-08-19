@@ -14,22 +14,22 @@ rob_paired_plot <- function(data, tool, colour = "cochrane",
 
   # Define colouring
   if (length(colour) > 1) {
-    low_colour <- colour[c(1)]
-    concerns_colour <- colour[c(2)]
-    high_colour <- colour[c(3)]
-    critical_colour <- colour[c(4)]
+    rob_colours$low_colour <- colour[c(1)]
+    rob_colours$concerns_colour <- colour[c(2)]
+    rob_colours$high_colour <- colour[c(3)]
+    rob_colours$critical_colour <- colour[c(4)]
   } else {
     if (colour == "colourblind") {
-      low_colour <- "#fef0d9"
-      concerns_colour <- "#fdcc8a"
-      high_colour <- "#fc8d59"
-      critical_colour <- "#d7301f"
+      rob_colours$low_colour <- "#fef0d9"
+      rob_colours$concerns_colour <- "#fdcc8a"
+      rob_colours$high_colour <- "#fc8d59"
+      rob_colours$critical_colour <- "#d7301f"
     }
     if (colour == "cochrane") {
-      low_colour <- "#02C100"
-      concerns_colour <- "#E2DF07"
-      high_colour <- "#BF0000"
-      critical_colour <- "#820000"
+      rob_colours$low_colour <- "#02C100"
+      rob_colours$concerns_colour <- "#E2DF07"
+      rob_colours$high_colour <- "#BF0000"
+      rob_colours$critical_colour <- "#820000"
     }
   }
 

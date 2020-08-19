@@ -47,51 +47,7 @@ rob_summary <-
     }
 
     # Define colours
-    na_colour <- "#cccccc"
-    if (tool == "ROB-2" || tool == "QUADAS-2") {
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        ni_colour <- colour[c(4)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fed98e"
-          concerns_colour <- "#fe9929"
-          high_colour <- "#d95f0e"
-          ni_colour <- "#ffffff"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          ni_colour <- "#4EA1F7"
-        }
-      }
-    }else{
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        critical_colour <- colour[c(4)]
-        ni_colour <- colour[c(5)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fed98e"
-          concerns_colour <- "#fe9929"
-          high_colour <- "#d95f0e"
-          critical_colour <- "#993404"
-          ni_colour <- "#ffffff"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          critical_colour <- "#820000"
-          ni_colour <- "#4EA1F7"
-        }
-      }
-    }
+    rob_colours <- get_colour(tool = tool, colour = colour)
 
     # ROB-2=========================================================================
 
@@ -167,10 +123,10 @@ rob_summary <-
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(l = low_colour,
-                     s = concerns_colour,
-                     h = high_colour,
-                     n = ni_colour),
+          values = c(l = rob_colours$low_colour,
+                     s = rob_colours$concerns_colour,
+                     h = rob_colours$high_colour,
+                     n = rob_colours$ni_colour),
           labels = c(n = "  No information  ",
                      h = "  High risk       ",
                      s = "  Some concerns   ",
@@ -281,11 +237,11 @@ rob_summary <-
                                      1)) +
         ggplot2::scale_fill_manual(
           values = c(
-            n= ni_colour,
-            m = concerns_colour,
-            s = high_colour,
-            l = low_colour,
-            c = critical_colour
+            n= rob_colours$ni_colour,
+            m = rob_colours$concerns_colour,
+            s = rob_colours$high_colour,
+            l = rob_colours$low_colour,
+            c = rob_colours$critical_colour
           ),
           labels = c(
             n = " No information ",
@@ -402,11 +358,11 @@ rob_summary <-
                                      1)) +
         ggplot2::scale_fill_manual(
           values = c(
-            n = ni_colour,
-            m = concerns_colour,
-            s = high_colour,
-            l = low_colour,
-            c = critical_colour
+            n = rob_colours$ni_colour,
+            m = rob_colours$concerns_colour,
+            s = rob_colours$high_colour,
+            l = rob_colours$low_colour,
+            c = rob_colours$critical_colour
           ),
           labels = c(
             n =  "No information",
@@ -518,10 +474,10 @@ rob_summary <-
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(n = ni_colour,
-                     h = high_colour,
-                     s = concerns_colour,
-                     l = low_colour),
+          values = c(n = rob_colours$ni_colour,
+                     h = rob_colours$high_colour,
+                     s = rob_colours$concerns_colour,
+                     l = rob_colours$low_colour),
           labels = c(n = "  No information   ",
                      h = "  High risk of bias   ",
                      s = "  Some concerns      ",
@@ -641,10 +597,10 @@ rob_summary <-
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(l = low_colour,
-                     s = concerns_colour,
-                     h = high_colour,
-                     n= ni_colour),
+          values = c(l = rob_colours$low_colour,
+                     s = rob_colours$concerns_colour,
+                     h = rob_colours$high_colour,
+                     n= rob_colours$ni_colour),
           labels = c(n= "No information",
                      h = "  High risk of bias  ",
                      s = "  Some concerns      ",
