@@ -4,7 +4,6 @@
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
 #' @param psize Control the size of the traffic lights. Default is 20.
-#' @param quiet An option to quietly produce the plot without displaying it.
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @examples
 #'
@@ -24,7 +23,7 @@
 #' @export
 
 rob_traffic_light <- function(data, tool, colour = "cochrane",
-    psize = 20, quiet = FALSE) {
+    psize = 20, ...) {
 
     judgement <- NULL
     Study <- NULL
@@ -41,60 +40,28 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
       )
     }
 
-    # Define colours
-    na_colour <- "#cccccc"
 
-    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        ni_colour <- colour[c(4)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fed98e"
-          concerns_colour <- "#fe9929"
-          high_colour <- "#d95f0e"
-          ni_colour <- "#ffffff"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          ni_colour <- "#4EA1F7"
-        }
-      }
-    }else{
-      if (length(colour) > 1) {
-        low_colour <- colour[c(1)]
-        concerns_colour <- colour[c(2)]
-        high_colour <- colour[c(3)]
-        critical_colour <- colour[c(4)]
-        ni_colour <- colour[c(5)]
-      } else {
-        if (colour == "colourblind") {
-          low_colour <- "#fed98e"
-          concerns_colour <- "#fe9929"
-          high_colour <- "#d95f0e"
-          critical_colour <- "#993404"
-          ni_colour <- "#ffffff"
-        }
-        if (colour == "cochrane") {
-          low_colour <- "#02C100"
-          concerns_colour <- "#E2DF07"
-          high_colour <- "#BF0000"
-          critical_colour <- "#820000"
-          ni_colour <- "#4EA1F7"
-        }
-      }
+    # Define colours
+    rob_colours <- get_colour(tool = tool, colour = colour)
+
+
+if (tool == "ROB2") {
+  rob_traffic_light_rob2(data, tool, colour)
+}
+
+    if (tool == "ROB2") {
+      rob_traffic_light_rob2(data, tool, colour)
     }
 
+    return(trafficlightplot)
+
+}
 
 # ROB-2=========================================================================
 
-    if (tool == "ROB2") {
 
 
+rob_traffic_light_rob2 <-function() {
 
         for (i in 2:7) {
             data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
@@ -160,8 +127,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(h = high_colour,
-                s = concerns_colour, l = low_colour, n= ni_colour, x = na_colour), labels = c(h = "High",
+            ggplot2::scale_colour_manual(values = c(h = rob_colours$high_colour,
+                s = rob_colours$concerns_colour, l = rob_colours$low_colour, n= rob_colours$ni_colour, x = rob_colours$na_colour), labels = c(h = "High",
                 s = "Some concerns", l = "Low", n= "No information", x = "Not applicable")) +
           ggplot2::scale_shape_manual(values = c(h = 120,
             s = 45, l = 43, n = 63, x = 32), labels = c(h = "High", s = "Some concerns",
@@ -181,7 +148,11 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             plot.caption = ggplot2::element_text(size = 10,
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
             ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
-    }
+
+
+return(trafficlightplot)
+
+}
 
 # ROB-2 Cluster=================================================================
 
@@ -258,8 +229,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
         ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                                     breaks = NULL, name = "Study", position = "left") +
-        ggplot2::scale_colour_manual(values = c(h = high_colour,
-                                                s = concerns_colour, l = low_colour, n= ni_colour, x = na_colour), labels = c(h = "High",
+        ggplot2::scale_colour_manual(values = c(h = rob_colours$high_colour,
+                                                s = rob_colours$concerns_colour, l = rob_colours$low_colour, n= rob_colours$ni_colour, x = rob_colours$na_colour), labels = c(h = "High",
                                                                                                                               s = "Some concerns", l = "Low", n= "No information", x = "Not applicable")) +
         ggplot2::scale_shape_manual(values = c(h = 120,
                                                s = 45, l = 43, n = 63, x = 32), labels = c(h = "High", s = "Some concerns",
@@ -355,8 +326,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(c = critical_colour,
-                s = high_colour, m = concerns_colour, l = low_colour, n = ni_colour, x=na_colour),
+            ggplot2::scale_colour_manual(values = c(c = rob_colours$critical_colour,
+                s = rob_colours$high_colour, m = rob_colours$concerns_colour, l = rob_colours$low_colour, n = rob_colours$ni_colour, x=rob_colours$na_colour),
                 labels = c(c = "Critical", s = "Serious", m = "Moderate",
                   l = "Low", n = "No information",x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(c = 33,
             s = 120, m = 45, l = 43, n =63, x=32), labels = c(c = "Critical",
@@ -454,8 +425,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(c = critical_colour,
-                s = high_colour, m = concerns_colour, l = low_colour, x=na_colour),
+            ggplot2::scale_colour_manual(values = c(c = rob_colours$critical_colour,
+                s = rob_colours$high_colour, m = rob_colours$concerns_colour, l = rob_colours$low_colour, x=rob_colours$na_colour),
                 labels = c(c = "Critical", s = "Serious", m = "Moderate",
                   l = "Low",x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(c = 33,
             s = 120, m = 45, l = 43, x = 32), labels = c(c = "Critical",
@@ -538,8 +509,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(h = high_colour,
-                s = concerns_colour, l = low_colour, n = ni_colour, x=na_colour), labels = c(h = "High",
+            ggplot2::scale_colour_manual(values = c(h = rob_colours$high_colour,
+                s = rob_colours$concerns_colour, l = rob_colours$low_colour, n = rob_colours$ni_colour, x=rob_colours$na_colour), labels = c(h = "High",
                 s = "Some concerns", l = "Low", n = "No information", x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(h = 120,
             s = 45, l = 43, n= 63, x=32), labels = c(h = "High", s = "Some concerns",
             l = "Low", n = "No information", x = "Not applicable")) + ggplot2::scale_size(range = c(5,
@@ -673,8 +644,8 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
-            ggplot2::scale_colour_manual(values = c(l = low_colour,
-                s = concerns_colour, h = high_colour, c = critical_colour, n = ni_colour, x=na_colour),
+            ggplot2::scale_colour_manual(values = c(l = rob_colours$low_colour,
+                s = rob_colours$concerns_colour, h = rob_colours$high_colour, c = rob_colours$critical_colour, n = rob_colours$ni_colour, x=rob_colours$na_colour),
                 labels = c(l = "Low", s = "Unclear", h = "High",
                   c = "Critical", n = "No information", x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(l = 43,
             s = 45, h = 120, c = 33, n= 63, x = 32), labels = c(l = "Low",
@@ -696,8 +667,6 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
 
 # Return-plot===================================================================
 
-    if (quiet != TRUE) {
         return(trafficlightplot)
-    }
 
 }
