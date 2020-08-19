@@ -1,9 +1,12 @@
 #' Produce traffic-light plots of risk-of-bias assessments.
 #' @description A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
+#'
 #' @param data A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
 #' @param psize Control the size of the traffic lights. Default is 20.
+#' @param ... Arguments to be passed to the tool specific functions.
+#'
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @examples
 #'
@@ -22,12 +25,7 @@
 #'
 #' @export
 
-rob_traffic_light <- function(data, tool, colour = "cochrane",
-    psize = 20, ...) {
-
-    judgement <- NULL
-    Study <- NULL
-    domain <- NULL
+rob_traffic_light <- function(data, tool, colour = "cochrane",psize = 20, ...) {
 
     # Allow for depreciated "ROB1" argument
     tools <- c(rob_tools(),"ROB1")
@@ -37,7 +35,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         paste("\nTool name \"",
               tool,
               "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
-      )
+     )
     }
 
 
@@ -45,15 +43,58 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
     rob_colours <- get_colour(tool = tool, colour = colour)
 
 
-if (tool == "ROB2") {
-  rob_traffic_light_rob2(data, tool, colour)
-}
-
     if (tool == "ROB2") {
-      rob_traffic_light_rob2(data, tool, colour)
+      plot <- rob_traffic_light_rob2(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize
+      )
     }
 
-    return(trafficlightplot)
+    if (tool == "ROB2-Cluster") {
+      plot <- rob_traffic_light_rob2_cluster(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize
+      )
+    }
+
+    if (tool == "ROBINS-I") {
+      plot <- rob_traffic_light_robinsi(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize
+      )
+    }
+
+    if (tool == "ROBINS-I ONLINE") {
+      plot <- rob_traffic_light_robinsi_online(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize
+      )
+    }
+
+    if (tool == "QUADAS-2") {
+      plot <- rob_traffic_light_quadas2(data = data,
+                                     tool = tool,
+                                     rob_colours = rob_colours,
+                                     psize = psize)
+    }
+
+    if (tool == "Generic") {
+      plot <- rob_traffic_light_generic(data = data,
+                                        tool = tool,
+                                        rob_colours = rob_colours,
+                                        psize = psize,
+                                        ...)
+    }
+
+    return(plot)
 
 }
 
@@ -61,7 +102,12 @@ if (tool == "ROB2") {
 
 
 
-rob_traffic_light_rob2 <-function() {
+rob_traffic_light_rob2 <-function(data,
+                                  tool,
+                                  rob_colours,
+                                  psize) {
+
+
 
         for (i in 2:7) {
             data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
@@ -156,7 +202,10 @@ return(trafficlightplot)
 
 # ROB-2 Cluster=================================================================
 
-    if (tool == "ROB2-Cluster") {
+rob_traffic_light_rob2_cluster <- function(data,
+                                           tool,
+                                           rob_colours,
+                                           psize) {
 
       for (i in 2:8) {
         data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
@@ -250,13 +299,18 @@ return(trafficlightplot)
                        plot.caption = ggplot2::element_text(size = 10,
                                                             hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
         ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
-    }
+
+      return(trafficlightplot)
+      }
 
 
 
 # ROBINS-I======================================================================
 
-    if (tool == "ROBINS-I") {
+rob_traffic_light_robinsi <- function(data,
+                                      tool,
+                                      rob_colours,
+                                      psize) {
 
         for (i in 2:9) {
           data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
@@ -346,12 +400,18 @@ return(trafficlightplot)
             plot.caption = ggplot2::element_text(size = 10,
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
             ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
-    }
+
+        return(trafficlightplot)
+
+        }
 
 
 # ROBINS-I-ONLINE===============================================================
 
-    if (tool == "ROBINS-I Online") {
+rob_traffic_light_robinsi_online <- function(data,
+                                      tool,
+                                      rob_colours,
+                                      psize) {
 
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
         data <- data[, colSums(is.na(data)) != nrow(data)]
@@ -444,11 +504,17 @@ return(trafficlightplot)
             plot.caption = ggplot2::element_text(size = 10,
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
             ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
-    }
+
+        return(trafficlightplot)
+  }
 
 # QUADAS-2======================================================================
 
-    if (tool == "QUADAS-2") {
+
+rob_traffic_light_quadas2 <- function(data,
+                                      tool,
+                                      rob_colours,
+                                      psize){
 
         for (i in 2:6) {
           data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
@@ -528,11 +594,25 @@ return(trafficlightplot)
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
             ggplot2::labs(shape = "Judgement", colour = "Judgement")  # Need to be exactly the same
 
-    }
+    return(trafficlightplot)
 
-
+}
 
 # ROB-1/Generic=================================================================
+
+rob_traffic_light_generic <- function(data,
+                                      tool,
+                                      rob_colours,
+                                      psize,
+                                      x_title="Risk of bias domains",
+                                      y_title="Study",
+                                      judgement_title = "Judgement",
+                                      judgement_labels = c("Critical",
+                                                           "High",
+                                                           "Unclear",
+                                                           "Low",
+                                                           "No information",
+                                                           "Not applicable")) {
 
     if (tool %in% c("Generic", "ROB1")) {
 
@@ -616,13 +696,19 @@ return(trafficlightplot)
         rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+        # add judgment levels variable
+        judgement_levels = c("c", "h", "s", "l", "n","x")
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "h", "s", "l", "n","x"))
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = judgement_levels)
 
         adjust_caption <- -0.7 + length(unique(rob.tidy$judgement))*-0.6
 
         # Set sizes
         ssize <- psize - (psize/4)
+
+        # name the provided judgement labels with appropriate judgement levels to enable this to be passed
+        # as a named character variable to the ggplot::scale_colour_manual()
+        names(judgement_labels) = judgement_levels
 
         # PLot graph
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
@@ -641,15 +727,14 @@ return(trafficlightplot)
                 size = psize, show.legend = FALSE) + ggplot2::geom_point(size = ssize,
             colour = "black", ggplot2::aes(shape = judgement),
             show.legend = FALSE) + ggplot2::labs(caption = caption) +
-            ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
+            ggplot2::scale_x_discrete(position = "top", name = x_title) +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
                 breaks = NULL, name = "Study", position = "left") +
             ggplot2::scale_colour_manual(values = c(l = rob_colours$low_colour,
                 s = rob_colours$concerns_colour, h = rob_colours$high_colour, c = rob_colours$critical_colour, n = rob_colours$ni_colour, x=rob_colours$na_colour),
-                labels = c(l = "Low", s = "Unclear", h = "High",
-                  c = "Critical", n = "No information", x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(l = 43,
-            s = 45, h = 120, c = 33, n= 63, x = 32), labels = c(l = "Low",
-            s = "Unclear", h = "High", c = "Critical", n="No information",x = "Not applicable")) + ggplot2::scale_size(range = c(5,
+
+                labels = judgement_labels) + ggplot2::scale_shape_manual(values = c(l = 43,
+            s = 45, h = 120, c = 33, n= 63, x = 32), labels = judgement_labels) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
@@ -662,7 +747,7 @@ return(trafficlightplot)
             strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
             plot.caption = ggplot2::element_text(size = 10,
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-            ggplot2::labs(shape = "Judgement", colour = "Judgement")
+            ggplot2::labs(shape = judgement_title, colour = judgement_title)
     }
 
 # Return-plot===================================================================
