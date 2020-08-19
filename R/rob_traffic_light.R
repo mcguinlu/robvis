@@ -5,6 +5,10 @@
 #' @param colour An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').
 #' @param psize Control the size of the traffic lights. Default is 20.
 #' @param quiet An option to quietly produce the plot without displaying it.
+#' @param x_title Optional argument to alter x axis title, only applicable if using generic template
+#' @param y_title Optional argument to alter y axis title, only applicable if using generic template
+#' @param judgement_labels Optional argument to customise judgement labels, should be in order of c(critical, high, unclear, low, no information, not applicable), only applicable if using generic template.
+#' @param judgement_title Optional argument to customise the title above judgement labels, only applicable if using generic template
 #' @return Risk-of-bias assessment traffic light plot (ggplot2 object)
 #' @examples
 #'
@@ -24,7 +28,9 @@
 #' @export
 
 rob_traffic_light <- function(data, tool, colour = "cochrane",
-    psize = 20, quiet = FALSE) {
+    psize = 20, quiet = FALSE, x_title="Risk of bias domains", y_title="Study",
+    judgement_labels = c("Critical", "High", "Unclear", "Low", "No information", "Not applicable"),
+    judgement_title = 'Judgement'){
 
     judgement <- NULL
     Study <- NULL
@@ -645,13 +651,19 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
         rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
         rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+        # add judgment levels variable
+        judgement_levels = c("c", "h", "s", "l", "n","x")
 
-        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = c("c", "h", "s", "l", "n","x"))
+        rob.tidy$judgement <- factor(rob.tidy$judgement, levels = judgement_levels)
 
         adjust_caption <- -0.7 + length(unique(rob.tidy$judgement))*-0.6
 
         # Set sizes
         ssize <- psize - (psize/4)
+
+        # name the provided judgement labels with appropriate judgement levels to enable this to be passed
+        # as a named character variable to the ggplot::scale_colour_manual()
+        names(judgement_labels) = judgement_levels
 
         # PLot graph
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
@@ -670,15 +682,13 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
                 size = psize, show.legend = FALSE) + ggplot2::geom_point(size = ssize,
             colour = "black", ggplot2::aes(shape = judgement),
             show.legend = FALSE) + ggplot2::labs(caption = caption) +
-            ggplot2::scale_x_discrete(position = "top", name = "Risk of bias domains") +
+            ggplot2::scale_x_discrete(position = "top", name = x_title) +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
-                breaks = NULL, name = "Study", position = "left") +
+                breaks = NULL, name = y_title, position = "left") +
             ggplot2::scale_colour_manual(values = c(l = low_colour,
                 s = concerns_colour, h = high_colour, c = critical_colour, n = ni_colour, x=na_colour),
-                labels = c(l = "Low", s = "Unclear", h = "High",
-                  c = "Critical", n = "No information", x = "Not applicable")) + ggplot2::scale_shape_manual(values = c(l = 43,
-            s = 45, h = 120, c = 33, n= 63, x = 32), labels = c(l = "Low",
-            s = "Unclear", h = "High", c = "Critical", n="No information",x = "Not applicable")) + ggplot2::scale_size(range = c(5,
+                labels = judgement_labels) + ggplot2::scale_shape_manual(values = c(l = 43,
+            s = 45, h = 120, c = 33, n= 63, x = 32), labels = judgement_labels) + ggplot2::scale_size(range = c(5,
             20)) + ggplot2::theme_bw() + ggplot2::theme(panel.border = ggplot2::element_rect(colour = "grey"),
             panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
             legend.justification = "right", legend.direction = "vertical",
@@ -691,7 +701,7 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",
             strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
             plot.caption = ggplot2::element_text(size = 10,
                 hjust = 0, vjust = 1)) + ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-            ggplot2::labs(shape = "Judgement", colour = "Judgement")
+            ggplot2::labs(shape = judgement_title, colour = judgement_title)
     }
 
 # Return-plot===================================================================

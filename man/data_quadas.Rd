@@ -4,7 +4,9 @@
 \name{data_quadas}
 \alias{data_quadas}
 \title{Example QUADAS-2 assessment}
-\format{An object of class \code{data.frame} with 12 rows and 7 columns.}
+\format{
+An object of class \code{data.frame} with 12 rows and 7 columns.
+}
 \source{
 {Created for this package}
 }
