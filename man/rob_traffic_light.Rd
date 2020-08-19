@@ -4,7 +4,7 @@
 \alias{rob_traffic_light}
 \title{Produce traffic-light plots of risk-of-bias assessments.}
 \usage{
-rob_traffic_light(data, tool, colour = "cochrane", psize = 20, quiet = FALSE)
+rob_traffic_light(data, tool, colour = "cochrane", psize = 20, ...)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).}
@@ -15,7 +15,7 @@ rob_traffic_light(data, tool, colour = "cochrane", psize = 20, quiet = FALSE)
 
 \item{psize}{Control the size of the traffic lights. Default is 20.}
 
-\item{quiet}{An option to quietly produce the plot without displaying it.}
+\item{...}{Arguments to be passed to the tool specific functions.}
 }
 \value{
 Risk-of-bias assessment traffic light plot (ggplot2 object)
