@@ -11,10 +11,10 @@ test_that("Tool specified incorrectly", {
   expect_error(rob_traffic_light(data_rob2, "Rob2"))
 })
 
-test_that("Colour errors", {
-          expect_error(rob_summary(data_rob2, "ROB2", colour = c("#FFFFFF")))
-          expect_error(rob_traffic_light(data_rob2,"ROB2", colour = c("#FFFFFF")))
-})
+# test_that("Colour errors", {
+#           expect_error(rob_summary(data_rob2, "ROB2", colour = c("#FFFFFF")))
+#           expect_error(rob_traffic_light(data_rob2,"ROB2", colour = c("#FFFFFF")))
+# })
 
 test_sum <- data_rob2[, c(1:7)]
 test_tf <- data_rob2[, c(1:6)]
