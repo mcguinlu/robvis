@@ -4,7 +4,9 @@
 \name{data_rob2}
 \alias{data_rob2}
 \title{Example ROB2.0 assessment}
-\format{An object of class \code{data.frame} with 9 rows and 8 columns.}
+\format{
+An object of class \code{data.frame} with 9 rows and 8 columns.
+}
 \source{
 {Created for this package}
 }

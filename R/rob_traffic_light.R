@@ -94,6 +94,18 @@ rob_traffic_light <- function(data, tool, colour = "cochrane",psize = 20, ...) {
                                         ...)
     }
 
+
+    plot$rec_height <- get_height(
+      data = data,
+      tool = tool,
+      psize = psize,
+      type = "tf"
+    )
+
+    plot$rec_width <- get_width(data = data,
+                                 type = "tf")
+
+
     return(plot)
 
 }
