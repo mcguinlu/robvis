@@ -53,4 +53,26 @@ get_colour <- function(tool, colour){
   return(rob_colours)
 }
 
+get_height <- function(data, tool, psize = 15, type = "tf"){
+  if (type == "tf") {
+    tool_adj <- ifelse(tool %in% c("ROBINS-I","Generic"), 2.5, 2)
+    nrows <- nrow(data)
+    height <- tool_adj + nrows * .75 / (15 / psize)
+  } else {
+    height <- 2.41
+  }
+  return(height)
+}
 
+get_width <- function(data, type = "tf"){
+  # Account for long study names
+  if (type == "tf") {
+    nchar_study <- max(nchar(as.character(data$Study)))
+    nchar_domain <- max(nchar(as.character(colnames(data)))) + 3
+    width_adj <- ifelse(nchar_study > 8, 8+nchar_study*0.05, 8)
+    width <- ifelse(nchar_domain > 42, width_adj+(nchar_domain-42)*0.05, width_adj)
+  } else {
+    width <- 8
+  }
+  return(width)
+}
