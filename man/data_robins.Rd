@@ -28,4 +28,4 @@ data_robins
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

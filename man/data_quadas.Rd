@@ -25,4 +25,4 @@ data_quadas
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

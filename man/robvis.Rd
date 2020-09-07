@@ -8,3 +8,4 @@
 The robvis package is designed to help users produce publication quality
 risk-of-bias assessment figures.
 }
+\keyword{internal}

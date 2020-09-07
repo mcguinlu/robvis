@@ -27,4 +27,4 @@ data_rob2_cluster
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

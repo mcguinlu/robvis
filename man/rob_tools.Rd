@@ -2,13 +2,20 @@
 % Please edit documentation in R/rob_tools.R
 \name{rob_tools}
 \alias{rob_tools}
-\title{List tools covered by rob_summary().}
+\title{List tool templates available within the package.}
 \usage{
 rob_tools()
 }
 \description{
-rob_tools() will list the tools that can currently be plotted using the rob_summary() function.
+rob_tools() will list the risk-of-bias assessment tools for
+  which templates already exist within the robvis package. If the assessment
+  tool you used does not appear in the list, use the "Generic" template.
 }
 \examples{
 rob_tools()
 }
+\seealso{
+Other helper: 
+\code{\link{rob_save}()}
+}
+\concept{helper}
