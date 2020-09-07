@@ -4,5 +4,6 @@
 #' risk-of-bias assessment figures.
 #' @docType package
 #' @name robvis
+#' @keywords internal
 
-globalVariables(c("domain", "Study","judgement"))
+globalVariables(c("domain", "Study", "judgement", "Weights"))
