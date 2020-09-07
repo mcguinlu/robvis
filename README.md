@@ -34,13 +34,8 @@ tool used.
 
 ## Getting started
 
-Install the CRAN version:
-
-``` r
-install.packages("robvis")
-```
-
-Alternatively, the development version can be installed using:
+Install the development version which contains new functionality and a
+range of bug fixes:
 
 ``` r
 install.packages("devtools")
@@ -49,6 +44,13 @@ devtools::install_github("mcguinlu/robvis")
 
 To update the package, run the `install_github("mcguinlu/robvis")`
 command again.
+
+If you wish to use the older CRAN version of the package, use the
+following command:
+
+``` r
+install.packages("robvis")
+```
 
 ### Load data
 
@@ -101,6 +103,15 @@ trafficlight_rob
 
 ### Other functions
 
+#### rob\_save()
+
+Pass the `robvis` to this function, along with a destination file, to
+save your risk-of-bias plots using sensible defaults.
+
+``` r
+rob_save(trafficlight_rob, "rob_fig.png")
+```
+
 #### rob\_tools()
 
 Outputs a list of the risk of bias assessment tools for which a template
@@ -108,11 +119,12 @@ currently exists in rob\_summary(). We expect this list to be updated in
 the near future to include tools such as ROBIS (tool for assessing risk
 of bias in systematic reviews).
 
-    rob_tools()
-    [1] "ROB2"
-    [1] "ROBINS-I"
-    [1] "QUADAS-2"
-    [1] "ROB1"
+``` r
+rob_tools()
+#> Note: the "ROB2-Cluster" template is only available for the rob_traffic_light() function.
+#> [1] "ROB2"            "ROB2-Cluster"    "ROBINS-I"        "QUADAS-2"       
+#> [5] "Generic"         "ROBINS-I ONLINE"
+```
 
 ## Advanced usage
 
@@ -129,16 +141,16 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblin
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
 
 And to define your own colour scheme:
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#d16684"))
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
 
 ### Created an unweighted summary barplot
 
@@ -151,14 +163,14 @@ summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
 
 ``` r
 summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", weighted = FALSE)
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" />
 
 ### Editing the plots
 
@@ -175,7 +187,7 @@ summary_rob +
   ggtitle("Summary of RoB2.0 assessments")
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" />
 
 ## Examples of `robvis` in published papers
 
@@ -213,6 +225,9 @@ summary_rob +
     systematic review and meta-analysis
     study.](https://www.medrxiv.org/content/medrxiv/early/2019/08/29/19005165.full.pdf)”
     medRxiv (2019): 19005165.
+
+See more
+[here](https://scholar.google.com/scholar?cites=12564214960529060925&as_sdt=2005&sciodt=0,5&hl=en).
 
 ## Code of conduct
 
