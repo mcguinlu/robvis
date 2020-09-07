@@ -4,7 +4,9 @@
 \name{data_rob2_cluster}
 \alias{data_rob2_cluster}
 \title{Example ROB2.0 assessment}
-\format{An object of class \code{data.frame} with 9 rows and 9 columns.}
+\format{
+An object of class \code{data.frame} with 9 rows and 9 columns.
+}
 \source{
 {Created for this package}
 }
@@ -25,4 +27,4 @@ data_rob2_cluster
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

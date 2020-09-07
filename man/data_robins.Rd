@@ -4,7 +4,9 @@
 \name{data_robins}
 \alias{data_robins}
 \title{Example ROBINS-I assessment}
-\format{An object of class \code{data.frame} with 12 rows and 10 columns.}
+\format{
+An object of class \code{data.frame} with 12 rows and 10 columns.
+}
 \source{
 {Created for this package}
 }
@@ -26,4 +28,4 @@ data_robins
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

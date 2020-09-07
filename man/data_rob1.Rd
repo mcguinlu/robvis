@@ -4,7 +4,9 @@
 \name{data_rob1}
 \alias{data_rob1}
 \title{Example ROB1 assessment}
-\format{An object of class \code{data.frame} with 9 rows and 10 columns.}
+\format{
+An object of class \code{data.frame} with 9 rows and 10 columns.
+}
 \source{
 {Created for this package}
 }
@@ -26,4 +28,4 @@ data_rob1
   \item{Weight}{Weight measure for each study}
          }
 }
-\keyword{datasets}
+\keyword{internal}

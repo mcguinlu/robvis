@@ -43,12 +43,7 @@ The `robvis` package takes the summary table from risk-of-bias assessments and p
 
 ## Getting started
 
-Install the CRAN version:
-```{r, eval=FALSE}
-install.packages("robvis")
-```
-
-Alternatively, the development version can be installed using:
+Install the development version which contains new functionality and a range of bug fixes:
 
 ```{r, eval=FALSE}   
 install.packages("devtools")
@@ -56,6 +51,12 @@ devtools::install_github("mcguinlu/robvis")
 ```
 
 To update the package, run the `install_github("mcguinlu/robvis")` command again.
+
+If you wish to use the older CRAN version of the package, use the following command:
+
+```{r, eval=FALSE}
+install.packages("robvis")
+```
 
  
 ### Load data
@@ -89,27 +90,25 @@ trafficlight_rob
 
 ``` {r, include=FALSE}
 trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
-ggplot2::ggsave(
-          "man/figures/rob2trafficlight.png",
-          plot = trafficlight_rob,
-          device = "png",
-          width = 6,
-          height = 9,
-          units = "in",
-          dpi = 800, 
-          limitsize = FALSE)
+rob_save(trafficlight_rob,"man/figures/rob2trafficlight.png")
 ```
 <div style="text-align:center"><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></div>
 
 ### Other functions
+
+#### rob_save()
+Pass the `robvis` to this function, along with a destination file, to save your risk-of-bias plots using sensible defaults.
+
+```{r, eval = FALSE}
+rob_save(trafficlight_rob, "rob_fig.png")
+```
+
 #### rob_tools()
 Outputs a list of the risk of bias assessment tools for which a template currently exists in rob_summary(). We expect this list to be updated in the near future to include tools such as ROBIS (tool for assessing risk of bias in systematic reviews).
 
-    rob_tools()
-    [1] "ROB2"
-    [1] "ROBINS-I"
-    [1] "QUADAS-2"
-    [1] "ROB1"
+```{r}
+rob_tools()
+```
 
 ## Advanced usage
 ### Change the colour scheme
@@ -124,7 +123,7 @@ summary_rob
 
 And to define your own colour scheme:
 ```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#d16684"))
 summary_rob
 ```
 
@@ -162,12 +161,13 @@ summary_rob +
 * Habadi, Mohammed Ibrahim, et al. "[Prevalence of Panic Disorders in the Primary Health Care Setting: A Systematic Review and Meta-Analysis.](https://www.ecronicon.com/ecmi/pdf/prevalence-of-panic-disorders-in-the-primary-health-care-setting-a-systematic-review-and-meta-analysis.pdf)" EC Microbiology 16.1 (2019): 01-09.
 * Gibb, Kate, et al. "[The consistent burden in published estimates of delirium occurrence in medical inpatients over four decades: a systematic review and meta-analysis study.](https://www.medrxiv.org/content/medrxiv/early/2019/08/29/19005165.full.pdf)" medRxiv (2019): 19005165.
 
+See more [here](https://scholar.google.com/scholar?cites=12564214960529060925&as_sdt=2005&sciodt=0,5&hl=en). 
+
 ## Code of conduct
 
 Please note that the 'robvis' project is released with a
 [Contributor Code of Conduct](https://github.com/mcguinlu/robvis/blob/master/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
-
 
 ## License
 

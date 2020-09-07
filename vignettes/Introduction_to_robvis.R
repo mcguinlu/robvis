@@ -9,9 +9,8 @@ knitr::opts_chunk$set(
 library(robvis)
 
 
-## ---- eval = FALSE------------------------------------------------------------
-#  rob_tools()
-#  #> [1] "ROB2"            "ROBINS-I"        "QUADAS-2"        "Generic"         "ROBINS-I ONLINE"
+## ---- eval = TRUE-------------------------------------------------------------
+rob_tools()
 
 ## ---- eval=FALSE--------------------------------------------------------------
 #  data <- read.csv("path/to/summary_table.csv", header = TRUE)
@@ -38,7 +37,7 @@ rob_summary(data_rob2, tool = "ROB2", weighted = FALSE)
 rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
 
 ## -----------------------------------------------------------------------------
-rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#557925"))
 
 ## ---- fig.width = 6, fig.height = 9, fig.align="center"-----------------------
 rob_traffic_light(data_rob2, tool = "ROB2")
@@ -61,7 +60,7 @@ rob_traffic_light(data, tool = "ROB2", psize = 10)
 rob_traffic_light(data = data_rob2, tool = "ROB2", colour = "colourblind")
 
 ## ---- fig.width = 6, fig.height = 9, fig.align="center"-----------------------
-rob_traffic_light(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+rob_traffic_light(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#557925"))
 
 ## -----------------------------------------------------------------------------
 colnames(data_rob2)
