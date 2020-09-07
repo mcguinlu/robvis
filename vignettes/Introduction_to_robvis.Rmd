@@ -36,9 +36,8 @@ The `robvis` package provides functions to convert a risk-of-bias assessment sum
 
 Users can find the exact assessment tool name expected by the `tool` argument of the `rob_summary()` and `rob_traffic_light()` functions by running:
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 rob_tools()
-#> [1] "ROB2"            "ROBINS-I"        "QUADAS-2"        "Generic"         "ROBINS-I ONLINE"
 ```
 
 ## Loading your data
@@ -129,7 +128,7 @@ rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
 
 And to define your own colour scheme:
 ```{r}
-rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#557925"))
 ```
 
 When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. "Low"/"Moderate"/"High"/"Critical") and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. "Low" -> "Critical"), with the first hex corresponding to "Low" risk of bias.
@@ -187,7 +186,7 @@ rob_traffic_light(data = data_rob2, tool = "ROB2", colour = "colourblind")
 
 And to define your own colour scheme:
 ```{r, fig.width = 6, fig.height = 9, fig.align="center"}
-rob_traffic_light(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000"))
+rob_traffic_light(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#557925"))
 ```
 
 When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. "Low"/"Moderate"/"High"/"Critical") and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. "Low" -> "Critical"), with the first hex corresponding to "Low" risk of bias.
