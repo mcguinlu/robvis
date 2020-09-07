@@ -18,7 +18,7 @@
     <rect x='115.79' y='22.77' width='598.73' height='491.76' />
   </clipPath>
 </defs>
-<rect x='638.03' y='403.30' width='49.28' height='81.96' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter;' clip-path='url(#cpMTE1Ljc5fDcxNC41Mnw1MTQuNTR8MjIuNzc=)' />
+<rect x='638.03' y='403.30' width='49.28' height='81.96' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #BEF441;' clip-path='url(#cpMTE1Ljc5fDcxNC41Mnw1MTQuNTR8MjIuNzc=)' />
 <rect x='342.36' y='403.30' width='295.67' height='81.96' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #000000;' clip-path='url(#cpMTE1Ljc5fDcxNC41Mnw1MTQuNTR8MjIuNzc=)' />
 <rect x='342.15' y='403.30' width='0.21' height='81.96' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #BEF441;' clip-path='url(#cpMTE1Ljc5fDcxNC41Mnw1MTQuNTR8MjIuNzc=)' />
 <rect x='143.00' y='403.30' width='199.15' height='81.96' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #F442C8;' clip-path='url(#cpMTE1Ljc5fDcxNC41Mnw1MTQuNTR8MjIuNzc=)' />
@@ -59,7 +59,7 @@
 <rect x='422.98' y='543.78' width='21.26' height='21.26' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
 <rect x='423.69' y='544.49' width='19.84' height='19.84' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #000000;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
 <rect x='506.27' y='543.78' width='21.26' height='21.26' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
-<rect x='506.98' y='544.49' width='19.84' height='19.84' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<rect x='506.98' y='544.49' width='19.84' height='19.84' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #BEF441;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='282.09' y='556.47' style='font-size: 6.00px; font-family: Liberation Sans;' textLength='48.08px' lengthAdjust='spacingAndGlyphs'>  Low risk of bias  </text></g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='362.39' y='556.47' style='font-size: 6.00px; font-family: Liberation Sans;' textLength='55.11px' lengthAdjust='spacingAndGlyphs'>  Some concerns      </text></g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='449.72' y='556.47' style='font-size: 6.00px; font-family: Liberation Sans;' textLength='51.08px' lengthAdjust='spacingAndGlyphs'>  High risk of bias   </text></g>
