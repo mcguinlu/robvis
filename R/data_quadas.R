@@ -11,4 +11,5 @@
 #'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
+#' @keywords internal
 "data_quadas"
