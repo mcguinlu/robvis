@@ -109,13 +109,7 @@ rob_traffic_light_rob2 <-function(data,
 
 
 
-        for (i in 2:7) {
-            data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-            data[[i]] <- tolower(data[[i]])
-            data[[i]] <- trimws(data[[i]])
-            data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-            data[[i]] <- substr(data[[i]], 0, 1)
-        }
+    d2 <- cbind(data[,1], data.frame(lapply(data[,2:7], clean_data), stringsAsFactors = F))
 
         data.tmp <- data[, c(1:7)]
         if (NCOL(data.tmp) < 7) {
