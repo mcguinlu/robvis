@@ -107,21 +107,12 @@ rob_traffic_light_rob2 <-function(data,
                                   rob_colours,
                                   psize) {
 
+  if (NCOL(data) < 7) {stop("Column missing (number of columns < 7).")}
 
+   data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:7], clean_data), stringsAsFactors = F))
 
-    d2 <- cbind(data[,1], data.frame(lapply(data[,2:7], clean_data), stringsAsFactors = F))
-
-        data.tmp <- data[, c(1:7)]
-        if (NCOL(data.tmp) < 7) {
-            stop("Column missing (number of columns < 7).")
-        }
-        names(data.tmp)[1] <- "Study"
-        names(data.tmp)[2] <- "D1"
-        names(data.tmp)[3] <- "D2"
-        names(data.tmp)[4] <- "D3"
-        names(data.tmp)[5] <- "D4"
-        names(data.tmp)[6] <- "D5"
-        names(data.tmp)[7] <- "Overall"
+   rob2_name <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
+   names(data.tmp) <- rob2_name
 
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
@@ -138,8 +129,7 @@ rob_traffic_light_rob2 <-function(data,
 
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
             y = 1, colour = judgement)) + ggplot2::facet_grid(Study ~
-            factor(domain, levels = c("D1", "D2", "D3", "D4",
-                "D5", "Overall")), switch = "y", space = "free") +
+            factor(domain, levels = rob2_name), switch = "y", space = "free") +
             ggplot2::geom_point(size = 6) + ggplot2::geom_point(size = 4,
             colour = "black", ggplot2::aes(shape = judgement)) +
             ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain !=
