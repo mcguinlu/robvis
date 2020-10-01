@@ -191,26 +191,13 @@ rob_traffic_light_rob2_cluster <- function(data,
                                            rob_colours,
                                            psize) {
 
-      for (i in 2:8) {
-        data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-        data[[i]] <- tolower(data[[i]])
-        data[[i]] <- trimws(data[[i]])
-        data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-        data[[i]] <- substr(data[[i]], 0, 1)
-      }
+  if (NCOL(data) < 7) {stop("Column missing (number of columns < 8).")}
 
-      data.tmp <- data[, c(1:8)]
-      if (NCOL(data.tmp) < 7) {
-        stop("Column missing (number of columns < 8).")
-      }
-      names(data.tmp)[1] <- "Study"
-      names(data.tmp)[2] <- "D1"
-      names(data.tmp)[3] <- "D1b"
-      names(data.tmp)[4] <- "D2"
-      names(data.tmp)[5] <- "D3"
-      names(data.tmp)[6] <- "D4"
-      names(data.tmp)[7] <- "D5"
-      names(data.tmp)[8] <- "Overall"
+  data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:8], clean_data), stringsAsFactors = F))
+
+  rob2cluster_name <- c("Study", "D1", "D1b", "D2", "D3", "D4", "D5", "Overall")
+
+  names(data.tmp) <- rob2cluster_name
 
       rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
                                                  domain, judgement, -Study))
@@ -228,10 +215,7 @@ rob_traffic_light_rob2_cluster <- function(data,
       trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
                                                                  y = 1, colour = judgement)) +
         ggplot2::facet_grid(Study ~
-                              factor(domain, levels = c(
-                                "D1", "D1b", "D2", "D3", "D4",
-                                "D5", "Overall"
-                              )),
+                              factor(domain, levels = rob2cluster_name),
                             switch = "y",
                             space = "free") +
         ggplot2::geom_point(size = 6) + ggplot2::geom_point(size = 4,
@@ -296,34 +280,18 @@ rob_traffic_light_robinsi <- function(data,
                                       rob_colours,
                                       psize) {
 
-        for (i in 2:9) {
-          data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-          data[[i]] <- tolower(data[[i]])
-          data[[i]] <- trimws(data[[i]])
-          data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-          data[[i]] <- substr(data[[i]], 0, 1)
-        }
+      if (NCOL(data) < 9) {stop("Column missing (number of columns < 9).")}
 
-        data.tmp <- data[, c(1:9)]
-        if (NCOL(data.tmp) < 9) {
-            stop("Column missing (number of columns < 9).")
-        }
-        names(data.tmp)[1] <- "Study"
-        names(data.tmp)[2] <- "D1"
-        names(data.tmp)[3] <- "D2"
-        names(data.tmp)[4] <- "D3"
-        names(data.tmp)[5] <- "D4"
-        names(data.tmp)[6] <- "D5"
-        names(data.tmp)[7] <- "D6"
-        names(data.tmp)[8] <- "D7"
-        names(data.tmp)[9] <- "Overall"
+        data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:9], clean_data), stringsAsFactors = F))
+
+        rob2robinsi_name <- c("Study", "D1", "D2", "D3", "D4", "D5","D6", "D7", "Overall")
+
+        names(data.tmp) <- rob2robinsi_name
 
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
 
         ssize <- psize - (psize/4)
-
-
 
         rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
@@ -335,8 +303,7 @@ rob_traffic_light_robinsi <- function(data,
 
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
             y = 1, colour = judgement)) + ggplot2::facet_grid(Study ~
-            factor(domain, levels = c("D1", "D2", "D3", "D4",
-                "D5", "D6", "D7", "Overall")), switch = "y",
+            factor(domain, levels = rob2robinsi_name), switch = "y",
             space = "free") + ggplot2::geom_point(size = 6) +
             ggplot2::geom_point(size = 4, colour = "black",
                 ggplot2::aes(shape = judgement)) + ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain !=
@@ -400,35 +367,20 @@ rob_traffic_light_robinsi_online <- function(data,
         data <- data[, grepl("studyId|RBJ_answer", names(data))]
         data <- data[, colSums(is.na(data)) != nrow(data)]
 
-        for (i in 2:9) {
-          data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-          data[[i]] <- tolower(data[[i]])
-          data[[i]] <- trimws(data[[i]])
-          data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-          data[[i]] <- substr(data[[i]], 0, 1)
-        }
+        data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:9], clean_data), stringsAsFactors = F))
 
-        data.tmp <- data[, c(1:9)]
+        rob2robinsionline_name <- c("Study", "D1", "D2", "D3", "D4", "D5","D6", "D7", "Overall")
+
+        names(data.tmp) <- rob2robinsionline_name
+
         if (NCOL(data.tmp) < 9) {
             stop("Column missing (number of columns < 9).")
         }
-        names(data.tmp)[1] <- "Study"
-        names(data.tmp)[2] <- "D1"
-        names(data.tmp)[3] <- "D2"
-        names(data.tmp)[4] <- "D3"
-        names(data.tmp)[5] <- "D4"
-        names(data.tmp)[6] <- "D5"
-        names(data.tmp)[7] <- "D6"
-        names(data.tmp)[8] <- "D7"
-        names(data.tmp)[9] <- "Overall"
-
 
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
 
         ssize <- psize - (psize/4)
-
-
 
         rob.tidy$Study <- factor(rob.tidy$Study, levels = unique(data.tmp$Study))
 
@@ -440,8 +392,7 @@ rob_traffic_light_robinsi_online <- function(data,
 
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
             y = 1, colour = judgement)) + ggplot2::facet_grid(Study ~
-            factor(domain, levels = c("D1", "D2", "D3", "D4",
-                "D5", "D6", "D7", "Overall")), switch = "y",
+            factor(domain, levels = rob2robinsionline_name), switch = "y",
             space = "free") + ggplot2::geom_point(size = 6) +
             ggplot2::geom_point(size = 4, colour = "black",
                 ggplot2::aes(shape = judgement)) + ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain !=
@@ -500,24 +451,13 @@ rob_traffic_light_quadas2 <- function(data,
                                       rob_colours,
                                       psize){
 
-        for (i in 2:6) {
-          data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-          data[[i]] <- tolower(data[[i]])
-          data[[i]] <- trimws(data[[i]])
-          data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-          data[[i]] <- substr(data[[i]], 0, 1)
-        }
+        if (NCOL(data) < 6) {stop("Column missing (number of columns < 6).")}
 
-        data.tmp <- data[, c(1:6)]
-        if (NCOL(data.tmp) < 6) {
-            stop("Column missing (number of columns < 6).")
-        }
-        names(data.tmp)[1] <- "Study"
-        names(data.tmp)[2] <- "D1"
-        names(data.tmp)[3] <- "D2"
-        names(data.tmp)[4] <- "D3"
-        names(data.tmp)[5] <- "D4"
-        names(data.tmp)[6] <- "Overall"
+        data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:6], clean_data), stringsAsFactors = F))
+
+        rob2quandas2_name <- c("Study", "D1", "D2", "D3", "D4", "Overall")
+
+        names(data.tmp) <- rob2quandas2_name
 
         rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
             domain, judgement, -Study))
@@ -534,8 +474,7 @@ rob_traffic_light_quadas2 <- function(data,
 
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
             y = 1, colour = judgement)) + ggplot2::facet_grid(Study ~
-            factor(domain, levels = c("D1", "D2", "D3", "D4",
-                "Overall")), switch = "y", space = "free") +
+            factor(domain, levels = rob2quandas2_name), switch = "y", space = "free") +
             ggplot2::geom_point(size = 6) + ggplot2::geom_point(size = 4,
             colour = "black", ggplot2::aes(shape = judgement)) +
             ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain !=
@@ -614,11 +553,7 @@ rob_traffic_light_generic <- function(data,
         if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
             data[[ncol(data)]])) == TRUE) {
             for (i in 2:(ncol(data) - 1)) {
-              data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-              data[[i]] <- tolower(data[[i]])
-              data[[i]] <- trimws(data[[i]])
-              data[[i]] <- ifelse(data[[i]]%in%c("na","n")|is.na(data[[i]]),"x",data[[i]])
-              data[[i]] <- substr(data[[i]], 0, 1)
+              data[[i]] <- clean_data(data[[i]])
               data[[i]] <- gsub("u", "s", data[[i]])
               data[[i]] <- gsub("m", "s", data[[i]])
             }
@@ -627,11 +562,7 @@ rob_traffic_light_generic <- function(data,
             data <- data[, c(1:(ncol(data) - 1))]
         } else {
             for (i in 2:(ncol(data))) {
-              data[[i]] <- gsub('\\b(\\pL)\\pL{1,}|.','\\U\\1',data[[i]],perl = TRUE)
-              data[[i]] <- tolower(data[[i]])
-              data[[i]] <- trimws(data[[i]])
-              data[[i]] <- ifelse(data[[i]]=="na","x",data[[i]])
-              data[[i]] <- substr(data[[i]], 0, 1)
+              data[[i]] <- clean_data(data[[i]])
               data[[i]] <- gsub("u", "s", data[[i]])
               data[[i]] <- gsub("m", "s", data[[i]])
             }
