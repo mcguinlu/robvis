@@ -625,6 +625,7 @@ rob_traffic_light_generic <- function(data,
         # as a named character variable to the ggplot::scale_colour_manual()
         names(judgement_labels) = judgement_levels
 
+        overall_name <- names(data.tmp)[length(names(data.tmp))]
         # PLot graph
         trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1,
             y = 1, colour = judgement)) + ggplot2::facet_grid(Study ~
@@ -632,10 +633,10 @@ rob_traffic_light_generic <- function(data,
             ggplot2::geom_point(size = 6) + ggplot2::geom_point(size = 4,
             colour = "black", ggplot2::aes(shape = judgement)) +
             ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain !=
-                "Overall"), ], fill = "#ffffff", xmin = -Inf,
+            overall_name), ], fill = "#ffffff", xmin = -Inf,
                 xmax = Inf, ymin = -Inf, ymax = Inf, show.legend = FALSE) +
             ggplot2::geom_rect(data = rob.tidy[which(rob.tidy$domain ==
-                "Overall"), ], fill = "#d3d3d3", xmin = -Inf,
+                overall_name), ], fill = "#d3d3d3", xmin = -Inf,
                 xmax = Inf, ymin = -Inf, ymax = Inf, show.legend = FALSE) +
             ggplot2::geom_point(size = psize, show.legend = FALSE) +
             ggplot2::geom_point(shape = 1, colour = "black",
