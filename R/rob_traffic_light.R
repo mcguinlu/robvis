@@ -146,7 +146,7 @@ rob_traffic_light_rob2 <-function(data,
             colour = "black", ggplot2::aes(shape = judgement),
             show.legend = FALSE) +
             ggplot2::labs(caption = "  Domains:
-  D1: Bias arising from the randomization process
+  D1: Bias arising from the randomization process.
   D2: Bias due to deviations from intended intervention.
   D3: Bias due to missing outcome data.
   D4: Bias in measurement of the outcome.
@@ -234,10 +234,10 @@ rob_traffic_light_rob2_cluster <- function(data,
                             colour = "black", ggplot2::aes(shape = judgement),
                             show.legend = FALSE) +
         ggplot2::labs(caption = "  Domains:
-  D1 :  Bias arising from the randomization process
+  D1 :  Bias arising from the randomization process.
   D1b: Bias arising from the timing of identification
           and recruitment of Individual participants in
-          relation to timing of randomization
+          relation to timing of randomization.
   D2 :  Bias due to deviations from intended intervention.
   D3 :  Bias due to missing outcome data.
   D4 :  Bias in measurement of the outcome.
