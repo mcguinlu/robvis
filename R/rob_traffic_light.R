@@ -191,7 +191,7 @@ rob_traffic_light_rob2_cluster <- function(data,
                                            rob_colours,
                                            psize) {
 
-  if (NCOL(data) < 7) {stop("Column missing (number of columns < 8).")}
+  if (NCOL(data) < 8) {stop("Column missing (number of columns < 8).")}
 
   data.tmp <- cbind(data[,1], data.frame(lapply(data[,2:8], clean_data), stringsAsFactors = F))
 
@@ -645,7 +645,7 @@ rob_traffic_light_generic <- function(data,
             show.legend = FALSE) + ggplot2::labs(caption = caption) +
             ggplot2::scale_x_discrete(position = "top", name = x_title) +
             ggplot2::scale_y_continuous(limits = c(1, 1), labels = NULL,
-                breaks = NULL, name = "Study", position = "left") +
+                breaks = NULL, name = y_title, position = "left") +
             ggplot2::scale_colour_manual(values = c(l = rob_colours$low_colour,
                 s = rob_colours$concerns_colour, h = rob_colours$high_colour, c = rob_colours$critical_colour, n = rob_colours$ni_colour, x=rob_colours$na_colour),
 

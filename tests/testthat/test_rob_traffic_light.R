@@ -1,5 +1,9 @@
 context("rob_traffic_light()")
 
+
+language_dat <- data_rob2
+names(language_dat)[7] <- 'Globale'
+
 test_that("ROB - Traffic light",{
 
 skip_on_cran()
@@ -35,5 +39,13 @@ vdiffr::expect_doppelganger("TF - QUADAS - Point size", rob_traffic_light(data_q
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - cochrane", rob_traffic_light(data_quadas,"QUADAS-2", colour = "cochrane"))
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - colourblind", rob_traffic_light(data_quadas,"QUADAS-2", colour = "colourblind"))
 vdiffr::expect_doppelganger("TF - QUADAS - Colour - custom", rob_traffic_light(data_quadas,"QUADAS-2", colour = c("#f442c8","#bef441","#000000","#333333")))
+
+vdiffr::expect_doppelganger('TF - ROBG - Basic', rob_traffic_light(data_rob2, tool= 'Generic'))
+vdiffr::expect_doppelganger('TF - ROBG - Point size', rob_traffic_light(data_rob2, tool= 'Generic', psize = 15))
+vdiffr::expect_doppelganger('TF - ROBG - Judgement labels', rob_traffic_light(data_rob2, tool= 'Generic', judgement_labels = c("Very bad", "Pretty bad", "Not sure", "Good", 'No info', 'NA')))
+vdiffr::expect_doppelganger('TF - ROBG - Judgement title', rob_traffic_light(data_rob2, tool= 'Generic', judgement_title = 'Assessment'))
+vdiffr::expect_doppelganger('TF - ROBG - Overall domain', rob_traffic_light(language_dat, tool = 'Generic'))
+vdiffr::expect_doppelganger('TF - ROBG - Label x axis', rob_traffic_light(data_rob2, tool = 'Generic', x_title = 'ROB domains'))
+vdiffr::expect_doppelganger('TF - ROBG - Label y axis', rob_traffic_light(data_rob2, tool = 'Generic', y_title = 'Trial'))
 
 })
