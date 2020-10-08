@@ -9,19 +9,19 @@
 #' @return Risk of bias assessment barplot figure.
 #' @examples
 #'
-#' data <- data.frame(stringsAsFactors=FALSE,
-#'                    Study = c("Study 1", "Study 2"),
-#'                    D1 = c("Low", "Some concerns"),
-#'                    D2 = c("Low", "Low"),
-#'                    D3 = c("Low", "Low"),
-#'                    D4 = c("Low", "Low"),
-#'                    D5 = c("Low", "Low"),
-#'                    Overall = c("Low", "Low"),
-#'                    Weight = c(33.33333333, 33.33333333)
-#'                    )
+#' data <- data.frame(
+#'   stringsAsFactors = FALSE,
+#'   Study = c("Study 1", "Study 2"),
+#'   D1 = c("Low", "Some concerns"),
+#'   D2 = c("Low", "Low"),
+#'   D3 = c("Low", "Low"),
+#'   D4 = c("Low", "Low"),
+#'   D5 = c("Low", "Low"),
+#'   Overall = c("Low", "Low"),
+#'   Weight = c(33.33333333, 33.33333333)
+#' )
 #'
 #' rob_summary(data, "ROB2")
-#'
 #' @export
 
 rob_summary <-
@@ -36,14 +36,16 @@ rob_summary <-
     domain <- NULL
 
     # Allow for depreciated "ROB1" argument
-    tools <- c(rob_tools(),"ROB1")
+    tools <- c(rob_tools(), "ROB1")
 
-    if((tool %in% tools)==FALSE) {
+    if ((tool %in% tools) == FALSE) {
       stop(
-        paste("\nTool name \"",
-              tool,
-              "\" not recognised \nAcceptable tools names can be found using the rob_tools() function")
+        paste(
+          "\nTool name \"",
+          tool,
+          "\" not recognised \nAcceptable tools names can be found using the rob_tools() function"
         )
+      )
     }
 
     # Define colours
@@ -95,14 +97,18 @@ rob_summary <-
 
 
       # Gather data, convert to factors and set levels
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Weights))
+      rob.tidy <- suppressWarnings(tidyr::gather(
+        data.tmp,
+        domain, judgement, -Weights
+      ))
 
       rob.tidy$domain <- as.factor(rob.tidy$domain)
 
       rob.tidy$domain <-
-        factor(rob.tidy$domain, levels(rob.tidy$domain)[c(6,
-                                                          5, 4, 3, 2, 1)])
+        factor(rob.tidy$domain, levels(rob.tidy$domain)[c(
+          6,
+          5, 4, 3, 2, 1
+        )])
 
       rob.tidy$judgement <-
         factor(rob.tidy$judgement, levels = c("n", "h", "s", "l"))
@@ -123,23 +129,28 @@ rob_summary <-
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(l = rob_colours$low_colour,
-                     s = rob_colours$concerns_colour,
-                     h = rob_colours$high_colour,
-                     n = rob_colours$ni_colour),
-          labels = c(n = "  No information  ",
-                     h = "  High risk       ",
-                     s = "  Some concerns   ",
-                     l = "  Low risk        "
-                     )
+          values = c(
+            l = rob_colours$low_colour,
+            s = rob_colours$concerns_colour,
+            h = rob_colours$high_colour,
+            n = rob_colours$ni_colour
+          ),
+          labels = c(
+            n = "  No information  ",
+            h = "  High risk       ",
+            s = "  Some concerns   ",
+            l = "  Low risk        "
+          )
         ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
           axis.title.x = ggplot2::element_blank(),
           axis.title.y = ggplot2::element_blank(),
           axis.ticks.y = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_text(size = 10,
-                                              color = "black"),
+          axis.text.y = ggplot2::element_text(
+            size = 10,
+            color = "black"
+          ),
           axis.line.x = ggplot2::element_line(
             colour = "black",
             size = 0.5,
@@ -149,8 +160,10 @@ rob_summary <-
           panel.grid.major = ggplot2::element_blank(),
           panel.grid.minor = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.background = ggplot2::element_rect(linetype = "solid",
-                                                    colour = "black"),
+          legend.background = ggplot2::element_rect(
+            linetype = "solid",
+            colour = "black"
+          ),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
           legend.text = ggplot2::element_text(size = 6)
@@ -205,8 +218,10 @@ rob_summary <-
       }
 
 
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Weights))
+      rob.tidy <- suppressWarnings(tidyr::gather(
+        data.tmp,
+        domain, judgement, -Weights
+      ))
 
       rob.tidy$domain <- as.factor(rob.tidy$domain)
 
@@ -215,11 +230,13 @@ rob_summary <-
 
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("n",
-                                              "c",
-                                              "s",
-                                              "m",
-                                              "l"))
+        factor(rob.tidy$judgement, levels = c(
+          "n",
+          "c",
+          "s",
+          "m",
+          "l"
+        ))
 
       plot <-
         ggplot2::ggplot(data = rob.tidy) +
@@ -233,11 +250,13 @@ rob_summary <-
           position = "fill",
           color = "black"
         ) +
-        ggplot2::coord_flip(ylim = c(0,
-                                     1)) +
+        ggplot2::coord_flip(ylim = c(
+          0,
+          1
+        )) +
         ggplot2::scale_fill_manual(
           values = c(
-            n= rob_colours$ni_colour,
+            n = rob_colours$ni_colour,
             m = rob_colours$concerns_colour,
             s = rob_colours$high_colour,
             l = rob_colours$low_colour,
@@ -256,8 +275,10 @@ rob_summary <-
           axis.title.x = ggplot2::element_blank(),
           axis.title.y = ggplot2::element_blank(),
           axis.ticks.y = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_text(size = 10,
-                                              color = "black"),
+          axis.text.y = ggplot2::element_text(
+            size = 10,
+            color = "black"
+          ),
           axis.line.x = ggplot2::element_line(
             colour = "black",
             size = 0.5,
@@ -267,8 +288,10 @@ rob_summary <-
           panel.grid.major = ggplot2::element_blank(),
           panel.grid.minor = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.background = ggplot2::element_rect(linetype = "solid",
-                                                    colour = "black"),
+          legend.background = ggplot2::element_rect(
+            linetype = "solid",
+            colour = "black"
+          ),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.7, "cm"),
           legend.text = ggplot2::element_text(size = 5)
@@ -279,7 +302,6 @@ rob_summary <-
     # ROBINS-I-ONLINE===============================================================
 
     if (tool == "ROBINS-I Online") {
-
       data <- data[, grepl("studyId|RBJ_answer", names(data))]
       data <- data[, colSums(is.na(data)) != nrow(data)]
 
@@ -326,21 +348,27 @@ rob_summary <-
       }
 
 
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Weights))
+      rob.tidy <- suppressWarnings(tidyr::gather(
+        data.tmp,
+        domain, judgement, -Weights
+      ))
 
       rob.tidy$domain <- as.factor(rob.tidy$domain)
 
       rob.tidy$domain <-
-        factor(rob.tidy$domain, levels(rob.tidy$domain)[c(8,
-                                                          7, 6, 3, 2, 5, 4, 1)])
+        factor(rob.tidy$domain, levels(rob.tidy$domain)[c(
+          8,
+          7, 6, 3, 2, 5, 4, 1
+        )])
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("n",
-                                              "c",
-                                              "s",
-                                              "m",
-                                              "l"))
+        factor(rob.tidy$judgement, levels = c(
+          "n",
+          "c",
+          "s",
+          "m",
+          "l"
+        ))
 
       plot <-
         ggplot2::ggplot(data = rob.tidy) +
@@ -354,8 +382,10 @@ rob_summary <-
           position = "fill",
           color = "black"
         ) +
-        ggplot2::coord_flip(ylim = c(0,
-                                     1)) +
+        ggplot2::coord_flip(ylim = c(
+          0,
+          1
+        )) +
         ggplot2::scale_fill_manual(
           values = c(
             n = rob_colours$ni_colour,
@@ -365,20 +395,22 @@ rob_summary <-
             c = rob_colours$critical_colour
           ),
           labels = c(
-            n =  "No information",
+            n = "No information",
             c = "Critical risk  ",
             s = " Serious risk  ",
             m = " Moderate risk ",
             l = " Low risk  "
           )
-                                         ) +
+        ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
           axis.title.x = ggplot2::element_blank(),
           axis.title.y = ggplot2::element_blank(),
           axis.ticks.y = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_text(size = 10,
-                                              color = "black"),
+          axis.text.y = ggplot2::element_text(
+            size = 10,
+            color = "black"
+          ),
           axis.line.x = ggplot2::element_line(
             colour = "black",
             size = 0.5,
@@ -387,8 +419,10 @@ rob_summary <-
           panel.grid.major = ggplot2::element_blank(),
           panel.grid.minor = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.background = ggplot2::element_rect(linetype = "solid",
-                                                    colour = "black"),
+          legend.background = ggplot2::element_rect(
+            linetype = "solid",
+            colour = "black"
+          ),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.7, "cm"),
           legend.text = ggplot2::element_text(size = 8)
@@ -434,25 +468,33 @@ rob_summary <-
         data.tmp <- data.tmp[, c(2:7)]
       }
 
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Weights))
+      rob.tidy <- suppressWarnings(tidyr::gather(
+        data.tmp,
+        domain, judgement, -Weights
+      ))
 
       rob.tidy$domain <- as.factor(rob.tidy$domain)
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("n",
-                                              "h",
-                                              "s",
-                                              "l"))
+        factor(rob.tidy$judgement, levels = c(
+          "n",
+          "h",
+          "s",
+          "l"
+        ))
 
       if (overall == TRUE) {
         rob.tidy$domain <-
-          factor(rob.tidy$domain, levels(rob.tidy$domain)[c(3,
-                                                            1, 5, 2, 4)])
+          factor(rob.tidy$domain, levels(rob.tidy$domain)[c(
+            3,
+            1, 5, 2, 4
+          )])
       } else {
         rob.tidy$domain <-
-          factor(rob.tidy$domain, levels(rob.tidy$domain)[c(1,
-                                                            4, 2, 3)])
+          factor(rob.tidy$domain, levels(rob.tidy$domain)[c(
+            1,
+            4, 2, 3
+          )])
       }
 
 
@@ -469,27 +511,35 @@ rob_summary <-
           position = "fill",
           color = "black"
         ) +
-        ggplot2::coord_flip(ylim = c(0,
-                                     1)) +
+        ggplot2::coord_flip(ylim = c(
+          0,
+          1
+        )) +
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(n = rob_colours$ni_colour,
-                     h = rob_colours$high_colour,
-                     s = rob_colours$concerns_colour,
-                     l = rob_colours$low_colour),
-          labels = c(n = "  No information   ",
-                     h = "  High risk of bias   ",
-                     s = "  Some concerns      ",
-                     l = "  Low risk of bias  ")
+          values = c(
+            n = rob_colours$ni_colour,
+            h = rob_colours$high_colour,
+            s = rob_colours$concerns_colour,
+            l = rob_colours$low_colour
+          ),
+          labels = c(
+            n = "  No information   ",
+            h = "  High risk of bias   ",
+            s = "  Some concerns      ",
+            l = "  Low risk of bias  "
+          )
         ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
           axis.title.x = ggplot2::element_blank(),
           axis.title.y = ggplot2::element_blank(),
           axis.ticks.y = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_text(size = 12,
-                                              color = "black"),
+          axis.text.y = ggplot2::element_text(
+            size = 12,
+            color = "black"
+          ),
           axis.line.x = ggplot2::element_line(
             colour = "black",
             size = 0.5,
@@ -499,8 +549,10 @@ rob_summary <-
           panel.grid.major = ggplot2::element_blank(),
           panel.grid.minor = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.background = ggplot2::element_rect(linetype = "solid",
-                                                    colour = "black"),
+          legend.background = ggplot2::element_rect(
+            linetype = "solid",
+            colour = "black"
+          ),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
           legend.text = ggplot2::element_text(size = 6)
@@ -510,7 +562,6 @@ rob_summary <-
     # Generic=================================================================
 
     if (tool %in% c("Generic", "ROB1")) {
-
       if (tool == "ROB1") {
         message(
           paste0(
@@ -546,7 +597,9 @@ rob_summary <-
       data.tmp <- data
       for (i in 2:(ncol(data) - 1)) {
         names(data.tmp)[i] <- invisible(gsub(".", " ",
-                                             names(data.tmp)[i], fixed = TRUE))
+          names(data.tmp)[i],
+          fixed = TRUE
+        ))
       }
       names(data.tmp)[ncol(data.tmp)] <- "Weights"
 
@@ -556,21 +609,27 @@ rob_summary <-
 
 
       if (overall == "FALSE") {
-        data.tmp <- data.tmp[, c(2:(ncol(data.tmp) - 2),
-                                 ncol(data.tmp))]
+        data.tmp <- data.tmp[, c(
+          2:(ncol(data.tmp) - 2),
+          ncol(data.tmp)
+        )]
       } else {
         data.tmp <- data.tmp[, c(2:ncol(data.tmp))]
       }
 
       # Gather data, convert to factors and set levels
-      rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                                 domain, judgement, -Weights))
+      rob.tidy <- suppressWarnings(tidyr::gather(
+        data.tmp,
+        domain, judgement, -Weights
+      ))
 
       rob.tidy$judgement <-
-        factor(rob.tidy$judgement, levels = c("n",
-                                              "h",
-                                              "s",
-                                              "l"))
+        factor(rob.tidy$judgement, levels = c(
+          "n",
+          "h",
+          "s",
+          "l"
+        ))
 
       for (i in 1:(ncol(data.tmp) - 1)) {
         levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
@@ -592,27 +651,35 @@ rob_summary <-
           position = "fill",
           color = "black"
         ) +
-        ggplot2::coord_flip(ylim = c(0,
-                                     1)) +
+        ggplot2::coord_flip(ylim = c(
+          0,
+          1
+        )) +
         ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)) +
         ggplot2::scale_fill_manual(
           "Risk of Bias",
-          values = c(l = rob_colours$low_colour,
-                     s = rob_colours$concerns_colour,
-                     h = rob_colours$high_colour,
-                     n= rob_colours$ni_colour),
-          labels = c(n= "No information",
-                     h = "  High risk of bias  ",
-                     s = "  Some concerns      ",
-                     l = "  Low risk of bias   ")
+          values = c(
+            l = rob_colours$low_colour,
+            s = rob_colours$concerns_colour,
+            h = rob_colours$high_colour,
+            n = rob_colours$ni_colour
+          ),
+          labels = c(
+            n = "No information",
+            h = "  High risk of bias  ",
+            s = "  Some concerns      ",
+            l = "  Low risk of bias   "
+          )
         ) +
         ggplot2::scale_y_continuous(labels = scales::percent) +
         ggplot2::theme(
           axis.title.x = ggplot2::element_blank(),
           axis.title.y = ggplot2::element_blank(),
           axis.ticks.y = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_text(size = 10,
-                                              color = "black"),
+          axis.text.y = ggplot2::element_text(
+            size = 10,
+            color = "black"
+          ),
           axis.line.x = ggplot2::element_line(
             colour = "black",
             size = 0.5,
@@ -622,8 +689,10 @@ rob_summary <-
           panel.grid.major = ggplot2::element_blank(),
           panel.grid.minor = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
-          legend.background = ggplot2::element_rect(linetype = "solid",
-                                                    colour = "black"),
+          legend.background = ggplot2::element_rect(
+            linetype = "solid",
+            colour = "black"
+          ),
           legend.title = ggplot2::element_blank(),
           legend.key.size = ggplot2::unit(0.75, "cm"),
           legend.text = ggplot2::element_text(size = 6)
