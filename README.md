@@ -137,7 +137,9 @@ define their own palette by providing a vector of hex codes.
 For example, to use the predefined “colourblind” palette:
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
+summary_rob <- rob_summary(data = data_rob2,
+                           tool = "ROB2",
+                           colour = "colourblind")
 summary_rob
 ```
 
@@ -146,7 +148,12 @@ summary_rob
 And to define your own colour scheme:
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#d16684"))
+summary_rob <- rob_summary(data = data_rob2,
+                           tool = "ROB2",
+                           colour = c("#f442c8",
+                                      "#bef441",
+                                      "#000000",
+                                      "#d16684"))
 summary_rob
 ```
 
