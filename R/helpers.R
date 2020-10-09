@@ -1,5 +1,4 @@
-get_colour <- function(tool, colour){
-
+get_colour <- function(tool, colour) {
   rob_colours <- c()
 
   # Define colours
@@ -25,7 +24,7 @@ get_colour <- function(tool, colour){
         rob_colours$ni_colour <- "#4EA1F7"
       }
     }
-  }else{
+  } else {
     if (length(colour) > 1) {
       rob_colours$low_colour <- colour[c(1)]
       rob_colours$concerns_colour <- colour[c(2)]
@@ -54,3 +53,10 @@ get_colour <- function(tool, colour){
 }
 
 
+clean_data <- function(col) {
+  col <- gsub("\\b(\\pL)\\pL{1,}|.", "\\U\\1", col, perl = TRUE)
+  col <- trimws(tolower(col))
+  col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
+  col <- substr(col, 0, 1)
+  return(col)
+}

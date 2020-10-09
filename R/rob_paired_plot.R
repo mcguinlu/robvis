@@ -5,8 +5,7 @@
 
 
 rob_paired_plot <- function(data, tool, colour = "cochrane",
-                              psize = 20, quiet = FALSE) {
-
+                            psize = 20, quiet = FALSE) {
   judgement <- NULL
   Study <- NULL
   domain <- NULL
@@ -35,8 +34,4 @@ rob_paired_plot <- function(data, tool, colour = "cochrane",
 
 
   myCsv <- getURL("https://docs.google.com/spreadsheet/pub?key=0AvykV4O1IaendFRSQVVVV3pYN3JZRlNKSzBud0FFa1E&output=csv")
-
-
-
-
 }

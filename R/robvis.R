@@ -5,4 +5,4 @@
 #' @docType package
 #' @name robvis
 
-globalVariables(c("domain", "Study","judgement"))
+globalVariables(c("domain", "Study", "judgement"))
