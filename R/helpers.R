@@ -148,3 +148,10 @@ check_extension <- function(file){
 }
 
 
+clean_data <- function(col) {
+  col <- gsub("\\b(\\pL)\\pL{1,}|.", "\\U\\1", col, perl = TRUE)
+  col <- trimws(tolower(col))
+  col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
+  col <- substr(col, 0, 1)
+  return(col)
+}
