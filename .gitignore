@@ -7,3 +7,7 @@ cran-comments.md
 RSM-paper/figs/*
 inst/doc
 docs/
+*.jpeg
+*.png
+*.xlsx
+R/rob_paired_plot.R

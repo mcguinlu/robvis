@@ -121,6 +121,7 @@ rob_summary_rob2 <- function(data,
     if (NCOL(data) < 8) {
       stop(
         "Column missing (number of columns < 8). Likely that a column detailing weights for each study is missing."
+
       )
     }
   }

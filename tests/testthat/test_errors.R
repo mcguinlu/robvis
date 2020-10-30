@@ -36,6 +36,7 @@ test_tf <- data_robins[, c(1:8)]
 test_that("Too few columns", {
   expect_error(rob_summary(test_sum, "ROBINS-I"))
   expect_error(rob_traffic_light(test_tf, "ROBINS-I"))
+  expect_error(rob_traffic_light(data_rob2[, 1:7], tool = "ROB2-Cluster"), "Column missing (number of columns < 8).", fixed = T)
 })
 
 test_sum <- data_quadas[, c(1:6)]

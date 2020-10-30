@@ -117,13 +117,20 @@ The `colour` argument of both plotting functions allows users to select from two
 For example, to use the predefined "colourblind" palette:
 
 ```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")
+summary_rob <- rob_summary(data = data_rob2,
+                           tool = "ROB2",
+                           colour = "colourblind")
 summary_rob
 ```
 
 And to define your own colour scheme:
 ```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#000000","#d16684"))
+summary_rob <- rob_summary(data = data_rob2,
+                           tool = "ROB2",
+                           colour = c("#f442c8",
+                                      "#bef441",
+                                      "#000000",
+                                      "#d16684"))
 summary_rob
 ```
 

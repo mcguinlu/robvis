@@ -19,9 +19,9 @@
 R/rob_paired_plot.R
 cran-comments.md
 ^CRAN-RELEASE$
-
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-.png
+\.png
 .jpeg
+
