@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file  -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # robvis <img src="man/figures/robvis_hex_box.png" align="right" width="18%" height="18%" />
 
@@ -10,10 +10,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
 [![CRAN
 Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
-<br> [![Build
-Status](https://img.shields.io/travis/mcguinlu/robvis.svg?label=build&logo=travis&branch=master)](https://travis-ci.com/mcguinlu/robvis)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/mcguinlu/robvis?branch=master&svg=true)](https://ci.appveyor.com/project/mcguinlu/robvis)
+<br> [![R build
+status](https://github.com/mcguinlu/robvis/workflows/R-CMD-check/badge.svg)](https://github.com/mcguinlu/robvis/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
 <br>
