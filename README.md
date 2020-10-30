@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file  -->
 
 # robvis <img src="man/figures/robvis_hex_box.png" align="right" width="18%" height="18%" />
 
