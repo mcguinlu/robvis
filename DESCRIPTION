@@ -36,7 +36,9 @@ Imports:
     dplyr,
     here,
     gridExtra,
-    systemfonts
+    systemfonts,
+    stats,
+    rlang
 Suggests:
     knitr,
     rmarkdown,

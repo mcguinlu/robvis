@@ -43,9 +43,9 @@ rob_blobbogram <- function(rma,
   concerns <- dplyr::filter(table, .data$Overall == "Some concerns")
   high <- dplyr::filter(table, .data$Overall == "High")
 
-  low_rma <- metafor::rma(.data$yi, .data$vi, data = low, method = "FE")
-  concerns_rma <- metafor::rma(.data$yi, .data$vi, data = concerns, method = "FE")
-  high_rma <- metafor::rma(.data$yi, .data$vi, data = high, method = "FE")
+  low_rma <- metafor::rma(yi, vi, data = low, method = "FE")
+  concerns_rma <- metafor::rma(yi, vi, data = concerns, method = "FE")
+  high_rma <- metafor::rma(yi, vi, data = high, method = "FE")
 
   create_subtotal_row <- function(rma, name = "Subtotal", add_blank = TRUE){
     row <- data.frame(Study = name,
@@ -265,14 +265,15 @@ rob_blobbogram <- function(rma,
 
   #### turn the rob input into ggplot-able data ################################
 
-  rob_gdata <- select(rob_data_for_graph, D1:Overall)
+  rob_gdata <- dplyr::select(rob_data_for_graph, .data$D1:.data$Overall)
 
   rob_gdata$row_num = (nrow(rob_gdata) - 1):0
 
-  rob_gdata <- rob_gdata %>%
-    rename(D6 = .data$Overall) %>%
-    pivot_longer(!row_num, names_to = "x", values_to = "colour") %>%
-    mutate(x = as.integer(substr(x, 2, 2)))
+  rob_gdata <- dplyr::rename(rob_gdata, D6 = .data$Overall)
+
+  rob_gdata <- tidyr::pivot_longer(rob_gdata, !.data$row_num, names_to = "x", values_to = "colour")
+
+  rob_gdata <- dplyr::mutate(rob_gdata, x = as.integer(substr(.data$x, 2, 2)))
 
   rob_gdata$x[rob_gdata$x == 6] <- 6.5
 
@@ -285,7 +286,7 @@ rob_blobbogram <- function(rma,
                        y = max(rob_gdata$row_num),
                        x = c(1, 2, 3, 4, 5, 6.5))
 
-  rectangles <- rob_gdata[complete.cases(rob_gdata), ]
+  rectangles <- rob_gdata[stats::complete.cases(rob_gdata), ]
 
   rectangles$xmin <- rectangles$x - 0.5
   rectangles$xmax <- rectangles$x + 0.5
@@ -321,18 +322,18 @@ rob_blobbogram <- function(rma,
 
   ############################## the rob ggplot figure #########################
 
-  rob_plot <- ggplot2::ggplot(data = rob_gdata[complete.cases(rob_gdata), ]) +
+  rob_plot <- ggplot2::ggplot(data = rob_gdata[stats::complete.cases(rob_gdata), ]) +
     ggplot2::geom_rect(data = rectangles,
-                       ggplot2::aes(xmin = xmin,
-                                    ymin = ymin,
-                                    xmax = xmax,
-                                    ymax = ymax),
+                       ggplot2::aes(xmin = .data$xmin,
+                                    ymin = .data$ymin,
+                                    xmax = .data$xmax,
+                                    ymax = .data$ymax),
                        fill = "white",
                        colour = "#eff3f2") +
-    ggplot2::geom_point(size = 4, aes(x = x, y = row_num, colour = colour)) +
+    ggplot2::geom_point(size = 4, ggplot2::aes(x = .data$x, y = .data$row_num, colour = .data$colour)) +
     ggplot2::scale_y_continuous(expand = c(0,0), #remove padding
                                 limits = c(y_low, y_high)) + # position dots
-    ggplot2::geom_text(data = titles, ggplot2::aes(label = names, x = x, y = y)) +
+    ggplot2::geom_text(data = titles, ggplot2::aes(label = .data$names, x = .data$x, y = .data$y)) +
     ggplot2::theme_classic() + # base theme
     ggplot2::theme(axis.title.y = ggplot2::element_blank(), # remove axis, make bg transparent
                    axis.text.y = ggplot2::element_blank(),
@@ -373,7 +374,9 @@ rob_blobbogram <- function(rma,
                   filename = file_path)
 
   if(display == TRUE){
-    img <- magick::image_read(file_path, width = 1000)
-    plot(img)
+     magick::image_resize(magick::image_read(file_path),
+                          paste0(grDevices::dev.size("px")[1],
+                                 "x",
+                                 grDevices::dev.size("px")[2]))
   }
 }
