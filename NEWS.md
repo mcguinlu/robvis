@@ -1,4 +1,7 @@
 # robvis 0.3.0.900 (Development)
+
+* A new function, `rob_blobbogram()` has been added in response to https://github.com/mcguinlu/robvis/issues/102 by @rdboyes.
+
 * Major updates
   * A major refactoring of the code base has taken place to allow for future template specific functionality.
   * The generic option now allows for additional customisation, including control over all text in the resulting figure.
@@ -6,7 +9,6 @@
   * New functionality so that `robvis` now supports "No information" as a judgment has been added.
   * New colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
-  
 
 * Minor updates
   * Improved test coverage.
