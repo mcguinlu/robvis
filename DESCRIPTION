@@ -29,7 +29,14 @@ Imports:
     ggplot2 (>= 3.3.0),
     tidyr,
     scales,
-    vdiffr
+    vdiffr,
+    metafor,
+    magick,
+    patchwork,
+    dplyr,
+    here,
+    gridExtra,
+    systemfonts
 Suggests:
     knitr,
     rmarkdown,
