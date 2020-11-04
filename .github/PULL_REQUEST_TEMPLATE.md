@@ -4,6 +4,7 @@
 * [ ] Have you followed the guidelines in our [Contributing](../CONTRIBUTING.md) document?
 * [ ] Have you checked to ensure there aren't other open [Pull Requests](https://github.com/mcguinlu/robvis/pulls) for the same update/change?
 * [ ] Does your submission pass R CMD check locally?
+* [ ] Have you added tests for any new functionality this PR introduces?
 
 
 
@@ -20,7 +21,6 @@
 
 
 ## **Does this PR introduce a breaking change?** (What changes might users need to make in their application due to this PR?)
-
 
 
 ## **Other relevant information**:

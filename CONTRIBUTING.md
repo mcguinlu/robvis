@@ -60,7 +60,6 @@ bug, create an associated issue and illustrate the bug with a minimal
 
 #### Pull request process
 *  We recommend that you create a Git branch for each pull request (PR).  
-*  Look at the Travis and AppVeyor build status before and after making changes.
 *  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with
 [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html), 
 for documentation.  
