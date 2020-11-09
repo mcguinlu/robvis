@@ -1,3 +1,47 @@
+
+rob_tf_theme <-function(adjust_caption, judgement_label = "Judgement"){
+  list(
+  ggplot2::theme_bw(),
+    ggplot2::theme(
+      panel.border = ggplot2::element_rect(colour = "grey"),
+      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
+      legend.justification = "right", legend.direction = "vertical",
+      legend.margin = ggplot2::margin(
+        t = -0.2, r = 0,
+        b = adjust_caption, l = -10, unit = "cm"
+      ),
+      strip.text.x = ggplot2::element_text(size = 10),
+      strip.text.y.left = ggplot2::element_text(
+        angle = 0,
+        size = 10
+      ), legend.text = ggplot2::element_text(size = 9),
+      legend.title = ggplot2::element_text(size = 9),
+      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
+      plot.caption = ggplot2::element_text(
+        size = 10,
+        hjust = 0, vjust = 1
+      )
+    ),
+    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))),
+    ggplot2::labs(shape = judgement_label, colour = judgement_label) # Need to be exactly the same
+
+)
+}
+
+
+check_data <- function(data){
+
+  header <- stringr::str_to_lower(data[1,])
+
+  if (any(c("study","overall", "weight") %in% header)) {
+    stop(paste("It looks like the first row of your dataset contains column",
+               "headings (e.g. \"Study\", \"Overall\"). Did you set ",
+               "\"header = TRUE\" when reading in your data?")
+    )
+  }
+
+}
+
 # Check colours
 check_colour <- function(tool, colour) {
   if(!(colour[1] %in% c("cochrane","colourblind"))){
