@@ -29,6 +29,7 @@
 rob_traffic_light <- function(data, tool, colour = "cochrane", psize = 20, ...) {
 
   check_tool(tool)
+  check_data(data)
   colour <- weird_spelling(colour)
 
   check_colour(tool = tool, colour = colour)
@@ -142,7 +143,8 @@ rob_traffic_light_rob2 <- function(data,
 
   trafficlightplot <- ggplot2::ggplot(rob.tidy, ggplot2::aes(
     x = 1,
-    y = 1, colour = judgement
+    y = 1,
+    colour = judgement
   )) +
     ggplot2::facet_grid(Study ~
     factor(domain, levels = rob2_name), switch = "y", space = "free") +
@@ -195,39 +197,22 @@ rob_traffic_light_rob2 <- function(data,
     )) +
     ggplot2::scale_shape_manual(values = c(
       h = 120,
-      s = 45, l = 43, n = 63, x = 32
+      s = 45,
+      l = 43,
+      n = 63,
+      x = 32
     ), labels = c(
-      h = "High", s = "Some concerns",
-      l = "Low", n = "No information", x = "Not applicable"
+      h = "High",
+      s = "Some concerns",
+      l = "Low",
+      n = "No information",
+      x = "Not applicable"
     )) +
     ggplot2::scale_size(range = c(
       5,
       20
     )) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      panel.border = ggplot2::element_rect(colour = "grey"),
-      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
-      legend.justification = "right", legend.direction = "vertical",
-      legend.margin = ggplot2::margin(
-        t = -0.2, r = 0,
-        b = adjust_caption, l = -10, unit = "cm"
-      ),
-      strip.text.x = ggplot2::element_text(size = 10),
-      strip.text.y.left = ggplot2::element_text(
-        angle = 0,
-        size = 10
-      ), legend.text = ggplot2::element_text(size = 9),
-      legend.title = ggplot2::element_text(size = 9),
-      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
-      plot.caption = ggplot2::element_text(
-        size = 10,
-        hjust = 0, vjust = 1
-      )
-    ) +
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-    ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
-
+    rob_tf_theme(adjust_caption)
 
   return(trafficlightplot)
 }
@@ -331,29 +316,8 @@ rob_traffic_light_rob2_cluster <- function(data,
       5,
       20
     )) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      panel.border = ggplot2::element_rect(colour = "grey"),
-      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
-      legend.justification = "right", legend.direction = "vertical",
-      legend.margin = ggplot2::margin(
-        t = -0.2, r = 0,
-        b = adjust_caption, l = -10, unit = "cm"
-      ),
-      strip.text.x = ggplot2::element_text(size = 10),
-      strip.text.y.left = ggplot2::element_text(
-        angle = 0,
-        size = 10
-      ), legend.text = ggplot2::element_text(size = 9),
-      legend.title = ggplot2::element_text(size = 9),
-      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
-      plot.caption = ggplot2::element_text(
-        size = 10,
-        hjust = 0, vjust = 1
-      )
-    ) +
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-    ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
+    rob_tf_theme(adjust_caption)
+
 
   return(trafficlightplot)
 }
@@ -462,29 +426,7 @@ rob_traffic_light_robinsi <- function(data,
       5,
       20
     )) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      panel.border = ggplot2::element_rect(colour = "grey"),
-      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
-      legend.justification = "right", legend.direction = "vertical",
-      legend.margin = ggplot2::margin(
-        t = -0.2, r = 0,
-        b = adjust_caption, l = -10, unit = "cm"
-      ),
-      strip.text.x = ggplot2::element_text(size = 10),
-      strip.text.y.left = ggplot2::element_text(
-        angle = 0,
-        size = 10
-      ), legend.text = ggplot2::element_text(size = 9),
-      legend.title = ggplot2::element_text(size = 9),
-      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
-      plot.caption = ggplot2::element_text(
-        size = 10,
-        hjust = 0, vjust = 1
-      )
-    ) +
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-    ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
+    rob_tf_theme(adjust_caption)
 
   return(trafficlightplot)
 }
@@ -594,29 +536,7 @@ rob_traffic_light_robinsi_online <- function(data,
       5,
       20
     )) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      panel.border = ggplot2::element_rect(colour = "grey"),
-      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
-      legend.justification = "right", legend.direction = "vertical",
-      legend.margin = ggplot2::margin(
-        t = -0.2, r = 0,
-        b = adjust_caption, l = -10, unit = "cm"
-      ),
-      strip.text.x = ggplot2::element_text(size = 10),
-      strip.text.y.left = ggplot2::element_text(
-        angle = 0,
-        size = 10
-      ), legend.text = ggplot2::element_text(size = 9),
-      legend.title = ggplot2::element_text(size = 9),
-      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
-      plot.caption = ggplot2::element_text(
-        size = 10,
-        hjust = 0, vjust = 1
-      )
-    ) +
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-    ggplot2::labs(shape = "Judgement", colour = "Judgement") # Need to be exactly the same
+    rob_tf_theme(adjust_caption)
 
   return(trafficlightplot)
 }
@@ -768,6 +688,7 @@ rob_traffic_light_generic <- function(data,
       data[[ncol(data)]]
     )) == TRUE) {
       for (i in 2:(ncol(data) - 1)) {
+        data[[i]] <- gsub("\\bse", "High", stringr::str_to_lower(data[[i]]))
         data[[i]] <- clean_data(data[[i]])
         data[[i]] <- gsub("u", "s", data[[i]])
         data[[i]] <- gsub("m", "s", data[[i]])
@@ -777,6 +698,7 @@ rob_traffic_light_generic <- function(data,
       data <- data[, c(1:(ncol(data) - 1))]
     } else {
       for (i in 2:(ncol(data))) {
+        data[[i]] <- gsub("\\bse", "High", stringr::str_to_lower(data[[i]]))
         data[[i]] <- clean_data(data[[i]])
         data[[i]] <- gsub("u", "s", data[[i]])
         data[[i]] <- gsub("m", "s", data[[i]])
@@ -925,7 +847,9 @@ rob_traffic_light_generic <- function(data,
       ggplot2::scale_colour_manual(
         values = c(
           l = rob_colours$low_colour,
-          s = rob_colours$concerns_colour, h = rob_colours$high_colour, c = rob_colours$critical_colour, n = rob_colours$ni_colour, x = rob_colours$na_colour
+          s = rob_colours$concerns_colour,
+          h = rob_colours$high_colour,
+          c = rob_colours$critical_colour, n = rob_colours$ni_colour, x = rob_colours$na_colour
         ),
 
         labels = judgement_labels
@@ -938,29 +862,7 @@ rob_traffic_light_generic <- function(data,
         5,
         20
       )) +
-      ggplot2::theme_bw() +
-      ggplot2::theme(
-        panel.border = ggplot2::element_rect(colour = "grey"),
-        panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
-        legend.justification = "right", legend.direction = "vertical",
-        legend.margin = ggplot2::margin(
-          t = -0.2, r = 0,
-          b = adjust_caption, l = -10, unit = "cm"
-        ),
-        strip.text.x = ggplot2::element_text(size = 10),
-        strip.text.y.left = ggplot2::element_text(
-          angle = 0,
-          size = 10
-        ), legend.text = ggplot2::element_text(size = 9),
-        legend.title = ggplot2::element_text(size = 9),
-        strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
-        plot.caption = ggplot2::element_text(
-          size = 10,
-          hjust = 0, vjust = 1
-        )
-      ) +
-      ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))) +
-      ggplot2::labs(shape = judgement_title, colour = judgement_title)
+      rob_tf_theme(adjust_caption, judgement_title)
 
     return(trafficlightplot)
 

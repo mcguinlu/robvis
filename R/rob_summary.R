@@ -30,6 +30,7 @@ rob_summary <- function(data,
                         weighted = TRUE,
                         colour = "cochrane") {
   check_tool(tool)
+  check_data(data)
   colour <- weird_spelling(colour)
 
   check_colour(tool = tool, colour = colour)
