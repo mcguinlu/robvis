@@ -6,6 +6,7 @@
   * New functionality so that `robvis` now supports "No information" as a judgment has been added.
   * New colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
+  * The "Generic" template has been updated, as it mapped "Serious" and "Critical" to the same colour/symbol. This has been fixed now.
   
 
 * Minor updates
