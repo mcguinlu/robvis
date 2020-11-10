@@ -7,9 +7,9 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN
-Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://CRAN.R-project.org/package=robvis)
 [![CRAN
-Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://CRAN.R-project.org/package=robvis)
 <br> [![R build
 status](https://github.com/mcguinlu/robvis/workflows/R-CMD-check/badge.svg)](https://github.com/mcguinlu/robvis/actions)
 [![Codecov test
@@ -89,7 +89,9 @@ plot”](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_r
 displaying the risk of bias judgment in each domain for each study.
 
 ``` r
-trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
+trafficlight_rob <- rob_traffic_light(data = data_rob2,
+                                      tool = "ROB2",
+                                      psize = 10)
 trafficlight_rob
 ```
 
