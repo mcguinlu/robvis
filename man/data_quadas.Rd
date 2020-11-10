@@ -5,16 +5,7 @@
 \alias{data_quadas}
 \title{Example QUADAS-2 assessment}
 \format{
-An object of class \code{data.frame} with 12 rows and 7 columns.
-}
-\source{
-{Created for this package}
-}
-\usage{
-data_quadas
-}
-\description{
-#' @format A data frame:
+A data frame:
 \describe{
   \item{Study}{Study details}
   \item{D1}{Domain 1}
@@ -24,5 +15,14 @@ data_quadas
   \item{Overall}{Overall risk of bias}
   \item{Weight}{Weight measure for each study}
          }
+}
+\source{
+{Created for this package}
+}
+\usage{
+data_quadas
+}
+\description{
+Example QUADAS-2 assessment
 }
 \keyword{internal}

@@ -1,6 +1,6 @@
 #' Example QUADAS-2 assessment
 #'
-#' #' @format A data frame:
+#' @format A data frame:
 #' \describe{
 #'   \item{Study}{Study details}
 #'   \item{D1}{Domain 1}
