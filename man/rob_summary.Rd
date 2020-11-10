@@ -38,6 +38,8 @@ guidance.}
 is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
 option for a colour-blind friendly palette is also available (colour =
 'colourblind').}
+
+\item{...}{Arguments to be passed to the tool specific functions.}
 }
 \value{
 Risk of bias assessment barplot figure.

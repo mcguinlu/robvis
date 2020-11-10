@@ -21,6 +21,7 @@
 #' @param weighted An option to specify whether weights should be used in the
 #'   barplot. Default is TRUE, in line with current Cochrane Collaboration
 #'   guidance.
+#' @param ... Arguments to be passed to the tool specific functions.
 #' @return Risk of bias assessment barplot figure.
 #' @family main
 #' @examples
