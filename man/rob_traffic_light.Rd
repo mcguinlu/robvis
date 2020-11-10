@@ -7,11 +7,23 @@
 rob_traffic_light(data, tool, colour = "cochrane", psize = 20, ...)
 }
 \arguments{
-\item{data}{A dataframe containing summary (domain) level risk-of-bias assessments, with the first column containing the study details, the second column containing the first domain of your assessments, and the final column containing a weight to assign to each study. The function assumes that the data includes a column for overall risk-of-bias. For example, a ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain level judgments, 1 for overall judgements, and 1 for weights, in that order).}
+\item{data}{A dataframe containing summary (domain) level risk-of-bias
+assessments, with the first column containing the study details, the second
+column containing the first domain of your assessments, and the final
+column containing a weight to assign to each study. The function assumes
+that the data includes a column for overall risk-of-bias. For example, a
+ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain
+level judgments, 1 for overall judgements, and 1 for weights, in that
+order).}
 
-\item{tool}{The risk of bias assessment tool used. RoB2.0 (tool='ROB2'), ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently supported.}
+\item{tool}{The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
+ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
+supported.}
 
-\item{colour}{An argument to specify the colour scheme for the plot. Default is 'cochrane' which used the ubiquitous Cochrane colours, while a preset option for a colour-blind friendly palette is also available (colour = 'colourblind').}
+\item{colour}{An argument to specify the colour scheme for the plot. Default
+is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
+option for a colour-blind friendly palette is also available (colour =
+'colourblind').}
 
 \item{psize}{Control the size of the traffic lights. Default is 20.}
 
@@ -21,7 +33,8 @@ rob_traffic_light(data, tool, colour = "cochrane", psize = 20, ...)
 Risk-of-bias assessment traffic light plot (ggplot2 object)
 }
 \description{
-A function to take a summary table of risk of bias assessments and produce a traffic light plot from it.
+A function to take a summary table of risk of bias assessments
+  and produce a traffic light plot from it.
 }
 \examples{
 
