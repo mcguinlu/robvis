@@ -4,7 +4,7 @@
 \alias{rob_traffic_light}
 \title{Produce traffic-light plots of risk-of-bias assessments.}
 \usage{
-rob_traffic_light(data, tool, colour = "cochrane", psize = 20, ...)
+rob_traffic_light(data, tool, colour = "cochrane", psize = 10, ...)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias

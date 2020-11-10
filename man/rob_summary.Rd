@@ -4,7 +4,14 @@
 \alias{rob_summary}
 \title{Produce summary weighted barplots of risk-of-bias assessments.}
 \usage{
-rob_summary(data, tool, overall = FALSE, weighted = TRUE, colour = "cochrane")
+rob_summary(
+  data,
+  tool,
+  overall = FALSE,
+  weighted = TRUE,
+  colour = "cochrane",
+  ...
+)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias
