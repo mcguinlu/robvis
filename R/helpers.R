@@ -1,6 +1,192 @@
+tidy_data <- function(data,
+                      max_domain_column,
+                      domain_names,
+                      levels) {
 
-rob_tf_theme <-function(adjust_caption, judgement_label = "Judgement"){
+  data.tmp <-
+    cbind(data[, 1], data.frame(lapply(data[, 2:max_domain_column], clean_data),
+                                stringsAsFactors = F))
+
+  names(data.tmp) <- domain_names
+
+  rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                 domain, judgement,-Study))
+
+
+  rob.tidy$Study <-
+    factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <-
+    factor(rob.tidy$judgement, levels = levels)
+
+  rob.tidy
+}
+
+
+
+tidy_data_summ <- function(data,
+                      max_domain_column,
+                      overall,
+                      weighted,
+                      domain_names,
+                      levels) {
+
+  if (weighted == FALSE) {
+    data[, max_domain_column + 1] <- rep(1, length(nrow(data)))
+  } else {
+    if (NCOL(data) < max_domain_column + 1) {
+      stop(
+        paste0("Column missing (number of columns < ",
+              max_domain_column + 1,
+              "). Likely that a column detailing weights ",
+              "for each study is missing.")
+      )
+    }
+  }
+
+  data.tmp <-
+    cbind(data[,1],data.frame(lapply(data[, 2:max_domain_column], clean_data),
+                                data[, max_domain_column + 1],
+                                stringsAsFactors = F))
+
+
+  if (overall == "FALSE") {
+    data.tmp <- data.tmp[, c(-max_domain_column)]
+    names(data.tmp) <- domain_names[-max_domain_column]
+  } else {
+    names(data.tmp) <- domain_names
+  }
+
+  rob.tidy <- suppressWarnings(tidyr::gather(
+    data.tmp[-1],
+    domain, judgement, -Weights
+  ))
+
+  rob.tidy$domain <- as.factor(rob.tidy$domain)
+
+  rob.tidy$domain <-
+    factor(rob.tidy$domain,
+           levels = rev(domain_names))
+
+  rob.tidy$judgement <-
+    factor(rob.tidy$judgement, levels = levels)
+
+  rob.tidy
+}
+
+
+rob_summ_theme <- function(){
   list(
+    ggplot2::geom_bar(
+      mapping = ggplot2::aes(
+        x = domain,
+        fill = judgement,
+        weight = Weights
+      ),
+      width = 0.7,
+      position = "fill",
+      color = "black"
+    ),
+    ggplot2::coord_flip(ylim = c(
+      0,
+      1
+    )),
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)),
+    ggplot2::scale_y_continuous(labels = scales::percent),
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(
+          size = 10,
+          color = "black"
+        ),
+        axis.line.x = ggplot2::element_line(
+          colour = "black",
+          size = 0.5,
+          linetype = "solid"
+        ),
+        legend.position = "bottom",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(
+          linetype = "solid",
+          colour = "black"
+        ),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "lines"),
+        legend.text = ggplot2::element_text(size = 6)
+      )
+
+  )
+}
+
+
+rob_tf_theme <-function(rob.tidy,
+                        domain_names,
+                        psize,
+                        ssize,
+                        adjust_caption,
+                        judgement_title = "Judgement",
+                        overall_name = "Overall",
+                        x_title = "Risk of bias domains",
+                        y_title = "Study"){
+  list(
+      ggplot2::facet_grid(Study ~
+                            factor(domain, levels = domain_names),
+                          switch = "y",
+                          space = "free"),
+      ggplot2::geom_point(size = 6),
+      ggplot2::geom_point(size = 4,
+                          colour = "black",
+                          ggplot2::aes(shape = judgement)),
+      ggplot2::geom_rect(
+        data = rob.tidy[which(rob.tidy$domain !=
+                                overall_name),],
+        fill = "#ffffff",
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = -Inf,
+        ymax = Inf,
+        show.legend = FALSE
+      ),
+      ggplot2::geom_rect(
+        data = rob.tidy[which(rob.tidy$domain ==
+                                overall_name),],
+        fill = "#d3d3d3",
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = -Inf,
+        ymax = Inf,
+        show.legend = FALSE
+      ),
+      ggplot2::geom_point(size = psize, show.legend = FALSE),
+      ggplot2::geom_point(
+        data = rob.tidy[which(rob.tidy$judgement !=
+                                "x"),],
+        shape = 1,
+        colour = "black",
+        size = psize,
+        show.legend = FALSE
+      ),
+      ggplot2::geom_point(
+        size = ssize,
+        colour = "black",
+        ggplot2::aes(shape = judgement),
+        show.legend = FALSE
+      ),
+      ggplot2::scale_x_discrete(position = "top", name = x_title),
+        ggplot2::scale_y_continuous(
+          limits = c(1, 1),
+          labels = NULL,
+          breaks = NULL,
+          name = y_title,
+          position = "left"
+        ),
+  ggplot2::scale_size(range = c(5,20)),
   ggplot2::theme_bw(),
     ggplot2::theme(
       panel.border = ggplot2::element_rect(colour = "grey"),
@@ -22,12 +208,17 @@ rob_tf_theme <-function(adjust_caption, judgement_label = "Judgement"){
         hjust = 0, vjust = 1
       )
     ),
-    ggplot2::guides(shape = ggplot2::guide_legend(override.aes = list(fill = NA))),
-    ggplot2::labs(shape = judgement_label, colour = judgement_label) # Need to be exactly the same
+  ggplot2::guides(shape = ggplot2::guide_legend(
+    override.aes = list(fill = NA))),
+  ggplot2::labs(shape = judgement_title, colour = judgement_title)
 
 )
 }
 
+
+get_caption_adjustment <- function(data){
+  -0.7 + length(unique(data$judgement)) * -0.6
+}
 
 check_data <- function(data){
 
@@ -47,12 +238,14 @@ check_colour <- function(tool, colour) {
   if(!(colour[1] %in% c("cochrane","colourblind"))){
     if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
       if(length(colour)!=4){
-        stop("Wrong number of colours specified. This template expects 4 colours.")
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 4 colours."))
       }
 
     } else{
       if(length(colour)!=5){
-        stop("Wrong number of colours specified. This template expects 5 colours.")
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 5 colours."))
       }
     }
   }
@@ -121,7 +314,8 @@ check_tool <- function(tool) {
       paste(
         "\nTool name \"",
         tool,
-        "\" not recognised \nAcceptable tools names can be found using the rob_tools() function"
+        "\" not recognised \nAcceptable tools" ,
+        "names can be found using the rob_tools() function"
       )
     )
   }
