@@ -1,4 +1,4 @@
-context("rob_traffic_light()")
+context("Check Traffic-light Plots")
 
 language_dat <- data_rob2
 names(language_dat)[7] <- "Globale"

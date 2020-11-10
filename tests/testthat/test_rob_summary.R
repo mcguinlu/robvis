@@ -1,4 +1,4 @@
-context("rob_summary()")
+context("Check summary plots")
 
 test_that("ROB - Summary", {
   vdiffr::expect_doppelganger("ROB2 - Basic", rob_summary(data_rob2, "ROB2"))
