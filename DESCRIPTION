@@ -29,7 +29,8 @@ Imports:
     ggplot2 (>= 3.3.0),
     tidyr,
     scales,
-    vdiffr
+    vdiffr,
+    stringr
 Suggests:
     knitr,
     rmarkdown,
