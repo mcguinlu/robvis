@@ -44,7 +44,8 @@ rob_summary <- function(data,
                         tool,
                         overall = FALSE,
                         weighted = TRUE,
-                        colour = "cochrane") {
+                        colour = "cochrane",
+                        ...) {
   check_tool(tool)
   check_data(data)
   colour <- weird_spelling(colour)
@@ -66,16 +67,6 @@ rob_summary <- function(data,
 
   if (tool == "ROBINS-I") {
     plot <- rob_summary_robinsi(
-      data = data,
-      tool = tool,
-      overall = overall,
-      weighted = weighted,
-      rob_colours = rob_colours
-    )
-  }
-
-  if (tool == "ROBINS-I ONLINE") {
-    plot <- rob_summary_robinsi_online(
       data = data,
       tool = tool,
       overall = overall,
@@ -110,10 +101,10 @@ rob_summary <- function(data,
       tool = tool,
       overall = overall,
       weighted = weighted,
-      rob_colours = rob_colours
+      rob_colours = rob_colours,
+      ...
     )
   }
-
 
   plot$rec_height <- get_height(
     type = "summ"
@@ -232,61 +223,6 @@ rob_summary_robinsi <- function(data,
   return(plot)
 }
 
-# ROBINS-I-ONLINE===============================================================
-
-rob_summary_robinsi_online <- function(data,
-                                       tool,
-                                       overall,
-                                       weighted,
-                                       rob_colours) {
-  data <- data[, grepl("studyId|RBJ_answer", names(data))]
-  data <- data[, colSums(is.na(data)) != nrow(data)]
-
-  domain_names <- c(
-    "Study",
-    "Bias due to confounding",
-    "Bias due to selection of participants",
-    "Bias in classification of interventions",
-    "Bias due to deviations from intended interventions",
-    "Bias due to missing data",
-    "Bias in measurement of outcomes",
-    "Bias in selection of the reported result",
-    "Overall risk of bias",
-    "Weights"
-  )
-
-  rob.tidy <- tidy_data_summ(data,
-                             max_domain_column = 9,
-                             overall,
-                             weighted,
-                             domain_names,
-                             levels = c("x","n","c","s","m","l"))
-
-  plot <-
-    ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
-    ggplot2::scale_fill_manual(
-      values = c(
-        n = rob_colours$ni_colour,
-        m = rob_colours$concerns_colour,
-        s = rob_colours$high_colour,
-        l = rob_colours$low_colour,
-        c = rob_colours$critical_colour,
-        x = rob_colours$na_colour
-      ),
-      labels = c(
-        n = "No information",
-        c = "Critical risk  ",
-        s = " Serious risk  ",
-        m = " Moderate risk ",
-        l = " Low risk  ",
-        x = " N/A  "
-      )
-    )
-
-  return(plot)
-}
-
 # QUADAS-2======================================================================
 
 rob_summary_quadas2 <- function(data,
@@ -390,7 +326,11 @@ rob_summary_generic <- function(data,
                                 tool,
                                 overall,
                                 weighted,
-                                rob_colours) {
+                                rob_colours,
+                                judgement_labels = c("Low risk of bias",
+                                                     "Some concerns",
+                                                     "High risk of bias",
+                                                     "No information")) {
   rob1_warning(tool)
 
   # Data preprocessing
@@ -459,6 +399,9 @@ rob_summary_generic <- function(data,
   rob.tidy$domain <-
     factor(rob.tidy$domain, levels = rev(levels(rob.tidy$domain)))
 
+  judgement_levels <- c("l", "s", "h", "n")
+  names(judgement_labels) <- judgement_levels
+
   # Create plot
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
@@ -471,12 +414,7 @@ rob_summary_generic <- function(data,
         h = rob_colours$high_colour,
         n = rob_colours$ni_colour
       ),
-      labels = c(
-        n = "No information",
-        h = "  High risk of bias  ",
-        s = "  Some concerns      ",
-        l = "  Low risk of bias   "
-      )
+      labels = judgement_labels
     )
 
   return(plot)

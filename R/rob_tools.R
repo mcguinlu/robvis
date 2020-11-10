@@ -13,8 +13,8 @@ rob_tools <- function() {
     "ROBINS-I",
     "QUADAS-2",
     "QUIPS",
-    "Generic",
-    "ROBINS-I ONLINE")
+    "Generic"
+    )
   message(
     paste0("Note: the \"ROB2-Cluster\" template is only available ",
            "for the rob_traffic_light() function.")

@@ -43,7 +43,7 @@ rob_traffic_light <-
   function(data,
            tool,
            colour = "cochrane",
-           psize = 20,
+           psize = 10,
            ...) {
 
     check_tool(tool)
@@ -74,15 +74,6 @@ rob_traffic_light <-
 
     if (tool == "ROBINS-I") {
       plot <- rob_traffic_light_robinsi(
-        data = data,
-        tool = tool,
-        rob_colours = rob_colours,
-        psize = psize
-      )
-    }
-
-    if (tool == "ROBINS-I ONLINE") {
-      plot <- rob_traffic_light_robinsi_online(
         data = data,
         tool = tool,
         rob_colours = rob_colours,
@@ -369,87 +360,6 @@ rob_traffic_light_robinsi <- function(data,
   return(trafficlightplot)
 }
 
-
-# ROBINS-I-ONLINE===============================================================
-
-rob_traffic_light_robinsi_online <- function(data,
-                                             tool,
-                                             rob_colours,
-                                             psize) {
-  data <- data[, grepl("studyId|RBJ_answer", names(data))]
-  data <- data[, colSums(is.na(data)) != nrow(data)]
-
-  if (NCOL(data.tmp) < 9) {
-    stop("Column missing (number of columns < 9).")
-  }
-
-  domain_names <-
-    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
-
-  rob.tidy <- tidy_data(data,
-                        max_domain_column = 9,
-                        domain_names = domain_names,
-                        levels = c("c", "s", "m", "l", "n", "x"))
-
-  ssize <- psize - (psize / 4)
-
-  adjust_caption <- get_caption_adjustment(rob.tidy)
-
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    rob_tf_theme(rob.tidy, domain_names, psize, ssize, adjust_caption) +
-    ggplot2::labs(
-      caption = "  Domains:
-  D1: Bias due to confounding.
-  D2: Bias due to selection of participants.
-  D3: Bias in classification of interventions.
-  D4: Bias due to deviations from intended interventions.
-  D5: Bias due to missing data.
-  D6: Bias in measurement of outcomes.
-  D7: Bias in selection of the reported result.
-
-
-                  "
-    ) +
-    ggplot2::scale_colour_manual(
-      values = c(
-        c = rob_colours$critical_colour,
-        s = rob_colours$high_colour,
-        m = rob_colours$concerns_colour,
-        l = rob_colours$low_colour,
-        x = rob_colours$na_colour
-      ),
-      labels = c(
-        c = "Critical",
-        s = "Serious",
-        m = "Moderate",
-        l = "Low",
-        x = "Not applicable"
-      )
-    ) +
-    ggplot2::scale_shape_manual(
-      values = c(
-        c = 33,
-        s = 120,
-        m = 45,
-        l = 43,
-        x = 32
-      ),
-      labels = c(
-        c = "Critical",
-        s = "Serious",
-        m = "Moderate",
-        l = "Low",
-        x = "Not applicable"
-      )
-    ) +
-    rob_tf_theme(adjust_caption)
-
-  return(trafficlightplot)
-}
-
 # QUADAS-2======================================================================
 
 
@@ -612,8 +522,8 @@ rob_traffic_light_generic <- function(data,
                                                            "Low",
                                                            "No information",
                                                            "Not applicable")) {
-  rob1_warning(tool)
 
+  rob1_warning(tool)
 
   # Determine if the uploaded dataset contains weights
   if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
