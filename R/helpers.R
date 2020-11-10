@@ -24,8 +24,6 @@ tidy_data <- function(data,
   rob.tidy
 }
 
-
-
 tidy_data_summ <- function(data,
                       max_domain_column,
                       overall,
