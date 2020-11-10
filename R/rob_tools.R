@@ -12,6 +12,7 @@ rob_tools <- function() {
     "ROB2-Cluster",
     "ROBINS-I",
     "QUADAS-2",
+    "QUIPS",
     "Generic",
     "ROBINS-I ONLINE")
   message(
