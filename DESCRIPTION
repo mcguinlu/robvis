@@ -6,7 +6,8 @@ Authors@R: c(
            role = c("aut", "cre"),
            email = "luke.mcguinness@bristol.ac.uk"),
     person("Emily", "Kothe", role = "ctb"), 
-    person("Alex", "Fowler", rol = "ctb"))
+    person("Alex", "Fowler", rol = "ctb"),
+    person("Randall", "Boyes", rol = "ctb"))
 Description: Helps users in quickly visualizing risk-of-bias 
     assessments performed as part of a systematic review. It allows users to 
     create weighted bar-plots of the distribution of risk-of-bias judgments 
@@ -39,7 +40,7 @@ Imports:
     gridExtra,
     systemfonts,
     stats,
-    rlang
+    rlang,
     stringr
 Suggests:
     knitr,
