@@ -78,12 +78,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -133,16 +127,20 @@
 <ul>
 <li>Major updates
 <ul>
-<li>A major refactoring of the code base has taken place to allow for future template specific functionality.</li>
-<li>The generic option now allows for additional customisation, including control over all text in the resulting figure.</li>
-<li>A new function, <code><a href="../reference/rob_save.html">rob_save()</a></code>, has been added, which uses data-driven defaults for figure height and width when saving.</li>
+<li>The default point size for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> has been changed from 20 to 10. This is because, following a review of published <code>robvis</code> plots, it seems users are not changing the defaults very often, and in almost all cases, a smaller default looks better. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>psize</code> argument was explicitly defined.</strong>
+</li>
+<li>A template for the QUIPS tool (prognostic studies) has been added.</li>
+<li>The generic option for both functions now allow for additional customisation, including control over all text in the resulting figure.</li>
+<li>A new function, <code><a href="../reference/rob_save.html">rob_save()</a></code>, has been added, which uses data-driven defaults for figure height and width when saving to a file.</li>
 <li>New functionality so that <code>robvis</code> now supports “No information” as a judgment has been added.</li>
 <li>New colour scheme for the <code>colour = "colourblind"</code>argument has been added.</li>
 <li>The argument for the generic template has changed from “ROB1” to “Generic”. To ensure backward compatibility, the “ROB1” argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.</li>
+<li>The “Generic” template has been updated, so that it no longer maps “Serious” and “Critical” to the same colour/symbol.</li>
 </ul>
 </li>
 <li>Minor updates
 <ul>
+<li>A major refactoring of the code base has taken place to allow for future template specific functionality.</li>
 <li>Improved test coverage.</li>
 <li>Allowed for US spelling of colourblind</li>
 <li>
@@ -222,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

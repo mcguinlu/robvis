@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Save ROB plots to a file using sensible parameters — rob_save • robvis</title>
+<title>Example QUIPS assessment — data_quips • robvis</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Save ROB plots to a file using sensible parameters — rob_save" />
-<meta property="og:description" content="Save ROB plots to a file using sensible parameters" />
+<meta property="og:title" content="Example QUIPS assessment — data_quips" />
+<meta property="og:description" content="Example QUIPS assessment" />
 
 
 
@@ -117,56 +117,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Save ROB plots to a file using sensible parameters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mcguinlu/robvis/blob/master/R/rob_save.R'><code>R/rob_save.R</code></a></small>
-    <div class="hidden name"><code>rob_save.Rd</code></div>
+    <h1>Example QUIPS assessment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcguinlu/robvis/blob/master/R/data_quips.R'><code>R/data_quips.R</code></a></small>
+    <div class="hidden name"><code>data_quips.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Save ROB plots to a file using sensible parameters</p>
+    <p>Example QUIPS assessment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rob_save</span><span class='op'>(</span>
-  <span class='va'>rob_object</span>,
-  file <span class='op'>=</span> <span class='st'>"rob_figure.png"</span>,
-  height <span class='op'>=</span> <span class='st'>"default"</span>,
-  width <span class='op'>=</span> <span class='st'>"default"</span>,
-  dpi <span class='op'>=</span> <span class='fl'>800</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>data_quips</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>rob_object</th>
-      <td><p>Object created using either rob_summary() or
-rob_traffic_light()</p></td>
-    </tr>
-    <tr>
-      <th>file</th>
-      <td><p>Destination file, with extension (e.g. "rob_figure.png")</p></td>
-    </tr>
-    <tr>
-      <th>height</th>
-      <td><p>Height of resulting image, in inches. Defaults to "default"
-which uses recommended values based on the number of studies included.</p></td>
-    </tr>
-    <tr>
-      <th>width</th>
-      <td><p>Width of resulting image, in inches. Defaults to "default" which
-uses recommended values based on the number of characters in the Study and
-Domain names. dpi</p></td>
-    </tr>
-    <tr>
-      <th>dpi</th>
-      <td><p>Plot resolution.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <div class='dont-index'><p>Other helper: 
-<code><a href='rob_tools.html'>rob_tools</a>()</code></p></div>
+    <p>A data frame:</p><dl>
+  <dt>Study</dt><dd><p>Study details</p></dd>
+  <dt>D1</dt><dd><p>Domain 1</p></dd>
+  <dt>D2</dt><dd><p>Domain 2</p></dd>
+  <dt>D3</dt><dd><p>Domain 3</p></dd>
+  <dt>D4</dt><dd><p>Domain 4</p></dd>
+  <dt>D5</dt><dd><p>Domain 5</p></dd>
+  <dt>D6</dt><dd><p>Domain 6</p></dd>
+  <dt>Overall</dt><dd><p>Overall risk of bias</p></dd>
+  <dt>Weight</dt><dd><p>Weight measure for each study</p></dd>
+         
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Created for this package</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
