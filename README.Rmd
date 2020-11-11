@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CRAN Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
-[![CRAN Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://cran.r-project.org/web/packages/robvis/index.html)
+[![CRAN Badge.](https://www.r-pkg.org/badges/version-ago/robvis)](https://CRAN.R-project.org/package=robvis)
+[![CRAN Downloads.](https://cranlogs.r-pkg.org/badges/last-month/robvis)](https://CRAN.R-project.org/package=robvis)
 <br>
 [![R build status](https://github.com/mcguinlu/robvis/workflows/R-CMD-check/badge.svg)](https://github.com/mcguinlu/robvis/actions)
 [![Codecov test coverage](https://codecov.io/gh/mcguinlu/robvis/branch/master/graph/badge.svg)](https://codecov.io/gh/mcguinlu/robvis?branch=master)
@@ -83,12 +83,16 @@ summary_rob
 Returns a ggplot object displaying a ["traffic light plot"](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm), displaying the risk of bias judgment in each domain for each study.
 
 ```{r, eval=FALSE}
-trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
+trafficlight_rob <- rob_traffic_light(data = data_rob2,
+                                      tool = "ROB2",
+                                      psize = 10)
 trafficlight_rob
 ```
 
 ``` {r, include=FALSE}
-trafficlight_rob <- rob_traffic_light(data = data_rob2, tool = "ROB2")
+trafficlight_rob <- rob_traffic_light(data = data_rob2,
+                                      tool = "ROB2",
+                                      psize = 10)
 rob_save(trafficlight_rob,"man/figures/rob2trafficlight.png")
 ```
 <div style="text-align:center"><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></div>

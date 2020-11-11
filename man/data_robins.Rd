@@ -5,16 +5,7 @@
 \alias{data_robins}
 \title{Example ROBINS-I assessment}
 \format{
-An object of class \code{data.frame} with 12 rows and 10 columns.
-}
-\source{
-{Created for this package}
-}
-\usage{
-data_robins
-}
-\description{
-#' @format A data frame:
+A data frame:
 \describe{
   \item{Study}{Study details}
   \item{D1}{Domain 1}
@@ -27,5 +18,14 @@ data_robins
   \item{Overall}{Overall risk of bias}
   \item{Weight}{Weight measure for each study}
          }
+}
+\source{
+{Created for this package}
+}
+\usage{
+data_robins
+}
+\description{
+Example ROBINS-I assessment
 }
 \keyword{internal}
