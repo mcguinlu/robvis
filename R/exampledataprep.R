@@ -34,9 +34,16 @@
 #     header = TRUE,
 #     fileEncoding = "latin1"
 #   )
-#
+# data_quips <-
+#   read.csv(
+#     "data_raw/data_quips.csv",
+#     stringsAsFactors = FALSE,
+#     header = TRUE,
+#     fileEncoding = "latin1"
+#   )
 # usethis::use_data(data_rob1, overwrite = TRUE)
 # usethis::use_data(data_rob2, overwrite = TRUE)
 # usethis::use_data(data_rob2_cluster, overwrite = TRUE)
 # usethis::use_data(data_quadas, overwrite = TRUE)
 # usethis::use_data(data_robins, overwrite = TRUE)
+# usethis::use_data(data_quips, overwrite = TRUE)

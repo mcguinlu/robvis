@@ -1,10 +1,10 @@
 #' Example ROB2.0 assessment
 #'
-#' #' @format A data frame:
+#' @format A data frame:
 #' \describe{
 #'   \item{Study}{Study details}
 #'   \item{D1}{Domain 1}
-#'   \item{D1}{Domain 1b}
+#'   \item{D1b}{Domain 1b}
 #'   \item{D2}{Domain 2}
 #'   \item{D3}{Domain 3}
 #'   \item{D4}{Domain 4}

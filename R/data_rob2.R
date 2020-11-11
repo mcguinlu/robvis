@@ -1,6 +1,6 @@
 #' Example ROB2.0 assessment
 #'
-#' #' @format A data frame:
+#' @format A data frame:
 #' \describe{
 #'   \item{Study}{Study details}
 #'   \item{D1}{Domain 1}
@@ -12,4 +12,5 @@
 #'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
+#' @keywords internal
 "data_rob2"
