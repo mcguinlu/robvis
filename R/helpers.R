@@ -304,8 +304,15 @@ get_colour <- function(tool, colour) {
 }
 
 # Make sure specified tool is allowed
-check_tool <- function(tool) {
+check_tool <- function(tool, forest = FALSE) {
+
+  if (forest) {
+  tools <- c(suppressMessages(rob_tools(forest = TRUE)))
+  message_content <- "rob_tools(forest = TRUE)"
+  }else {
   tools <- c(suppressMessages(rob_tools()), "ROB1")
+  message_content <- "rob_tools()"
+  }
 
   if ((tool %in% tools) == FALSE) {
     stop(
@@ -313,7 +320,8 @@ check_tool <- function(tool) {
         "\nTool name \"",
         tool,
         "\" not recognised \nAcceptable tools" ,
-        "names can be found using the rob_tools() function"
+        "names can be found by running",
+        message_content
       )
     )
   }
