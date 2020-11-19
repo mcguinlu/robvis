@@ -1,9 +1,287 @@
+#' @title Append a risk-of-bias traffic-light plot to forest plot
+#'
+#' @description A wrapper for metafor::forest function, which adds a risk of
+#'   bias traffic-light plot to the right-hand side of the forest plot. The
+#'   heavy lifting for this function is done by metafor. Note that if not
+#'   specified as additional arguments, this functions sets the header argument
+#'   of metafor::forest() to TRUE.
+#'
+#' @param res Output from metafor meta-analysis function
+#' @param rob_data Risk of bias dataset in standard robvis format
+#' @param rob_psize Size of the points in the appended risk of bias table
+#' @param rob_colour Risk of bias colour scheme to use for the traffic-light
+#'   plot
+#' @param rob_caption Logical specifying whether a message containing the
+#'   Default is TRUE
+#' @param rob_legend Logical specifying whether a legned for the risk of bias
+#'   plot should be shown
+#' @param ... Additional arguments to be passed to the metafor::forest()
+#'   function
+#' @export
+
+rob_append_to_forest <-
+  function(res,
+           rob_data,
+           rob_colour = "cochrane",
+           rob_psize = 2,
+           rob_caption = TRUE,
+           rob_legend = TRUE,
+           ...) {
+
+    rob <- rob_data
+    tool <- "ROB2"
+    colour <- rob_colour
+
+    # Checks
+
+    if (!("rma" %in% class(res))) {
+      stop("Result objects need to be of class \"meta\" - output from metafor package functions")
+    }
+
+    # Check that the specif
+    check_tool(tool, forest = TRUE)
+    check_data(data)
+    colour <- weird_spelling(colour)
+
+    # Check names
+    res$slab <- gsub(",", "", res$slab)
+
+    colnames(rob) <- stringr::str_to_lower(colnames(rob))
+
+    if (!all(res$slab %in% rob$study)) {
+      stop("Mismatched names between the \"meta\" object and the risk of bias dataset")
+    }
+
+    # Clean data
+    max_domain_column <- ifelse(tool == "ROB2",7,9)
+
+    rob <-
+      cbind(rob[, 1], data.frame(lapply(rob[, 2:max_domain_column], clean_data),
+                                 stringsAsFactors = F))
+
+
+    # Get and expand original x limits to allow for ROB plot ====
+
+
+    # Call metafor::forest to get returned plot values
+    # Funct
+    t <- forest.invisible(res, ...)
+
+
+    # Using original x_lim, create elements needed for new plot
+    # Position of columns along the x-axis
+    x_pos <- seq(t$xlim[2], by = 0.55, length.out = max_domain_column - 2)
+
+    # Position of overall column on x-axis
+    x_overall_pos <- max(x_pos) + 1
+
+    # Convenience vector, specifying x-axis positions for all risk of bias columns
+    header_row <- c(x_pos, x_overall_pos)
+
+    legend_pos <- t$xlim[2]+(max(header_row)-min(header_row))/2
+
+    # New right-hand x-axis limit
+    new_x_lim <- x_overall_pos + .5
+
+    # Sequence of row numbers, descending
+    nrow_seq <- length(t$rows):1
+
+    # Sort colours  and symbols ====
+    rob_colours <- get_colour(tool, colour)
+
+
+    if (tool %in% c("ROB2", "QUADAS-2")) {
+      cols <- c(
+        h = rob_colours$high_colour,
+        s = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      )
+
+      syms <- c(h = "X",
+                s = "-",
+                l = "+",
+                n = "?",
+                x = ""
+      )
+    }
+
+
+    if (tool == "ROBINS-I") {
+      cols <- c(
+        c = rob_colours$critical_colour,
+        s = rob_colours$high_colour,
+        m = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      )
+
+      syms <- c(c = "!",
+                s = "X",
+                m = "-",
+                l = "+",
+                n = "?",
+                x = "")
+    }
+
+    tsize <- rob_psize * 0.4
+
+    # Clean arguments being passed to
+    # Remove arguments being defined within this function from the .. argument
+    a <- list(...)
+    a$xlim <- NULL
+
+
+    rob_textpos <- a$textpos
+
+    if (is.null(rob_textpos)) {
+      rob_textpos <- c(t$xlim[1], t$xlim[2] - 1)
+    } else {
+      rob_textpos <- a$textpos
+      a$textpos <- NULL
+    }
+
+    # Get cex value, and assign to default from forest() if not specified
+    rob_cex <- a$cex
+
+    if (is.null(rob_cex)) {
+      rob_cex <- t$cex
+    } else {
+      a$cex <- NULL
+    }
+
+    # Get top value, and assign to 3 if not specified
+    rob_top <- a$top
+
+    if (is.null(rob_top)) {
+      rob_top <- 3
+    }
+
+    # Get header value, and assign to TRUE if not specified
+    a$header
+
+    if (is.null(a$header)) {
+      a$header <- TRUE
+    }
+
+    # Set plotting values
+    par(cex = rob_cex, font = 2)
+
+    # Pass all arguments to forest(), removing those that this function defines
+    do.call(metafor::forest, c(list(
+      x = res,
+      xlim = c(t$xlim[1], new_x_lim),
+      textpos = rob_textpos,
+      cex = rob_cex
+    ), a))
+
+    par(cex = rob_cex, font = 2)
+
+    # Plot title of domains
+
+    headers <- if(tool == "ROB2"){
+      c("R", "D", "Mi", "Me", "S", "O")}else{
+        c("D1", "D2", "D3", "D4", "D5","D6","D7", "O")
+      }
+
+    # Need to add handling of top here
+    text(mean(header_row), t$ylim[2], labels = "Risk of Bias")
+    text(header_row, t$ylim[2]-(rob_top-1) + 1, labels =headers)
+
+    # Plot domain points
+    for (j in 1:length(x_pos)) {
+      points(
+        rep(x_pos[j], length(t$rows)),
+        nrow_seq,
+        pch = 19,
+        col = cols[rob[[paste0("d", j)]]],
+        cex = rob_psize
+      )
+      text(x_pos[j], nrow_seq, syms[rob[[paste0("d", j)]]], cex = tsize)
+    }
+
+    # Plot overall column
+    points(
+      rep(x_overall_pos, length(t$rows)),
+      nrow_seq,
+      pch = 19,
+      col = cols[rob[["overall"]]],
+      cex = rob_psize
+    )
+    text(x_overall_pos, nrow_seq, syms[rob[["overall"]]], cex = tsize)
+
+
+
+    if (rob_legend) {
+      par(font = 1)
+
+      legend(
+        legend_pos,
+        -1,
+        c("High risk of bias",
+          "Some concerns",
+          "Low risk of bias",
+          "No information"),
+        pch = 19,
+        xjust = 0.5,
+        col = c(rob_colours$high_colour,
+                rob_colours$concerns_colour,
+                rob_colours$low_colour,
+                rob_colours$ni_colour),
+        xpd = TRUE,
+        title = parse(text = "bold(\"Judgement\")"),
+        title.adj = 0.1,
+        cex = .7,
+        pt.cex = .7,
+        y.intersp = 0.7
+      )
+
+    }
+
+
+    # Define caption ====
+    domains <-   paste("R: Bias arising from the randomization process.",
+                       "D: Bias due to deviations from intended intervention.",
+                       "Mi: Bias due to missing outcome data.",
+                       "Me: Bias in measurement of the outcome.",
+                       "S: Bias in selection of the reported result.",
+                       "O: Overall risk of bias")
+
+
+    if (rob_caption) {
+      message(
+        "We recommend copying the description below into your figure caption:\n\n",
+        "\"Risk-of-bias assessement was performed using the ",
+        tool,
+        " tool, which has the following domains: ",
+        domains,
+        "\""
+      )
+    }
+
+    # Return same list of values as metafor::forest()
+    res <- list(xlim = c(t$xlim[1], new_x_lim), alim = t$alim, at = t$at,
+                ylim = t$ylim, rows = t$rows, cex = rob_cex, cex.lab = rob_cex,
+                cex.axis = rob_cex)
+
+    invisible(res)
+
+  }
+
+
+
 #' Risk of bias blobbogram plot
 #'
 #' @param rma an rma object from the metafor package
 #' @param rob a risk of bias table formatted like data_rob2
+#' @param rob_tool risk of bias tool used
+#' @param rob_colour risk of bias colour scheme
+#' @param subset_col Column containing the variable to subset the MA by
+#' @param add_tests include summary of statistical tests by subgroup
+#' @param overall_estimate show a summary measure across groups?
 #' @param theme optional theme for the forest plot table
-#' @param estimate_precision number of decimals for the estimate column
 #' @param ggplot_is_x_times_right_width relative width of the forest plot
 #' @param null_line_at what value is the null? default 1.0
 #' @param file_path path to save the image
@@ -14,70 +292,90 @@
 #' @param estimate_col_name title of the estimate column, default "Estimate"
 #'
 #' @return an image
-#' @export
-#'
-#' @examples
 rob_blobbogram <- function(rma,
                            rob,
+                           rob_tool = "ROB2",
+                           rob_colour = "cochrane",
+                           subset_col = "Overall",
+                           add_tests = TRUE,
+                           overall_estimate = TRUE,
                            theme = NULL,
-                           estimate_precision = 2,
                            ggplot_is_x_times_right_width = 1.2,
                            null_line_at = 1,
-                           file_path = here::here("rob_blobbogram.png"),
+                           file_path = tempfile(pattern = "rob_blobbogram", fileext = ".png"),
                            dpi = 600,
                            display = TRUE,
                            blank_na = TRUE,
                            font_family = "mono",
                            estimate_col_name = "Estimate"){
 
-  table <- cbind(data.frame(yi = rma$yi,
+  # This will need to be separated out into its own function, with a good deal of error handling
+  table <- merge(data.frame(Study = gsub(",","",rma$slab),
+                            yi = rma$yi,
                             vi = rma$vi,
                             est = exp(rma$yi),
-                            ci_low = exp(rma$yi - 1.96 * rma$vi),
-                            ci_high = exp(rma$yi + 1.96 * rma$vi)),
-                 rob)
+                            ci_low = exp(rma$yi - 1.96 * sqrt(rma$vi)),
+                            ci_high = exp(rma$yi + 1.96 * sqrt(rma$vi)),
+                            stringsAsFactors = FALSE),
+                 rob,
+                 by = "Study")
 
+  # Reorder data
   table <- dplyr::select(table, Study, dplyr::everything())
 
-  low <- dplyr::filter(table, .data$Overall == "Low")
-  concerns <- dplyr::filter(table, .data$Overall == "Some concerns")
-  high <- dplyr::filter(table, .data$Overall == "High")
+  # Define levels by which to subset (ideal use case in ROB2, but allow any)
+  if (subset_col == "Overall" & rob_tool == "ROB2") {
+  # Set ROB2 levels
+  levels <- c("Low", "Some concerns", "High")
 
-  low_rma <- metafor::rma(yi, vi, data = low, method = "FE")
-  concerns_rma <- metafor::rma(yi, vi, data = concerns, method = "FE")
-  high_rma <- metafor::rma(yi, vi, data = high, method = "FE")
-
-  create_subtotal_row <- function(rma, name = "Subtotal", add_blank = TRUE){
-    row <- data.frame(Study = name,
-                      est = exp(rma$b),
-                      ci_low = exp(rma$ci.lb),
-                      ci_high = exp(rma$ci.ub))
-    if(add_blank){row <- dplyr::add_row(row)}
-    return(row)
+  # Limit to those levels actually present in the dataset
+  levels <- levels[which(levels %in% unique(table[[subset_col]]))]
+  } else {
+  # Clean level names so that they look nice in the table
+  table[[subset_col]] <- stringr::str_to_sentence(table[[subset_col]])
+  levels <- unique(table[[subset_col]])
   }
 
-  create_title_row <- function(title){
-    return(data.frame(Study = title, est = NA, ci_low = NA, ci_high = NA))
-  }
 
-  ordered_table <- rbind(create_title_row("Low Risk of Bias"),
-                         dplyr::select(low, Study, .data$est, .data$ci_low, .data$ci_high),
-                         create_subtotal_row(low_rma),
-                         create_title_row("Some Concerns of Bias"),
-                         dplyr::select(concerns, Study, .data$est, .data$ci_low, .data$ci_high),
-                         create_subtotal_row(concerns_rma),
-                         create_title_row("High Risk of Bias"),
-                         dplyr::select(high, Study, .data$est, .data$ci_low, .data$ci_high),
-                         create_subtotal_row(high_rma),
-                         create_subtotal_row(rma, "Overall", FALSE))
+  # Work out if only one level is present. Passed to create_subtotal_row(), so
+  # that if only one group, no subtotal is created.
+  single_group <- ifelse(length(levels)==1,TRUE,FALSE)
 
+  # Subset data by levels, run user-defined metafor function on them, and
+  # recombine along with Overall rma output
+  subset <-lapply(levels, function(level){dplyr::filter(table, !!as.symbol(subset_col) == level)})
+  names(subset) <- levels
+
+  # This takes the same metafor::rma function (including args) and runs it on each subsetted dataset
+  subset_res <- lapply(levels, function(level){metafor_function(res, data = subset[[level]])})
+  names(subset_res) <- levels
+
+
+
+  # This
+  subset_tables <-
+    lapply(levels, function(level){
+      rbind(
+        create_title_row(level),
+        dplyr::select(subset[[level]], Study, .data$est, .data$ci_low, .data$ci_high),
+        create_subtotal_row(subset_res[[level]], single_group = single_group, add_tests = add_tests)
+      )
+    })
+
+  subset_table <- do.call("rbind", lapply(subset_tables, function(x) x))
+
+  ordered_table <- rbind(subset_table,
+                         if (overall_estimate) {
+                           create_subtotal_row(rma, "Overall", add_blank = FALSE)
+                         })
 
   rob_data_for_graph <- dplyr::left_join(ordered_table, rob, by = "Study")
 
-  # indent the subgroup if there is a number in the placebo column
-  ordered_table$Study <- ifelse(is.na(ordered_table$est),
-                                ordered_table$Study,
-                                paste0("   ", ordered_table$Study))
+  # Indent the subgroup if there is a number in the placebo column
+  ordered_table$Study <- as.character(ordered_table$Study)
+  ordered_table$Study <- ifelse(!(ordered_table$Study %in% levels) & ordered_table$Study != "Overall",
+                                paste0(" ", ordered_table$Study),
+                                ordered_table$Study)
 
   ##############################################################################
 
@@ -88,9 +386,23 @@ rob_blobbogram <- function(rma,
   ci_low <- ordered_table$ci_low
   ci_high <- ordered_table$ci_high
 
+  # Set subset titles to bold.italic
+  bold_vec <-
+    ifelse(stringr::str_trim(as.vector(left_side_data$Study)) %in% c(levels),
+           "bold.italic",
+           "plain")
+
+  # Set overall title to bold
+  bold_vec <-
+    ifelse(stringr::str_trim(as.vector(left_side_data$Study)) %in% c("Overall"),
+           "bold",
+           bold_vec)
+
   if(is.null(theme)){
     theme <- gridExtra::ttheme_minimal(core=list(
-      fg_params = list(hjust = 0, x = 0.05, fontfamily = font_family),
+      fg_params = list(hjust = 0, x = 0.05,
+                       fontfamily = font_family,
+                       fontface = bold_vec),
       bg_params = list(fill=c(rep(c("#eff3f2", "white"), length.out=4)))
     ),
     colhead = list(fg_params = list(hjust = 0, x = 0.05,
@@ -118,10 +430,11 @@ rob_blobbogram <- function(rma,
   tdata <- gdata
 
   tdata <- dplyr::mutate_all(tdata, ~sprintf(.,
-                                             fmt = paste0('%#.', estimate_precision,'f')
+                                             fmt = paste0('%#.', 2,'f')
   ))
 
   tdata[tdata == "NA"] <- " "
+
   # pretty formatting for confidence intervals
   right_side_data <- data.frame(Estimate = ifelse(tdata$estimate == " ",
                                                   " ", paste0(tdata$estimate, " (", tdata$ci_low,
@@ -277,10 +590,12 @@ rob_blobbogram <- function(rma,
 
   rob_gdata$x[rob_gdata$x == 6] <- 6.5
 
-  bias_colours <- c("High" = "red",
-                    "Some concerns" = "yellow",
-                    "Low" = "darkgreen",
-                    "No information" = "blue")
+  rob_colours <- robvis:::get_colour(rob_tool, rob_colour)
+
+  bias_colours <- c("High" = rob_colours$high_colour,
+                    "Some concerns" = rob_colours$concerns_colour,
+                    "Low" = rob_colours$low_colour,
+                    "No information" = rob_colours$ni_colour)
 
   titles <- data.frame(names = c("D1", "D2", "D3", "D4", "D5", "Overall"),
                        y = max(rob_gdata$row_num),
@@ -317,7 +632,9 @@ rob_blobbogram <- function(rma,
                    legend.background = ggplot2::element_rect(fill = "transparent"),
                    legend.box.background = ggplot2::element_rect(fill = "transparent")) +
     ggplot2::geom_vline(xintercept = null_line_at, linetype = "dashed") + # null line
-    ggplot2::scale_x_continuous(labels = scales::number_format(accuracy = 0.1)) +
+    ggplot2::scale_x_continuous(labels = scales::number_format(accuracy = 0.1), trans = "log10",
+                                breaks = c(0.1, 0.2, 0.5, 1, 2, 5, 10),
+                                limits = c(0.1,10)) +
     ggplot2::xlab("")
 
   ############################## the rob ggplot figure #########################
@@ -330,7 +647,8 @@ rob_blobbogram <- function(rma,
                                     ymax = .data$ymax),
                        fill = "white",
                        colour = "#eff3f2") +
-    ggplot2::geom_point(size = 4, ggplot2::aes(x = .data$x, y = .data$row_num, colour = .data$colour)) +
+    ggplot2::geom_point(size = 5, ggplot2::aes(x = .data$x, y = .data$row_num, colour = .data$colour)) +
+    ggplot2::geom_point(size = 3, ggplot2::aes(x = .data$x, y = .data$row_num, shape = .data$colour)) +
     ggplot2::scale_y_continuous(expand = c(0,0), #remove padding
                                 limits = c(y_low, y_high)) + # position dots
     ggplot2::geom_text(data = titles, ggplot2::aes(label = .data$names, x = .data$x, y = .data$y)) +
@@ -353,7 +671,14 @@ rob_blobbogram <- function(rma,
     ggplot2::scale_x_continuous(limits = c(0.5, 7.5),
                                 expand = c(0, 0)) +
     ggplot2::scale_color_manual(values = bias_colours,
-                                na.translate = FALSE)
+                                na.translate = FALSE) +
+    ggplot2::scale_shape_manual(
+      values = c(
+        "High" = 120,
+        "Some concerns" = 45,
+        "Low" = 43,
+        "No information" = 63
+      ))
 
   ######### using patchwork, overlay the ggplots on the tables #################
 

@@ -7,11 +7,15 @@
 rob_blobbogram(
   rma,
   rob,
+  rob_tool = "ROB2",
+  rob_colour = "cochrane",
+  subset_col = "Overall",
+  add_tests = TRUE,
+  overall_estimate = TRUE,
   theme = NULL,
-  estimate_precision = 2,
   ggplot_is_x_times_right_width = 1.2,
   null_line_at = 1,
-  file_path = here::here("rob_blobbogram.png"),
+  file_path = tempfile(pattern = "rob_blobbogram", fileext = ".png"),
   dpi = 600,
   display = TRUE,
   blank_na = TRUE,
@@ -24,9 +28,17 @@ rob_blobbogram(
 
 \item{rob}{a risk of bias table formatted like data_rob2}
 
-\item{theme}{optional theme for the forest plot table}
+\item{rob_tool}{risk of bias tool used}
 
-\item{estimate_precision}{number of decimals for the estimate column}
+\item{rob_colour}{risk of bias colour scheme}
+
+\item{subset_col}{Column containing the variable to subset the MA by}
+
+\item{add_tests}{include summary of statistical tests by subgroup}
+
+\item{overall_estimate}{show a summary measure across groups?}
+
+\item{theme}{optional theme for the forest plot table}
 
 \item{ggplot_is_x_times_right_width}{relative width of the forest plot}
 
