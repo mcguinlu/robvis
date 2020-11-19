@@ -47,7 +47,7 @@ context("Check Blobbograms")
                                                    rob_caption = FALSE),
                               writer = svg_ordered)
 
-  })
+
 
   vdiffr::expect_doppelganger("metafor forest - ROB2 - complex",
                               rob_append_to_forest(
@@ -79,6 +79,8 @@ context("Check Blobbograms")
                                 rob_caption = FALSE
                               ),
                               writer = svg_ordered)
+
+  })
 
 #   # # ROBINS-I
 #   # dat.robins <- rbind(data_robins, data_robins[1,])
