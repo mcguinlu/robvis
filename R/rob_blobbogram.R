@@ -12,9 +12,9 @@
 #' @param rob_colour Risk of bias colour scheme to use for the traffic-light
 #'   plot
 #' @param rob_caption Logical specifying whether a message containing the
-#'   Default is TRUE
-#' @param rob_legend Logical specifying whether a legned for the risk of bias
-#'   plot should be shown
+#'   risk-of-bias domains should be printed. Default is TRUE
+#' @param rob_legend Logical specifying whether a legend for the risk-of-bias
+#'   plot should be shown. Default is TRUE.
 #' @param ... Additional arguments to be passed to the metafor::forest()
 #'   function
 #' @export
@@ -40,7 +40,7 @@ rob_append_to_forest <-
 
     # Check that the specif
     check_tool(tool, forest = TRUE)
-    check_data(data)
+    check_data(rob)
     colour <- weird_spelling(colour)
 
     # Check names
@@ -167,7 +167,7 @@ rob_append_to_forest <-
     }
 
     # Set plotting values
-    par(cex = rob_cex, font = 2)
+    graphics::par(cex = rob_cex, font = 2)
 
     # Pass all arguments to forest(), removing those that this function defines
     do.call(metafor::forest, c(list(
@@ -177,7 +177,7 @@ rob_append_to_forest <-
       cex = rob_cex
     ), a))
 
-    par(cex = rob_cex, font = 2)
+    graphics::par(cex = rob_cex, font = 2)
 
     # Plot title of domains
 
@@ -187,37 +187,37 @@ rob_append_to_forest <-
       }
 
     # Need to add handling of top here
-    text(mean(header_row), t$ylim[2], labels = "Risk of Bias")
-    text(header_row, t$ylim[2]-(rob_top-1) + 1, labels =headers)
+    graphics::text(mean(header_row), t$ylim[2], labels = "Risk of Bias")
+    graphics::text(header_row, t$ylim[2]-(rob_top-1) + 1, labels =headers)
 
     # Plot domain points
     for (j in 1:length(x_pos)) {
-      points(
+      graphics::points(
         rep(x_pos[j], length(t$rows)),
         nrow_seq,
         pch = 19,
         col = cols[rob[[paste0("d", j)]]],
         cex = rob_psize
       )
-      text(x_pos[j], nrow_seq, syms[rob[[paste0("d", j)]]], cex = tsize)
+      graphics::text(x_pos[j], nrow_seq, syms[rob[[paste0("d", j)]]], cex = tsize)
     }
 
     # Plot overall column
-    points(
+    graphics::points(
       rep(x_overall_pos, length(t$rows)),
       nrow_seq,
       pch = 19,
       col = cols[rob[["overall"]]],
       cex = rob_psize
     )
-    text(x_overall_pos, nrow_seq, syms[rob[["overall"]]], cex = tsize)
+    graphics::text(x_overall_pos, nrow_seq, syms[rob[["overall"]]], cex = tsize)
 
 
 
     if (rob_legend) {
-      par(font = 1)
+      graphics::par(font = 1)
 
-      legend(
+      graphics::legend(
         legend_pos,
         -1,
         c("High risk of bias",
@@ -291,6 +291,7 @@ rob_append_to_forest <-
 #' @param font_family (experimental) change fonts in the table
 #' @param estimate_col_name title of the estimate column, default "Estimate"
 #'
+#' @export
 #' @return an image
 rob_blobbogram <- function(rma,
                            rob,
@@ -347,7 +348,7 @@ rob_blobbogram <- function(rma,
   names(subset) <- levels
 
   # This takes the same metafor::rma function (including args) and runs it on each subsetted dataset
-  subset_res <- lapply(levels, function(level){metafor_function(res, data = subset[[level]])})
+  subset_res <- lapply(levels, function(level){metafor_function(rma, data = subset[[level]])})
   names(subset_res) <- levels
 
 
@@ -376,8 +377,6 @@ rob_blobbogram <- function(rma,
   ordered_table$Study <- ifelse(!(ordered_table$Study %in% levels) & ordered_table$Study != "Overall",
                                 paste0(" ", ordered_table$Study),
                                 ordered_table$Study)
-
-  ##############################################################################
 
 
   left_side_data <- dplyr::select(ordered_table, Study)
@@ -590,7 +589,7 @@ rob_blobbogram <- function(rma,
 
   rob_gdata$x[rob_gdata$x == 6] <- 6.5
 
-  rob_colours <- robvis:::get_colour(rob_tool, rob_colour)
+  rob_colours <- get_colour(rob_tool, rob_colour)
 
   bias_colours <- c("High" = rob_colours$high_colour,
                     "Some concerns" = rob_colours$concerns_colour,

@@ -1,16 +1,19 @@
+# Helpers for rob_append_to_forest ====
+
 forest.invisible <- function(...){
   ff <- tempfile()
-  png(filename=ff)
+  grDevices::png(filename=ff)
   res <- metafor::forest(...)
-  dev.off()
+  grDevices::dev.off()
   unlink(ff)
   res
 }
 
 
+# Helpers for rob_blobbogram ====
 
 metafor_function <- function(res, data = dat){
-  eval(rlang::call_modify(res$call, data= quote(data)))
+  eval(rlang::call_modify(res$call, data = quote(data)))
 }
 
 create_subtotal_row <- function(rma,
@@ -28,10 +31,23 @@ create_subtotal_row <- function(rma,
 
   if (add_tests) {
 
-    tests <- data.frame(Study = paste0("Q=",
-                                      formatC(rma$QE, digits=2, format="f"), ", df=", rma$k - rma$p,
-                                      ", p=", formatC(rma$QEp, digits=2, format="f"), "; ", "I^2", "=",
-                                      formatC(rma$I2, digits=1, format="f"), "%"),
+    tests <- data.frame(
+      Study = paste0(
+        "Q=",
+        formatC(rma$QE, digits = 2, format =
+                  "f"),
+        ", df=",
+        rma$k - rma$p,
+        ", p=",
+        formatC(rma$QEp, digits = 2, format = "f"),
+        "; ",
+        "I^2",
+        "=",
+        formatC(rma$I2, digits = 1, format =
+                  "f"),
+        "%"
+      ),
+
                         est = c(NA),
                         ci_low = c(NA),
                         ci_high = c(NA))
