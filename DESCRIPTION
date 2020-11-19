@@ -38,10 +38,12 @@ Imports:
     dplyr,
     here,
     gridExtra,
-    systemfonts,
+    systemfonts (>= 0.3.2),
     stats,
     rlang,
-    stringr
+    stringr,
+    grDevices,
+    graphics
 Suggests:
     knitr,
     rmarkdown,
