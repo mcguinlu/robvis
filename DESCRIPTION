@@ -45,7 +45,6 @@ Imports:
     stringr,
     grDevices,
     graphics,
-    visualTest (>= 1.0.0),
     png
 Suggests:
     knitr,
