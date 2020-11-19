@@ -24,4 +24,9 @@ cran-comments.md
 ^pkgdown$
 \.png
 .jpeg
+.xlsx
+.svg
+.pdf
+.tiff
+
 
