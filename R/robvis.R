@@ -6,4 +6,13 @@
 #' @name robvis
 #' @keywords internal
 
-globalVariables(c("domain", "Study", "judgement", "Weights","data.tmp"))
+globalVariables(c(
+  "domain",
+  "Study",
+  "judgement",
+  "Weights",
+  "data.tmp",
+  ".data",
+  "dat",
+  "res"
+))
