@@ -7,7 +7,8 @@ Authors@R: c(
            email = "luke.mcguinness@bristol.ac.uk"),
     person("Emily", "Kothe", role = "ctb"), 
     person("Alex", "Fowler", rol = "ctb"),
-    person("Randall", "Boyes", rol = "ctb"))
+    person("Randall", "Boyes", rol = "ctb"),
+    person("Wolfgang","Viechtbauer",rol="ctb"))
 Description: Helps users in quickly visualizing risk-of-bias 
     assessments performed as part of a systematic review. It allows users to 
     create weighted bar-plots of the distribution of risk-of-bias judgments 
