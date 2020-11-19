@@ -43,7 +43,9 @@ Imports:
     rlang,
     stringr,
     grDevices,
-    graphics
+    graphics,
+    visualTest (>= 1.0.0),
+    png
 Suggests:
     knitr,
     rmarkdown,
@@ -56,3 +58,5 @@ VignetteBuilder:
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Remotes: 
+    MangoTheCat/visualTest
