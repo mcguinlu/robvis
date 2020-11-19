@@ -25,10 +25,10 @@ plot}
 \item{rob_psize}{Size of the points in the appended risk of bias table}
 
 \item{rob_caption}{Logical specifying whether a message containing the
-Default is TRUE}
+risk-of-bias domains should be printed. Default is TRUE}
 
-\item{rob_legend}{Logical specifying whether a legned for the risk of bias
-plot should be shown}
+\item{rob_legend}{Logical specifying whether a legend for the risk-of-bias
+plot should be shown. Default is TRUE.}
 
 \item{...}{Additional arguments to be passed to the metafor::forest()
 function}

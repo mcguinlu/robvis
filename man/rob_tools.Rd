@@ -4,7 +4,10 @@
 \alias{rob_tools}
 \title{List tool templates available within the package.}
 \usage{
-rob_tools()
+rob_tools(forest = FALSE)
+}
+\arguments{
+\item{forest}{Show tools supported by the forest/blobbogram functions}
 }
 \description{
 rob_tools() will list the risk-of-bias assessment tools for
