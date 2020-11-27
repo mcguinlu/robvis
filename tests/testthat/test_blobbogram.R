@@ -33,13 +33,30 @@ context("Check Blobbograms")
   dat.rob2 <- rbind(data_rob2, data_rob2[1:4,])
   dat.rob2$Study <- paste(dat$author,dat$year)
 
-  # test_that("ROB - Append forest - Message", {
-  #
-  # expect_message(rob_append_to_forest(res, dat.rob2))
-  #
-  # })
+  dat.robins <- rbind(data_robins, data_robins[1,])
+  dat.robins$Study <- paste(dat$author,dat$year)
 
-  test_that("ROB- Append forest - ROB2",{
+  test_that("ROB - Append forest - Message", {
+
+  expect_message(rob_append_to_forest(res, dat.rob2))
+
+  grDevices::graphics.off()
+
+  })
+
+  test_that("ROB - Append forest - Errors", {
+
+    vector <- c()
+
+    expect_error(rob_append_to_forest(vector, dat.rob2))
+
+    dat.rob.misnamed <- dat.rob2
+    dat.rob.misnamed[3,1] <- "Blarg"
+
+    expect_error(rob_append_to_forest(res, dat.rob.misnamed))
+  })
+
+  test_that("ROB - Append forest - ROB2",{
 
   vdiffr::expect_doppelganger("metafor forest - ROB2 - simple",
                               rob_append_to_forest(res,
@@ -61,6 +78,7 @@ context("Check Blobbograms")
                                 ilab.xpos = c(-9.5, -8, -6, -4.5),
                                 header = "Author(s) and Year",
                                 textpos = c(-16, 6),
+                                cex = 1,
                                 mlab = paste0(
                                   "RE Model (Q=",
                                   formatC(res$QE, digits = 2, format =
@@ -81,22 +99,22 @@ context("Check Blobbograms")
   })
 
 
-  # test_that("ROB Blobbogram",{
-  #   # Note, for this approach to work, you need to run
-  #   # visualTest::getFingerprint() on the image that you know is correct. This
-  #   # then provides the hash key used in visualTest::isSimilar()
-  #
-  #   ff <- tempfile(fileext = ".png")
-  #
-  #   suppressWarnings(rob_blobbogram(res,
-  #                                   dat.rob2,
-  #                                   file_path = ff,
-  #                                   display = FALSE))
-  #
-  #   new <- visualTest::getFingerprint(ff)
-  #
-  #   expect_true(visualTest::isSimilar(ff,"AB78BF62800DF08F", ))
-  #
-  #   unlink(ff)
-  #
-  # })
+  test_that("ROB Blobbogram",{
+    # Note, for this approach to work, you need to run
+    # visualTest::getFingerprint() on the image that you know is correct. This
+    # then provides the hash key used in visualTest::isSimilar()
+
+    ff <- tempfile(fileext = ".png")
+
+    suppressWarnings(rob_blobbogram(res,
+                                    dat.rob2,
+                                    file_path = ff,
+                                    display = FALSE))
+
+    new <- visualTest::getFingerprint(ff)
+
+    expect_true(visualTest::isSimilar(ff,"AB78BF62800DF08F", ))
+
+    unlink(ff)
+
+  })
