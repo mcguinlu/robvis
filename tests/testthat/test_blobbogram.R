@@ -36,14 +36,6 @@ context("Check Blobbograms")
   dat.robins <- rbind(data_robins, data_robins[1,])
   dat.robins$Study <- paste(dat$author,dat$year)
 
-  test_that("ROB - Append forest - Message", {
-
-  expect_message(rob_append_to_forest(res, dat.rob2))
-
-  grDevices::graphics.off()
-
-  })
-
   test_that("ROB - Append forest - Errors", {
 
     vector <- c()
