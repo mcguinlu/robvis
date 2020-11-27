@@ -126,7 +126,7 @@ rob_append_to_forest <-
                 x = "")
     }
 
-    tsize <- rob_psize * 0.4
+    tsize <- rob_psize * 0.3
 
     # Clean arguments being passed to
     # Remove arguments being defined within this function from the .. argument
@@ -134,6 +134,7 @@ rob_append_to_forest <-
     a$xlim <- NULL
 
 
+    # CEX PROCESSING NOT WORKING PROPERLY IF SPECIFIED IN FOREST CALL!
     rob_textpos <- a$textpos
 
     if (is.null(rob_textpos)) {

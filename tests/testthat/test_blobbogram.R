@@ -30,7 +30,7 @@ context("Check Blobbograms")
 # Check basic resulting figures ----
 
   # ROB2
-  dat.rob2 <- rbind(robvis::data_rob2, robvis::data_rob2[1:4,])
+  dat.rob2 <- rbind(data_rob2, data_rob2[1:4,])
   dat.rob2$Study <- paste(dat$author,dat$year)
 
   # test_that("ROB - Append forest - Message", {
@@ -46,8 +46,6 @@ context("Check Blobbograms")
                                                    dat.rob2,
                                                    rob_caption = FALSE),
                               writer = svg_ordered)
-
-
 
   vdiffr::expect_doppelganger("metafor forest - ROB2 - complex",
                               rob_append_to_forest(
@@ -82,29 +80,23 @@ context("Check Blobbograms")
 
   })
 
-#   # # ROBINS-I
-#   # dat.robins <- rbind(data_robins, data_robins[1,])
-#   # dat.robins$Study <- paste(dat$author,dat$year)
-#
-#
-#
-#   test_that("ROB Blobbogram",{
-#
-#     # Note, for this approach to work, you need to run
-#     # visualTest::getFingerprint() on the image that you know is correct. This
-#     # then provides the hash key used in visualTest::isSimilar()
-#
-#     ff <- tempfile(fileext = ".png")
-#
-#     suppressWarnings(rob_blobbogram(res,
-#                                     dat.rob2,
-#                                     file_path = ff,
-#                                     display = FALSE))
-#
-#     new <- visualTest::getFingerprint(ff)
-#
-#     expect_true(visualTest::isSimilar(ff,"AB78BF62800DF08F", ))
-#
-#     unlink(ff)
-#
-#   })
+
+  # test_that("ROB Blobbogram",{
+  #   # Note, for this approach to work, you need to run
+  #   # visualTest::getFingerprint() on the image that you know is correct. This
+  #   # then provides the hash key used in visualTest::isSimilar()
+  #
+  #   ff <- tempfile(fileext = ".png")
+  #
+  #   suppressWarnings(rob_blobbogram(res,
+  #                                   dat.rob2,
+  #                                   file_path = ff,
+  #                                   display = FALSE))
+  #
+  #   new <- visualTest::getFingerprint(ff)
+  #
+  #   expect_true(visualTest::isSimilar(ff,"AB78BF62800DF08F", ))
+  #
+  #   unlink(ff)
+  #
+  # })
