@@ -27,31 +27,31 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends:
-  R (>= 2.10)
+  R (>= 3.6)
 Imports:
     ggplot2 (>= 3.3.0),
-    tidyr,
-    scales,
+    tidyr (>= 1.0.0),
+    scales (>= 1.1.0),
     vdiffr (>= 0.3.3),
-    metafor,
-    magick,
-    patchwork,
-    dplyr,
-    here,
-    gridExtra,
+    metafor (>= 2.4),
+    magick (>= 2.2),
+    patchwork (>= 1.0.0),
+    dplyr (>= 1.0.2),
+    here (>= 0.1),
+    gridExtra (>= 2.3),
     systemfonts (>= 0.3.2),
-    stats,
-    rlang,
-    stringr,
-    grDevices,
-    graphics,
-    png
+    stats (>= 3.6.1),
+    rlang (>= 0.4.7),
+    stringr (>= 1.4.0),
+    grDevices (>= 3.6.1),
+    graphics (>= 3.6.1),
+    png (>= 0.1-7)
 Suggests:
-    knitr,
-    rmarkdown,
-    covr,
-    testthat,
-    spelling
+    knitr (>= 1.28),
+    rmarkdown (>= 2.3),
+    covr (>= 3.5.1),
+    testthat (>= 2.3.0),
+    spelling (>= 2.2)
 VignetteBuilder: 
     knitr, 
     rmarkdown
