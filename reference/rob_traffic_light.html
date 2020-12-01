@@ -80,12 +80,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -134,7 +128,14 @@
   and produce a traffic light plot from it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rob_traffic_light</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>tool</span>, colour <span class='op'>=</span> <span class='st'>"cochrane"</span>, psize <span class='op'>=</span> <span class='fl'>10</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rob_traffic_light</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>tool</span>,
+  colour <span class='op'>=</span> <span class='st'>"cochrane"</span>,
+  psize <span class='op'>=</span> <span class='fl'>10</span>,
+  overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +166,12 @@ option for a colour-blind friendly palette is also available (colour =
     </tr>
     <tr>
       <th>psize</th>
-      <td><p>Control the size of the traffic lights. Default is 20.</p></td>
+      <td><p>Control the size of the traffic lights. Default is 10.</p></td>
+    </tr>
+    <tr>
+      <th>overall</th>
+      <td><p>Logical, specifying whether to include an "Overall" risk of
+bias column in the resulting plot</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -212,7 +218,7 @@ option for a colour-blind friendly palette is also available (colour =
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
