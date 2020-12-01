@@ -128,11 +128,12 @@ rob_tf_theme <-function(rob.tidy,
                         psize,
                         ssize,
                         adjust_caption,
+                        overall,
                         judgement_title = "Judgement",
                         overall_name = "Overall",
                         x_title = "Risk of bias domains",
                         y_title = "Study"){
-  list(
+  standard <- list(
       ggplot2::facet_grid(Study ~
                             factor(domain, levels = domain_names),
                           switch = "y",
@@ -151,7 +152,7 @@ rob_tf_theme <-function(rob.tidy,
         ymax = Inf,
         show.legend = FALSE
       ),
-      ggplot2::geom_rect(
+      overall_name = ggplot2::geom_rect(
         data = rob.tidy[which(rob.tidy$domain ==
                                 overall_name),],
         fill = "#d3d3d3",
@@ -211,6 +212,14 @@ rob_tf_theme <-function(rob.tidy,
   ggplot2::labs(shape = judgement_title, colour = judgement_title)
 
 )
+
+  # Remove element that draws dark box for "Overall" column
+  if (!overall) {
+    standard[["overall_name"]] <- ggplot2::geom_blank()
+  }
+
+  return(standard)
+
 }
 
 
