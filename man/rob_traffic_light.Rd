@@ -4,7 +4,14 @@
 \alias{rob_traffic_light}
 \title{Produce traffic-light plots of risk-of-bias assessments.}
 \usage{
-rob_traffic_light(data, tool, colour = "cochrane", psize = 10, ...)
+rob_traffic_light(
+  data,
+  tool,
+  colour = "cochrane",
+  psize = 10,
+  overall = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{A dataframe containing summary (domain) level risk-of-bias
@@ -25,7 +32,10 @@ is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
 option for a colour-blind friendly palette is also available (colour =
 'colourblind').}
 
-\item{psize}{Control the size of the traffic lights. Default is 20.}
+\item{psize}{Control the size of the traffic lights. Default is 10.}
+
+\item{overall}{Logical, specifying whether to include an "Overall" risk of
+bias column in the resulting plot}
 
 \item{...}{Arguments to be passed to the tool specific functions.}
 }
