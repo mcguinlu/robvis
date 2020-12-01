@@ -37,6 +37,7 @@ test_that("ROB - Traffic light", {
   vdiffr::expect_doppelganger("TF - QUIPS - Colour - cochrane", rob_traffic_light(data_quips, "QUIPS", colour = "cochrane"))
   vdiffr::expect_doppelganger("TF - QUIPS - Colour - colourblind", rob_traffic_light(data_quips, "QUIPS", colour = "colourblind"))
   vdiffr::expect_doppelganger("TF - QUIPS - Colour - custom", rob_traffic_light(data_quips, "QUIPS", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#333333")))
+  vdiffr::expect_doppelganger("TF - QUIPS - Overall", rob_traffic_light(data_quips, "QUIPS", overall = FALSE))
 
   vdiffr::expect_doppelganger("TF - ROBG - Basic", rob_traffic_light(data_rob2, tool = "Generic"))
   vdiffr::expect_doppelganger("TF - ROBG - Point size", rob_traffic_light(data_rob2, tool = "Generic", psize = 15))
