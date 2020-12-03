@@ -27,4 +27,4 @@
 ## **Other relevant information**:
 
 
-**Thank you for taking the time to submit this PR!**
+<!-- Thank you for taking the time to submit this PR! -->
