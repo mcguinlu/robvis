@@ -145,21 +145,13 @@ rob_traffic_light_rob2 <- function(data,
                                    psize,
                                    overall) {
 
-  if (overall) {
-    max_domain_column <- 7
-    domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
-  } else {
-    max_domain_column <- 6
-    domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5")
-  }
-
-  if (ncol(data) < max_domain_column) {
-    stop("Column missing (number of columns < 7).")
-  }
+  max_domain_column <- 7
+  domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
 
   rob.tidy <- tidy_data(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
+                        overall = overall,
                         levels = c("h", "s", "l", "n", "x"))
 
   ssize <- psize - (psize / 4)
@@ -236,18 +228,10 @@ rob_traffic_light_rob2_cluster <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D1b", "D2", "D3", "D4", "D5", "Overall")
 
-  if (!overall) {
-    max_domain_column <- max_domain_column - 1
-    domain_names <- domain_names[1:max_domain_column]
-  }
-
-  if (NCOL(data) < max_domain_column) {
-    stop(paste0("Column missing (number of columns < ", max_domain_column,")."))
-  }
-
   rob.tidy <- tidy_data(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
+                        overall = overall,
                         levels = c("h", "s", "l", "n", "x"))
 
   ssize <- psize - (psize / 4)
@@ -328,19 +312,10 @@ rob_traffic_light_robinsi <- function(data,
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  if (!overall) {
-    max_domain_column <- max_domain_column - 1
-    domain_names <- domain_names[1:max_domain_column]
-  }
-
-  if (NCOL(data) < max_domain_column) {
-    stop(paste("Column missing (number of columns <", max_domain_column,")."))
-  }
-
-
   rob.tidy <- tidy_data(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
+                        overall = overall,
                         levels = c("c", "s", "m", "l", "n", "x"))
 
   ssize <- psize - (psize / 4)
@@ -422,18 +397,10 @@ rob_traffic_light_quadas2 <- function(data,
   max_domain_column <- 6
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "Overall")
 
-  if (!overall) {
-    max_domain_column <- max_domain_column - 1
-    domain_names <- domain_names[1:max_domain_column]
-  }
-
-  if (NCOL(data) < max_domain_column) {
-    stop(paste("Column missing (number of columns <", max_domain_column,")."))
-  }
-
   rob.tidy <- tidy_data(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
+                        overall = overall,
                         levels = c("h", "s", "l", "n", "x"))
 
   ssize <- psize - (psize / 4)
@@ -508,18 +475,10 @@ rob_traffic_light_quips <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
 
-  if (!overall) {
-    max_domain_column <- max_domain_column - 1
-    domain_names <- domain_names[1:max_domain_column]
-  }
-
-  if (NCOL(data) < max_domain_column) {
-    stop(paste("Column missing (number of columns <", max_domain_column,")."))
-  }
-
   rob.tidy <- tidy_data(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
+                        overall = overall,
                         levels = c("h", "m", "l", "n","x"))
 
   ssize <- psize - (psize / 4)

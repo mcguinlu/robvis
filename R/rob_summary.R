@@ -13,14 +13,13 @@
 #'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param overall An option to include a bar for overall risk-of-bias in the
-#'   figure. Default is FALSE.
+#'   figure. Default is TRUE
 #' @param colour An argument to specify the colour scheme for the plot. Default
 #'   is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
 #'   option for a colour-blind friendly palette is also available (colour =
 #'   'colourblind').
 #' @param weighted An option to specify whether weights should be used in the
-#'   barplot. Default is TRUE, in line with current Cochrane Collaboration
-#'   guidance.
+#'   barplot. Default is FALSE.
 #' @param ... Arguments to be passed to the tool specific functions.
 #' @return Risk of bias assessment barplot figure.
 #' @family main
@@ -43,8 +42,8 @@
 
 rob_summary <- function(data,
                         tool,
-                        overall = FALSE,
-                        weighted = TRUE,
+                        overall = TRUE,
+                        weighted = FALSE,
                         colour = "cochrane",
                         ...) {
   check_tool(tool)
@@ -120,7 +119,7 @@ rob_summary <- function(data,
   return(plot)
 }
 
-# ROBINS-I======================================================================
+# ROB2 ======================================================================
 
 rob_summary_rob2 <- function(data,
                              tool,
@@ -350,7 +349,8 @@ rob_summary_generic <- function(data,
   } else {
     if (is.numeric(data[2, ncol(data)]) == FALSE) {
       stop(
-        "Error. The final column does not seem to contain numeric values (expected for weights)."
+        "Error. The final column does not seem to contain numeric values ",
+        "(expected for weighted = TRUE)."
       )
     }
   }

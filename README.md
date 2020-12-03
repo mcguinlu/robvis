@@ -72,15 +72,23 @@ The package contains two plotting functions:
 
 #### 1\. rob\_summary()
 
-Returns a ggplot object displaying a weighted barchart of the risk of
-bias of included studies across the domains of the specified tool.
+Returns a ggplot object displaying a barchart of the risk of bias of
+included studies across the domains of the specified tool. \[*Note: the
+defaults used in this function have changed from their original
+settings, so that a un-weighted barplot is now produced by default. See
+the NEWS.md file for further information.*\]
 
 ``` r
 summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
+
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="90%" />
+<div style="text-align:center">
+
+<img src=man/figures/robplot1.png width="70%" height="70%"/>
+
+</div>
 
 #### 2\. rob\_traffic\_light()
 
@@ -92,12 +100,13 @@ displaying the risk of bias judgment in each domain for each study.
 trafficlight_rob <- rob_traffic_light(data = data_rob2,
                                       tool = "ROB2",
                                       psize = 10)
+
 trafficlight_rob
 ```
 
 <div style="text-align:center">
 
-<img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/>
+<img src=man/figures/robplot2.png width="70%" height="70%"/>
 
 </div>
 
@@ -122,8 +131,8 @@ of bias in systematic reviews).
 ``` r
 rob_tools()
 #> Note: the "ROB2-Cluster" template is only available for the rob_traffic_light() function.
-#> [1] "ROB2"            "ROB2-Cluster"    "ROBINS-I"        "QUADAS-2"       
-#> [5] "Generic"         "ROBINS-I ONLINE"
+#> [1] "ROB2"         "ROB2-Cluster" "ROBINS-I"     "QUADAS-2"     "QUIPS"       
+#> [6] "Generic"
 ```
 
 ## Advanced usage
@@ -137,47 +146,63 @@ define their own palette by providing a vector of hex codes.
 For example, to use the predefined “colourblind” palette:
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2,
-                           tool = "ROB2",
-                           colour = "colourblind")
-summary_rob
+rob_summary(data = data_rob2,
+            tool = "ROB2",
+            colour = "colourblind")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="90%" />
+<div style="text-align:center">
+
+<img src=man/figures/robplot3.png width="70%" height="70%"/>
+
+</div>
 
 And to define your own colour scheme:
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2,
-                           tool = "ROB2",
-                           colour = c("#f442c8",
-                                      "#bef441",
-                                      "#000000",
-                                      "#d16684"))
-summary_rob
+rob_summary(
+  data = data_rob2,
+  tool = "ROB2",
+  colour = c("#f442c8",
+             "#bef441",
+             "#000000",
+             "#d16684")
+)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
+<div style="text-align:center">
 
-### Created an unweighted summary barplot
+<img src=man/figures/robplot4.png width="70%" height="70%"/>
 
-By default, the `rob_summary()` function creates a barplot weighted by
-some measure of a study’s precision. This can be prevented using the
-“weighted” argument. For example, compare the following two plots:
+</div>
+
+### No “Overall” judgement
+
+By default, both functions include an “Overall” risk of bias domain. To
+prevent this, set `overall = FALSE`.
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
 summary_rob
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="90%" />
+<div style="text-align:center">
+
+<img src=man/figures/robplot5.png width="70%" height="70%"/>
+
+</div>
 
 ``` r
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", weighted = FALSE)
-summary_rob
+rob_traffic_light(data = data_rob2,
+                  tool = "ROB2",
+                  overall = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" />
+<div style="text-align:center">
+
+<img src=man/figures/robplot6.png width="70%" height="70%"/>
+
+</div>
 
 ### Editing the plots
 
@@ -185,16 +210,20 @@ Finally, because the output (`summary_rob` and `trafficlight_rob` in the
 examples above) is a ggplot2 object, it is easy to adjust the plot to
 your own preferences.
 
-For example, to add a title to the unweighted RoB2.0 plot created above:
+For example, to add a title:
 
 ``` r
 library(ggplot2)
 
-summary_rob +
-  ggtitle("Summary of RoB2.0 assessments")
+rob_summary(data = data_rob2, tool = "ROB2") +
+  ggtitle("Summary of RoB 2.0 assessments")
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="90%" />
+<div style="text-align:center">
+
+<img src=man/figures/robplot7.png width="70%" height="70%"/>
+
+</div>
 
 ## Examples of `robvis` in published papers
 

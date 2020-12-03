@@ -1,18 +1,25 @@
 # robvis 0.3.0.900 (Development)
+
+As part of a major overhaul of the code in order to improve maintainability and user-friendliness, there have been a number of significant changes made in this version.
+
+* Breaking changes
+  * The default point size for `rob_traffic_light()` has been changed from 20 to 10. This is because, following a review of published `robvis` plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. **While existing code will continue to work, the resulting plots will look different unless the `psize` argument was explicitly defined.**
+  * A new logical argument, `overall`, which allows users to specify whether to include an "Overall" column in the traffic light plot, has been added to `rob_traffic_light()` (default is TRUE). In order to have consistent behaviour across the two main functions, the default of the `overall` argument in`rob_summary()` has been changed from `FALSE` to `TRUE` [I admit that I'm not sure why I set it to FALSE in the first place]. **While existing code will continue to work, the resulting plots will look different unless the `overall` argument was explicitly defined.**
+  * The default the `weighted` argument for `rob_summary()` has been changed from `TRUE` to `FALSE`, both to ensure better consistency across the two main functions (`rob_traffic_light()` does not require a "Weight" variable) and to reduce a hurdle to usage among new users. **While existing code will continue to work, the resulting plots will look different unless the `weighted` argument was explicitly defined.**
+  
 * Major updates
-  * The default point size for `rob_traffic_light()` has been changed from 20 to 10. This is because, following a review of published `robvis` plots, it seems users are not changing the defaults very often, and in almost all cases, a smaller default looks better. **While existing code will continue to work, the resulting plots will look different unless the `psize` argument was explicitly defined.**
   * A template for the QUIPS tool (prognostic studies) has been added.
-  * The generic option for both functions now allow for additional customisation, including control over all text in the resulting figure.
+  * The "Generic" template now allows for additional customisation, including control over all text in the resulting figure.
   * A new function, `rob_save()`, has been added, which uses data-driven defaults for figure height and width when saving to a file.
   * New functionality so that `robvis` now supports "No information" as a judgment has been added.
-  * New colour scheme for the `colour = "colourblind"`argument has been added.
+  * An improved colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
   * The "Generic" template has been updated, so that it no longer maps "Serious" and "Critical" to the same colour/symbol.
   
 * Minor updates
   * A major refactoring of the code base has taken place to allow for future template specific functionality.
   * Improved test coverage.
-  * Allowed for US spelling of colourblind
+  * Allowed for US spelling of "colourblind""
   * `rob_tools()` now returns a message indicating the availability of templates for each function. 
 
 # robvis 0.3.0 (October 2019)
