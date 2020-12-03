@@ -7,8 +7,8 @@
 rob_summary(
   data,
   tool,
-  overall = FALSE,
-  weighted = TRUE,
+  overall = TRUE,
+  weighted = FALSE,
   colour = "cochrane",
   ...
 )
@@ -28,11 +28,10 @@ ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
 supported.}
 
 \item{overall}{An option to include a bar for overall risk-of-bias in the
-figure. Default is FALSE.}
+figure. Default is TRUE}
 
 \item{weighted}{An option to specify whether weights should be used in the
-barplot. Default is TRUE, in line with current Cochrane Collaboration
-guidance.}
+barplot. Default is FALSE.}
 
 \item{colour}{An argument to specify the colour scheme for the plot. Default
 is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
