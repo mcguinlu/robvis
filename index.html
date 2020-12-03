@@ -130,11 +130,14 @@
 <div id="1-rob_summary" class="section level4">
 <h4 class="hasAnchor">
 <a href="#1-rob_summary" class="anchor"></a>1. rob_summary()</h4>
-<p>Returns a ggplot object displaying a weighted barchart of the risk of bias of included studies across the domains of the specified tool.</p>
+<p>Returns a ggplot object displaying a barchart of the risk of bias of included studies across the domains of the specified tool. <br><span class="math display"> * <em>N</em><em>o</em><em>t</em><em>e</em> : <em>t</em><em>h</em><em>e</em><em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em><em>s</em><em>u</em><em>s</em><em>e</em><em>d</em><em>i</em><em>n</em><em>t</em><em>h</em><em>i</em><em>s</em><em>f</em><em>u</em><em>n</em><em>c</em><em>t</em><em>i</em><em>o</em><em>n</em><em>h</em><em>a</em><em>v</em><em>e</em><em>c</em><em>h</em><em>a</em><em>n</em><em>g</em><em>e</em><em>d</em><em>f</em><em>r</em><em>o</em><em>m</em><em>t</em><em>h</em><em>e</em><em>i</em><em>r</em><em>o</em><em>r</em><em>i</em><em>g</em><em>i</em><em>n</em><em>a</em><em>l</em><em>s</em><em>e</em><em>t</em><em>t</em><em>i</em><em>n</em><em>g</em><em>s</em>, <em>s</em><em>o</em><em>t</em><em>h</em><em>a</em><em>t</em><em>a</em><em>u</em><em>n</em> − <em>w</em><em>e</em><em>i</em><em>g</em><em>h</em><em>t</em><em>e</em><em>d</em><em>b</em><em>a</em><em>r</em><em>p</em><em>l</em><em>o</em><em>t</em><em>i</em><em>s</em><em>n</em><em>o</em><em>w</em><em>p</em><em>r</em><em>o</em><em>d</em><em>u</em><em>c</em><em>e</em><em>d</em><em>b</em><em>y</em><em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em>.<em>S</em><em>e</em><em>e</em><em>t</em><em>h</em><em>e</em><em>N</em><em>E</em><em>W</em><em>S</em>.<em>m</em><em>d</em><em>f</em><em>i</em><em>l</em><em>e</em><em>f</em><em>o</em><em>r</em><em>f</em><em>u</em><em>r</em><em>t</em><em>h</em><em>e</em><em>r</em><em>i</em><em>n</em><em>f</em><em>o</em><em>r</em><em>m</em><em>a</em><em>t</em><em>i</em><em>o</em><em>n</em>.*</span><br></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span><span class="op">)</span>
+
 <span class="va">summary_rob</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="90%"></p>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot1.png" width="70%" height="70%"></p>
+</div>
 </div>
 <div id="2-rob_traffic_light" class="section level4">
 <h4 class="hasAnchor">
@@ -144,9 +147,10 @@
 <code class="sourceCode R"><span class="va">trafficlight_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_traffic_light.html">rob_traffic_light</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>,
                                       tool <span class="op">=</span> <span class="st">"ROB2"</span>,
                                       psize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+
 <span class="va">trafficlight_rob</span></code></pre></div>
 <div style="text-align:center">
-<p><img src="reference/figures/rob2trafficlight.png" width="70%" height="70%"></p>
+<p><img src="reference/figures/robplot2.png" width="70%" height="70%"></p>
 </div>
 </div>
 </div>
@@ -167,8 +171,8 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/rob_tools.html">rob_tools</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Note: the "ROB2-Cluster" template is only available for the rob_traffic_light() function.</span>
-<span class="co">#&gt; [1] "ROB2"            "ROB2-Cluster"    "ROBINS-I"        "QUADAS-2"       </span>
-<span class="co">#&gt; [5] "Generic"         "ROBINS-I ONLINE"</span></code></pre></div>
+<span class="co">#&gt; [1] "ROB2"         "ROB2-Cluster" "ROBINS-I"     "QUADAS-2"     "QUIPS"       </span>
+<span class="co">#&gt; [6] "Generic"</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -181,46 +185,57 @@
 <p>The <code>colour</code> argument of both plotting functions allows users to select from two predefined colour schemes (“cochrane” or “colourblind”) or to define their own palette by providing a vector of hex codes.</p>
 <p>For example, to use the predefined “colourblind” palette:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>,
-                           tool <span class="op">=</span> <span class="st">"ROB2"</span>,
-                           colour <span class="op">=</span> <span class="st">"colourblind"</span><span class="op">)</span>
-<span class="va">summary_rob</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="90%"></p>
+<code class="sourceCode R"><span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>,
+            tool <span class="op">=</span> <span class="st">"ROB2"</span>,
+            colour <span class="op">=</span> <span class="st">"colourblind"</span><span class="op">)</span></code></pre></div>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot3.png" width="70%" height="70%"></p>
+</div>
 <p>And to define your own colour scheme:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>,
-                           tool <span class="op">=</span> <span class="st">"ROB2"</span>,
-                           colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#f442c8"</span>,
-                                      <span class="st">"#bef441"</span>,
-                                      <span class="st">"#000000"</span>,
-                                      <span class="st">"#d16684"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">summary_rob</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="90%"></p>
+<code class="sourceCode R"><span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="va">data_rob2</span>,
+  tool <span class="op">=</span> <span class="st">"ROB2"</span>,
+  colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#f442c8"</span>,
+             <span class="st">"#bef441"</span>,
+             <span class="st">"#000000"</span>,
+             <span class="st">"#d16684"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot4.png" width="70%" height="70%"></p>
 </div>
-<div id="created-an-unweighted-summary-barplot" class="section level3">
+</div>
+<div id="no-overall-judgement" class="section level3">
 <h3 class="hasAnchor">
-<a href="#created-an-unweighted-summary-barplot" class="anchor"></a>Created an unweighted summary barplot</h3>
-<p>By default, the <code><a href="reference/rob_summary.html">rob_summary()</a></code> function creates a barplot weighted by some measure of a study’s precision. This can be prevented using the “weighted” argument. For example, compare the following two plots:</p>
+<a href="#no-overall-judgement" class="anchor"></a>No “Overall” judgement</h3>
+<p>By default, both functions include an “Overall” risk of bias domain. To prevent this, set <code>overall = FALSE</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, overall <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">summary_rob</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="90%"></p>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot5.png" width="70%" height="70%"></p>
+</div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">summary_rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">summary_rob</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="90%"></p>
+<code class="sourceCode R"><span class="fu"><a href="reference/rob_traffic_light.html">rob_traffic_light</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>,
+                  tool <span class="op">=</span> <span class="st">"ROB2"</span>,
+                  overall <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot6.png" width="70%" height="70%"></p>
+</div>
 </div>
 <div id="editing-the-plots" class="section level3">
 <h3 class="hasAnchor">
 <a href="#editing-the-plots" class="anchor"></a>Editing the plots</h3>
 <p>Finally, because the output (<code>summary_rob</code> and <code>trafficlight_rob</code> in the examples above) is a ggplot2 object, it is easy to adjust the plot to your own preferences.</p>
-<p>For example, to add a title to the unweighted RoB2.0 plot created above:</p>
+<p>For example, to add a title:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
-<span class="va">summary_rob</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Summary of RoB2.0 assessments"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="90%"></p>
+<span class="fu"><a href="reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Summary of RoB 2.0 assessments"</span><span class="op">)</span></code></pre></div>
+<div style="text-align:center">
+<p><img src="reference/figures/robplot7.png" width="70%" height="70%"></p>
+</div>
 </div>
 </div>
 <div id="examples-of-robvis-in-published-papers" class="section level2">

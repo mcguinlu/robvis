@@ -130,16 +130,25 @@
 <h1 class="page-header" data-toc-text="0.3.0.900">
 <a href="#robvis-030900-development" class="anchor"></a>robvis 0.3.0.900 (Development)<small> Unreleased </small>
 </h1>
+<p>As part of a major overhaul of the code in order to improve maintainability and user-friendliness, there have been a number of significant changes made in this version.</p>
 <ul>
+<li>Breaking changes
+<ul>
+<li>The default point size for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> has been changed from 20 to 10. This is because, following a review of published <code>robvis</code> plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>psize</code> argument was explicitly defined.</strong>
+</li>
+<li>A new logical argument, <code>overall</code>, which allows users to specify whether to include an “Overall” column in the traffic light plot, has been added to <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> (default is TRUE). In order to have consistent behaviour across the two main functions, the default of the <code>overall</code> argument in<code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been changed from <code>FALSE</code> to <code>TRUE</code> [I admit that I’m not sure why I set it to FALSE in the first place]. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>overall</code> argument was explicitly defined.</strong>
+</li>
+<li>The default the <code>weighted</code> argument for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been changed from <code>TRUE</code> to <code>FALSE</code>, both to ensure better consistency across the two main functions (<code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> does not require a “Weight” variable) and to reduce a hurdle to usage among new users. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>weighted</code> argument was explicitly defined.</strong>
+</li>
+</ul>
+</li>
 <li>Major updates
 <ul>
-<li>The default point size for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> has been changed from 20 to 10. This is because, following a review of published <code>robvis</code> plots, it seems users are not changing the defaults very often, and in almost all cases, a smaller default looks better. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>psize</code> argument was explicitly defined.</strong>
-</li>
 <li>A template for the QUIPS tool (prognostic studies) has been added.</li>
-<li>The generic option for both functions now allow for additional customisation, including control over all text in the resulting figure.</li>
+<li>The “Generic” template now allows for additional customisation, including control over all text in the resulting figure.</li>
 <li>A new function, <code><a href="../reference/rob_save.html">rob_save()</a></code>, has been added, which uses data-driven defaults for figure height and width when saving to a file.</li>
 <li>New functionality so that <code>robvis</code> now supports “No information” as a judgment has been added.</li>
-<li>New colour scheme for the <code>colour = "colourblind"</code>argument has been added.</li>
+<li>An improved colour scheme for the <code>colour = "colourblind"</code>argument has been added.</li>
 <li>The argument for the generic template has changed from “ROB1” to “Generic”. To ensure backward compatibility, the “ROB1” argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.</li>
 <li>The “Generic” template has been updated, so that it no longer maps “Serious” and “Critical” to the same colour/symbol.</li>
 </ul>
@@ -148,7 +157,7 @@
 <ul>
 <li>A major refactoring of the code base has taken place to allow for future template specific functionality.</li>
 <li>Improved test coverage.</li>
-<li>Allowed for US spelling of colourblind</li>
+<li>Allowed for US spelling of “colourblind”"</li>
 <li>
 <code><a href="../reference/rob_tools.html">rob_tools()</a></code> now returns a message indicating the availability of templates for each function.</li>
 </ul>
