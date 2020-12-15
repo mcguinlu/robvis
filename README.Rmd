@@ -188,12 +188,7 @@ summary_rob
 ```
 
 ``` {r, echo = FALSE}
-plot <- rob_summary(data = data_rob2,
-                           tool = "ROB2",
-                           colour = c("#f442c8",
-                                      "#bef441",
-                                      "#000000",
-                                      "#d16684"))
+plot <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
 file = paste0("man/figures/robplot",fig_count,".png")
 rob_save(plot, file)
 fig_count <- fig_count + 1

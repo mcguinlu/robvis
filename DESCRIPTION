@@ -31,7 +31,8 @@ Imports:
     tidyr,
     scales,
     vdiffr,
-    stringr
+    stringr,
+    ggtext (>= 0.1.0)
 Suggests:
     knitr,
     rmarkdown,

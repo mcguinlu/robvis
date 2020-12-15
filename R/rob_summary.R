@@ -337,6 +337,7 @@ rob_summary_generic <- function(data,
                                 judgement_labels = c("Low risk of bias",
                                                      "Some concerns",
                                                      "High risk of bias",
+                                                     "Critical risk of bias",
                                                      "No information")) {
   rob1_warning(tool)
 
@@ -364,6 +365,8 @@ rob_summary_generic <- function(data,
   for (i in 2:max_domain_column) {
     data[[i]] <- tolower(data[[i]])
     data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 2)
+    data[[i]] <- gsub("se", "h", data[[i]])
     data[[i]] <- substr(data[[i]], 0, 1)
     data[[i]] <- gsub("u", "s", data[[i]])
     data[[i]] <- gsub("m", "s", data[[i]])
@@ -388,18 +391,19 @@ rob_summary_generic <- function(data,
     domain, judgement, -Weights
   ))
 
-  # judgement_levels <- c("c", "h", "s", "l", "n", "x")
-  #
-  # rob.tidy$judgement <-
-  #   factor(rob.tidy$judgement, levels = judgement_levels)
+  judgement_levels <- c("n","c", "h", "s", "l")
+
 
   rob.tidy$judgement <-
-    factor(rob.tidy$judgement, levels = c(
-      "n",
-      "h",
-      "s",
-      "l"
-    ))
+    factor(rob.tidy$judgement, levels = judgement_levels)
+
+  # rob.tidy$judgement <-
+  #   factor(rob.tidy$judgement, levels = c(
+  #     "n",
+  #     "h",
+  #     "s",
+  #     "l"
+  #   ))
 
   for (i in 1:(ncol(data.tmp) - 1)) {
     levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
@@ -408,8 +412,7 @@ rob_summary_generic <- function(data,
   rob.tidy$domain <-
     factor(rob.tidy$domain, levels = rev(levels(rob.tidy$domain)))
 
-  judgement_levels <- c("l", "s", "h", "n")
-  names(judgement_labels) <- judgement_levels
+  names(judgement_labels) <- rev(judgement_levels)
 
   # Create plot
   plot <-
@@ -421,6 +424,7 @@ rob_summary_generic <- function(data,
         l = rob_colours$low_colour,
         s = rob_colours$concerns_colour,
         h = rob_colours$high_colour,
+        c = rob_colours$critical_colour,
         n = rob_colours$ni_colour
       ),
       labels = judgement_labels
