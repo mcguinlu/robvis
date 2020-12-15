@@ -6,6 +6,7 @@ As part of a major overhaul of the code in order to improve maintainability and 
   * The default point size for `rob_traffic_light()` has been changed from 20 to 10. This is because, following a review of published `robvis` plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. **While existing code will continue to work, the resulting plots will look different unless the `psize` argument was explicitly defined.**
   * A new logical argument, `overall`, which allows users to specify whether to include an "Overall" column in the traffic light plot, has been added to `rob_traffic_light()` (default is TRUE). In order to have consistent behaviour across the two main functions, the default of the `overall` argument in`rob_summary()` has been changed from `FALSE` to `TRUE` [I admit that I'm not sure why I set it to FALSE in the first place]. **While existing code will continue to work, the resulting plots will look different unless the `overall` argument was explicitly defined.**
   * The default the `weighted` argument for `rob_summary()` has been changed from `TRUE` to `FALSE`, both to ensure better consistency across the two main functions (`rob_traffic_light()` does not require a "Weight" variable) and to reduce a hurdle to usage among new users. **While existing code will continue to work, the resulting plots will look different unless the `weighted` argument was explicitly defined.**
+  * The `overall` argument in the "Generic" now acts slightly differently both to previous versions of the function and to the other templates. Rather than removing an additional column from the dataset if `overall = FALSE`, which doesn't make sense if ther. Now this argument should be interpreted as whether or not to highlight the last column
   
 * Major updates
   * A template for the QUIPS tool (prognostic studies) has been added.
@@ -15,6 +16,9 @@ As part of a major overhaul of the code in order to improve maintainability and 
   * An improved colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
   * The "Generic" template has been updated, so that it no longer maps "Serious" and "Critical" to the same colour/symbol.
+  * The `overall` argument in `rob_summary()` now bolds the "Overall" axis label.
+
+
   
 * Minor updates
   * A major refactoring of the code base has taken place to allow for future template specific functionality.

@@ -183,8 +183,8 @@ tidy_data_summ <- function(data,
 }
 
 
-rob_summ_theme <- function(){
-  list(
+rob_summ_theme <- function(overall = TRUE, max_domain_column){
+  standard <- list(
     ggplot2::geom_bar(
       mapping = ggplot2::aes(
         x = domain,
@@ -205,10 +205,6 @@ rob_summ_theme <- function(){
         axis.title.x = ggplot2::element_blank(),
         axis.title.y = ggplot2::element_blank(),
         axis.ticks.y = ggplot2::element_blank(),
-        axis.text.y = ggplot2::element_text(
-          size = 10,
-          color = "black"
-        ),
         axis.line.x = ggplot2::element_line(
           colour = "black",
           size = 0.5,
@@ -225,10 +221,21 @@ rob_summ_theme <- function(){
         legend.title = ggplot2::element_blank(),
         legend.key.size = ggplot2::unit(0.75, "lines"),
         legend.text = ggplot2::element_text(size = 6)
-      )
-
-
+      ),
+    bold_overall = ggplot2::theme(axis.text.y = ggplot2::element_text(
+      size = 10,
+      color = "black"
+    ))
   )
+
+  if (overall) {
+    standard[["bold_overall"]] <-
+      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+                                                            color = "black",
+                                                            face = c("bold", rep("plain",max_domain_column))))
+  }
+
+  return(standard)
 }
 
 

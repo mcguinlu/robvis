@@ -586,10 +586,6 @@ rob_traffic_light_generic <- function(data,
 
   max_domain_column <- dim(data)[2] - 1
 
-  if (!overall) {
-    data <- data[,c(1:(dim(data)[2]-1))]
-  }
-
   data.tmp <- data
 
   # Remove dots from column names
