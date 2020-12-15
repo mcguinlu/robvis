@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mcguinlu/robvis/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,6 +134,9 @@
 </li>
 <li>The default the <code>weighted</code> argument for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been changed from <code>TRUE</code> to <code>FALSE</code>, both to ensure better consistency across the two main functions (<code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> does not require a “Weight” variable) and to reduce a hurdle to usage among new users. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>weighted</code> argument was explicitly defined.</strong>
 </li>
+<li>The <code>overall</code> argument in the “Generic” now acts slightly differently both to previous versions of the function and to the other templates. Rather than removing an additional column from the dataset if <code>overall = FALSE</code>, which doesn’t make sense if their data doesn’t contain an overall column, it simply highlights the last column (in <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>) or bolds the last heading (in <code><a href="../reference/rob_summary.html">rob_summary()</a></code>).</li>
+<li>In order to make the “Generic” template for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> compatible with tools that have 4 levels of judgement (e.g. the ROBINS-I tool), users must now specify a name for all levels if using the <code>judgement_labels</code> argument of <code><a href="../reference/rob_summary.html">rob_summary()</a></code>. <strong>Existing code that uses the <code>judgement_labels</code> argument will need to be updated.</strong>
+</li>
 </ul>
 </li>
 <li>Major updates
@@ -145,6 +148,7 @@
 <li>An improved colour scheme for the <code>colour = "colourblind"</code>argument has been added.</li>
 <li>The argument for the generic template has changed from “ROB1” to “Generic”. To ensure backward compatibility, the “ROB1” argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.</li>
 <li>The “Generic” template has been updated, so that it no longer maps “Serious” and “Critical” to the same colour/symbol.</li>
+<li>The <code>overall</code> argument in <code><a href="../reference/rob_summary.html">rob_summary()</a></code> now bolds the “Overall” axis label.</li>
 </ul>
 </li>
 <li>Minor updates
