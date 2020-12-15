@@ -14,7 +14,10 @@ test_that("ROB - Summary", {
   vdiffr::expect_doppelganger("ROB1 - Colour - cochrane", rob_summary(data_rob1, "Generic", colour = "cochrane", overall = FALSE, weighted = TRUE))
   vdiffr::expect_doppelganger("ROB1 - Colour - colourblind", rob_summary(data_rob1, "Generic", colour = "colourblind", overall = FALSE, weighted = TRUE))
   vdiffr::expect_doppelganger("ROB1 - Colour - custom", rob_summary(data_rob1, "Generic", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"), overall = FALSE, weighted = TRUE))
-  vdiffr::expect_doppelganger("ROB1 - Judgement Labels", rob_summary(data_rob1, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4"), overall = FALSE, weighted = TRUE))
+  vdiffr::expect_doppelganger("ROB1 - Judgement Labels", rob_summary(data_rob1, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"), overall = FALSE, weighted = TRUE))
+  vdiffr::expect_doppelganger("ROB1 - ROBINS-I Judgement Labels", rob_summary(data_robins, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"), overall = TRUE, weighted = TRUE))
+
+
 
   vdiffr::expect_doppelganger("ROBINS-I - Basic", rob_summary(data_robins, "ROBINS-I", overall = FALSE, weighted = TRUE))
   vdiffr::expect_doppelganger("ROBINS-I - Weighted", rob_summary(data_robins, "ROBINS-I", weighted = FALSE, overall = FALSE))
