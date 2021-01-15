@@ -22,15 +22,14 @@
 rob_append_to_forest <-
   function(res,
            rob_data,
+           rob_tool = "ROB2",
            rob_colour = "cochrane",
            rob_psize = 2,
            rob_caption = TRUE,
            rob_legend = TRUE,
            ...) {
 
-    rob <- rob_data
-    tool <- "ROB2"
-    colour <- rob_colour
+    rob_colour <- rob_colour
 
     # Checks
 
@@ -38,35 +37,38 @@ rob_append_to_forest <-
       stop("Result objects need to be of class \"meta\" - output from metafor package functions")
     }
 
-    # Check that the specif
-    check_tool(tool, forest = TRUE)
-    check_data(rob)
-    colour <- weird_spelling(colour)
+    # Check that the specified tool is supported
+    check_tool(rob_tool, forest = TRUE)
+
+    # Check the data supplied is okay
+    check_data(rob_data)
+
+    # Convert spelling if US
+    rob_colour <- weird_spelling(rob_colour)
 
     # Check names
     res$slab <- gsub(",", "", res$slab)
 
-    colnames(rob) <- stringr::str_to_lower(colnames(rob))
+    colnames(rob_data) <- stringr::str_to_lower(colnames(rob_data))
 
-    if (!all(res$slab %in% rob$study)) {
+    if (!all(res$slab %in% rob_data$study)) {
       stop("Mismatched names between the \"meta\" object and the risk of bias dataset")
     }
 
     # Clean data
-    max_domain_column <- ifelse(tool == "ROB2",7,9)
+    max_domain_column <- ifelse(rob_tool == "ROB2",7,9)
 
-    rob <-
-      cbind(rob[, 1], data.frame(lapply(rob[, 2:max_domain_column], clean_data),
+    rob_data <-
+      cbind(rob_data[, 1], data.frame(lapply(rob_data[, 2:max_domain_column], clean_data),
                                  stringsAsFactors = F))
 
 
     # Get and expand original x limits to allow for ROB plot ====
 
-
     # Call metafor::forest to get returned plot values
-    # Funct
-    t <- forest.invisible(res, ...)
+    # Function is defined in blobbogram_helpers.R
 
+    t <- forest.invisible(res, ...)
 
     # Using original x_lim, create elements needed for new plot
     # Position of columns along the x-axis
@@ -87,10 +89,10 @@ rob_append_to_forest <-
     nrow_seq <- length(t$rows):1
 
     # Sort colours  and symbols ====
-    rob_colours <- get_colour(tool, colour)
+    rob_colours <- get_colour(rob_tool, rob_colour)
 
 
-    if (tool %in% c("ROB2", "QUADAS-2")) {
+    if (rob_tool %in% c("ROB2", "QUADAS-2")) {
       cols <- c(
         h = rob_colours$high_colour,
         s = rob_colours$concerns_colour,
@@ -108,7 +110,7 @@ rob_append_to_forest <-
     }
 
 
-    if (tool == "ROBINS-I") {
+    if (rob_tool == "ROBINS-I") {
       cols <- c(
         c = rob_colours$critical_colour,
         s = rob_colours$high_colour,
@@ -182,7 +184,7 @@ rob_append_to_forest <-
 
     # Plot title of domains
 
-    headers <- if(tool == "ROB2"){
+    headers <- if(rob_tool == "ROB2"){
       c("R", "D", "Mi", "Me", "S", "O")}else{
         c("D1", "D2", "D3", "D4", "D5","D6","D7", "O")
       }
@@ -197,10 +199,10 @@ rob_append_to_forest <-
         rep(x_pos[j], length(t$rows)),
         nrow_seq,
         pch = 19,
-        col = cols[rob[[paste0("d", j)]]],
+        col = cols[rob_data[[paste0("d", j)]]],
         cex = rob_psize
       )
-      graphics::text(x_pos[j], nrow_seq, syms[rob[[paste0("d", j)]]], cex = tsize)
+      graphics::text(x_pos[j], nrow_seq, syms[rob_data[[paste0("d", j)]]], cex = tsize)
     }
 
     # Plot overall column
@@ -208,10 +210,10 @@ rob_append_to_forest <-
       rep(x_overall_pos, length(t$rows)),
       nrow_seq,
       pch = 19,
-      col = cols[rob[["overall"]]],
+      col = cols[rob_data[["overall"]]],
       cex = rob_psize
     )
-    graphics::text(x_overall_pos, nrow_seq, syms[rob[["overall"]]], cex = tsize)
+    graphics::text(x_overall_pos, nrow_seq, syms[rob_data[["overall"]]], cex = tsize)
 
 
 
@@ -255,7 +257,7 @@ rob_append_to_forest <-
       message(
         "We recommend copying the description below into your figure caption:\n\n",
         "\"Risk-of-bias assessement was performed using the ",
-        tool,
+        rob_tool,
         " tool, which has the following domains: ",
         domains,
         "\""
