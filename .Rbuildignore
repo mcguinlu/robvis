@@ -17,6 +17,7 @@
 ^JOSS-paper$
 ^RSM-paper$
 R/rob_paired_plot.R
+R/rob_blobbogram.R
 cran-comments.md
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$

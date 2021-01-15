@@ -36,17 +36,17 @@ context("Check Blobbograms")
   dat.robins <- rbind(data_robins, data_robins[1,])
   dat.robins$Study <- paste(dat$author,dat$year)
 
-  # test_that("ROB - Append forest - Errors", {
-  #
-  #   vector <- c()
-  #
-  #   expect_error(rob_append_to_forest(vector, dat.rob2))
-  #
-  #   dat.rob.misnamed <- dat.rob2
-  #   dat.rob.misnamed[3,1] <- "Blarg"
-  #
-  #   expect_error(rob_append_to_forest(res, dat.rob.misnamed))
-  # })
+  test_that("ROB - Append forest - Errors", {
+
+    vector <- c()
+
+    expect_error(rob_append_to_forest(vector, dat.rob2))
+
+    dat.rob.misnamed <- dat.rob2
+    dat.rob.misnamed[3,1] <- "Blarg"
+
+    expect_error(rob_append_to_forest(res, dat.rob.misnamed))
+  })
 
   test_that("ROB - Append forest - ROB2",{
 
@@ -89,24 +89,3 @@ context("Check Blobbograms")
                               writer = svg_ordered)
 
   })
-
-
-  # test_that("ROB Blobbogram",{
-  #   # Note, for this approach to work, you need to run
-  #   # visualTest::getFingerprint() on the image that you know is correct. This
-  #   # then provides the hash key used in visualTest::isSimilar()
-  #
-  #   ff <- tempfile(fileext = ".png")
-  #
-  #   suppressWarnings(rob_blobbogram(res,
-  #                                   dat.rob2,
-  #                                   file_path = ff,
-  #                                   display = FALSE))
-  #
-  #   new <- visualTest::getFingerprint(ff)
-  #
-  #   expect_true(visualTest::isSimilar(ff,"AB78BF62800DF08F", ))
-  #
-  #   unlink(ff)
-  #
-  # })

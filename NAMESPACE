@@ -2,7 +2,6 @@
 
 export(rob_append_to_forest)
 export(rob_append_weights)
-export(rob_blobbogram)
 export(rob_save)
 export(rob_summary)
 export(rob_tools)
