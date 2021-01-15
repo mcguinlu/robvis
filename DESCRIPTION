@@ -33,7 +33,7 @@ Imports:
     tidyr (>= 1.0.0),
     scales (>= 1.1.0),
     vdiffr (>= 0.3.3),
-    metafor (>= 2.4)
+    metafor (>= 2.4),
     ggtext (>= 0.1.0)
 Suggests:
     knitr (>= 1.28),
