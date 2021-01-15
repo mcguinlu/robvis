@@ -37,7 +37,8 @@ Imports:
     ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
     rlang (>= 0.4.9),
-    stringr (>= 1.4.0)
+    stringr (>= 1.4.0),
+    grDevices
 Suggests:
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
