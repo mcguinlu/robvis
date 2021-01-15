@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   out.width = "90%",
   fig.width= 12,
   fig.height=3)
+
+fig_count <- 1
 ```
 # robvis <img src="man/figures/robvis_hex_box.png" align="right" width="18%" height="18%" />
 
@@ -72,12 +74,22 @@ To help users explore `robvis`, we have included example datasets in the package
 The package contains two plotting functions:
 
 #### 1. rob_summary()
-Returns a ggplot object displaying a weighted barchart of the risk of bias of included studies across the domains of the specified tool. 
+Returns a ggplot object displaying a barchart of the risk of bias of included studies across the domains of the specified tool. [*Note: the defaults used in this function have changed from their original settings, so that a un-weighted barplot is now produced by default. See the NEWS.md file for further information.*]
 
-```{r, fig.height=3}
+```{r, eval = FALSE}
 summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
+
 summary_rob
 ```
+
+``` {r, echo = FALSE}
+plot <- rob_summary(data = data_rob2, tool = "ROB2")
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
+```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
+
 
 #### 2. rob_traffic_light()
 Returns a ggplot object displaying a ["traffic light plot"](https://handbook-5-1.cochrane.org/chapter_8/figure_8_6_c_example_of_a_risk_of_bias_summary_figure.htm), displaying the risk of bias judgment in each domain for each study.
@@ -86,16 +98,19 @@ Returns a ggplot object displaying a ["traffic light plot"](https://handbook-5-1
 trafficlight_rob <- rob_traffic_light(data = data_rob2,
                                       tool = "ROB2",
                                       psize = 10)
+
 trafficlight_rob
 ```
 
-``` {r, include=FALSE}
-trafficlight_rob <- rob_traffic_light(data = data_rob2,
-                                      tool = "ROB2",
-                                      psize = 10)
-rob_save(trafficlight_rob,"man/figures/rob2trafficlight.png")
+``` {r, echo = FALSE}
+plot <- rob_traffic_light(data = data_rob2,
+                  tool = "ROB2",
+                  psize = 10)
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
 ```
-<div style="text-align:center"><img src="man/figures/rob2trafficlight.png" width="70%" height="70%"/></div>
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
 
 ### Other functions
 
@@ -119,47 +134,102 @@ The `colour` argument of both plotting functions allows users to select from two
 
 For example, to use the predefined "colourblind" palette:
 
-```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2,
-                           tool = "ROB2",
-                           colour = "colourblind")
-summary_rob
+```{r, eval=FALSE}
+rob_summary(data = data_rob2,
+            tool = "ROB2",
+            colour = "colourblind")
+
 ```
 
+``` {r, echo = FALSE}
+plot <- rob_summary(data = data_rob2,
+                           tool = "ROB2",
+                           colour = "colourblind")
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
+```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
+
 And to define your own colour scheme:
-```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2,
+```{r, eval=FALSE}
+rob_summary(
+  data = data_rob2,
+  tool = "ROB2",
+  colour = c("#f442c8",
+             "#bef441",
+             "#000000",
+             "#d16684")
+)
+
+```
+
+
+``` {r, echo = FALSE}
+plot <- rob_summary(data = data_rob2,
                            tool = "ROB2",
                            colour = c("#f442c8",
                                       "#bef441",
                                       "#000000",
                                       "#d16684"))
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
+```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
+
+### No "Overall" judgement
+
+By default, both functions include an "Overall" risk of bias domain. To prevent this, set `overall = FALSE`.
+
+```{r, eval=FALSE}
+summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
 summary_rob
 ```
 
-### Created an unweighted summary barplot
-By default, the `rob_summary()` function creates a barplot weighted by some measure of a study's precision. This can be prevented using the "weighted" argument. For example, compare the following two plots:
+``` {r, echo = FALSE}
+plot <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
+```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
 
-```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
-summary_rob
+```{r, eval=FALSE}
+rob_traffic_light(data = data_rob2,
+                  tool = "ROB2",
+                  overall = FALSE)
 ```
 
-```{r, fig.height=3}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", weighted = FALSE)
-summary_rob
+``` {r, echo = FALSE}
+plot <- rob_traffic_light(data = data_rob2,
+                                      tool = "ROB2",
+                                      overall = FALSE)
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
 ```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
 
 ### Editing the plots
 Finally, because the output (`summary_rob` and `trafficlight_rob` in the examples above) is a ggplot2 object, it is easy to adjust the plot to your own preferences.
 
-For example, to add a title to the unweighted RoB2.0 plot created above:
-```{r warning=FALSE, fig.height=3}
+For example, to add a title:
+```{r, eval=FALSE}
 library(ggplot2)
 
-summary_rob +
-  ggtitle("Summary of RoB2.0 assessments")
+rob_summary(data = data_rob2, tool = "ROB2") +
+  ggtitle("Summary of RoB 2.0 assessments")
 ```
+
+``` {r, echo = FALSE}
+plot <- rob_summary(data = data_rob2, tool = "ROB2") +
+  ggplot2::ggtitle("Summary of RoB2.0 assessments")
+file = paste0("man/figures/robplot",fig_count,".png")
+rob_save(plot, file)
+fig_count <- fig_count + 1
+```
+<div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
 
 ## Examples of `robvis` in published papers
 

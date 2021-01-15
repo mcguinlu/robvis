@@ -22,28 +22,28 @@ test_that("Colour errors", {
           expect_error(rob_traffic_light(data_robins,"ROBINS-I", colour = c("#FFFFFF")))
 })
 
-test_sum <- data_rob2[, c(1:7)]
+test_sum <- data_rob2[, c(1:6)]
 test_tf <- data_rob2[, c(1:6)]
 
 test_that("Too few columns", {
-  expect_error(rob_summary(test, "ROB2"))
-  expect_error(rob_traffic_light(test, "ROB2"))
+  expect_error(rob_summary(test_sum, "ROB2"))
+  expect_error(rob_traffic_light(test_tf, "ROB2"))
 })
 
-test_sum <- data_robins[, c(1:9)]
+test_sum <- data_robins[, c(1:8)]
 test_tf <- data_robins[, c(1:8)]
 
 test_that("Too few columns", {
   expect_error(rob_summary(test_sum, "ROBINS-I"))
   expect_error(rob_traffic_light(test_tf, "ROBINS-I"))
-  expect_error(rob_traffic_light(data_rob2[, 1:7], tool = "ROB2-Cluster"), "Column missing (number of columns < 8).", fixed = T)
+  expect_error(rob_traffic_light(data_rob2[, 1:7], tool = "ROB2-Cluster"))
 })
 
 test_sum <- data_quadas[, c(1:6)]
 test_tf <- data_quadas[, c(1:5)]
 
 test_that("Too few columns", {
-  expect_error(rob_summary(test_sum, "QUADAS-2"))
+  expect_error(rob_summary(test_sum, "QUADAS-2", weighted = TRUE))
   expect_error(rob_traffic_light(test_tf, "QUADAS-2"))
 })
 

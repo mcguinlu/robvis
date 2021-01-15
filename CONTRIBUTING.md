@@ -67,7 +67,6 @@ for documentation.
 development version header describing the changes made followed by your GitHub
 username, and links to relevant issue(s)/PR(s).
 
-
 ### Additional Resources
 
   * The [Git and Github](http://r-pkgs.had.co.nz/git.html) section of the __R Packages__ book by Hadley Wickham

@@ -13,14 +13,13 @@
 #'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param overall An option to include a bar for overall risk-of-bias in the
-#'   figure. Default is FALSE.
+#'   figure. Default is TRUE
 #' @param colour An argument to specify the colour scheme for the plot. Default
 #'   is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
 #'   option for a colour-blind friendly palette is also available (colour =
 #'   'colourblind').
 #' @param weighted An option to specify whether weights should be used in the
-#'   barplot. Default is TRUE, in line with current Cochrane Collaboration
-#'   guidance.
+#'   barplot. Default is FALSE.
 #' @param ... Arguments to be passed to the tool specific functions.
 #' @return Risk of bias assessment barplot figure.
 #' @family main
@@ -43,8 +42,8 @@
 
 rob_summary <- function(data,
                         tool,
-                        overall = FALSE,
-                        weighted = TRUE,
+                        overall = TRUE,
+                        weighted = FALSE,
                         colour = "cochrane",
                         ...) {
   check_tool(tool)
@@ -120,7 +119,7 @@ rob_summary <- function(data,
   return(plot)
 }
 
-# ROBINS-I======================================================================
+# ROB2 ======================================================================
 
 rob_summary_rob2 <- function(data,
                              tool,
@@ -139,8 +138,10 @@ rob_summary_rob2 <- function(data,
     "Weights"
   )
 
+  max_domain_column <- 7
+
   rob.tidy <- tidy_data_summ(data,
-                             max_domain_column = 7,
+                             max_domain_column,
                              overall,
                              weighted,
                              domain_names,
@@ -148,7 +149,7 @@ rob_summary_rob2 <- function(data,
 
   # Create plot
   plot <- ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
+    rob_summ_theme(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -192,8 +193,10 @@ rob_summary_robinsi <- function(data,
                     "Overall risk of bias",
                     "Weights")
 
+  max_domain_column <- 9
+
   rob.tidy <- tidy_data_summ(data,
-                             max_domain_column = 9,
+                             max_domain_column,
                              overall,
                              weighted,
                              domain_names,
@@ -201,7 +204,7 @@ rob_summary_robinsi <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
+    rob_summ_theme(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       values = c(
         n = rob_colours$ni_colour,
@@ -242,8 +245,10 @@ rob_summary_quadas2 <- function(data,
     "Weights"
   )
 
+  max_domain_column <- 6
+
   rob.tidy <- tidy_data_summ(data,
-                             max_domain_column = 6,
+                             max_domain_column,
                              overall,
                              weighted,
                              domain_names,
@@ -251,7 +256,7 @@ rob_summary_quadas2 <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
+    rob_summ_theme(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -291,8 +296,10 @@ rob_summary_quips <- function(data,
     "Weights"
   )
 
+  max_domain_column <- 8
+
   rob.tidy <- tidy_data_summ(data,
-                             max_domain_column = 8,
+                             max_domain_column,
                              overall,
                              weighted,
                              domain_names,
@@ -300,7 +307,7 @@ rob_summary_quips <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
+    rob_summ_theme(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -320,7 +327,6 @@ rob_summary_quips <- function(data,
     )
 }
 
-
 # Generic=================================================================
 
 rob_summary_generic <- function(data,
@@ -331,31 +337,43 @@ rob_summary_generic <- function(data,
                                 judgement_labels = c("Low risk of bias",
                                                      "Some concerns",
                                                      "High risk of bias",
+                                                     "Critical risk of bias",
                                                      "No information")) {
   rob1_warning(tool)
 
+  max_domain_column <- ncol(data) - 1
+
+  # Define weights if FALSE and check if there is a weight
+  # column if TRUE
+  if (weighted == FALSE) {
+    if (is.numeric(data[2, ncol(data)]) == FALSE) {
+      data[, ncol(data)+1] <- rep(1, length(nrow(data)))
+      max_domain_column <- max_domain_column + 1
+    } else {
+      data[, ncol(data)] <- rep(1, length(nrow(data)))
+    }
+  } else {
+    if (is.numeric(data[2, ncol(data)]) == FALSE) {
+      stop(
+        "Error. The final column does not seem to contain numeric values ",
+        "(expected for weighted = TRUE)."
+      )
+    }
+  }
+
   # Data preprocessing
-  for (i in 2:(ncol(data) - 1)) {
+  for (i in 2:max_domain_column) {
     data[[i]] <- tolower(data[[i]])
     data[[i]] <- trimws(data[[i]])
+    data[[i]] <- substr(data[[i]], 0, 2)
+    data[[i]] <- gsub("se", "h", data[[i]])
     data[[i]] <- substr(data[[i]], 0, 1)
     data[[i]] <- gsub("u", "s", data[[i]])
     data[[i]] <- gsub("m", "s", data[[i]])
   }
 
-  # Define weights if FALSE and check if there is a weight
-  # column if TRUE
-  if (weighted == FALSE) {
-    data[, ncol(data)] <- rep(1, length(nrow(data)))
-  } else {
-    if (is.numeric(data[2, ncol(data)]) == FALSE) {
-      stop(
-        "Error. The final column does not seem to contain numeric values (expected for weights)."
-      )
-    }
-  }
 
-  # Clean and rename column headings. as needed
+  # Clean and rename column headings, as needed
   data.tmp <- data
   for (i in 2:(ncol(data) - 1)) {
     names(data.tmp)[i] <- invisible(gsub(".", " ",
@@ -363,21 +381,9 @@ rob_summary_generic <- function(data,
       fixed = TRUE
     ))
   }
+
+  data.tmp <- data.tmp[, c(2:ncol(data.tmp))]
   names(data.tmp)[ncol(data.tmp)] <- "Weights"
-
-
-
-  # Define dataframe based on value of 'overall'
-
-
-  if (overall == "FALSE") {
-    data.tmp <- data.tmp[, c(
-      2:(ncol(data.tmp) - 2),
-      ncol(data.tmp)
-    )]
-  } else {
-    data.tmp <- data.tmp[, c(2:ncol(data.tmp))]
-  }
 
   # Gather data, convert to factors and set levels
   rob.tidy <- suppressWarnings(tidyr::gather(
@@ -385,13 +391,19 @@ rob_summary_generic <- function(data,
     domain, judgement, -Weights
   ))
 
+  judgement_levels <- c("n","c", "h", "s", "l")
+
+
   rob.tidy$judgement <-
-    factor(rob.tidy$judgement, levels = c(
-      "n",
-      "h",
-      "s",
-      "l"
-    ))
+    factor(rob.tidy$judgement, levels = judgement_levels)
+
+  # rob.tidy$judgement <-
+  #   factor(rob.tidy$judgement, levels = c(
+  #     "n",
+  #     "h",
+  #     "s",
+  #     "l"
+  #   ))
 
   for (i in 1:(ncol(data.tmp) - 1)) {
     levels(rob.tidy$domain)[i] <- colnames(data.tmp)[i]
@@ -400,19 +412,19 @@ rob_summary_generic <- function(data,
   rob.tidy$domain <-
     factor(rob.tidy$domain, levels = rev(levels(rob.tidy$domain)))
 
-  judgement_levels <- c("l", "s", "h", "n")
-  names(judgement_labels) <- judgement_levels
+  names(judgement_labels) <- rev(judgement_levels)
 
   # Create plot
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme() +
+    rob_summ_theme(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
         l = rob_colours$low_colour,
         s = rob_colours$concerns_colour,
         h = rob_colours$high_colour,
+        c = rob_colours$critical_colour,
         n = rob_colours$ni_colour
       ),
       labels = judgement_labels

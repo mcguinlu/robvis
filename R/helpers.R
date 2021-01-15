@@ -1,7 +1,106 @@
+check_cols <- function(data,
+                       max_domain_column,
+                       overall,
+                       type = "tf",
+                       weight = FALSE){
+
+  expected_col <- max_domain_column + 1
+
+  if (!overall & !weight) {
+    expected_col <- expected_col - 2
+    domain_text = paste0(expected_col,
+                         ": a \"Study\" column and ",
+                         max_domain_column - 2,
+                         " \"Domain\" columns.")
+    var_ind <- "neither"
+
+  }
+
+  if (!overall & weight) {
+    expected_col <- expected_col - 1
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 1,
+      " \"Domain\" columns, and \"Weight\" column."
+    )
+    var_ind <- "weight"
+  }
+
+  if (overall & !weight) {
+    expected_col <- expected_col - 1
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 1,
+      " \"Domain\" columns, and an \"Overall\" column."
+    )
+    var_ind <- "overall"
+  }
+
+  if (overall & weight) {
+    expected_col <- expected_col
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 2,
+      " \"Domain\" columns, an \"Overall\" column and a \"Weight\" column."
+    )
+    var_ind <- "both"
+  }
+
+  if (type == "summ") {
+    weighted_text <- paste(" and weighted =", weight)
+  } else {
+    weighted_text <- ""
+  }
+
+  if (ncol(data) == expected_col) {
+    if ((var_ind %in% c("both", "weight")) &&
+        unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
+                     data[[ncol(data)]])) == FALSE) {
+      stop(
+        "Error. The final column does not seem to contain numeric values ",
+        "(expected for weighted = TRUE)."
+      )
+    }} else {
+      if (ncol(data) != expected_col) {
+      stop(
+        "The number of columns in your data (",
+        ncol(data),
+        ") does not match the number expected for this",
+        " tool when using overall = ", overall, weighted_text,
+        ". The expected number of columns is ",
+        domain_text
+      )}
+    }
+  }
+
+
 tidy_data <- function(data,
                       max_domain_column,
                       domain_names,
+                      overall,
                       levels) {
+
+  # Deal with legacy versions of the example datasets
+  if (ncol(data) == max_domain_column + 1) {
+    if (overall == FALSE) {
+      data <- data[,c(1:(ncol(data)-2))]
+    } else {
+      data <- data[,-ncol(data)]
+    }
+  }
+
+  check_cols(data = data,
+             max_domain_column = max_domain_column,
+             overall = overall,
+             weight = FALSE)
+
+  if (!overall) {
+    max_domain_column <- max_domain_column - 1
+    domain_names <- domain_names[1:max_domain_column]
+  }
 
   data.tmp <-
     cbind(data[, 1], data.frame(lapply(data[, 2:max_domain_column], clean_data),
@@ -31,31 +130,40 @@ tidy_data_summ <- function(data,
                       domain_names,
                       levels) {
 
+  # Deal with legacy versions of the example datasets
+  if (ncol(data) == max_domain_column + 1) {
+    if (overall == FALSE) {
+      data <- data[,c(1:max_domain_column-1,max_domain_column + 1)]
+    }
+    if (weighted == FALSE) {
+      data <- data[,-ncol(data)]
+    }
+  }
+
+  # Check columns are as expected, given the options
+  check_cols(
+    data = data,
+    max_domain_column = max_domain_column,
+    overall = overall,
+    type = "summ",
+    weight = weighted
+  )
+
+  if (overall ==  FALSE) {
+    max_domain_column <- max_domain_column - 1
+    domain_names <- domain_names[c(1:max_domain_column, length(domain_names))]
+  }
+
   if (weighted == FALSE) {
     data[, max_domain_column + 1] <- rep(1, length(nrow(data)))
-  } else {
-    if (NCOL(data) < max_domain_column + 1) {
-      stop(
-        paste0("Column missing (number of columns < ",
-              max_domain_column + 1,
-              "). Likely that a column detailing weights ",
-              "for each study is missing.")
-      )
-    }
   }
 
   data.tmp <-
     cbind(data[,1],data.frame(lapply(data[, 2:max_domain_column], clean_data),
-                                data[, max_domain_column + 1],
+                                data[, ncol(data)],
                                 stringsAsFactors = F))
 
-
-  if (overall == "FALSE") {
-    data.tmp <- data.tmp[, c(-max_domain_column)]
-    names(data.tmp) <- domain_names[-max_domain_column]
-  } else {
-    names(data.tmp) <- domain_names
-  }
+  names(data.tmp) <- domain_names
 
   rob.tidy <- suppressWarnings(tidyr::gather(
     data.tmp[-1],
@@ -75,8 +183,8 @@ tidy_data_summ <- function(data,
 }
 
 
-rob_summ_theme <- function(){
-  list(
+rob_summ_theme <- function(overall = TRUE, max_domain_column){
+  standard <- list(
     ggplot2::geom_bar(
       mapping = ggplot2::aes(
         x = domain,
@@ -97,10 +205,6 @@ rob_summ_theme <- function(){
         axis.title.x = ggplot2::element_blank(),
         axis.title.y = ggplot2::element_blank(),
         axis.ticks.y = ggplot2::element_blank(),
-        axis.text.y = ggplot2::element_text(
-          size = 10,
-          color = "black"
-        ),
         axis.line.x = ggplot2::element_line(
           colour = "black",
           size = 0.5,
@@ -117,9 +221,21 @@ rob_summ_theme <- function(){
         legend.title = ggplot2::element_blank(),
         legend.key.size = ggplot2::unit(0.75, "lines"),
         legend.text = ggplot2::element_text(size = 6)
-      )
-
+      ),
+    bold_overall = ggplot2::theme(axis.text.y = ggplot2::element_text(
+      size = 10,
+      color = "black"
+    ))
   )
+
+  if (overall) {
+    standard[["bold_overall"]] <-
+      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+                                                            color = "black",
+                                                            face = c("bold", rep("plain",max_domain_column))))
+  }
+
+  return(standard)
 }
 
 
@@ -128,11 +244,12 @@ rob_tf_theme <-function(rob.tidy,
                         psize,
                         ssize,
                         adjust_caption,
+                        overall,
                         judgement_title = "Judgement",
                         overall_name = "Overall",
                         x_title = "Risk of bias domains",
                         y_title = "Study"){
-  list(
+  standard <- list(
       ggplot2::facet_grid(Study ~
                             factor(domain, levels = domain_names),
                           switch = "y",
@@ -151,7 +268,7 @@ rob_tf_theme <-function(rob.tidy,
         ymax = Inf,
         show.legend = FALSE
       ),
-      ggplot2::geom_rect(
+      overall_name = ggplot2::geom_rect(
         data = rob.tidy[which(rob.tidy$domain ==
                                 overall_name),],
         fill = "#d3d3d3",
@@ -211,6 +328,14 @@ rob_tf_theme <-function(rob.tidy,
   ggplot2::labs(shape = judgement_title, colour = judgement_title)
 
 )
+
+  # Remove element that draws dark box for "Overall" column
+  if (!overall) {
+    standard[["overall_name"]] <- ggplot2::geom_blank()
+  }
+
+  return(standard)
+
 }
 
 
