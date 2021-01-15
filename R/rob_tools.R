@@ -44,7 +44,7 @@ rob_tools <- function(forest = FALSE) {
 #' @export
 #'
 #' @examples
-#'
+#' \donttest{
 #' dat.bcg <- metafor::dat.bcg[c(1:9),]
 #'
 #' dat <-
@@ -62,9 +62,10 @@ rob_tools <- function(forest = FALSE) {
 #'
 #' data_rob2$Study <- paste(dat$author,dat$year)
 #'
-#' rob_weighted_data <- rob_append_weights(data_rob2, res)
+#' rob_weighted_data <- rob_append_weights(data_rob2[,1:7], res)
 #'
 #' rob_summary(rob_weighted_data, tool = "ROB2", weighted = TRUE)
+#' }
 
 rob_append_weights <- function(data, res){
 

@@ -2,11 +2,12 @@
 % Please edit documentation in R/rob_append_to_forest.R
 \name{rob_append_to_forest}
 \alias{rob_append_to_forest}
-\title{Append a risk-of-bias traffic-light plot to forest plot}
+\title{Append a risk-of-bias traffic-light plot to a forest plot}
 \usage{
 rob_append_to_forest(
   res,
   rob_data,
+  rob_tool = "ROB2",
   rob_colour = "cochrane",
   rob_psize = 2,
   rob_caption = TRUE,
@@ -18,6 +19,9 @@ rob_append_to_forest(
 \item{res}{Output from metafor meta-analysis function}
 
 \item{rob_data}{Risk of bias dataset in standard robvis format}
+
+\item{rob_tool}{The risk-of-bias assessment tool used to perform the
+assessments}
 
 \item{rob_colour}{Risk of bias colour scheme to use for the traffic-light
 plot}

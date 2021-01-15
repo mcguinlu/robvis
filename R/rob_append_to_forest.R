@@ -1,4 +1,4 @@
-#' @title Append a risk-of-bias traffic-light plot to forest plot
+#' @title Append a risk-of-bias traffic-light plot to a forest plot
 #'
 #' @description A wrapper for metafor::forest function, which adds a risk of
 #'   bias traffic-light plot to the right-hand side of the forest plot. The
@@ -9,6 +9,8 @@
 #' @param res Output from metafor meta-analysis function
 #' @param rob_data Risk of bias dataset in standard robvis format
 #' @param rob_psize Size of the points in the appended risk of bias table
+#' @param rob_tool The risk-of-bias assessment tool used to perform the
+#'   assessments
 #' @param rob_colour Risk of bias colour scheme to use for the traffic-light
 #'   plot
 #' @param rob_caption Logical specifying whether a message containing the

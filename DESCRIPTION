@@ -34,7 +34,10 @@ Imports:
     scales (>= 1.1.0),
     vdiffr (>= 0.3.3),
     metafor (>= 2.4),
-    ggtext (>= 0.1.0)
+    ggtext (>= 0.1.0),
+    dplyr (>= 1.0.2),
+    rlang (>= 0.4.9),
+    stringr (>= 1.4.0)
 Suggests:
     knitr (>= 1.28),
     rmarkdown (>= 2.3),

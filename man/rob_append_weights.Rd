@@ -16,7 +16,7 @@ Used to prepare a risk-of-bias dataset to be passed to the
   weighted barplot function: rob_summary(..., weighted = TRUE)
 }
 \examples{
-
+\donttest{
 dat.bcg <- metafor::dat.bcg[c(1:9),]
 
 dat <-
@@ -34,7 +34,8 @@ res <- metafor::rma(yi, vi, data = dat)
 
 data_rob2$Study <- paste(dat$author,dat$year)
 
-rob_weighted_data <- rob_append_weights(data_rob2, res)
+rob_weighted_data <- rob_append_weights(data_rob2[,1:7], res)
 
 rob_summary(rob_weighted_data, tool = "ROB2", weighted = TRUE)
+}
 }
