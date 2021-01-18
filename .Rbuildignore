@@ -16,7 +16,6 @@
 ^CONTRIBUTING\.md$
 ^JOSS-paper$
 ^RSM-paper$
-R/rob_paired_plot.R
 R/rob_blobbogram.R
 cran-comments.md
 ^CRAN-RELEASE$
@@ -30,3 +29,4 @@ cran-comments.md
 .tiff
 
 
+^vignettes/articles$

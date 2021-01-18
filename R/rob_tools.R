@@ -1,9 +1,9 @@
-#' List tool templates available within the package.
+#' List the risk-of-bias tools for which templates are available within the package.
 #' @description rob_tools() will list the risk-of-bias assessment tools for
 #'   which templates already exist within the robvis package. If the assessment
 #'   tool you used does not appear in the list, use the "Generic" template.
 #'
-#' @param forest Show tools supported by the forest/blobbogram functions
+#' @param forest Show the tools supported by the forest/blobbogram functions
 #'
 #' @examples
 #' rob_tools()
@@ -41,6 +41,8 @@ rob_tools <- function(forest = FALSE) {
 #' @param data Risk of bias dataset (without a weight column)
 #' @param res metafor results object
 #'
+#' @family helper
+#'
 #' @export
 #'
 #' @examples
@@ -69,8 +71,9 @@ rob_tools <- function(forest = FALSE) {
 
 rob_append_weights <- function(data, res){
 
-  # Clean slab of commonly used comma
-  res$slab <- gsub(",", "", res$slab)
+  if (!("rma" %in% class(res))) {
+    stop("Result objects need to be of class \"meta\" - output from metafor package functions")
+  }
 
   # Extract weights
   weights <- data.frame(Study = names(stats::weights(res)),

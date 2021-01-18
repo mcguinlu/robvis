@@ -65,6 +65,7 @@ rob_summary(data, "ROB2")
 }
 \seealso{
 Other main: 
+\code{\link{rob_append_to_forest}()},
 \code{\link{rob_traffic_light}()}
 }
 \concept{main}

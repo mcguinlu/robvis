@@ -44,3 +44,9 @@ A wrapper for metafor::forest function, which adds a risk of
   specified as additional arguments, this functions sets the header argument
   of metafor::forest() to TRUE.
 }
+\seealso{
+Other main: 
+\code{\link{rob_summary}()},
+\code{\link{rob_traffic_light}()}
+}
+\concept{main}

@@ -19,6 +19,9 @@
 #'   plot should be shown. Default is TRUE.
 #' @param ... Additional arguments to be passed to the metafor::forest()
 #'   function
+#'
+#' @family main
+#'
 #' @export
 
 rob_append_to_forest <-

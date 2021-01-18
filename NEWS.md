@@ -1,7 +1,5 @@
 # robvis 0.3.0.900 (Development)
 
-* A new function, `rob_blobbogram()` has been added in response to https://github.com/mcguinlu/robvis/issues/102 by @rdboyes.
-
 As part of a major overhaul of the code in order to improve maintainability and user-friendliness, there have been a number of significant changes made in this version.
 
 * Breaking changes
@@ -16,14 +14,12 @@ As part of a major overhaul of the code in order to improve maintainability and 
   * A template for the QUIPS tool (prognostic studies) has been added.
   * The "Generic" template now allows for additional customisation, including control over all text in the resulting figure.
   * A new function, `rob_save()`, has been added, which uses data-driven defaults for figure height and width when saving to a file.
-  * New functionality so that `robvis` now supports "No information" as a judgment has been added.
+  * New functionality so that `robvis` now supports "No information" as a judgement has been added.
   * An improved colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
   * The "Generic" template has been updated, so that it no longer maps "Serious" and "Critical" to the same colour/symbol.
   * The `overall` argument in `rob_summary()` now bolds the "Overall" axis label.
 
-
-  
 * Minor updates
   * A major refactoring of the code base has taken place to allow for future template specific functionality.
   * Improved test coverage.

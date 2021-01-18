@@ -16,7 +16,6 @@ A data frame:
   \item{Selective.reporting.}{Domain 6}
   \item{Other.sources.of.bias.}{Domain 7}
   \item{Overall}{Overall risk of bias}
-  \item{Weight}{Weight measure for each study}
          }
 }
 \source{

@@ -84,13 +84,13 @@ tidy_data <- function(data,
                       levels) {
 
   # Deal with legacy versions of the example datasets
-  if (ncol(data) == max_domain_column + 1) {
-    if (overall == FALSE) {
-      data <- data[,c(1:(ncol(data)-2))]
-    } else {
-      data <- data[,-ncol(data)]
-    }
-  }
+  # if (ncol(data) == max_domain_column + 1) {
+  #   if (overall == FALSE) {
+  #     data <- data[,c(1:(ncol(data)-2))]
+  #   } else {
+  #     data <- data[,-ncol(data)]
+  #   }
+  # }
 
   check_cols(data = data,
              max_domain_column = max_domain_column,

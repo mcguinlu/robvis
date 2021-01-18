@@ -8,7 +8,6 @@
 #'   \item{D3}{Domain 3}
 #'   \item{D4}{Domain 4}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal
@@ -26,7 +25,6 @@
 #'   \item{D5}{Domain 5}
 #'   \item{D6}{Domain 6}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal
@@ -45,7 +43,6 @@
 #'   \item{Selective.reporting.}{Domain 6}
 #'   \item{Other.sources.of.bias.}{Domain 7}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal
@@ -63,7 +60,6 @@
 #'   \item{D4}{Domain 4}
 #'   \item{D5}{Domain 5}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal
@@ -81,7 +77,6 @@
 #'   \item{D4}{Domain 4}
 #'   \item{D5}{Domain 5}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal
@@ -101,7 +96,6 @@
 #'   \item{D6}{Domain 6}
 #'   \item{D7}{Domain 7}
 #'   \item{Overall}{Overall risk of bias}
-#'   \item{Weight}{Weight measure for each study}
 #'          }
 #' @source {Created for this package}
 #' @keywords internal

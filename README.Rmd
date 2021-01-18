@@ -74,7 +74,7 @@ To help users explore `robvis`, we have included example datasets in the package
 The package contains two plotting functions:
 
 #### 1. rob_summary()
-Returns a ggplot object displaying a barchart of the risk of bias of included studies across the domains of the specified tool. [*Note: the defaults used in this function have changed from their original settings, so that a un-weighted barplot is now produced by default. See the NEWS.md file for further information.*]
+Returns a ggplot object displaying a bar-chart of the risk of bias of included studies across the domains of the specified tool. [*Note: the defaults used in this function have changed from their original settings, so that a un-weighted barplot is now produced by default. See the NEWS.md file for further information.*]
 
 ```{r, eval = FALSE}
 summary_rob <- rob_summary(data = data_rob2, tool = "ROB2")
@@ -89,6 +89,7 @@ rob_save(plot, file)
 fig_count <- fig_count + 1
 ```
 <div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
+
 
 
 #### 2. rob_traffic_light()

@@ -13,7 +13,6 @@ A data frame:
   \item{D3}{Domain 3}
   \item{D4}{Domain 4}
   \item{Overall}{Overall risk of bias}
-  \item{Weight}{Weight measure for each study}
          }
 }
 \source{

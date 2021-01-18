@@ -39,3 +39,9 @@ rob_weighted_data <- rob_append_weights(data_rob2[,1:7], res)
 rob_summary(rob_weighted_data, tool = "ROB2", weighted = TRUE)
 }
 }
+\seealso{
+Other helper: 
+\code{\link{rob_save}()},
+\code{\link{rob_tools}()}
+}
+\concept{helper}
