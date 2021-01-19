@@ -7,7 +7,7 @@
 rob_tools(forest = FALSE)
 }
 \arguments{
-\item{forest}{Show tools supported by the forest/blobbogram functions}
+\item{forest}{Show the tools supported by the forest/blobbogram functions}
 }
 \description{
 rob_tools() will list the risk-of-bias assessment tools for

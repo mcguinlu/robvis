@@ -57,6 +57,16 @@ data_header <- data_rob2
 data_header[1,] <- as.list(names(data_header))
 
 test_that("Data contains headers", {
-  expect_error(rob_summary(data_header))
-  expect_error(rob_traffic_light(data_header))
+  expect_error(rob_summary(data_header, "ROB2"))
+  expect_error(rob_traffic_light(data_header, "ROB2"))
 })
+
+#-#-#-#
+
+res <- c()
+
+test_that("Check class of results object ", {
+  expect_error(rob_append_weights(data_rob2, res))
+  expect_error(rob_append_to_forest(res, data_rob2))
+})
+

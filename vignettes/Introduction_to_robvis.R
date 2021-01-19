@@ -6,6 +6,8 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 2.41)
 
+set.seed(42)
+
 library(robvis)
 
 
@@ -31,7 +33,13 @@ rob_summary(data_quadas, tool = "QUADAS-2")
 rob_summary(data_rob2, tool = "ROB2", overall = TRUE)
 
 ## -----------------------------------------------------------------------------
-rob_summary(data_rob2, tool = "ROB2", weighted = FALSE)
+data_rob2_weighted <- data_rob2
+
+# Assign a random number between 1 and 10 as the weight for each study
+data_rob2_weighted$Weights <- sample(1:10,9)
+
+# Produce a weighted barplot
+rob_summary(data_rob2_weighted, tool = "ROB2", weighted = TRUE)
 
 ## -----------------------------------------------------------------------------
 rob_summary(data = data_rob2, tool = "ROB2", colour = "colourblind")

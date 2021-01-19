@@ -133,6 +133,18 @@ context("Check Blobbograms")
     )
   })
 
+
+  test_that("ROB - Append ROB2 - Message?",{
+
+    skip_on_cran()
+
+    expect_message(rob_append_to_forest(res,
+                         dat.rob2,
+                         rob_caption = TRUE))
+
+
+  })
+
 # Tests
 
 # png("test.png", width = 2000,height = 1200,res = 200)

@@ -250,7 +250,7 @@ rob_append_to_forest <-
 
 
     # Define caption ====
-    domains <-   paste("R: Bias arising from the randomization process.",
+    domains <- paste("R: Bias arising from the randomization process.",
                        "D: Bias due to deviations from intended intervention.",
                        "Mi: Bias due to missing outcome data.",
                        "Me: Bias in measurement of the outcome.",
