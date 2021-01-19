@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List tool templates available within the package. — rob_tools • robvis</title>
+<title>List the risk-of-bias tools for which templates are available within the package. — rob_tools • robvis</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="List tool templates available within the package. — rob_tools" />
+<meta property="og:title" content="List the risk-of-bias tools for which templates are available within the package. — rob_tools" />
 <meta property="og:description" content="rob_tools() will list the risk-of-bias assessment tools for
   which templates already exist within the robvis package. If the assessment
   tool you used does not appear in the list, use the &quot;Generic&quot; template." />
@@ -81,19 +81,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Introduction_to_robvis.html">Introduction to `robvis`, a visualization tool for risk-of-bias assessments</a>
+      <a href="../articles/Introduction_to_robvis.html">Introduction</a>
+    </li>
+    <li>
+      <a href="../articles/metafor.html">Working with metafor</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/jrsm.1411">RSM Article</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -101,8 +113,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/mcguinlu/robvis/">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://twitter.com/mcguinlu">
+    <span class="fas fa-twitter"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/mcguinlu/robvis">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -119,7 +137,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List tool templates available within the package.</h1>
+    <h1>List the risk-of-bias tools for which templates are available within the package.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mcguinlu/robvis/blob/master/R/rob_tools.R'><code>R/rob_tools.R</code></a></small>
     <div class="hidden name"><code>rob_tools.Rd</code></div>
     </div>
@@ -130,12 +148,21 @@
   tool you used does not appear in the list, use the "Generic" template.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rob_tools</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rob_tools</span><span class='op'>(</span>forest <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>forest</th>
+      <td><p>Show the tools supported by the forest/blobbogram functions</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other helper: 
+<code><a href='rob_append_weights.html'>rob_append_weights</a>()</code>,
 <code><a href='rob_save.html'>rob_save</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -157,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

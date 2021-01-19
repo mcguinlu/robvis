@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce summary weighted barplots of risk-of-bias assessments. — rob_summary • robvis</title>
+<title>Append a risk-of-bias traffic-light plot to a forest plot — rob_append_to_forest • robvis</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,12 @@
 
 
 
-<meta property="og:title" content="Produce summary weighted barplots of risk-of-bias assessments. — rob_summary" />
-<meta property="og:description" content="A function to convert standard risk-of-bias output to tidy data
-  and plot a summary barplot." />
+<meta property="og:title" content="Append a risk-of-bias traffic-light plot to a forest plot — rob_append_to_forest" />
+<meta property="og:description" content="A wrapper for metafor::forest function, which adds a risk of
+  bias traffic-light plot to the right-hand side of the forest plot. The
+  heavy lifting for this function is done by metafor. Note that if not
+  specified as additional arguments, this functions sets the header argument
+  of metafor::forest() to TRUE." />
 
 
 
@@ -136,22 +139,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce summary weighted barplots of risk-of-bias assessments.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mcguinlu/robvis/blob/master/R/rob_summary.R'><code>R/rob_summary.R</code></a></small>
-    <div class="hidden name"><code>rob_summary.Rd</code></div>
+    <h1>Append a risk-of-bias traffic-light plot to a forest plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mcguinlu/robvis/blob/master/R/rob_append_to_forest.R'><code>R/rob_append_to_forest.R</code></a></small>
+    <div class="hidden name"><code>rob_append_to_forest.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A function to convert standard risk-of-bias output to tidy data
-  and plot a summary barplot.</p>
+    <p>A wrapper for metafor::forest function, which adds a risk of
+  bias traffic-light plot to the right-hand side of the forest plot. The
+  heavy lifting for this function is done by metafor. Note that if not
+  specified as additional arguments, this functions sets the header argument
+  of metafor::forest() to TRUE.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rob_summary</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  <span class='va'>tool</span>,
-  overall <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  weighted <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  colour <span class='op'>=</span> <span class='st'>"cochrane"</span>,
+    <pre class="usage"><span class='fu'>rob_append_to_forest</span><span class='op'>(</span>
+  <span class='va'>res</span>,
+  <span class='va'>rob_data</span>,
+  rob_tool <span class='op'>=</span> <span class='st'>"ROB2"</span>,
+  rob_colour <span class='op'>=</span> <span class='st'>"cochrane"</span>,
+  rob_psize <span class='op'>=</span> <span class='fl'>2</span>,
+  rob_caption <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  rob_legend <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -159,70 +167,50 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>A dataframe containing summary (domain) level risk-of-bias
-assessments, with the first column containing the study details, the second
-column containing the first domain of your assessments, and the final
-column containing a weight to assign to each study. The function assumes
-that the data includes a column for overall risk-of-bias. For example, a
-ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain
-level judgments, 1 for overall judgements, and 1 for weights, in that
-order).</p></td>
+      <th>res</th>
+      <td><p>Output from metafor meta-analysis function</p></td>
     </tr>
     <tr>
-      <th>tool</th>
-      <td><p>The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
-supported.</p></td>
+      <th>rob_data</th>
+      <td><p>Risk of bias dataset in standard robvis format</p></td>
     </tr>
     <tr>
-      <th>overall</th>
-      <td><p>An option to include a bar for overall risk-of-bias in the
-figure. Default is TRUE</p></td>
+      <th>rob_tool</th>
+      <td><p>The risk-of-bias assessment tool used to perform the
+assessments</p></td>
     </tr>
     <tr>
-      <th>weighted</th>
-      <td><p>An option to specify whether weights should be used in the
-barplot. Default is FALSE.</p></td>
+      <th>rob_colour</th>
+      <td><p>Risk of bias colour scheme to use for the traffic-light
+plot</p></td>
     </tr>
     <tr>
-      <th>colour</th>
-      <td><p>An argument to specify the colour scheme for the plot. Default
-is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
-option for a colour-blind friendly palette is also available (colour =
-'colourblind').</p></td>
+      <th>rob_psize</th>
+      <td><p>Size of the points in the appended risk of bias table</p></td>
+    </tr>
+    <tr>
+      <th>rob_caption</th>
+      <td><p>Logical specifying whether a message containing the
+risk-of-bias domains should be printed. Default is TRUE</p></td>
+    </tr>
+    <tr>
+      <th>rob_legend</th>
+      <td><p>Logical specifying whether a legend for the risk-of-bias
+plot should be shown. Default is TRUE.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments to be passed to the tool specific functions.</p></td>
+      <td><p>Additional arguments to be passed to the metafor::forest()
+function</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Risk of bias assessment barplot figure.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other main: 
-<code><a href='rob_append_to_forest.html'>rob_append_to_forest</a>()</code>,
+<code><a href='rob_summary.html'>rob_summary</a>()</code>,
 <code><a href='rob_traffic_light.html'>rob_traffic_light</a>()</code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  Study <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Study 1"</span>, <span class='st'>"Study 2"</span><span class='op'>)</span>,
-  D1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Some concerns"</span><span class='op'>)</span>,
-  D2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Low"</span><span class='op'>)</span>,
-  D3 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Low"</span><span class='op'>)</span>,
-  D4 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Low"</span><span class='op'>)</span>,
-  D5 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Low"</span><span class='op'>)</span>,
-  Overall <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Low"</span>, <span class='st'>"Low"</span><span class='op'>)</span>,
-  Weight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>33.33333333</span>, <span class='fl'>33.33333333</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>rob_summary</span><span class='op'>(</span><span class='va'>data</span>, <span class='st'>"ROB2"</span><span class='op'>)</span>
-</div><div class='img'><img src='rob_summary-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

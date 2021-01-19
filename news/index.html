@@ -78,19 +78,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Introduction_to_robvis.html">Introduction to `robvis`, a visualization tool for risk-of-bias assessments</a>
+      <a href="../articles/Introduction_to_robvis.html">Introduction</a>
+    </li>
+    <li>
+      <a href="../articles/metafor.html">Working with metafor</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/jrsm.1411">RSM Article</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -98,8 +110,14 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/mcguinlu/robvis/">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://twitter.com/mcguinlu">
+    <span class="fas fa-twitter"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/mcguinlu/robvis">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -128,12 +146,15 @@
 <ul>
 <li>Breaking changes
 <ul>
+<li>There are now stricter conditions placed on the data provided to robvis based on the options specified, which also address some niche cases which were causing bugs. Informative messages are provided to users if the data is not compatible with their chosen options. <strong>Existing code may have to be updated - I am sorry for this, but this should make it easier to support long-term stability of the API</strong>
+</li>
 <li>The default point size for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> has been changed from 20 to 10. This is because, following a review of published <code>robvis</code> plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>psize</code> argument was explicitly defined.</strong>
 </li>
 <li>A new logical argument, <code>overall</code>, which allows users to specify whether to include an “Overall” column in the traffic light plot, has been added to <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> (default is TRUE). In order to have consistent behaviour across the two main functions, the default of the <code>overall</code> argument in<code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been changed from <code>FALSE</code> to <code>TRUE</code> [I admit that I’m not sure why I set it to FALSE in the first place]. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>overall</code> argument was explicitly defined.</strong>
 </li>
 <li>The default the <code>weighted</code> argument for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been changed from <code>TRUE</code> to <code>FALSE</code>, both to ensure better consistency across the two main functions (<code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> does not require a “Weight” variable) and to reduce a hurdle to usage among new users. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>weighted</code> argument was explicitly defined.</strong>
 </li>
+<li>The example datasets in the package now no longer include a weight column. This is to make using weights to produce a weighted barplot a specialised endeavour rather than the default behaviour for the package. This maps to the change to <code>weighted = FALSE</code> as the default for <code><a href="../reference/rob_summary.html">rob_summary()</a></code>.</li>
 <li>The <code>overall</code> argument in the “Generic” now acts slightly differently both to previous versions of the function and to the other templates. Rather than removing an additional column from the dataset if <code>overall = FALSE</code>, which doesn’t make sense if their data doesn’t contain an overall column, it simply highlights the last column (in <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>) or bolds the last heading (in <code><a href="../reference/rob_summary.html">rob_summary()</a></code>).</li>
 <li>In order to make the “Generic” template for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> compatible with tools that have 4 levels of judgement (e.g. the ROBINS-I tool), users must now specify a name for all levels if using the <code>judgement_labels</code> argument of <code><a href="../reference/rob_summary.html">rob_summary()</a></code>. <strong>Existing code that uses the <code>judgement_labels</code> argument will need to be updated.</strong>
 </li>
@@ -141,10 +162,11 @@
 </li>
 <li>Major updates
 <ul>
+<li>Two new functions for working with the output of <code>metafor</code> meta-analyses have been added. <code><a href="../reference/rob_append_weights.html">rob_append_weights()</a></code> extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. <code><a href="../reference/rob_append_to_forest.html">rob_append_to_forest()</a></code> adds a traffic-light plot to the right hand side of the standard <code><a href="https://wviechtb.github.io/metafor/reference/forest.html">metafor::forest()</a></code> output. A vignette describing these two new functions has been added.</li>
 <li>A template for the QUIPS tool (prognostic studies) has been added.</li>
 <li>The “Generic” template now allows for additional customisation, including control over all text in the resulting figure.</li>
 <li>A new function, <code><a href="../reference/rob_save.html">rob_save()</a></code>, has been added, which uses data-driven defaults for figure height and width when saving to a file.</li>
-<li>New functionality so that <code>robvis</code> now supports “No information” as a judgment has been added.</li>
+<li>New functionality so that <code>robvis</code> now supports “No information” as a judgement has been added.</li>
 <li>An improved colour scheme for the <code>colour = "colourblind"</code>argument has been added.</li>
 <li>The argument for the generic template has changed from “ROB1” to “Generic”. To ensure backward compatibility, the “ROB1” argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.</li>
 <li>The “Generic” template has been updated, so that it no longer maps “Serious” and “Critical” to the same colour/symbol.</li>
@@ -233,7 +255,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

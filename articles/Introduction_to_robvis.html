@@ -38,19 +38,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Introduction_to_robvis.html">Introduction to `robvis`, a visualization tool for risk-of-bias assessments</a>
+      <a href="../articles/Introduction_to_robvis.html">Introduction</a>
+    </li>
+    <li>
+      <a href="../articles/metafor.html">Working with metafor</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1002/jrsm.1411">RSM Article</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -58,8 +70,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mcguinlu/robvis/">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://twitter.com/mcguinlu">
+    <span class="fas fa-twitter"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/mcguinlu/robvis">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -79,7 +97,7 @@
       <h1 data-toc-skip>Introduction to <code>robvis</code>, a visualization tool for risk-of-bias assessments</h1>
                         <h4 class="author">Luke A McGuinness</h4>
             
-            <h4 class="date">2020-12-15</h4>
+            <h4 class="date">2021-01-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mcguinlu/robvis/blob/master/vignettes/Introduction_to_robvis.Rmd"><code>vignettes/Introduction_to_robvis.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction_to_robvis.Rmd</code></div>
@@ -139,7 +157,6 @@
 <th align="left">D4</th>
 <th align="left">D5</th>
 <th align="left">Overall</th>
-<th align="right">Weight</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -150,7 +167,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">Low</td>
-<td align="right">33.3333333</td>
 </tr>
 <tr class="even">
 <td align="left">Study 2</td>
@@ -160,7 +176,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">Low</td>
-<td align="right">33.3333333</td>
 </tr>
 <tr class="odd">
 <td align="left">Study 3</td>
@@ -170,7 +185,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">Some concerns</td>
-<td align="right">0.1428571</td>
 </tr>
 <tr class="even">
 <td align="left">Study 4</td>
@@ -180,7 +194,6 @@
 <td align="left">Low</td>
 <td align="left">Some concerns</td>
 <td align="left">High</td>
-<td align="right">9.0909091</td>
 </tr>
 <tr class="odd">
 <td align="left">Study 5</td>
@@ -190,7 +203,6 @@
 <td align="left">Low</td>
 <td align="left">Some concerns</td>
 <td align="left">Low</td>
-<td align="right">12.5000000</td>
 </tr>
 <tr class="even">
 <td align="left">Study 6</td>
@@ -200,7 +212,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">Some concerns</td>
-<td align="right">25.0000000</td>
 </tr>
 <tr class="odd">
 <td align="left">Study 7</td>
@@ -210,7 +221,6 @@
 <td align="left">High</td>
 <td align="left">Low</td>
 <td align="left">Some concerns</td>
-<td align="right">200.0000000</td>
 </tr>
 <tr class="even">
 <td align="left">Study 8</td>
@@ -220,7 +230,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">Low</td>
-<td align="right">11.1111111</td>
 </tr>
 <tr class="odd">
 <td align="left">Study 9</td>
@@ -230,7 +239,6 @@
 <td align="left">Low</td>
 <td align="left">Low</td>
 <td align="left">High</td>
-<td align="right">1.1111111</td>
 </tr>
 </tbody>
 </table>
@@ -281,10 +289,17 @@
 <div id="weighted-or-un-weighted-bar-plots-weighted" class="section level3">
 <h3 class="hasAnchor">
 <a href="#weighted-or-un-weighted-bar-plots-weighted" class="anchor"></a>Weighted or un-weighted bar plots (<code>weighted</code>)</h3>
-<p>By default, the barplot is weighted by some measure of study precision (see <a href="#example-data-sets">Example data sets</a>). You can turn off this option by setting <code>weighted = FALSE</code>. For example, compare this plot with that produced by the based <code><a href="../reference/rob_summary.html">rob_summary()</a></code> function using the <code>data_rob2</code> data set.</p>
+<p>By default, the barplot is un-weighted, in that it shows the number of studies at each level of risk of bias. However, if you provide a risk-of-bias dataset that has an additional “Weights” column containing some measure of study precision, you can produce a barplot showing the amount of <em>statistical information</em> at each level of bias:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span><span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data_rob2_weighted</span> <span class="op">&lt;-</span> <span class="va">data_rob2</span>
+
+<span class="co"># Assign a random number between 1 and 10 as the weight for each study</span>
+<span class="va">data_rob2_weighted</span><span class="op">$</span><span class="va">Weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="fl">9</span><span class="op">)</span>
+
+<span class="co"># Produce a weighted barplot</span>
+<span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span><span class="va">data_rob2_weighted</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p>See the <a href="metafor.html">“Working with <code>metafor</code>”</a> article for more information on how to extract the weights assigned to each study during a meta-analysis performed with <code>metafor</code></p>
 </div>
 <div id="colour-scheme-colour" class="section level3">
 <h3 class="hasAnchor">
@@ -390,19 +405,17 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data_rob2</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Study"   "D1"      "D2"      "D3"      "D4"      "D5"      "Overall"</span>
-<span class="co">#&gt; [8] "Weight"</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data_rob1</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "Study"                                  </span>
-<span class="co">#&gt;  [2] "Random.sequence.generation."            </span>
-<span class="co">#&gt;  [3] "Allocation.concealment."                </span>
-<span class="co">#&gt;  [4] "Blinding.of.participants.and.personnel."</span>
-<span class="co">#&gt;  [5] "Blinding.of.outcome.assessment"         </span>
-<span class="co">#&gt;  [6] "Incomplete.outcome.data"                </span>
-<span class="co">#&gt;  [7] "Selective.reporting."                   </span>
-<span class="co">#&gt;  [8] "Other.sources.of.bias."                 </span>
-<span class="co">#&gt;  [9] "Overall"                                </span>
-<span class="co">#&gt; [10] "Weight"</span></code></pre></div>
+<span class="co">#&gt; [1] "Study"                                  </span>
+<span class="co">#&gt; [2] "Random.sequence.generation."            </span>
+<span class="co">#&gt; [3] "Allocation.concealment."                </span>
+<span class="co">#&gt; [4] "Blinding.of.participants.and.personnel."</span>
+<span class="co">#&gt; [5] "Blinding.of.outcome.assessment"         </span>
+<span class="co">#&gt; [6] "Incomplete.outcome.data"                </span>
+<span class="co">#&gt; [7] "Selective.reporting."                   </span>
+<span class="co">#&gt; [8] "Other.sources.of.bias."                 </span>
+<span class="co">#&gt; [9] "Overall"</span></code></pre></div>
 <p>The domain columns (Columns 2-6) in the ROB2 example have been given arbitrary names of D1-D5, as they will be overwritten by the function to correspond to the correct domain titles as per the ROB2 guidance.</p>
 <p>In contrast, the domain columns (Columns 2-8) in the ROB1 example use their true title as the column heading, as these will be used in the figures produced by <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>. As an example, suppose we change the name of the “Random.sequence.generation” column to something else. In the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> figure, the title of the first bar is changed, while in the <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> figure, the caption is updated to reflect this change.</p>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
@@ -426,7 +439,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
