@@ -1,8 +1,34 @@
 destination: docs
+
 reference:
 - title: Creating risk-of-bias figures
   contents:
-  - has_concept("main")
+  - rob_traffic_light
+  - rob_summary
+  - rob_append_to_forest
 - title: Helper functions
   contents:
   - has_concept("helper")
+
+navbar:
+  title: "metafor"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: Tutorials
+      menu:
+      - text: Introduction
+        href: articles/Introduction_to_robvis.html
+      - text: Working with metafor
+        href: articles/metafor.html
+    - text: "RSM Article"
+      href: https://onlinelibrary.wiley.com/doi/pdf/10.1002/jrsm.1411
+    - text: "Changelog"
+      href: news/index.html
+  right:
+   - icon: fa-twitter
+     href: https://twitter.com/mcguinlu
+   - icon: fa-github
+     href: https://github.com/mcguinlu/robvis

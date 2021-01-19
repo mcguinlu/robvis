@@ -3,13 +3,13 @@ citHeader("To cite robvis in publications, please use:")
 citEntry(
   entry    = "Article",
   title    = "Risk-of-bias VISualization (robvis): An R package and Shiny web app for visualizing risk-of-bias assessments",
-  author   = "McGuinness, Luke A and Higgins, Julian PT",
+  author   = "Luke A McGuinness and Julian PT Higgins",
   year     = "2020",
   journal  =  "Research Synthesis Methods",
   url      = "https://github.com/mcguinlu/robvis",
   doi      = "10.1002/jrsm.1411",
   textVersion = paste(
-  "McGuinness, Luke A and Higgins, Julian PT (2020).",
+  "Luke A McGuinness and Julian PT Higgins (2020).",
   "Risk-of-bias VISualization (robvis): An R package and Shiny web app for visualizing risk-of-bias assessments",
   "Research Synthesis Methods. https://doi.org/10.1002/jrsm.1411"
   )

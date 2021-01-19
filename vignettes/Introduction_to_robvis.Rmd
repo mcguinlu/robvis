@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 2.41)
 
+set.seed(42)
+
 library(robvis)
 
 ```
@@ -107,12 +109,19 @@ rob_summary(data_rob2, tool = "ROB2", overall = TRUE)
 
 ### Weighted or un-weighted bar plots (`weighted`)
 
-By default, the barplot is weighted by some measure of study precision (see [Example data sets](#example-data-sets)). You can turn off this option by setting `weighted = FALSE`. For example, compare this plot with that produced by the based `rob_summary()` function using the `data_rob2` data set.
+By default, the barplot is un-weighted, in that it shows the number of studies at each level of risk of bias. However, if you provide a risk-of-bias dataset that has an additional "Weights" column containing some measure of study precision, you can produce a barplot showing the amount of _statistical information_ at each level of bias:
 
 ```{r}
-rob_summary(data_rob2, tool = "ROB2", weighted = FALSE)
+data_rob2_weighted <- data_rob2
+
+# Assign a random number between 1 and 10 as the weight for each study
+data_rob2_weighted$Weights <- sample(1:10,9)
+
+# Produce a weighted barplot
+rob_summary(data_rob2_weighted, tool = "ROB2", weighted = TRUE)
 ```
 
+See the ["Working with `metafor`"](metafor.html) article for more information on how to extract the weights assigned to each study during a meta-analysis performed with `metafor`
 
 ### Colour scheme (`colour`)
 

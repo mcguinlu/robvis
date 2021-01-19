@@ -56,14 +56,14 @@ data <- data.frame(
   D3 = c("Low", "Low"),
   D4 = c("Low", "Low"),
   D5 = c("Low", "Low"),
-  Overall = c("Low", "Low"),
-  Weight = c(33.33333333, 33.33333333)
+  Overall = c("Low", "Low")
 )
 
 rob_traffic_light(data, "ROB2")
 }
 \seealso{
 Other main: 
+\code{\link{rob_append_to_forest}()},
 \code{\link{rob_summary}()}
 }
 \concept{main}

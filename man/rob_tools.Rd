@@ -2,9 +2,12 @@
 % Please edit documentation in R/rob_tools.R
 \name{rob_tools}
 \alias{rob_tools}
-\title{List tool templates available within the package.}
+\title{List the risk-of-bias tools for which templates are available within the package.}
 \usage{
-rob_tools()
+rob_tools(forest = FALSE)
+}
+\arguments{
+\item{forest}{Show the tools supported by the forest/blobbogram functions}
 }
 \description{
 rob_tools() will list the risk-of-bias assessment tools for
@@ -16,6 +19,7 @@ rob_tools()
 }
 \seealso{
 Other helper: 
+\code{\link{rob_append_weights}()},
 \code{\link{rob_save}()}
 }
 \concept{helper}
