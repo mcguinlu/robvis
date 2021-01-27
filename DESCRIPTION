@@ -52,3 +52,5 @@ VignetteBuilder:
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Remotes:
+    rdboyes/forester
