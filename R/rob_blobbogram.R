@@ -259,3 +259,28 @@ metafor_object_to_table <- function(rma,
 
   return(dplyr::left_join(ordered_table, rob, by = "Study"))
 }
+
+select_rob_columns <- function(dataframe, tool){
+  if(tool == "QUADAS-2"){
+    return_data <- select(dataframe, D1, D2, D3, D4, Overall)
+  }else if(tool == "ROB1"){
+    return_data <- select(dataframe,
+                          RS = Random.sequence.generation.,
+                          A = Allocation.concealment.,
+                          BP = Blinding.of.participants.and.personnel.,
+                          BO = Blinding.of.outcome.assessment,
+                          I = Incomplete.outcome.data,
+                          SR = Selective.reporting.,
+                          Oth = Other.sources.of.bias.,
+                          Overall = Overall)
+  }else if(tool == "ROB2"){
+    return_data <- select(dataframe, D1, D2, D3, D4, D5, Overall)
+  }else if(tool == "ROB2-Cluster"){
+    return_data <- select(dataframe, D1, D1b, D2, D3, D4, D5, Overall)
+  }else if(tool == "Robins"){
+    return_data <- select(dataframe, D1, D2, D3, D4, D5, D6, D7, Overall)
+  }else{
+    stop("Tool is not supported.")
+  }
+  return(return_data)
+}
