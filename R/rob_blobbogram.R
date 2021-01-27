@@ -3,8 +3,6 @@
 # * A new function, `rob_blobbogram()` has been added in response to
 # https://github.com/mcguinlu/robvis/issues/102 by @rdboyes.
 
-
-
 #' Risk of bias blobbogram plot
 #'
 #' @param rma an rma object from the metafor package
