@@ -6,7 +6,9 @@ Authors@R: c(
            role = c("aut", "cre"),
            email = "luke.mcguinness@bristol.ac.uk"),
     person("Emily", "Kothe", role = "ctb"), 
-    person("Alex", "Fowler", rol = "ctb"))
+    person("Alex", "Fowler", rol = "ctb"),
+    person("Randall", "Boyes", rol = "ctb"),
+    person("Wolfgang","Viechtbauer",rol="ctb"))
 Description: Helps users in quickly visualizing risk-of-bias 
     assessments performed as part of a systematic review. It allows users to 
     create weighted bar-plots of the distribution of risk-of-bias judgments 
@@ -18,33 +20,31 @@ Description: Helps users in quickly visualizing risk-of-bias
     <doi:10.1136/bmj.l4898>), ROBINS-I (for non-randomised studies of 
     interventions; Sterne (2016) <doi:10.1136/bmj.i4919>), and Quality &
     Applicability of Diagnostic Accuracy Studies V2 (Whiting et al (2011) 
-    <doi:10.7326/0003-4819-155-8-201110180-00009>).
+    <doi:10.7326/0003-4819-155-8-201110180-00009>), and QUIPS (Hayden et al 
+    (2013) <doi:10.7326/0003-4819-158-4-201302190-00009>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends:
-  R (>= 2.10)
+  R (>= 3.6)
 Imports:
     ggplot2 (>= 3.3.0),
-    tidyr,
-    scales,
-    vdiffr,
-    metafor,
-    magick,
-    patchwork,
-    dplyr,
-    here,
-    gridExtra,
-    systemfonts,
-    stats,
-    rlang
+    tidyr (>= 1.0.0),
+    scales (>= 1.1.0),
+    vdiffr (>= 0.3.3),
+    metafor (>= 2.4),
+    ggtext (>= 0.1.0),
+    dplyr (>= 1.0.2),
+    rlang (>= 0.4.9),
+    stringr (>= 1.4.0),
+    grDevices
 Suggests:
-    knitr,
-    rmarkdown,
-    covr,
-    testthat,
-    spelling
+    knitr (>= 1.28),
+    rmarkdown (>= 2.3),
+    covr (>= 3.5.1),
+    testthat (>= 2.3.0),
+    spelling (>= 2.2)
 VignetteBuilder: 
     knitr, 
     rmarkdown

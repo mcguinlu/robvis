@@ -60,14 +60,12 @@ bug, create an associated issue and illustrate the bug with a minimal
 
 #### Pull request process
 *  We recommend that you create a Git branch for each pull request (PR).  
-*  Look at the Travis and AppVeyor build status before and after making changes.
 *  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with
 [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html), 
 for documentation.  
 *  For user-facing changes, add a bullet to the top of [NEWS.md](NEWS.md) below the current
 development version header describing the changes made followed by your GitHub
 username, and links to relevant issue(s)/PR(s).
-
 
 ### Additional Resources
 

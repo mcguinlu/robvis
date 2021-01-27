@@ -1,4 +1,4 @@
-#' Save ROB plots to a file using sensible parameters
+#' Save risk-of-bias plots to a file using sensible parameters
 #'
 #' @param rob_object Object created using either rob_summary() or
 #'   rob_traffic_light()

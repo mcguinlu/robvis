@@ -1,14 +1,374 @@
+check_cols <- function(data,
+                       max_domain_column,
+                       overall,
+                       type = "tf",
+                       weight = FALSE){
+
+  expected_col <- max_domain_column + 1
+
+  if (!overall & !weight) {
+    expected_col <- expected_col - 2
+    domain_text = paste0(expected_col,
+                         ": a \"Study\" column and ",
+                         max_domain_column - 2,
+                         " \"Domain\" columns.")
+    var_ind <- "neither"
+
+  }
+
+  if (!overall & weight) {
+    expected_col <- expected_col - 1
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 1,
+      " \"Domain\" columns, and \"Weight\" column."
+    )
+    var_ind <- "weight"
+  }
+
+  if (overall & !weight) {
+    expected_col <- expected_col - 1
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 1,
+      " \"Domain\" columns, and an \"Overall\" column."
+    )
+    var_ind <- "overall"
+  }
+
+  if (overall & weight) {
+    expected_col <- expected_col
+    domain_text = paste0(
+      expected_col,
+      ": a \"Study\" column, ",
+      max_domain_column - 2,
+      " \"Domain\" columns, an \"Overall\" column and a \"Weight\" column."
+    )
+    var_ind <- "both"
+  }
+
+  if (type == "summ") {
+    weighted_text <- paste(" and weighted =", weight)
+  } else {
+    weighted_text <- ""
+  }
+
+  if (ncol(data) == expected_col) {
+    if ((var_ind %in% c("both", "weight")) &&
+        unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
+                     data[[ncol(data)]])) == FALSE) {
+      stop(
+        "Error. The final column does not seem to contain numeric values ",
+        "(expected for weighted = TRUE)."
+      )
+    }} else {
+      if (ncol(data) != expected_col) {
+      stop(
+        "The number of columns in your data (",
+        ncol(data),
+        ") does not match the number expected for this",
+        " tool when using overall = ", overall, weighted_text,
+        ". The expected number of columns is ",
+        domain_text
+      )}
+    }
+  }
+
+
+tidy_data <- function(data,
+                      max_domain_column,
+                      domain_names,
+                      overall,
+                      levels) {
+
+  # Deal with legacy versions of the example datasets
+  # if (ncol(data) == max_domain_column + 1) {
+  #   if (overall == FALSE) {
+  #     data <- data[,c(1:(ncol(data)-2))]
+  #   } else {
+  #     data <- data[,-ncol(data)]
+  #   }
+  # }
+
+  check_cols(data = data,
+             max_domain_column = max_domain_column,
+             overall = overall,
+             weight = FALSE)
+
+  if (!overall) {
+    max_domain_column <- max_domain_column - 1
+    domain_names <- domain_names[1:max_domain_column]
+  }
+
+  data.tmp <-
+    cbind(data[, 1], data.frame(lapply(data[, 2:max_domain_column], clean_data),
+                                stringsAsFactors = F))
+
+  names(data.tmp) <- domain_names
+
+  rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
+                                 domain, judgement,-Study))
+
+
+  rob.tidy$Study <-
+    factor(rob.tidy$Study, levels = unique(data.tmp$Study))
+
+  rob.tidy$judgement <- as.factor(rob.tidy$judgement)
+
+  rob.tidy$judgement <-
+    factor(rob.tidy$judgement, levels = levels)
+
+  rob.tidy
+}
+
+tidy_data_summ <- function(data,
+                      max_domain_column,
+                      overall,
+                      weighted,
+                      domain_names,
+                      levels) {
+
+  # Deal with legacy versions of the example datasets
+  if (ncol(data) == max_domain_column + 1) {
+    if (overall == FALSE) {
+      data <- data[,c(1:max_domain_column-1,max_domain_column + 1)]
+    }
+    if (weighted == FALSE) {
+      data <- data[,-ncol(data)]
+    }
+  }
+
+  # Check columns are as expected, given the options
+  check_cols(
+    data = data,
+    max_domain_column = max_domain_column,
+    overall = overall,
+    type = "summ",
+    weight = weighted
+  )
+
+  if (overall ==  FALSE) {
+    max_domain_column <- max_domain_column - 1
+    domain_names <- domain_names[c(1:max_domain_column, length(domain_names))]
+  }
+
+  if (weighted == FALSE) {
+    data[, max_domain_column + 1] <- rep(1, length(nrow(data)))
+  }
+
+  data.tmp <-
+    cbind(data[,1],data.frame(lapply(data[, 2:max_domain_column], clean_data),
+                                data[, ncol(data)],
+                                stringsAsFactors = F))
+
+  names(data.tmp) <- domain_names
+
+  rob.tidy <- suppressWarnings(tidyr::gather(
+    data.tmp[-1],
+    domain, judgement, -Weights
+  ))
+
+  rob.tidy$domain <- as.factor(rob.tidy$domain)
+
+  rob.tidy$domain <-
+    factor(rob.tidy$domain,
+           levels = rev(domain_names))
+
+  rob.tidy$judgement <-
+    factor(rob.tidy$judgement, levels = levels)
+
+  rob.tidy
+}
+
+
+rob_summ_theme <- function(overall = TRUE, max_domain_column){
+  standard <- list(
+    ggplot2::geom_bar(
+      mapping = ggplot2::aes(
+        x = domain,
+        fill = judgement,
+        weight = Weights
+      ),
+      width = 0.7,
+      position = "fill",
+      color = "black"
+    ),
+    ggplot2::coord_flip(ylim = c(
+      0,
+      1
+    )),
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)),
+    ggplot2::scale_y_continuous(labels = scales::percent),
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        axis.title.y = ggplot2::element_blank(),
+        axis.ticks.y = ggplot2::element_blank(),
+        axis.line.x = ggplot2::element_line(
+          colour = "black",
+          size = 0.5,
+          linetype = "solid"
+        ),
+        legend.position = "bottom",
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.background = ggplot2::element_blank(),
+        legend.background = ggplot2::element_rect(
+          linetype = "solid",
+          colour = "black"
+        ),
+        legend.title = ggplot2::element_blank(),
+        legend.key.size = ggplot2::unit(0.75, "lines"),
+        legend.text = ggplot2::element_text(size = 6)
+      ),
+    bold_overall = ggplot2::theme(axis.text.y = ggplot2::element_text(
+      size = 10,
+      color = "black"
+    ))
+  )
+
+  if (overall) {
+    standard[["bold_overall"]] <-
+      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+                                                            color = "black",
+                                                            face = c("bold", rep("plain",max_domain_column))))
+  }
+
+  return(standard)
+}
+
+
+rob_tf_theme <-function(rob.tidy,
+                        domain_names,
+                        psize,
+                        ssize,
+                        adjust_caption,
+                        overall,
+                        judgement_title = "Judgement",
+                        overall_name = "Overall",
+                        x_title = "Risk of bias domains",
+                        y_title = "Study"){
+  standard <- list(
+      ggplot2::facet_grid(Study ~
+                            factor(domain, levels = domain_names),
+                          switch = "y",
+                          space = "free"),
+      ggplot2::geom_point(size = 6),
+      ggplot2::geom_point(size = 4,
+                          colour = "black",
+                          ggplot2::aes(shape = judgement)),
+      ggplot2::geom_rect(
+        data = rob.tidy[which(rob.tidy$domain !=
+                                overall_name),],
+        fill = "#ffffff",
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = -Inf,
+        ymax = Inf,
+        show.legend = FALSE
+      ),
+      overall_name = ggplot2::geom_rect(
+        data = rob.tidy[which(rob.tidy$domain ==
+                                overall_name),],
+        fill = "#d3d3d3",
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = -Inf,
+        ymax = Inf,
+        show.legend = FALSE
+      ),
+      ggplot2::geom_point(size = psize, show.legend = FALSE),
+      ggplot2::geom_point(
+        data = rob.tidy[which(rob.tidy$judgement !=
+                                "x"),],
+        shape = 1,
+        colour = "black",
+        size = psize,
+        show.legend = FALSE
+      ),
+      ggplot2::geom_point(
+        size = ssize,
+        colour = "black",
+        ggplot2::aes(shape = judgement),
+        show.legend = FALSE
+      ),
+      ggplot2::scale_x_discrete(position = "top", name = x_title),
+        ggplot2::scale_y_continuous(
+          limits = c(1, 1),
+          labels = NULL,
+          breaks = NULL,
+          name = y_title,
+          position = "left"
+        ),
+  ggplot2::scale_size(range = c(5,20)),
+  ggplot2::theme_bw(),
+    ggplot2::theme(
+      panel.border = ggplot2::element_rect(colour = "grey"),
+      panel.spacing = ggplot2::unit(0, "line"), legend.position = "bottom",
+      legend.justification = "right", legend.direction = "vertical",
+      legend.margin = ggplot2::margin(
+        t = -0.2, r = 0,
+        b = adjust_caption, l = -10, unit = "cm"
+      ),
+      strip.text.x = ggplot2::element_text(size = 10),
+      strip.text.y.left = ggplot2::element_text(
+        angle = 0,
+        size = 10
+      ), legend.text = ggplot2::element_text(size = 9),
+      legend.title = ggplot2::element_text(size = 9),
+      strip.background = ggplot2::element_rect(fill = "#a9a9a9"),
+      plot.caption = ggplot2::element_text(
+        size = 10,
+        hjust = 0, vjust = 1
+      )
+    ),
+  ggplot2::guides(shape = ggplot2::guide_legend(
+    override.aes = list(fill = NA))),
+  ggplot2::labs(shape = judgement_title, colour = judgement_title)
+
+)
+
+  # Remove element that draws dark box for "Overall" column
+  if (!overall) {
+    standard[["overall_name"]] <- ggplot2::geom_blank()
+  }
+
+  return(standard)
+
+}
+
+
+get_caption_adjustment <- function(data){
+  -0.7 + length(unique(data$judgement)) * -0.6
+}
+
+check_data <- function(data){
+
+  header <- stringr::str_to_lower(data[1,])
+
+  if (any(c("study","overall", "weight") %in% header)) {
+    stop(paste("It looks like the first row of your dataset contains column",
+               "headings (e.g. \"Study\", \"Overall\"). Did you set ",
+               "\"header = TRUE\" when reading in your data?")
+    )
+  }
+
+}
+
 # Check colours
 check_colour <- function(tool, colour) {
   if(!(colour[1] %in% c("cochrane","colourblind"))){
     if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
       if(length(colour)!=4){
-        stop("Wrong number of colours specified. This template expects 4 colours.")
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 4 colours."))
       }
 
     } else{
       if(length(colour)!=5){
-        stop("Wrong number of colours specified. This template expects 5 colours.")
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 5 colours."))
       }
     }
   }
@@ -69,15 +429,24 @@ get_colour <- function(tool, colour) {
 }
 
 # Make sure specified tool is allowed
-check_tool <- function(tool) {
+check_tool <- function(tool, forest = FALSE) {
+
+  if (forest) {
+  tools <- c(suppressMessages(rob_tools(forest = TRUE)))
+  message_content <- "rob_tools(forest = TRUE)"
+  }else {
   tools <- c(suppressMessages(rob_tools()), "ROB1")
+  message_content <- "rob_tools()"
+  }
 
   if ((tool %in% tools) == FALSE) {
     stop(
       paste(
         "\nTool name \"",
         tool,
-        "\" not recognised \nAcceptable tools names can be found using the rob_tools() function"
+        "\" not recognised \nAcceptable tools" ,
+        "names can be found by running",
+        message_content
       )
     )
   }

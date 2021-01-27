@@ -10,13 +10,16 @@ name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: macOS-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: 'release'
 
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -28,6 +31,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
+        if: runner.os != 'Windows'
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
@@ -36,11 +40,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
 
       - name: Test coverage
-        run: covr::codecov()
+        run: covr::codecov(quiet = FALSE, clean = FALSE)
         shell: Rscript {0}

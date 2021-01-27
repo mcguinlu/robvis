@@ -2,7 +2,7 @@
 % Please edit documentation in R/rob_save.R
 \name{rob_save}
 \alias{rob_save}
-\title{Save ROB plots to a file using sensible parameters}
+\title{Save risk-of-bias plots to a file using sensible parameters}
 \usage{
 rob_save(
   rob_object,
@@ -28,10 +28,11 @@ Domain names. dpi}
 \item{dpi}{Plot resolution.}
 }
 \description{
-Save ROB plots to a file using sensible parameters
+Save risk-of-bias plots to a file using sensible parameters
 }
 \seealso{
 Other helper: 
+\code{\link{rob_append_weights}()},
 \code{\link{rob_tools}()}
 }
 \concept{helper}

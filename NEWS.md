@@ -1,20 +1,33 @@
 # robvis 0.3.0.900 (Development)
 
-* A new function, `rob_blobbogram()` has been added in response to https://github.com/mcguinlu/robvis/issues/102 by @rdboyes.
+As part of a major overhaul of the code in order to improve maintainability and user-friendliness, there have been a number of significant changes made in this version.
+
+* Breaking changes
+  * There are now stricter conditions placed on the data provided to robvis based on the options specified, which also address some niche cases which were causing bugs. Informative messages are provided to users if the data is not compatible with their chosen options. **Existing code may have to be updated - I am sorry for this, but this should make it easier to support long-term stability of the API**
+  * The default point size for `rob_traffic_light()` has been changed from 20 to 10. This is because, following a review of published `robvis` plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. **While existing code will continue to work, the resulting plots will look different unless the `psize` argument was explicitly defined.**
+  * A new logical argument, `overall`, which allows users to specify whether to include an "Overall" column in the traffic light plot, has been added to `rob_traffic_light()` (default is TRUE). In order to have consistent behaviour across the two main functions, the default of the `overall` argument in`rob_summary()` has been changed from `FALSE` to `TRUE` [I admit that I'm not sure why I set it to FALSE in the first place]. **While existing code will continue to work, the resulting plots will look different unless the `overall` argument was explicitly defined.**
+  * The default the `weighted` argument for `rob_summary()` has been changed from `TRUE` to `FALSE`, both to ensure better consistency across the two main functions (`rob_traffic_light()` does not require a "Weight" variable) and to reduce a hurdle to usage among new users. **While existing code will continue to work, the resulting plots will look different unless the `weighted` argument was explicitly defined.**
+  * The example datasets in the package now no longer include a weight column. This is to make using weights to produce a weighted barplot a specialised endeavour rather than the default behaviour for the package. This maps to the change to `weighted = FALSE` as the default for `rob_summary()`.
+  * The `overall` argument in the "Generic" now acts slightly differently both to previous versions of the function and to the other templates. Rather than removing an additional column from the dataset if `overall = FALSE`, which doesn't make sense if their data doesn't contain an overall column, it simply highlights the last column (in `rob_traffic_light()`) or bolds the last heading (in `rob_summary()`).
+  * In order to make the "Generic" template for `rob_summary()` compatible with tools that have 4 levels of judgement (e.g. the ROBINS-I tool), users must now specify a name for all levels if using the `judgement_labels` argument of `rob_summary()`. **Existing code that uses the `judgement_labels` argument will need to be updated.** 
+  
 
 * Major updates
-  * A major refactoring of the code base has taken place to allow for future template specific functionality.
-  * The generic option now allows for additional customisation, including control over all text in the resulting figure.
-  * A new function, `rob_save()`, has been added, which uses data-driven defaults for figure height and width when saving.
-  * New functionality so that `robvis` now supports "No information" as a judgment has been added.
-  * New colour scheme for the `colour = "colourblind"`argument has been added.
+  * Two new functions for working with the output of `metafor` meta-analyses have been added. `rob_append_weights()` extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. `rob_append_to_forest()` adds a traffic-light plot to the right hand side of the standard `metafor::forest()` output. A vignette describing these two new functions has been added.
+  * A template for the QUIPS tool (prognostic studies) has been added.
+  * The "Generic" template now allows for additional customisation, including control over all text in the resulting figure.
+  * A new function, `rob_save()`, has been added, which uses data-driven defaults for figure height and width when saving to a file.
+  * New functionality so that `robvis` now supports "No information" as a judgement has been added.
+  * An improved colour scheme for the `colour = "colourblind"`argument has been added.
   * The argument for the generic template has changed from "ROB1" to "Generic". To ensure backward compatibility, the "ROB1" argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.
+  * The "Generic" template has been updated, so that it no longer maps "Serious" and "Critical" to the same colour/symbol.
+  * The `overall` argument in `rob_summary()` now bolds the "Overall" axis label.
 
 * Minor updates
+  * A major refactoring of the code base has taken place to allow for future template specific functionality.
   * Improved test coverage.
-  * Allowed for US spelling of colourblind
-  * `rob_tools()` now returns a message indicating the availability of templates for each function.
-
+  * Allowed for US spelling of "colourblind""
+  * `rob_tools()` now returns a message indicating the availability of templates for each function. 
 
 # robvis 0.3.0 (October 2019)
 

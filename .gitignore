@@ -8,6 +8,6 @@ RSM-paper/figs/*
 inst/doc
 docs/
 *.jpeg
-*.png
+/*.png
 *.xlsx
 R/rob_paired_plot.R
