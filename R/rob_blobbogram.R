@@ -7,15 +7,17 @@
 #'
 #' @param rma an rma object from the metafor package
 #' @param rob a risk of bias table, either ROB2, ROB2-Cluster, QUADAS-2, or Robins (see example data)
-#' @param rob_tool The risk of bias tool used. Defaults to ROB2. Supports ROB2, ROB2-Cluster, QUADAS-2, and Robins
+#' @param rob_tool The risk of bias tool used. Defaults to ROB2. Supports "ROB2", "ROB2-Cluster", "QUADAS-2", and "Robins".
 #' @param rob_colour The risk of bias colour scheme. As in other robvis functions. Supports "cochrane", "colourblind" or a custom vector of colours.
 #' @param subset_col Column containing the variable to subset the meta-analysis by. Default "Overall".
-#' @param add_tests Logical. Should a summary of statistical tests by subgroup be included as a row?
+#' @param subset_col_order An optional vector containing the levels of "subset_col" in the order that they should appear in the table.
 #' @param overall_estimate Logical. Show a summary measure across groups?
-#' @param ... options to be passed to forester::forester.
+#' @param add_tests Logical. Should a summary of statistical tests by subgroup be included as a row?
+#' @param ... options to be passed to forester::forester. See https://github.com/rdboyes/forester for more information.
 #'
 #' @return an image
 #'
+#' @export
 rob_blobbogram <- function(rma,
                            rob,
                            rob_tool = "ROB2",
@@ -23,6 +25,8 @@ rob_blobbogram <- function(rma,
                            subset_col = "Overall",
                            space_last = TRUE,
                            subset_col_order = NULL,
+                           overall_estimate = TRUE,
+                           add_tests = TRUE,
                            ...){
 
   data <- metafor_object_to_table(rma,
@@ -30,7 +34,9 @@ rob_blobbogram <- function(rma,
                                   subset_col = subset_col,
                                   rob_tool = rob_tool,
                                   rob_colour = rob_colour,
-                                  subset_col_order = subset_col_order)
+                                  subset_col_order = subset_col_order,
+                                  overall_estimate = overall_estimate,
+                                  add_tests = add_tests)
 
   rob_plot <- select_rob_columns(data, rob_tool) %>%
     appendable_rob_ggplot(rob_tool = rob_tool,
@@ -219,7 +225,7 @@ metafor_object_to_table <- function(rma,
 
   # Work out if only one level is present. Passed to create_subtotal_row(), so
   # that if only one group, no subtotal is created.
-  single_group <- ifelse(length(levels)==1,TRUE,FALSE)
+  single_group <- ifelse(length(levels)==1, TRUE, FALSE)
 
   # Subset data by levels, run user-defined metafor function on them, and
   # recombine along with Overall rma output
