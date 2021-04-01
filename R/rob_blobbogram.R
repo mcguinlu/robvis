@@ -29,6 +29,51 @@ rob_blobbogram <- function(rma,
                            add_tests = TRUE,
                            ...){
 
+  rob <- rob_append_weights(rob, rma)
+
+# Set opinionated defaults for forester::forester()
+
+  forester_args <- list(...)
+
+  # If no file path is passed to the dots (...), make it a temporary directory,
+  # to comply with CRAN's policies on writing to the users computer
+  if (hasArg("file_path") == FALSE) {
+    file_path <- tempfile(fileext = ".png")
+  } else {
+    file_path <- forester_args$file_path
+    forester_args$file_path <- NULL
+  }
+
+  if (hasArg("font_family") == FALSE) {
+    font_family <- "sans"
+  } else {
+    font_family <- forester_args$font_family
+    forester_args$font_family <- NULL
+  }
+
+  if (hasArg("estimate_precision") == FALSE) {
+    estimate_precision <- 2
+  } else {
+    estimate_precision <- forester_args$estimate_precision
+    forester_args$estimate_precision <- NULL
+  }
+
+  if (hasArg("null_line_at") == FALSE) {
+    null_line_at <- 1
+  } else {
+    null_line_at <- forester_args$null_line_at
+    forester_args$null_line_at <- NULL
+  }
+
+  if (hasArg("x_scale_linear") == FALSE) {
+    x_scale_linear <- FALSE
+  } else {
+    x_scale_linear <- forester_args$x_scale_linear
+    forester_args$x_scale_linear <- NULL
+  }
+
+# Create the correctly formatted table
+
   data <- metafor_object_to_table(rma,
                                   rob,
                                   subset_col = subset_col,
@@ -41,14 +86,23 @@ rob_blobbogram <- function(rma,
   rob_plot <- select_rob_columns(data, rob_tool) %>%
     appendable_rob_ggplot(rob_tool = rob_tool,
                           rob_colour = rob_colour,
-                          space_last = space_last)
+                          space_last = space_last, font_family = font_family)
 
-  forester::forester(dplyr::select(data, Study),
-                     data$est,
-                     data$ci_low,
-                     data$ci_high,
-                     add_plot = rob_plot,
-                     ...)
+  do.call(forester::forester, c(
+    list(
+      dplyr::select(data, Study),
+      data$est,
+      data$ci_low,
+      data$ci_high,
+      add_plot = rob_plot,
+      file_path = file_path,
+      font_family = font_family,
+      estimate_precision = estimate_precision,
+      null_line_at = null_line_at,
+      x_scale_linear = x_scale_linear
+    ),
+    forester_args
+  ))
 
 }
 
@@ -111,7 +165,7 @@ create_title_row <- function(title){
   return(data.frame(Study = title, est = NA, ci_low = NA, ci_high = NA))
 }
 
-appendable_rob_ggplot <- function(rob_gdata, space_last = TRUE, rob_tool = "ROB2", rob_colour = "cochrane"){
+appendable_rob_ggplot <- function(rob_gdata, space_last = TRUE, rob_tool = "ROB2", rob_colour = "cochrane", font_family = "sans"){
   # given a data frame with arbitrary column names, makes a rob plot with those columns
   # when space_last = true, separates the last column by a half width (usually for an overall)
   # NA rows indicate spaces
@@ -134,7 +188,7 @@ appendable_rob_ggplot <- function(rob_gdata, space_last = TRUE, rob_tool = "ROB2
 
   rob_colours <- get_colour(rob_tool, rob_colour)
 
-  if(rob_tool == "Robins"){
+  if(rob_tool == "ROBINS-I"){
     bias_colours <- c("Critical" = rob_colours$critical_colour,
                       "Serious" = rob_colours$high_colour,
                       "Moderate" = rob_colours$concerns_colour,
@@ -167,12 +221,12 @@ appendable_rob_ggplot <- function(rob_gdata, space_last = TRUE, rob_tool = "ROB2
                                     xmax = .data$xmax,
                                     ymax = .data$ymax),
                        fill = "white",
-                       colour = "#eff3f2") +
+                       colour = "#a9a9a9") +
     ggplot2::geom_point(size = 5, ggplot2::aes(x = .data$x, y = .data$row_num, colour = .data$colour)) +
     ggplot2::geom_point(size = 3, ggplot2::aes(x = .data$x, y = .data$row_num, shape = .data$colour)) +
     ggplot2::scale_y_continuous(expand = c(0,0)) + # position dots
     ggplot2::scale_x_continuous(expand = c(0,0), limits = c(0, (max(rob_gdata$x) + 1))) +
-    ggplot2::geom_text(data = titles, ggplot2::aes(label = .data$names, x = .data$x, y = .data$y)) +
+    ggplot2::geom_text(data = titles, ggplot2::aes(label = .data$names, x = .data$x, y = .data$y), family = font_family, fontface = "bold") +
     ggplot2::scale_color_manual(values = bias_colours,
                                 na.translate = FALSE) +
     ggplot2::scale_shape_manual(
@@ -211,6 +265,8 @@ metafor_object_to_table <- function(rma,
   # Reorder data
   table <- dplyr::select(table, Study, dplyr::everything())
 
+  if (!is.null(subset_col)) {
+
   # Clean level names so that they look nice in the table
   table[[subset_col]] <- stringr::str_to_sentence(table[[subset_col]])
   levels <- unique(table[[subset_col]])
@@ -247,6 +303,15 @@ metafor_object_to_table <- function(rma,
     })
 
   subset_table <- do.call("rbind", lapply(subset_tables, function(x) x))
+  } else {
+
+  levels <- ""
+  subset_table <- rbind(
+    create_title_row(""),
+    dplyr::select(table, Study, est, ci_low, ci_high)
+  )
+
+  }
 
   ordered_table <- rbind(subset_table,
                          if (overall_estimate) {
@@ -266,9 +331,9 @@ metafor_object_to_table <- function(rma,
 
 select_rob_columns <- function(dataframe, tool){
   if(tool == "QUADAS-2"){
-    return_data <- select(dataframe, D1, D2, D3, D4, Overall)
+    return_data <- dplyr::select(dataframe, D1, D2, D3, D4, Overall)
   }else if(tool == "ROB1"){
-    return_data <- select(dataframe,
+    return_data <- dplyr::select(dataframe,
                           RS = Random.sequence.generation.,
                           A = Allocation.concealment.,
                           BP = Blinding.of.participants.and.personnel.,
@@ -278,11 +343,11 @@ select_rob_columns <- function(dataframe, tool){
                           Oth = Other.sources.of.bias.,
                           Overall = Overall)
   }else if(tool == "ROB2"){
-    return_data <- select(dataframe, D1, D2, D3, D4, D5, Overall)
+    return_data <- dplyr::select(dataframe, D1, D2, D3, D4, D5, Overall)
   }else if(tool == "ROB2-Cluster"){
-    return_data <- select(dataframe, D1, D1b, D2, D3, D4, D5, Overall)
+    return_data <- dplyr::select(dataframe, D1, D1b, D2, D3, D4, D5, Overall)
   }else if(tool == "Robins"){
-    return_data <- select(dataframe, D1, D2, D3, D4, D5, D6, D7, Overall)
+    return_data <- dplyr::select(dataframe, D1, D2, D3, D4, D5, D6, D7, Overall)
   }else{
     stop("Tool is not supported.")
   }

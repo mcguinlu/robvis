@@ -1,4 +1,4 @@
-context("Check Blobbograms")
+context("Check forest() appending")
 
 # Perform meta-analysis
   dat.bcg <- metafor::dat.bcg
