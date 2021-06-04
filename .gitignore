@@ -11,5 +11,3 @@ docs/
 /*.png
 *.xlsx
 R/rob_paired_plot.R
-README.md
-man/figures/robplot*
