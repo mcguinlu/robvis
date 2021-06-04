@@ -44,8 +44,6 @@
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -57,15 +55,9 @@
 
 
 
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -148,10 +140,13 @@
 
     <div id="robvis-030900-development" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0.900">
-<a href="#robvis-030900-development" class="anchor" aria-hidden="true"></a>robvis 0.3.0.900 (Development)<small> Unreleased </small></h1>
+<a href="#robvis-030900-development" class="anchor"></a>robvis 0.3.0.900 (Development)<small> Unreleased </small>
+</h1>
 <p>As part of a major overhaul of the code in order to improve maintainability and user-friendliness, there have been a number of significant changes made in this version.</p>
-<ul><li>Breaking changes
-<ul><li>There are now stricter conditions placed on the data provided to robvis based on the options specified, which also address some niche cases which were causing bugs. Informative messages are provided to users if the data is not compatible with their chosen options. <strong>Existing code may have to be updated - I am sorry for this, but this should make it easier to support long-term stability of the API</strong>
+<ul>
+<li>Breaking changes
+<ul>
+<li>There are now stricter conditions placed on the data provided to robvis based on the options specified, which also address some niche cases which were causing bugs. Informative messages are provided to users if the data is not compatible with their chosen options. <strong>Existing code may have to be updated - I am sorry for this, but this should make it easier to support long-term stability of the API</strong>
 </li>
 <li>The default point size for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> has been changed from 20 to 10. This is because, following a review of published <code>robvis</code> plots, users are not changing the defaults very often and in almost all cases, a smaller default looks better. <strong>While existing code will continue to work, the resulting plots will look different unless the <code>psize</code> argument was explicitly defined.</strong>
 </li>
@@ -163,9 +158,11 @@
 <li>The <code>overall</code> argument in the “Generic” now acts slightly differently both to previous versions of the function and to the other templates. Rather than removing an additional column from the dataset if <code>overall = FALSE</code>, which doesn’t make sense if their data doesn’t contain an overall column, it simply highlights the last column (in <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>) or bolds the last heading (in <code><a href="../reference/rob_summary.html">rob_summary()</a></code>).</li>
 <li>In order to make the “Generic” template for <code><a href="../reference/rob_summary.html">rob_summary()</a></code> compatible with tools that have 4 levels of judgement (e.g. the ROBINS-I tool), users must now specify a name for all levels if using the <code>judgement_labels</code> argument of <code><a href="../reference/rob_summary.html">rob_summary()</a></code>. <strong>Existing code that uses the <code>judgement_labels</code> argument will need to be updated.</strong>
 </li>
-</ul></li>
+</ul>
+</li>
 <li>Major updates
-<ul><li>Two new functions for working with the output of <code>metafor</code> meta-analyses have been added. <code><a href="../reference/rob_append_weights.html">rob_append_weights()</a></code> extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. <code><a href="../reference/rob_append_to_forest.html">rob_append_to_forest()</a></code> adds a traffic-light plot to the right hand side of the standard <code><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">metafor::forest()</a></code> output. A vignette describing these two new functions has been added.</li>
+<ul>
+<li>Two new functions for working with the output of <code>metafor</code> meta-analyses have been added. <code><a href="../reference/rob_append_weights.html">rob_append_weights()</a></code> extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. <code><a href="../reference/rob_append_to_forest.html">rob_append_to_forest()</a></code> adds a traffic-light plot to the right hand side of the standard <code><a href="https://wviechtb.github.io/metafor/reference/forest.html">metafor::forest()</a></code> output. A vignette describing these two new functions has been added.</li>
 <li>A template for the QUIPS tool (prognostic studies) has been added.</li>
 <li>The “Generic” template now allows for additional customisation, including control over all text in the resulting figure.</li>
 <li>A new function, <code><a href="../reference/rob_save.html">rob_save()</a></code>, has been added, which uses data-driven defaults for figure height and width when saving to a file.</li>
@@ -174,20 +171,27 @@
 <li>The argument for the generic template has changed from “ROB1” to “Generic”. To ensure backward compatibility, the “ROB1” argument is still accepted, but a message is returned to indicate that it may be depreciated in the future.</li>
 <li>The “Generic” template has been updated, so that it no longer maps “Serious” and “Critical” to the same colour/symbol.</li>
 <li>The <code>overall</code> argument in <code><a href="../reference/rob_summary.html">rob_summary()</a></code> now bolds the “Overall” axis label.</li>
-</ul></li>
+</ul>
+</li>
 <li>Minor updates
-<ul><li>A major refactoring of the code base has taken place to allow for future template specific functionality.</li>
+<ul>
+<li>A major refactoring of the code base has taken place to allow for future template specific functionality.</li>
 <li>Improved test coverage.</li>
 <li>Allowed for US spelling of “colourblind”"</li>
 <li>
 <code><a href="../reference/rob_tools.html">rob_tools()</a></code> now returns a message indicating the availability of templates for each function.</li>
-</ul></li>
-</ul></div>
+</ul>
+</li>
+</ul>
+</div>
     <div id="robvis-030-october-2019" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
-<a href="#robvis-030-october-2019" class="anchor" aria-hidden="true"></a>robvis 0.3.0 (October 2019)<small> 2019-11-22 </small></h1>
-<ul><li>Major updates
-<ul><li>
+<a href="#robvis-030-october-2019" class="anchor"></a>robvis 0.3.0 (October 2019)<small> 2019-11-22 </small>
+</h1>
+<ul>
+<li>Major updates
+<ul>
+<li>
 <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> can now handle a summary table with or without a “Weight column”. <code><a href="../reference/rob_summary.html">rob_summary()</a></code> still requires a “Weight” column, as it is strongly encouraged that weights be used to create the summary barplot.</li>
 <li>Functions can now handle summary tables with less than the expected number of judgments. For example, for ROB2, a sheet with only “Low” and “Some concerns” would cause the resulting graph to be inverted and mess up the ordering of the legend. This issue is now fixed for both <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>.</li>
 <li>The shapes indicating the risk-of-bias level in <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> have been updated.</li>
@@ -195,31 +199,45 @@
 <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> no longer orders studies alphabetically, instead retaining the order from the uploaded CSV.</li>
 <li>The order of the domains in <code><a href="../reference/rob_summary.html">rob_summary()</a></code> has been corrected to accurately reflect the order of domains in each tool, rather than presenting them in alphabetical order.</li>
 <li>Legends for <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> are now ordered by ascending/descending (depending on the tool) risk of bias.</li>
-</ul></li>
+</ul>
+</li>
 <li>Minor updates
-<ul><li>
+<ul>
+<li>
 <code>CODE_OF_CONDUCT</code> and <code>CONTRIBUTING</code> documents have been added to the GitHub repo.</li>
 <li>A PR template has been added to the GitHub repo.</li>
-</ul></li>
-</ul></div>
+</ul>
+</li>
+</ul>
+</div>
     <div id="robvis-020-may-2019" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#robvis-020-may-2019" class="anchor" aria-hidden="true"></a>robvis 0.2.0 (May 2019)<small> Unreleased </small></h1>
-<ul><li>Major updates
-<ul><li>Removed “save” argument from both the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> functions. In line with CRAN guidelines, this element was removed as packages should not write to the file system.</li>
+<a href="#robvis-020-may-2019" class="anchor"></a>robvis 0.2.0 (May 2019)<small> Unreleased </small>
+</h1>
+<ul>
+<li>Major updates
+<ul>
+<li>Removed “save” argument from both the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> functions. In line with CRAN guidelines, this element was removed as packages should not write to the file system.</li>
 <li>Added “weighted” argument to <code><a href="../reference/rob_summary.html">rob_summary()</a></code> to allow users to choose whether to create a weighted or unweighted barplot.</li>
 <li>Added a new generic template (tool = “ROB1”) which allows users to have a nonstandard number of bias domains. This template takes the columns headings of user-defined domains and passes them to the caption of the resulting figure.</li>
-</ul></li>
+</ul>
+</li>
 <li>Minor updates
-<ul><li>New functionality for users to choose color-scheme or provide their own vector of colors for use in the plots. Preset options include traditional “Cochrane” colours and a colourblind friendly palette.</li>
+<ul>
+<li>New functionality for users to choose color-scheme or provide their own vector of colors for use in the plots. Preset options include traditional “Cochrane” colours and a colourblind friendly palette.</li>
 <li>Improved text processing to allow for imperfect matching of judgments, primarily to allow for differences in cases (e.g. “low” will match with “Low”), minor spelling errors (e.g. “loq” will match with “Low”), and a leading whitespace (e.g. " loq" will match with “Low”).</li>
-</ul></li>
-</ul></div>
+</ul>
+</li>
+</ul>
+</div>
     <div id="robvis-010-april-2019" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
-<a href="#robvis-010-april-2019" class="anchor" aria-hidden="true"></a>robvis 0.1.0 (April 2019)<small> Unreleased </small></h1>
-<ul><li>Initial working version of package</li>
-</ul></div>
+<a href="#robvis-010-april-2019" class="anchor"></a>robvis 0.1.0 (April 2019)<small> Unreleased </small>
+</h1>
+<ul>
+<li>Initial working version of package</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -233,11 +251,11 @@
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Luke McGuinness.</p></p>
+  <p>Developed by Luke McGuinness.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -245,8 +263,6 @@
 
   
 
-
-  
 
   </body>
 </html>

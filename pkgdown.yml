@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1.9001
-pkgdown_sha: 71a93f1d9b3ccb66dcdd3bc0b690b4e7dd55779c
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
   Introduction_to_robvis: Introduction_to_robvis.html
   metafor: metafor.html
-last_built: 2021-06-04T10:54Z
+last_built: 2021-06-04T10:57Z
 
