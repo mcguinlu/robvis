@@ -181,15 +181,15 @@ fig_count <- fig_count + 1
 
 ### No "Overall" judgement
 
-By default, both functions include an "Overall" risk of bias domain. To prevent this, set `overall = FALSE`.
+By default, both functions include an "Overall" risk of bias domain. To prevent this, remove the overall column from your dataset and set `overall = FALSE`.
 
 ```{r, eval=FALSE}
-summary_rob <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
+summary_rob <- rob_summary(data = data_rob2[1:6], tool = "ROB2", overall = FALSE)
 summary_rob
 ```
 
 ``` {r, echo = FALSE}
-plot <- rob_summary(data = data_rob2, tool = "ROB2", overall = FALSE)
+plot <- rob_summary(data = data_rob2[1:6], tool = "ROB2", overall = FALSE)
 file = paste0("man/figures/robplot",fig_count,".png")
 rob_save(plot, file)
 fig_count <- fig_count + 1
@@ -197,13 +197,13 @@ fig_count <- fig_count + 1
 <div style="text-align:center"><img src=`r file` width="70%" height="70%"/></div>
 
 ```{r, eval=FALSE}
-rob_traffic_light(data = data_rob2,
+rob_traffic_light(data = data_rob2[1:6],
                   tool = "ROB2",
                   overall = FALSE)
 ```
 
 ``` {r, echo = FALSE}
-plot <- rob_traffic_light(data = data_rob2,
+plot <- rob_traffic_light(data = data_rob2[1:6],
                                       tool = "ROB2",
                                       overall = FALSE)
 file = paste0("man/figures/robplot",fig_count,".png")
