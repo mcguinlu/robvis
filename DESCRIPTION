@@ -38,7 +38,8 @@ Imports:
     dplyr (>= 1.0.2),
     rlang (>= 0.4.9),
     stringr (>= 1.4.0),
-    grDevices
+    grDevices,
+    forester
 Suggests:
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
@@ -51,3 +52,5 @@ VignetteBuilder:
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Remotes:
+    rdboyes/forester
