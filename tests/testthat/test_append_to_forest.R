@@ -1,7 +1,7 @@
 context("Check Blobbograms")
 
 # Perform meta-analysis
-  dat.bcg <- metafor::dat.bcg
+  dat.bcg <- metadat::dat.bcg
 
   dat <-
     metafor::escalc(
