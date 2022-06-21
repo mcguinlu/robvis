@@ -1,7 +1,5 @@
 
 
-tmp <- read.csv("data_raw/bias_direction.csv")
-
 # TODO add argument that prevents subgroup summary estimates - in this case, each subgroup will need to be one row closer to each other
 
 
