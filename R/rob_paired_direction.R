@@ -40,6 +40,9 @@ rob_paired_direction <-
       dat$study <- paste("Study", 1:nrow(dat))
     }
 
+    rob_levels = c("Low","Moderate","High","Critical")
+
+
     dat <- dat %>%
       mutate(type = factor(type, levels = type_levels)) %>%
       mutate(overall = factor(overall, levels = rob_levels)) %>%
@@ -47,7 +50,6 @@ rob_paired_direction <-
 
     dat[is.na(dat)] <- "None"
 
-    rob_levels = c("Low","Moderate","High","Critical")
 
     # Use this to define the gaps between different groups
     # Will be important when adding argument to prevent subgroup analyses
