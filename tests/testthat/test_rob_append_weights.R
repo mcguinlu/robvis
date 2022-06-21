@@ -1,6 +1,6 @@
 context("Check weights appending")
 
-dat.bcg <- metafor::dat.bcg[c(1:9),]
+dat.bcg <- metadat::dat.bcg[c(1:9),]
 
 dat <-
   metafor::escalc(

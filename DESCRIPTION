@@ -38,7 +38,8 @@ Imports:
     dplyr (>= 1.0.2),
     rlang (>= 0.4.9),
     stringr (>= 1.4.0),
-    grDevices
+    grDevices,
+    metadat
 Suggests:
     knitr (>= 1.28),
     rmarkdown (>= 2.3),

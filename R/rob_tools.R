@@ -47,7 +47,7 @@ rob_tools <- function(forest = FALSE) {
 #'
 #' @examples
 #' \donttest{
-#' dat.bcg <- metafor::dat.bcg[c(1:9),]
+#' dat.bcg <- metadat::dat.bcg[c(1:9),]
 #'
 #' dat <-
 #'   metafor::escalc(

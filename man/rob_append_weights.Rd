@@ -17,7 +17,7 @@ Used to prepare a risk-of-bias dataset to be passed to the
 }
 \examples{
 \donttest{
-dat.bcg <- metafor::dat.bcg[c(1:9),]
+dat.bcg <- metadat::dat.bcg[c(1:9),]
 
 dat <-
   metafor::escalc(

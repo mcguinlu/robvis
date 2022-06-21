@@ -1,3 +1,14 @@
+
+
+#' Title
+#'
+#' @param data
+#' @param max_domain_column
+#' @param overall
+#' @param type
+#' @param weight
+#'
+#' @keywords internal
 check_cols <- function(data,
                        max_domain_column,
                        overall,
@@ -77,6 +88,15 @@ check_cols <- function(data,
   }
 
 
+#' Title
+#'
+#' @param data
+#' @param max_domain_column
+#' @param domain_names
+#' @param overall
+#' @param levels
+#'
+#' @keywords internal
 tidy_data <- function(data,
                       max_domain_column,
                       domain_names,

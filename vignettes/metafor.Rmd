@@ -28,7 +28,7 @@ library(robvis)
 library(metafor)
 
 # Define your studies, using nine studies from the of the BCG dataset included in the metafor package
-data_bcg <- metafor::dat.bcg[c(1:9),]
+data_bcg <- metadat::dat.bcg[c(1:9),]
 
 data_bcg
 
