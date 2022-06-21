@@ -1,46 +1,63 @@
 
 
-tmp <- read.csv("data_raw/bias_direction.csv") %>%
-  mutate(overall = sample(c("Low","Moderate","High"),nrow(tmp), TRUE),
-         result_id = X) %>%
-  mutate(type = case_when(result_id %in% c(11,17) ~ "MR",
-                          result_id %in% c(20) ~ "RCT",
-         T ~ type))
+tmp <- read.csv("data_raw/bias_direction.csv")
+
+# TODO add argument that prevents subgroup summary estimates - in this case, each subgroup will need to be one row closer to each other
 
 
-
+#' Bias direction plots
+#'
+#' @description Used to su
+#'
+#' @param dat Dataframe
+#' @param vi Vector containing the sampling variances (normally defined as the column within the dataset, i.e. dat$vi). Note: either vi or sei must be set.
+#' @param sei Vector containing the corresponding standard errors (normally defined as the column within the dataset, i.e. dat$sei). Note: either vi or sei must be set.
+#' @param title Graph title
+#' @param legend_cex Expansion factor for figure legend.
+#' @param rob_levels For advanced usage,
+#' @param type_levels Ordering of study types. Note: the types will be plotted
+#'   in order, starting at the bottom of the graph (i.e. the last item in the
+#'   list will be placed at the top of the graph)
+#' @param label_subgroup_summary Annotation text for subgroup label
+#' @param ... Other arguments to pass to metafor::forest
+#'
+#' @export
+#'
 rob_paired_direction <-
   function(dat,
+           vi = NULL,
            sei = NULL,
            title = NULL,
            legend_cex = 0.9,
-           rob_levels = c("Low","Moderate","Serious","Critical"),
            type_levels = c("MR","NRSI","NRSE","RCT"),
+           label_subgroup_summary = "RE Model for Subgroup",
            ...) {
 
     ### calculate log risk ratios and corresponding sampling variances (and use
     ### the 'slab' argument to store study labels as part of the data frame)
 
-    if (("author" %in% colnames(dat)) == FALSE) {
-      dat$author <- letters[1:nrow(dat)]
-    }
-
-    if (("year" %in% colnames(dat)) == FALSE) {
-      dat$year <- "2000"
+    if (("study" %in% colnames(dat)) == FALSE) {
+      dat$study <- paste("Study", 1:nrow(dat))
     }
 
     dat <- dat %>%
       mutate(type = factor(type, levels = type_levels)) %>%
       mutate(overall = factor(overall, levels = rob_levels)) %>%
-      arrange(type, overall, desc(author))
+      arrange(type, overall, desc(study))
 
     dat[is.na(dat)] <- "None"
+
+    rob_levels = c("Low","Moderate","High","Critical")
+
+    # Use this to define the gaps between different groups
+    # Will be important when adding argument to prevent subgroup analyses
+    offset_n <- 3
 
     dat_rob_vec <- dat %>%
       mutate(row_n = 1:n()) %>%
       group_by(type) %>%
       summarise(n=n(),max = max(row_n), min = min(row_n)) %>%
-      mutate(offset = seq(1,length(unique(.$type))*3,by=3)) %>%
+      mutate(offset = seq(1,length(unique(.$type))*offset_n,by=offset_n)) %>%
       mutate(min = min+offset, max =max+offset, heading = max+1, stats = min-1.25) %>%
       mutate(min = ifelse(n==1,min-1,min),
              max = ifelse(n==1,max-1,max),
@@ -81,7 +98,7 @@ rob_paired_direction <-
     # Deal with adding rob data
 
     dat <- dat %>%
-      mutate(across(-c(result_id,author,type,yi,vi, year), robvis:::clean_data))
+      mutate(across(-c(result_id,study,type,yi,vi), robvis:::clean_data))
 
     # Combine direction and type
     for (j in paste0("d",1:7)) {
@@ -117,7 +134,7 @@ rob_paired_direction <-
 
     syms <- c(ua = "?",
               up = "?",
-              tp = "<",
+              lp = "<",
               rp = ">",
               la = "\U2190",
               ra = "\U2192",
@@ -127,7 +144,7 @@ rob_paired_direction <-
               x = "")
 
     shapes <- c(c = 15,
-                s = 15,
+                h = 15,
                 m = 15,
                 l = 15,
                 n = 15,
@@ -143,17 +160,17 @@ rob_paired_direction <-
     ### set up forest plot (with 2x2 table counts added; the 'rows' argument is
     ### used to specify in which rows the outcomes will be plotted)
     metafor::forest(x = dat$yi,
-                    vi = dat$vi,
-#          sei = dat$sei,
+                    vi = vi,
+                    sei = sei,
            xlim=c(x_min, new_x_lim),
            atransf=exp,
-           slab = paste0("  ", dat$author, " ", dat$year),
+           slab = paste0("  ", dat$study),
            cex=1.2,
            ylim=c(-1.5, y_max),
            rows=rows,
            textpos = textpos,
-           mlab = "",
-           header="Author(s) and Year",
+           # mlab = "",
+           header="Studies",
            ...
 )
 
@@ -175,7 +192,7 @@ rob_paired_direction <-
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Add risk of bias data
 
-    headers <- c("D1", "D2", "D3", "D4", "D5","D6","D7", "O")
+    headers <- c("D1", "D2", "D3", "D4", "D5", "D6","D7", "O")
 
     par(font = 2)
     # Need to add handling of top here
@@ -189,7 +206,7 @@ rob_paired_direction <-
         x = rep(x_pos[j], length(rows)),
         y = rows,
         pch = shapes[dat[[paste0("d", j,"j")]]],
-        col = alpha(cols[dat[[paste0("d", j,"j")]]],0.6),
+        col = scales::alpha(cols[dat[[paste0("d", j,"j")]]],0.6),
         cex = rob_psize
       )
       graphics::text(x_pos[j], rows, syms[dat[[paste0("d", j,"d")]]], cex = tsize)
@@ -199,17 +216,22 @@ rob_paired_direction <-
       rep(x_overall_pos, length(rows)),
       rows,
       pch = 15,
-      col = alpha(cols[dat[["overall"]]],0.6),
+      col = scales::alpha(cols[dat[["overall"]]],0.6),
       cex = rob_psize
     )
     # graphics::text(x_overall_pos, rows, syms[dat[["overall"]]], cex = tsize)
     par(op)
 
+    # #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+    #
+
+
+
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Add sub-group, summary polygons & text
 
     rma_flexi <- function(x) {
-      rma(
+      metafor::rma(
         yi,
         vi,
         subset = (type == x),
@@ -230,15 +252,15 @@ rob_paired_direction <-
           next
         }
 
-        addpoly(
+        metafor::addpoly(
           res[[i]],
-          fonts = 4,
+          #fonts = 1,
           row = dat_rob_vec$stats[i],
           cex = 1.2,
           textpos=textpos,
           atransf = exp,
           annotate = F,
-          mlab = mlabfun("RE Model for Subgroup", res[[i]])
+          mlab = mlabfun(label_subgroup_summary, res[[i]])
         )
 
         annotate_poly(res[[i]]$b,
@@ -326,17 +348,24 @@ rob_paired_direction <-
       y.intersp = 0.7
     )
 
+
   }
 
 
+
+# Helper functions
+
 mlabfun <- function(text, res) {
+
   list(bquote(paste(.(text),
                     " (",
                     # " Q = ", .(formatC(res$QE, digits=2, format="f")),
                     # ", df = ", .(res$k - res$p),
                     "p ", .(metafor:::.pval(res$pval, digits=2, showeq=TRUE, sep=" ")), "; ",
                     I^2, " = ", .(formatC(res$I2, digits=1, format="f")), "%, ",
-                    tau^2, " = ", .(formatC(res$tau2, digits=2, format="f")), ")")))}
+                    tau^2, " = ", .(formatC(res$tau2, digits=2, format="f")), ")")))
+
+  }
 
 
 
@@ -420,33 +449,3 @@ annotate_poly <- function(yi, ci.lb, ci.ub, atransf = exp, textpos = 2, width, r
 
 }
 
-add_subgroup <- function(res, row, method = "RE"){
-
-  addpoly(
-    res,
-    fonts = 4,
-    row = row,
-    cex = 1,
-    textpos = -4,
-    atransf = exp,
-    annotate = F,
-    mlab = mlabfun(paste(method,"Model for lipid fraction"), res)
-  )
-
-  annotate_poly(res["b"],
-                res["ci.lb"],
-                res["ci.ub"],
-                rows = row,
-                textpos = 2.25,
-                cex = 1)
-}
-
-rma_flexi <- function(x,method = "DL") {
-  rma(
-    yi,
-    sei = sei,
-    subset = (term == x),
-    data = main_effects,
-    method = method
-  )
-}

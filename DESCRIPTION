@@ -25,7 +25,7 @@ Description: Helps users in quickly visualizing risk-of-bias
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Depends:
   R (>= 3.6)
 Imports:
