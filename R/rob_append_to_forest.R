@@ -26,12 +26,12 @@
 
 rob_append_to_forest <-
   function(res,
-           rob_data,
            rob_tool = "ROB2",
            rob_colour = "cochrane",
            rob_psize = 2,
-           rob_caption = TRUE,
+           rob_caption = FALSE,
            rob_legend = TRUE,
+           legend_cex = 0.9,
            ...) {
 
     rob_colour <- rob_colour
@@ -45,6 +45,9 @@ rob_append_to_forest <-
     # Check that the specified tool is supported
     check_tool(rob_tool, forest = TRUE)
 
+    rob_data <- dplyr::select(res$data,dplyr::matches("^[Dd].$|[Oo]verall")) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), clean_data))
+
     # Check the data supplied is okay
     check_data(rob_data)
 
@@ -56,16 +59,18 @@ rob_append_to_forest <-
 
     colnames(rob_data) <- stringr::str_to_lower(colnames(rob_data))
 
-    if (!all(res$slab %in% rob_data$study)) {
-      stop("Mismatched names between the \"meta\" object and the risk of bias dataset")
-    }
+    # if (!all(res$slab %in% rob_data$study)) {
+    #   stop("Mismatched names between the \"meta\" object and the risk of bias dataset")
+    # }
 
     # Clean data
     max_domain_column <- ifelse(rob_tool == "ROB2",7,9)
 
-    rob_data <-
-      cbind(rob_data[, 1], data.frame(lapply(rob_data[, 2:max_domain_column], clean_data),
-                                 stringsAsFactors = F))
+    # rob_data <-
+    #   cbind(rob_data[, 1], data.frame(lapply(rob_data[, 2:max_domain_column], clean_data),
+    #                              stringsAsFactors = F))
+
+
 
 
     # Get and expand original x limits to allow for ROB plot ====
@@ -135,7 +140,7 @@ rob_append_to_forest <-
 
     tsize <- rob_psize * 0.3
 
-    # Clean arguments being passed to
+    # Clean arguments being passed to ----
     # Remove arguments being defined within this function from the .. argument
     a <- list(...)
     a$xlim <- NULL
@@ -177,7 +182,10 @@ rob_append_to_forest <-
     # Set plotting values
     graphics::par(cex = rob_cex, font = 2)
 
-    # Pass all arguments to forest(), removing those that this function defines
+
+
+
+    # Pass all arguments to forest(), removing those that this function defines ----
     do.call(metafor::forest, c(list(
       x = res,
       xlim = c(t$xlim[1], new_x_lim),
@@ -241,8 +249,8 @@ rob_append_to_forest <-
         xpd = TRUE,
         title = parse(text = "bold(\"Judgement\")"),
         title.adj = 0.1,
-        cex = .7,
-        pt.cex = .7,
+        cex = legend_cex,
+        pt.cex = legend_cex-.1,
         y.intersp = 0.7
       )
 

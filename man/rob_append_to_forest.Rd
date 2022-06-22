@@ -6,19 +6,17 @@
 \usage{
 rob_append_to_forest(
   res,
-  rob_data,
   rob_tool = "ROB2",
   rob_colour = "cochrane",
   rob_psize = 2,
-  rob_caption = TRUE,
+  rob_caption = FALSE,
   rob_legend = TRUE,
+  legend_cex = 0.9,
   ...
 )
 }
 \arguments{
 \item{res}{Output from metafor meta-analysis function}
-
-\item{rob_data}{Risk of bias dataset in standard robvis format}
 
 \item{rob_tool}{The risk-of-bias assessment tool used to perform the
 assessments}
@@ -36,6 +34,8 @@ plot should be shown. Default is TRUE.}
 
 \item{...}{Additional arguments to be passed to the metafor::forest()
 function}
+
+\item{rob_data}{Risk of bias dataset in standard robvis format}
 }
 \description{
 A wrapper for metafor::forest function, which adds a risk of
