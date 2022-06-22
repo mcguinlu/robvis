@@ -1,66 +1,79 @@
-context("Check Blobbograms")
+# Set-up ----
 
 # Perform meta-analysis
-  dat.bcg <- metadat::dat.bcg
+dat.bcg <- metadat::dat.bcg
 
-  dat <-
-    metafor::escalc(
-      measure = "RR",
-      ai = tpos,
-      bi = tneg,
-      ci = cpos,
-      di = cneg,
-      data = dat.bcg,
-      slab = paste(author, year, sep = ", ")
-    )
+dat <-
+  metafor::escalc(
+    measure = "RR",
+    ai = tpos,
+    bi = tneg,
+    ci = cpos,
+    di = cneg,
+    data = dat.bcg,
+    slab = paste(author, year, sep = ", ")
+  ) %>%
+  dplyr::mutate(Study = paste(author, year))
 
-  res <- metafor::rma(yi, vi, data = dat)
 
-# Define new SVG writing function
-  # svglite can't handle saving the output of metafor::forest, as it is >1 page
-  # This new function wraps the svg() file saving function, and orders the
-  # arguments so that it can be used as the writer argument of
-  # vdiffr::expect_doppleganger()
-  svg_ordered <- function(fig, testcase, title = ""){
-    grDevices::svg(filename = testcase, width = 10, height = 7)
-    fig
-    grDevices::dev.off()
-  }
+# Prep bias datasets
+dat.rob2 <- rbind(data_rob2, data_rob2[1:4, ])
+dat.rob2$Study <- paste(dat$author, dat$year)
+dat.rob2 <- dplyr::left_join(dat, dat.rob2, by=c("Study" = "Study"))
+res.rob2 <- metafor::rma(yi, vi, data = dat.rob2, slab = paste(author, year))
 
-# Check basic resulting figures ----
+dat.robins <- rbind(data_robins, data_robins[1, ])
+dat.robins$Study <- paste(dat$author, dat$year)
+dat.robins <- dplyr::left_join(dat, dat.robins, by=c("Study" = "Study"))
+res.robins <- metafor::rma(yi, vi, data = dat.robins, slab = paste(author, year))
 
-  # ROB2
-  dat.rob2 <- rbind(data_rob2, data_rob2[1:4,])
-  dat.rob2$Study <- paste(dat$author,dat$year)
+# Tests ----
 
-  dat.robins <- rbind(data_robins, data_robins[1,])
-  dat.robins$Study <- paste(dat$author,dat$year)
+# test_that("ROB - Append forest - Errors", {
+#   vector <- c()
+#
+#   expect_error(rob_append_to_forest(vector, dat.rob2))
+#
+#   dat.rob.misnamed <- dat.rob2
+#   dat.rob.misnamed[3, 1] <- "Blarg"
+#
+#   expect_error(rob_append_to_forest(res, dat.rob.misnamed))
+# })
+#
+# test_that("ROB - Append ROB2 - Message?", {
+#   skip_on_cran()
+#
+#   expect_message(rob_append_to_forest(res,
+#                                       dat.rob2,
+#                                       rob_caption = TRUE), )
+#
+#   dev.off()
+#
+# })
 
-  test_that("ROB - Append forest - Errors", {
+testthat::local_edition(3)
 
-    vector <- c()
+save_png <- function(code,
+                     width = 1200,
+                     height = 800) {
+  path <- tempfile(fileext = ".png")
+  png(path, width = width, height = height)
+  on.exit(dev.off())
+  code
 
-    expect_error(rob_append_to_forest(vector, dat.rob2))
+  return(path)
+}
 
-    dat.rob.misnamed <- dat.rob2
-    dat.rob.misnamed[3,1] <- "Blarg"
+test_that("Check paired plots", {
+  expect_snapshot_file(save_png({
+    rob_append_to_forest(res.rob2)
 
-    expect_error(rob_append_to_forest(res, dat.rob.misnamed))
-  })
+  }), "paired_rob2.png")
 
-  test_that("ROB - Append ROB2 - Drawn?",{
 
-    expect_equivalent(TRUE, TRUE) # avoid 'Empty test' message
-
-    skip_on_cran()
-
-    rob_append_to_forest(res,
-                         dat.rob2,
-                         rob_caption = FALSE)
-
+  expect_snapshot_file(save_png({
     rob_append_to_forest(
-      res,
-      dat.rob2,
+      res.rob2,
       atransf = exp,
       xlim = c(-16, 7),
       at = log(c(.05, .25, 1, 4)),
@@ -68,42 +81,39 @@ context("Check Blobbograms")
                    dat.bcg$tneg,
                    dat.bcg$cpos,
                    dat.bcg$cneg),
-      ilab.xpos = c(-9.5,-8,-6,-4.5),
+      ilab.xpos = c(-9.5, -8, -6, -4.5),
       header = "Author(s) and Year",
       textpos = c(-16, 6),
       cex = 1,
       mlab = paste0(
         "RE Model (Q=",
-        formatC(res$QE, digits = 2, format =
+        formatC(res.rob2$QE, digits = 2, format =
                   "f"),
         ", df=",
-        res$k - res$p,
+        res.rob2$k - res.rob2$p,
         ", p=",
-        formatC(res$QEp, digits = 2, format = "f"),
+        formatC(res.rob2$QEp, digits = 2, format = "f"),
         ";  I^2=",
-        formatC(res$I2, digits = 1, format =
+        formatC(res.rob2$I2, digits = 1, format =
                   "f"),
         "%)"
       ),
       rob_caption = FALSE
     )
-  })
+  }), "paired_rob2_complex.png")
 
 
-  test_that("ROB - Append ROBINS-I - Drawn?",{
 
-    expect_equivalent(TRUE, TRUE) # avoid 'Empty test' message
+  expect_snapshot_file(save_png({
+    rob_append_to_forest(res.robins,
+                         rob_tool = "ROBINS-I")
 
-    skip_on_cran()
+  }), "paired_robinsi.png")
 
-    rob_append_to_forest(res,
-                         dat.robins,
-                         rob_tool = "ROBINS-I",
-                         rob_caption = FALSE)
 
+  expect_snapshot_file(save_png({
     rob_append_to_forest(
-      res,
-      dat.robins,
+      res.robins,
       rob_tool = "ROBINS-I",
       atransf = exp,
       xlim = c(-16, 7),
@@ -112,47 +122,25 @@ context("Check Blobbograms")
                    dat.bcg$tneg,
                    dat.bcg$cpos,
                    dat.bcg$cneg),
-      ilab.xpos = c(-9.5,-8,-6,-4.5),
+      ilab.xpos = c(-9.5, -8, -6, -4.5),
       header = "Author(s) and Year",
       textpos = c(-16, 6),
       cex = 1,
       mlab = paste0(
         "RE Model (Q=",
-        formatC(res$QE, digits = 2, format =
+        formatC(res.robins$QE, digits = 2, format =
                   "f"),
         ", df=",
-        res$k - res$p,
+        res.robins$k - res.robins$p,
         ", p=",
-        formatC(res$QEp, digits = 2, format = "f"),
+        formatC(res.robins$QEp, digits = 2, format = "f"),
         ";  I^2=",
-        formatC(res$I2, digits = 1, format =
+        formatC(res.robins$I2, digits = 1, format =
                   "f"),
         "%)"
       ),
       rob_caption = FALSE
     )
-  })
+  }), "paired_robinsi_complex.png")
 
-
-  test_that("ROB - Append ROB2 - Message?",{
-
-    skip_on_cran()
-
-    expect_message(rob_append_to_forest(res,
-                         dat.rob2,
-                         rob_caption = TRUE))
-
-
-  })
-
-# Tests
-
-# png("test.png", width = 2000,height = 1200,res = 200)
-#
-# rob_append_to_forest(res,
-#                      dat.robins,
-#                      rob_tool = "ROBINS-I",
-#                      rob_caption = FALSE)
-#
-# dev.off()
-
+})
