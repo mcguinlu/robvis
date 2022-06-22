@@ -42,9 +42,9 @@ rob_paired_direction <-
 
 
     dat <- dat %>%
-      mutate(type = factor(type, levels = type_levels)) %>%
-      mutate(overall = factor(overall, levels = rob_levels)) %>%
-      arrange(type, overall, desc(study))
+      dplyr::mutate(type = factor(type, levels = type_levels)) %>%
+      dplyr::mutate(overall = factor(overall, levels = rob_levels)) %>%
+      dplyr::arrange(type, overall, desc(study))
 
     dat[is.na(dat)] <- "None"
 
@@ -54,18 +54,18 @@ rob_paired_direction <-
     offset_n <- 3
 
     dat_rob_vec <- dat %>%
-      mutate(row_n = 1:n()) %>%
-      group_by(type) %>%
-      summarise(n=n(),max = max(row_n), min = min(row_n)) %>%
-      mutate(offset = seq(1,length(unique(.$type))*offset_n,by=offset_n)) %>%
-      mutate(min = min+offset, max =max+offset, heading = max+1, stats = min-1.25) %>%
-      mutate(min = ifelse(n==1,min-1,min),
+      dplyr::mutate(row_n = 1:dplyr::n()) %>%
+      dplyr::group_by(type) %>%
+      dplyr::summarise(n=dplyr::n(),max = max(row_n), min = min(row_n)) %>%
+      dplyr::mutate(offset = seq(1,length(unique(.$type))*offset_n,by=offset_n)) %>%
+      dplyr::mutate(min = min+offset, max =max+offset, heading = max+1, stats = min-1.25) %>%
+      dplyr::mutate(min = ifelse(n==1,min-1,min),
              max = ifelse(n==1,max-1,max),
              heading = ifelse(n==1,heading-1,heading))
 
     if (length(unique(dat$type))==1) {
       dat_rob_vec <- dat_rob_vec %>%
-        mutate(across(c(min, max, heading),~.-1))
+        dplyr::mutate(dplyr::across(c(min, max, heading),~.-1))
     }
 
     rows <- c()
@@ -98,7 +98,7 @@ rob_paired_direction <-
     # Deal with adding rob data
 
     dat <- dat %>%
-      mutate(across(-c(result_id,study,type,yi,vi), robvis:::clean_data))
+      dplyr::mutate(dplyr::across(-c(result_id,study,type,yi,vi), clean_data))
 
     # Combine direction and type
     for (j in paste0("d",1:7)) {
@@ -119,7 +119,7 @@ rob_paired_direction <-
     # New right-hand x-axis limit
     new_x_lim <- x_overall_pos + .5
 
-    rob_colours <- robvis:::get_colour("ROBINS-I", "cochrane")
+    rob_colours <- get_colour("ROBINS-I", "cochrane")
 
     judgements<-   c(  "High risk of bias",
                        "Moderate risk of bias",
