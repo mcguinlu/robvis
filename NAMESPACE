@@ -2,6 +2,7 @@
 
 export(rob_append_to_forest)
 export(rob_append_weights)
+export(rob_dummy)
 export(rob_paired_direction)
 export(rob_save)
 export(rob_summary)
