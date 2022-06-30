@@ -1,14 +1,34 @@
+get_judgements <- function(tool){
+  # TODO Need to double check the options for each tool
 
+  if (tool == "ROB2") {
+    values = c("High", "Some concerns", "Low", "No information")
+  }
 
-#' Title
-#'
-#' @param data
-#' @param max_domain_column
-#' @param overall
-#' @param type
-#' @param weight
-#'
-#' @keywords internal
+  if (tool == "ROB2-Cluster") {
+    values = c("High", "Some concerns", "Low", "No information", "Not applicable")
+  }
+
+  if (tool == "ROBINS-I") {
+    values = c("Critical",
+               "Serious",
+               "Moderate",
+               "Low",
+               "No information")
+  }
+
+  if (tool == "QUADAS-2") {
+    values = c("High", "Some concerns", "Low", "No information")
+
+  }
+
+  if (tool == "Generic") {
+    values = c("High", "Unclear","Some concerns", "Moderate", "Low", "No information", "Not applicable")
+  }
+
+  return(values)
+}
+
 check_cols <- function(data,
                        max_domain_column,
                        overall,
@@ -88,15 +108,6 @@ check_cols <- function(data,
   }
 
 
-#' Title
-#'
-#' @param data
-#' @param max_domain_column
-#' @param domain_names
-#' @param overall
-#' @param levels
-#'
-#' @keywords internal
 tidy_data <- function(data,
                       max_domain_column,
                       domain_names,
@@ -535,7 +546,6 @@ check_extension <- function(file){
                 " \".tiff\", and \".eps\". "))
   }
 }
-
 
 clean_data <- function(col) {
   col <- gsub("\\b(\\pL)\\pL{1,}|.", "\\U\\1", col, perl = TRUE)

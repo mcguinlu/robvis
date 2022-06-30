@@ -18,7 +18,7 @@ test_that("Test basic bias direction plots",{
 
   expect_snapshot_file(save_png({
 
-      rob_paired_direction(dat, vi = dat$vi)
+      rob_direction(dat, vi = dat$vi)
 
   }), "paried_basic.png")
 
