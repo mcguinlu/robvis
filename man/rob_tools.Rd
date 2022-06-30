@@ -20,6 +20,7 @@ rob_tools()
 \seealso{
 Other helper: 
 \code{\link{rob_append_weights}()},
+\code{\link{rob_dummy}()},
 \code{\link{rob_save}()}
 }
 \concept{helper}

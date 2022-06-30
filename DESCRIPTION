@@ -36,15 +36,16 @@ Imports:
     metafor (>= 2.4),
     ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
-    rlang (>= 0.4.9),
     stringr (>= 1.4.0),
     grDevices,
-    metadat
+    magrittr
 Suggests:
+    metadat,
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),
     testthat (>= 2.3.0),
+    triangulate (>= 0.0.1),
     spelling (>= 2.2)
 VignetteBuilder: 
     knitr, 
@@ -52,3 +53,5 @@ VignetteBuilder:
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Remotes: 
+    mcguinlu/triangulate
