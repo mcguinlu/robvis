@@ -21,6 +21,10 @@ rob_forest(
 \item{rob_tool}{The risk-of-bias assessment tool used to perform the
 assessments}
 
+\item{rob_me}{Optional value defining the result of the Risk-Of-Bias due to
+Missing Evidence (ROB-ME) assessment for this synthesis. By default (rob_me
+= NULL), this is omitted from the plot.}
+
 \item{rob_levels}{Vector of judgments [e.g. c("Low","Some
 concerns","High","Critical")] that controls the ordering of subgroups
 within the plot}

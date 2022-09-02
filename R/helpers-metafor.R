@@ -2,7 +2,7 @@
 # The functions contained in this file were written by Wolfgang Viechtbauer as
 # part of his {metafor} (https://www.metafor-project.org/doku.php) package.
 
-# As rob_append_to_forest() builds on the metafor::forest() function, there were
+# As rob_forest() builds on the metafor::forest() function, there were
 # some internal {metafor} functions needed to properly render the plot.
 
 ############################################################################
@@ -25,7 +25,7 @@ mlabfun <- function(text, res) {
                     " (",
                     # " Q = ", .(formatC(res$QE, digits=2, format="f")),
                     # ", df = ", .(res$k - res$p),
-                    "p ", .(metafor:::.pval(res$pval, digits=2, showeq=TRUE, sep=" ")), "; ",
+                    "p ", .(.pval(res$pval, digits=2, showeq=TRUE, sep=" ")), "; ",
                     I^2, " = ", .(formatC(res$I2, digits=1, format="f")), "%, ",
                     tau^2, " = ", .(formatC(res$tau2, digits=2, format="f")), ")")))
 
@@ -64,7 +64,7 @@ annotate_poly <- function(yi, ci.lb, ci.ub, atransf = exp, textpos = 2, width, r
 
   annotext <- cbind(annotext[,1], " [", annotext[,2], ", ", annotext[,3], "]")
   annotext <- apply(annotext, 1, paste, collapse="")
-  text(x=textpos, rows, labels=annotext, pos=2, cex=cex)
+  graphics::text(x=textpos, rows, labels=annotext, pos=2, cex=cex)
 
 }
 

@@ -9,6 +9,9 @@
 #' @param res Output from metafor meta-analysis function
 #' @param rob_tool The risk-of-bias assessment tool used to perform the
 #'   assessments
+#' @param rob_me Optional value defining the result of the Risk-Of-Bias due to
+#'   Missing Evidence (ROB-ME) assessment for this synthesis. By default (rob_me
+#'   = NULL), this is omitted from the plot.
 #' @param rob_levels Vector of judgments [e.g. c("Low","Some
 #'   concerns","High","Critical")] that controls the ordering of subgroups
 #'   within the plot
@@ -89,7 +92,7 @@ rob_forest <-
         dplyr::mutate(dplyr::across(c(min, max, heading),~.-1))
     }
 
-    res <- update(res, data = dat)
+    res <- stats::update(res, data = dat)
 
     rows <- c()
 
@@ -136,7 +139,7 @@ rob_forest <-
     # New right-hand x-axis limit
     new_x_lim <- x_overall_pos + .5
 
-    rob_colours <- robvis:::get_colour(rob_tool, "cochrane")
+    rob_colours <- get_colour(rob_tool, "cochrane")
 
     if (rob_tool %in% c("ROB2", "QUADAS-2")) {
       judgements<-   c("High risk of bias",
@@ -215,39 +218,39 @@ rob_forest <-
 
     if (any(grepl("\\*", dat$year))) {
       dat <- dat %>%
-        mutate(measure = case_when(grepl("\\*", year) ~ "OR",
+        dplyr::mutate(measure = dplyr::case_when(grepl("\\*", year) ~ "OR",
                                    T ~ "HR"))
 
       graphics::text(rep(-2.25,length(rows)), rows, dat$measure, cex = 1.2 )
 
-      par(font = 2)
+      graphics::par(font = 2)
       graphics::text(-2.25, y_max - 1, labels = "Measure", cex=1.2)
     }
 
-    op <- par(font=2)
+    op <- graphics::par(font=2)
 
     ### switch to bold italic font
-    par(font=2)
+    graphics::par(font=2)
 
     ### add text for the subgroups
     for (i in 1:nrow(dat_rob_vec)) {
 
-      text(x_min, dat_rob_vec$heading[i], pos=4, dat_rob_vec$overall[i], cex = 1.2)
+      graphics::text(x_min, dat_rob_vec$heading[i], pos=4, dat_rob_vec$overall[i], cex = 1.2)
     }
 
     ### set par back to the original settings
-    par(op)
+    graphics::par(op)
 
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Add risk of bias data
 
     headers <- c(paste0("D",seq_len(max_domain_column-2)),"O")
 
-    par(font = 2)
+    graphics::par(font = 2)
     # Need to add handling of top here
     graphics::text(mean(header_row), y_max, labels = "Risk of Bias", cex=1.2)
     graphics::text(header_row, y_max-2 + 1, labels = headers, cex=1.2)
-    par(op)
+    graphics::par(op)
 
     # Plot domain points
     for (j in 1:length(x_pos)) {
@@ -270,12 +273,12 @@ rob_forest <-
       cex = rob_psize
     )
     graphics::text(x_overall_pos, rows, syms[dat[["overall"]]], cex = tsize)
-    par(op)
+    graphics::par(op)
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Add sub-group, summary polygons & text
 
     rma_flexi <- function(x) {
-        update(res,
+        stats::update(res,
           subset = (overall == x)
         )
       }
@@ -314,9 +317,9 @@ rob_forest <-
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     if(!is.null(title)){
-      par(font = 2)
-      text(x_min, y_max, pos=4, bquote(bold(underline(.(title)))), cex = 1.2)
-      par(op)
+      graphics::par(font = 2)
+      graphics::text(x_min, y_max, pos=4, bquote(bold(underline(.(title)))), cex = 1.2)
+      graphics::par(op)
     }
 
 
@@ -325,11 +328,11 @@ rob_forest <-
     if (length(unique(dat$overall))>1 && nrow(dat)>9) {
 
       # Fit meta-regression model to test for subgroup differences
-      subgroup_res <- update(res, mods = ~ overall, method = "DL")
+      subgroup_res <- stats::update(res, mods = ~ overall, method = "DL")
 
 
       ### add text for the test of subgroup differences
-      text(x_min,-1.8, pos = 4, cex = 1.2, bquote(
+      graphics::text(x_min,-1.8, pos = 4, cex = 1.2, bquote(
         paste(
           "Test for Subgroup Differences: ",
           Q[M],
@@ -350,9 +353,9 @@ rob_forest <-
 
     # Add missing evidence
     if (!is.null(rob_me)) {
-    rob_me <- robvis:::clean_data(rob_me)
+    rob_me <- clean_data(rob_me)
 
-    rob_me_colours <- robvis:::get_colour("ROB2", "cochrane")
+    rob_me_colours <- get_colour("ROB2", "cochrane")
 
     rob_me_cols <- c(
       h = rob_me_colours$high_colour,
@@ -369,7 +372,7 @@ rob_forest <-
                      x = ""
     )
 
-    text(x_pos[1]-.5,-1,pos=4,cex=1.2,"ROB Missing Evidence: ")
+    graphics::text(x_pos[1]-.5,-1,pos=4,cex=1.2,"ROB Missing Evidence: ")
 
 
     graphics::points(
@@ -390,7 +393,7 @@ rob_forest <-
         judgements,
         pch = 15,
         xjust = 0.5,
-        col = head(cols,-1),
+        col = utils::head(cols,-1),
         xpd = TRUE,
         title = parse(text = "bold(\"Judgement\")"),
         title.adj = 0.1,

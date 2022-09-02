@@ -32,15 +32,15 @@ Imports:
     ggplot2 (>= 3.3.0),
     tidyr (>= 1.0.0),
     scales (>= 1.1.0),
-    vdiffr (>= 0.3.3),
     metafor (>= 2.4),
     ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
     stringr (>= 1.4.0),
-    grDevices,
-    magrittr
+    magrittr,
+    purrr
 Suggests:
     metadat,
+    vdiffr (>= 0.3.3),
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),

@@ -11,7 +11,7 @@ rob_direction(
   title = NULL,
   legend_cex = 0.9,
   grouping = "type",
-  type_levels = c("MR", "NRSI", "NRSE", "RCT"),
+  grouping_levels = c("MR", "NRSI", "NRSE", "RCT"),
   label_subgroup_summary = "RE Model for Subgroup",
   ...
 )
@@ -27,16 +27,16 @@ rob_direction(
 
 \item{legend_cex}{Expansion factor for figure legend.}
 
-\item{type_levels}{Ordering of study types. Note: the types will be plotted
+\item{grouping}{Variable of the provided dataset by which the resulting plot will be stratified. Often will study design or overall risk-of-bias level.}
+
+\item{grouping_levels}{Ordering of grouping variable. Note: the levels will be plotted
 in order, starting at the bottom of the graph (i.e. the last item in the
-list will be placed at the top of the graph)}
+vector will be placed at the top of the graph)}
 
 \item{label_subgroup_summary}{Annotation text for subgroup label}
 
 \item{...}{Other arguments to pass to metafor::forest}
-
-\item{rob_levels}{For advanced usage,}
 }
 \description{
-Used to su
+Used to
 }

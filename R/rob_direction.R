@@ -1,23 +1,24 @@
 # TODO add argument that prevents subgroup summary estimates - in this case, each subgroup will need to be one row closer to each other
+# TODO Finish description of function
 
 #' Bias direction plots
 #'
-#' @description Used to su
+#' @description Used to
 #'
 #' @param dat Dataframe
 #' @param vi Vector containing the sampling variances (normally defined as the column within the dataset, i.e. dat$vi). Note: either vi or sei must be set.
 #' @param sei Vector containing the corresponding standard errors (normally defined as the column within the dataset, i.e. dat$sei). Note: either vi or sei must be set.
 #' @param title Graph title
 #' @param legend_cex Expansion factor for figure legend.
-#' @param rob_levels For advanced usage,
-#' @param type_levels Ordering of study types. Note: the types will be plotted
+#' @param grouping Variable of the provided dataset by which the resulting plot will be stratified. Often will study design or overall risk-of-bias level.
+#' @param grouping_levels Ordering of grouping variable. Note: the levels will be plotted
 #'   in order, starting at the bottom of the graph (i.e. the last item in the
-#'   list will be placed at the top of the graph)
+#'   vector will be placed at the top of the graph)
 #' @param label_subgroup_summary Annotation text for subgroup label
 #' @param ... Other arguments to pass to metafor::forest
 #'
 #' @export
-#'
+
 rob_direction <-
   function(dat,
            vi = NULL,
@@ -25,7 +26,7 @@ rob_direction <-
            title = NULL,
            legend_cex = 0.9,
            grouping = "type",
-           type_levels = c("MR","NRSI","NRSE","RCT"),
+           grouping_levels = c("MR","NRSI","NRSE","RCT"),
            label_subgroup_summary = "RE Model for Subgroup",
            ...) {
 
@@ -44,9 +45,9 @@ rob_direction <-
     rob_levels = c("Low","Moderate","High","Critical")
 
     dat <- dat %>%
-        dplyr::mutate(type = factor(type, levels = type_levels)) %>%
+        dplyr::mutate(type = factor(type, levels = grouping_levels)) %>%
         dplyr::mutate(overall = factor(overall, levels = rob_levels)) %>%
-        dplyr::arrange(type, overall, desc(study))
+        dplyr::arrange(type, overall, dplyr::desc(study))
 
     dat[is.na(dat)] <- "None"
 
@@ -177,30 +178,30 @@ rob_direction <-
 )
 
     ### set font expansion factor (as in forest() above) and use a bold font
-    op <- par(font=2)
+    op <- graphics::par(font=2)
 
     ### switch to bold italic font
-    par(font=2)
+    graphics::par(font=2)
 
     ### add text for the subgroups
     for (i in 1:nrow(dat_rob_vec)) {
 
-      text(x_min, dat_rob_vec$heading[i], pos=4, dat_rob_vec$type[i], cex = 1.2)
+      graphics::text(x_min, dat_rob_vec$heading[i], pos=4, dat_rob_vec$type[i], cex = 1.2)
     }
 
     ### set par back to the original settings
-    par(op)
+    graphics::par(op)
 
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Add risk of bias data
 
     headers <- c("D1", "D2", "D3", "D4", "D5", "D6","D7", "O")
 
-    par(font = 2)
+    graphics::par(font = 2)
     # Need to add handling of top here
     graphics::text(mean(header_row), y_max, labels = "Risk of Bias", cex=1.2)
     graphics::text(header_row, y_max-2 + 1, labels = headers, cex=1.2)
-    par(op)
+    graphics::par(op)
 
     # Plot domain points
     for (j in 1:length(x_pos)) {
@@ -222,7 +223,7 @@ rob_direction <-
       cex = rob_psize
     )
     # graphics::text(x_overall_pos, rows, syms[dat[["overall"]]], cex = tsize)
-    par(op)
+    graphics::par(op)
 
     # #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     #
@@ -314,9 +315,9 @@ rob_direction <-
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     if(!is.null(title)){
-      par(font = 2)
-      text(x_min, y_max, pos=4, bquote(bold(underline(.(title)))), cex = 1.2)
-      par(op)
+      graphics::par(font = 2)
+      graphics::text(x_min, y_max, pos=4, bquote(bold(underline(.(title)))), cex = 1.2)
+      graphics::par(op)
     }
 
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
