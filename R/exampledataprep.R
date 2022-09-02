@@ -51,7 +51,7 @@
 
 
 
-# data_bias_direction_raw <-
+# data_bias_direction <-
 #     tidyr::as_tibble(read.csv(
 #       "data_raw/bias_direction.csv",
 #       stringsAsFactors = FALSE,
@@ -59,4 +59,4 @@
 #       fileEncoding = "latin1"
 #     )) %>%
 #   select(-c(X,X.1))
-# usethis::use_data(data_bias_direction_raw, overwrite = TRUE)
+# usethis::use_data(data_bias_direction, overwrite = TRUE)
