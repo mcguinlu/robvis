@@ -9,7 +9,7 @@ save_png <- function(code, width = 1200, height = 800) {
   return(path)
 }
 
-dat <- robvis::data_bias_direction_raw %>%
+dat <- data_bias_direction %>%
   triangulate::tri_to_long() %>%
   triangulate::tri_absolute_direction() %>%
   triangulate::tri_to_wide()
