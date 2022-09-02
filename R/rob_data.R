@@ -101,3 +101,40 @@
 #' @keywords internal
 
 "data_robins"
+
+# TODO Update data documentation for this dataframe
+
+#' @title DATASET_TITLE
+#' @description DATASET_DESCRIPTION
+#' @format A data frame with 20 rows and 27 variables:
+#' \describe{
+#'   \item{\code{result_id}}{integer COLUMN_DESCRIPTION}
+#'   \item{\code{study}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{type}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{yi}}{double COLUMN_DESCRIPTION}
+#'   \item{\code{vi}}{double COLUMN_DESCRIPTION}
+#'   \item{\code{d1j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d1t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d1d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d2j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d2t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d2d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d3j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d3t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d3d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d4j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d4t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d4d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d5j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d5t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d5d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d6j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d6t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d6d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d7j}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d7t}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{d7d}}{character COLUMN_DESCRIPTION}
+#'   \item{\code{overall}}{character COLUMN_DESCRIPTION}
+#'}
+#' @details DETAILS
+"data_bias_direction"
