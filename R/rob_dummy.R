@@ -24,8 +24,13 @@ rob_dummy <- function(n, tool = "ROB2", study = TRUE){
     ncol = 5
   }
 
-  if (tool %in% c("ROBINS-I","ROBINS-E")) {
-    prob = c(.025, .5, .5, 0.25, 0.025)
+  if (tool == "ROBINS-E") {
+    prob = c(.025, .45, .55, 0.25, 0.025)
+    ncol = 7
+  }
+
+  if (tool == "ROBINS-I") {
+    prob = c(.025, .55, .45, 0.25, 0.025)
     ncol = 7
   }
 
