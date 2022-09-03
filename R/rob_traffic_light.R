@@ -87,6 +87,16 @@ rob_traffic_light <-
       )
     }
 
+    if (tool == "ROBINS-E") {
+      plot <- rob_traffic_light_robinse(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize,
+        overall = overall
+      )
+    }
+
     if (tool == "QUADAS-2") {
       plot <- rob_traffic_light_quadas2(
         data = data,
@@ -375,6 +385,93 @@ rob_traffic_light_robinsi <- function(data,
         c = "Critical",
         s = "Serious",
         m = "Moderate",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      )
+    )
+
+  return(trafficlightplot)
+}
+
+
+# ROBINS-E======================================================================
+
+rob_traffic_light_robinse <- function(data,
+                                      tool,
+                                      rob_colours,
+                                      psize,
+                                      overall) {
+
+
+  max_domain_column <- 9
+  domain_names <-
+    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
+
+  rob.tidy <- tidy_data(data,
+                        max_domain_column = max_domain_column,
+                        domain_names = domain_names,
+                        overall = overall,
+                        levels = c("v", "h", "s", "l", "n", "x"))
+
+  ssize <- psize - (psize / 4)
+
+  adjust_caption <- get_caption_adjustment(rob.tidy)
+
+  trafficlightplot <- ggplot2::ggplot(rob.tidy,
+                                      ggplot2::aes(x = 1,
+                                                   y = 1,
+                                                   colour = judgement)) +
+    rob_tf_theme(rob.tidy,
+                 domain_names,
+                 psize,
+                 ssize,
+                 adjust_caption,
+                 overall) +
+    ggplot2::labs(
+      caption = "  Domains:
+  D1: Bias due to confounding.
+  D2: Bias arising from measurement of the exposure.
+  D3: Bias in selection of participants into the study (or into the analysis).
+  D4: Bias due to post-exposure interventions.
+  D5: Bias due to missing data.
+  D6: Bias arising from measurement of the outcome.
+  D7: Bias in selection of the reported result.
+
+
+                  "
+    ) +
+    ggplot2::scale_colour_manual(
+      values = c(
+        v = rob_colours$critical_colour,
+        h = rob_colours$high_colour,
+        s = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      ),
+      labels = c(
+        v = "Very high",
+        h = "High",
+        s = "Some concerns",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      )
+    ) +
+    ggplot2::scale_shape_manual(
+      values = c(
+        v = 33,
+        h = 120,
+        s = 45,
+        l = 43,
+        n = 63,
+        x = 32
+      ),
+      labels = c(
+        v = "Very high",
+        h = "High",
+        s = "Some concerns",
         l = "Low",
         n = "No information",
         x = "Not applicable"
