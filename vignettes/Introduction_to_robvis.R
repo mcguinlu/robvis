@@ -24,7 +24,7 @@ knitr::kable(data_rob2)
 rob_summary(data_rob2, tool = "ROB2")
 
 ## -----------------------------------------------------------------------------
-rob_summary(data_robins, tool = "ROBINS-I")
+rob_summary(data_robins_i, tool = "ROBINS-I")
 
 ## -----------------------------------------------------------------------------
 rob_summary(data_quadas, tool = "QUADAS-2")
@@ -51,7 +51,7 @@ rob_summary(data = data_rob2, tool = "ROB2", colour = c("#f442c8","#bef441","#00
 rob_traffic_light(data_rob2, tool = "ROB2")
 
 ## ---- fig.width = 7.5, fig.height = 10.5, fig.align="center"------------------
-rob_traffic_light(data_robins, tool = "ROBINS-I")
+rob_traffic_light(data_robins_i, tool = "ROBINS-I")
 
 ## ---- fig.width = 7.5, fig.height = 10.5, fig.align="center"------------------
 rob_traffic_light(data_quadas, tool = "QUADAS-2")

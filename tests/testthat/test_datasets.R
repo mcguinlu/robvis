@@ -1,5 +1,3 @@
-context("Check included datasets")
-
 # For all 4 datasets
 
 # Dimensions
@@ -13,9 +11,14 @@ test_that("Data dimensions correct - data_rob1", {
   expect_equal(nrow(data_rob1), 9)
 })
 
-test_that("Data dimensions correct - data_robins", {
-  expect_equal(ncol(data_robins), 9)
-  expect_equal(nrow(data_robins), 12)
+test_that("Data dimensions correct - data_robins_i", {
+  expect_equal(ncol(data_robins_i), 9)
+  expect_equal(nrow(data_robins_i), 10)
+})
+
+test_that("Data dimensions correct - data_robins_e", {
+  expect_equal(ncol(data_robins_e), 9)
+  expect_equal(nrow(data_robins_e), 10)
 })
 
 test_that("Data dimensions correct - data_quadas", {

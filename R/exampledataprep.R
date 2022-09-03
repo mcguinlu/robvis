@@ -20,9 +20,16 @@
 #     header = TRUE,
 #     fileEncoding = "latin1"
 #   ))
-# data_robins <-
+# data_robins_i <-
 #   tidyr::as_tibble(read.csv(
-#     "data_raw/data_robins.csv",
+#     "data_raw/data_robins_i.csv",
+#     stringsAsFactors = FALSE,
+#     header = TRUE,
+#     fileEncoding = "latin1"
+#   ))
+# data_robins_e <-
+#   tidyr::as_tibble(read.csv(
+#     "data_raw/data_robins_e.csv",
 #     stringsAsFactors = FALSE,
 #     header = TRUE,
 #     fileEncoding = "latin1"
@@ -46,7 +53,8 @@
 # usethis::use_data(data_rob2, overwrite = TRUE)
 # usethis::use_data(data_rob2_cluster, overwrite = TRUE)
 # usethis::use_data(data_quadas, overwrite = TRUE)
-# usethis::use_data(data_robins, overwrite = TRUE)
+# usethis::use_data(data_robins_i, overwrite = TRUE)
+# usethis::use_data(data_robins_e, overwrite = TRUE)
 # usethis::use_data(data_quips, overwrite = TRUE)
 
 

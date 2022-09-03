@@ -13,7 +13,7 @@ As part of a major overhaul of the code in order to improve maintainability and 
   
 
 * Major updates
-  * Two new functions for working with the output of `metafor` meta-analyses have been added. `rob_append_weights()` extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. `rob_append_to_forest()` adds a traffic-light plot to the right hand side of the standard `metafor::forest()` output. A vignette describing these two new functions has been added.
+  * Two new functions for working with the output of `metafor` meta-analyses have been added.  `rob_forest()` adds a traffic-light plot to the right hand side of the standard `metafor::forest()` output. `rob_append_weights()` extracts the weights assigned to each study in the meta-analysis and appends them to the risk of bias dataset. A vignette describing these two new functions has been added.
   * A template for the QUIPS tool (prognostic studies) has been added.
   * The "Generic" template now allows for additional customisation, including control over all text in the resulting figure.
   * A new function, `rob_save()`, has been added, which uses data-driven defaults for figure height and width when saving to a file.

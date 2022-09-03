@@ -33,14 +33,13 @@ Imports:
     tidyr (>= 1.0.0),
     scales (>= 1.1.0),
     metafor (>= 2.4),
-    ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
     stringr (>= 1.4.0),
+    grDevices,
     magrittr,
     purrr
 Suggests:
     metadat,
-    vdiffr (>= 0.3.3),
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),
@@ -50,6 +49,7 @@ Suggests:
 VignetteBuilder: 
     knitr, 
     rmarkdown
+Config/testthat/edition: 3
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US

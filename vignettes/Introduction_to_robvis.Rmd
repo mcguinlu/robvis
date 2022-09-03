@@ -90,7 +90,7 @@ rob_summary(data_rob2, tool = "ROB2")
 
 ### ROBINS-I tool for non-randomized studies of interventions
 ```{r}
-rob_summary(data_robins, tool = "ROBINS-I")
+rob_summary(data_robins_i, tool = "ROBINS-I")
 ```
 
 ### QUADAS-2 tool for diagnostic test accuracy studies
@@ -158,7 +158,7 @@ rob_traffic_light(data_rob2, tool = "ROB2")
 
 ### ROBINS-I tool for non-randomized studies of interventions
 ```{r, fig.width = 7.5, fig.height = 10.5, fig.align="center"}
-rob_traffic_light(data_robins, tool = "ROBINS-I")
+rob_traffic_light(data_robins_i, tool = "ROBINS-I")
 ```
 
 ### QUADAS-2 tool for diagnostic test accuracy studies

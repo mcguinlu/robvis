@@ -79,14 +79,16 @@ res
 Having performed the meta-analysis, you can now append a risk-of-bias traffic-light plot onto the standard output from `metafor::forest()` by simply passing the results object (`res`) to `rob_forest()`:
 
 ```{r, fig.width=10}
-rob_forest(res)
+rob_forest(res, rob_tool = "ROB2")
 ```
 
 This function is designed to make it as easy as possible to substitute `rob_forest()` for `metafor::forest()`.
 
+## Risk of bias due to missing evidence 
+
 <!-- ### Extract and append weights -->
 
-<!-- Alternatively, you can extract the weights assigned to each study in the meta-analysis and append them to the risk-of-bias dataset. This weighted risk-of-bias dataset can then be passed to `rob_summary()` where the `weighted` argument is set to `TRUE` to produce summary plots which show the amount of statistical information, rather than the number of studies, that is at each level of risk of bias.  -->
+<!-- Alternatively, you can extract the weights assigned to each study in the meta-analysis and append them to the risk-of-bias dataset. This weighted risk-of-bias dataset can then be passed to `rob_summary()` where the `weighted` argument is set to `TRUE` to produce summary plots which show the amount of statistical information, rather than the number of studies, that is at each level of risk of bias. -->
 
 <!-- ```{r, out.height=400} -->
 <!-- # Extract the weights assigned to each study from the meta-analysis and append them to the risk-of-bias dataset -->

@@ -100,7 +100,26 @@
 #' @source {Created for this package}
 #' @keywords internal
 
-"data_robins"
+"data_robins_i"
+
+#' Example ROBINS-E assessment
+#'
+#' @format A data frame:
+#' \describe{
+#'   \item{Study}{Study details}
+#'   \item{D1}{Domain 1}
+#'   \item{D2}{Domain 2}
+#'   \item{D3}{Domain 3}
+#'   \item{D4}{Domain 4}
+#'   \item{D5}{Domain 5}
+#'   \item{D6}{Domain 6}
+#'   \item{D7}{Domain 7}
+#'   \item{Overall}{Overall risk of bias}
+#'          }
+#' @source {Created for this package}
+#' @keywords internal
+
+"data_robins_e"
 
 # TODO Update data documentation for this dataframe
 

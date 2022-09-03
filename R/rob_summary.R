@@ -75,6 +75,16 @@ rob_summary <- function(data,
     )
   }
 
+  if (tool == "ROBINS-E") {
+    plot <- rob_summary_robinse(
+      data = data,
+      tool = tool,
+      overall = overall,
+      weighted = weighted,
+      rob_colours = rob_colours
+    )
+  }
+
   if (tool == "QUADAS-2") {
     plot <- rob_summary_quadas2(
       data = data,
@@ -165,7 +175,9 @@ rob_summary_rob2 <- function(data,
         s = "  Some concerns   ",
         l = "  Low risk        ",
         x = "  N/A  "
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(plot)
@@ -207,21 +219,78 @@ rob_summary_robinsi <- function(data,
     rob_summ_theme(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       values = c(
-        n = rob_colours$ni_colour,
-        m = rob_colours$concerns_colour,
-        s = rob_colours$high_colour,
         l = rob_colours$low_colour,
+        x = rob_colours$na_colour,
+        n = rob_colours$ni_colour,
         c = rob_colours$critical_colour,
+        s = rob_colours$high_colour,
+        m = rob_colours$concerns_colour
+      ),
+      labels = c(
+        l = " Low risk  ",
+        m = " Moderate risk ",
+        s = " Serious risk  ",
+        c = " Critical risk  ",
+        n = " No information ",
+        x = " N/A "
+      ),
+      drop = TRUE,
+      limits = force
+    )
+
+  return(plot)
+}
+
+# ROBINS-E======================================================================
+
+rob_summary_robinse <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours) {
+
+  domain_names <- c("Study",
+                    "Bias due to confounding",
+                    "Bias arising from measurement of the exposure",
+                    "Bias in selection of participants into the study (or into the analysis)",
+                    "Bias due to post-exposure interventions",
+                    "Bias due to missing data",
+                    "Bias arising from measurement of the outcome",
+                    "Bias in selection of the reported result",
+                    "Overall risk of bias",
+                    "Weights")
+
+  max_domain_column <- 9
+
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x","n","v","h","s","l"))
+
+  plot <-
+    ggplot2::ggplot(data = rob.tidy) +
+    rob_summ_theme(overall, max_domain_column - 2) +
+    ggplot2::scale_fill_manual(
+      values = c(
+        n = rob_colours$ni_colour,
+        s = rob_colours$concerns_colour,
+        h = rob_colours$high_colour,
+        l = rob_colours$low_colour,
+        v = rob_colours$critical_colour,
         x = rob_colours$na_colour
       ),
       labels = c(
         n = " No information ",
-        c = " Critical risk  ",
-        s = " Serious risk  ",
-        m = " Moderate risk ",
+        v = " Very high risk ",
+        h = " High risk  ",
+        s = " Some concerns ",
         l = " Low risk  ",
         x = " N/A "
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(plot)
@@ -260,10 +329,10 @@ rob_summary_quadas2 <- function(data,
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
-        n = rob_colours$ni_colour,
-        h = rob_colours$high_colour,
-        s = rob_colours$concerns_colour,
         l = rob_colours$low_colour,
+        s = rob_colours$concerns_colour,
+        h = rob_colours$high_colour,
+        n = rob_colours$ni_colour,
         x = rob_colours$na_colour
       ),
       labels = c(
@@ -272,7 +341,9 @@ rob_summary_quadas2 <- function(data,
         s = "  Some concerns      ",
         l = "  Low risk of bias  ",
         x = "  N/A  "
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 }
 
@@ -323,7 +394,9 @@ rob_summary_quips <- function(data,
         m = "  Moderate risk of bias   ",
         l = "  Low risk of bias  ",
         x = "  N/A  "
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 }
 
@@ -427,7 +500,9 @@ rob_summary_generic <- function(data,
         c = rob_colours$critical_colour,
         n = rob_colours$ni_colour
       ),
-      labels = judgement_labels
+      labels = judgement_labels,
+      drop = TRUE,
+      limits = force
     )
 
   return(plot)

@@ -1,13 +1,13 @@
-"Study","D1","D2","D3","D4","Overall"
-"Study 1","Low","Low","Low","Low","Low"
-"Study 2","Some concerns","Low","Low","Low","Some concerns"
-"Study 3","Some concerns","Low","Some concerns","Low","Some concerns"
-"Study 4","Low","Low","High","Low","Some concerns"
-"Study 5","High","High","Low","Low","High"
-"Study 6","Low","High","Some concerns","Low","Low"
-"Study 7","Low","Some concerns","Some concerns","High","Low"
-"Study 8","Low","Some concerns","Low","Low","Low"
-"Study 9","Low","Low","High","Low","Some concerns"
-"Study 10","Some concerns","Low","Low","No information","High"
-"Study 11","Some concerns","High","Some concerns","Some concerns","Low"
-"Study 12","Low","Low","Low","Low","Low"
+Study,D1,D2,D3,D4,Overall
+Study 1,Low,Low,Low,Low,Low
+Study 2,Some concerns,Low,Low,Low,Some concerns
+Study 3,Some concerns,Low,Some concerns,Low,Some concerns
+Study 4,Low,Low,High,Low,High
+Study 5,High,High,Low,Low,High
+Study 6,Low,High,Some concerns,Low,High
+Study 7,Low,Some concerns,Some concerns,High,High
+Study 8,Low,Some concerns,Low,Low,Some concerns
+Study 9,Low,Low,High,Low,High
+Study 10,Some concerns,Low,Low,No information,Some concerns
+Study 11,Some concerns,High,Some concerns,Some concerns,Some concerns
+Study 12,Low,Low,Low,Low,Low

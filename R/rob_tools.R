@@ -14,11 +14,13 @@ rob_tools <- function(forest = FALSE) {
 
   if (forest) {
     tools <- c("ROB2",
-               "ROBINS-I")
+               "ROBINS-I",
+               "ROBINS-E")
   } else {
     tools <- c("ROB2",
                "ROB2-Cluster",
                "ROBINS-I",
+               "ROBINS-E",
                "QUADAS-2",
                "QUIPS",
                "Generic"

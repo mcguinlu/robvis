@@ -6,7 +6,11 @@ get_judgements <- function(tool){
   }
 
   if (tool == "ROB2-Cluster") {
-    values = c("High", "Some concerns", "Low", "No information", "Not applicable")
+    values = c("High",
+               "Some concerns",
+               "Low",
+               "No information",
+               "Not applicable")
   }
 
   if (tool == "ROBINS-I") {
@@ -17,13 +21,29 @@ get_judgements <- function(tool){
                "No information")
   }
 
+  if (tool == "ROBINS-E") {
+    values = c("Very high",
+               "High",
+               "Some concerns",
+               "Low",
+               "No information")
+  }
+
   if (tool == "QUADAS-2") {
     values = c("High", "Some concerns", "Low", "No information")
 
   }
 
   if (tool == "Generic") {
-    values = c("High", "Unclear","Some concerns", "Moderate", "Low", "No information", "Not applicable")
+    values = c(
+      "High",
+      "Unclear",
+      "Some concerns",
+      "Moderate",
+      "Low",
+      "No information",
+      "Not applicable"
+    )
   }
 
   return(values)
@@ -230,7 +250,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
       0,
       1
     )),
-      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)),
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = T)),
     ggplot2::scale_y_continuous(labels = scales::percent),
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(),
@@ -261,9 +281,9 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
 
   if (overall) {
     standard[["bold_overall"]] <-
-      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+      ggplot2::theme(axis.text.y = suppressWarnings(ggplot2::element_text(size = 10,
                                                             color = "black",
-                                                            face = c("bold", rep("plain",max_domain_column))))
+                                                            face = c("bold", rep("plain",max_domain_column)))))
   }
 
   return(standard)
@@ -553,4 +573,37 @@ clean_data <- function(col) {
   col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
   col <- substr(col, 0, 1)
   return(col)
+}
+
+# Used in testing ==============================================================
+save_png <- function(code, width = 1400, height = 800) {
+  path <- tempfile(fileext = ".png")
+  grDevices::png(path, width = width, height = height)
+  on.exit(grDevices::dev.off())
+  code
+
+  return(path)
+}
+
+get_res <- function(tool){
+
+  dat.bcg <-
+    cbind(metadat::dat.bcg, rob_dummy(13, tool, study = FALSE))
+
+  dat <-
+    metafor::escalc(
+      measure = "RR",
+      ai = tpos,
+      bi = tneg,
+      ci = cpos,
+      di = cneg,
+      data = dat.bcg,
+      slab = paste(author, year, sep = ", ")
+    ) %>%
+    dplyr::mutate(Study = paste(author, year))
+
+  # Prep bias datasets
+  res <- metafor::rma(yi, vi, data = dat, slab = paste(author, year))
+
+  return(res)
 }
