@@ -35,8 +35,7 @@ test_that("Check paired plots", {
       header = "Author(s) and Year",
       textpos = c(-16, 6),
       cex = 1,
-      mlab = "RE Model (Q=",
-      rob_caption = FALSE
+      mlab = "RE Model (Q="
     )
   }), "paired_rob2_complex.png")
 
@@ -55,8 +54,7 @@ test_that("Check paired plots", {
       header = "Author(s) and Year",
       textpos = c(-16, 6),
       cex = 1,
-      mlab = "RE Model (Q=",
-      rob_caption = FALSE
+      mlab = "RE Model (Q="
     )
   }), "paired_robinsi_complex.png")
 
