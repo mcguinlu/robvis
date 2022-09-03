@@ -28,5 +28,11 @@ globalVariables(c(
   "row_n",
   "study",
   "type",
-  "yi"
+  "yi",
+  "cneg",
+  "cpos",
+  "tneg",
+  "tpos",
+  "vi",
+  "year"
 ))
