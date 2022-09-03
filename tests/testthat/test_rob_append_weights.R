@@ -1,5 +1,3 @@
-context("Check weights appending")
-
 dat.bcg <- metadat::dat.bcg[c(1:9),]
 
 dat <-

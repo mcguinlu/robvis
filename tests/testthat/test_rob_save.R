@@ -1,5 +1,3 @@
-context("Check saving")
-
 rob_fig <- rob_traffic_light(data_rob2, "ROB2")
 
 rob_save(rob_fig,"test.png")

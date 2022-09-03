@@ -1,5 +1,3 @@
-context("Check error messages")
-
 # Tool must be specified
 test_that("No tool specified", {
   expect_error(rob_summary(data_rob2))

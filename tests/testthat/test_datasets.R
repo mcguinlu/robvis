@@ -1,5 +1,3 @@
-context("Check included datasets")
-
 # For all 4 datasets
 
 # Dimensions

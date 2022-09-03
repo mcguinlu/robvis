@@ -1,14 +1,3 @@
-testthat::local_edition(3)
-
-save_png <- function(code, width = 1200, height = 800) {
-  path <- tempfile(fileext = ".png")
-  png(path, width = width, height = height)
-  on.exit(dev.off())
-  code
-
-  return(path)
-}
-
 dat <- data_bias_direction %>%
   triangulate::tri_to_long() %>%
   triangulate::tri_absolute_direction() %>%

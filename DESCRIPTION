@@ -39,7 +39,6 @@ Imports:
     purrr
 Suggests:
     metadat,
-    vdiffr (>= 0.3.3),
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),
@@ -49,6 +48,7 @@ Suggests:
 VignetteBuilder: 
     knitr, 
     rmarkdown
+Config/testthat/edition: 3
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US

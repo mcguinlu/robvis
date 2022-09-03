@@ -250,7 +250,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
       0,
       1
     )),
-      ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE)),
+      ggplot2::guides(fill = ggplot2::guide_legend(reverse = T)),
     ggplot2::scale_y_continuous(labels = scales::percent),
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(),
@@ -573,4 +573,14 @@ clean_data <- function(col) {
   col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
   col <- substr(col, 0, 1)
   return(col)
+}
+
+# Used in testing
+save_png <- function(code, width = 1200, height = 800) {
+  path <- tempfile(fileext = ".png")
+  png(path, width = width, height = height)
+  on.exit(dev.off())
+  code
+
+  return(path)
 }
