@@ -47,13 +47,7 @@ rob_forest <-
 
 
     if (is.null(rob_levels)) {
-
-    if (rob_tool == "ROB2") {
-      rob_levels <- rev(c("Low","Some concerns","High","Critical"))
-    } else {
-      rob_levels <- rev(c("Low","Moderate","Serious","Critical"))
-    }
-
+      rob_levels <- get_judgements(rob_tool)
     }
 
     colnames(res$data) <- stringr::str_to_lower(colnames(res$data))
@@ -114,10 +108,11 @@ rob_forest <-
       x_min = -10
     } else {
       x_min <- arg$x_min
+      arg$x_min <- NULL
     }
 
     x_max = 4.6 - log(3) + x_adj
-    textpos <- c(x_min, x_max-1)
+    textpos <- c(x_min, x_max-0.5)
     y_max <- max(rows)+4
 
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
@@ -171,7 +166,8 @@ rob_forest <-
     }
 
     if (rob_tool == "ROBINS-I") {
-      judgements<-   c("Serious risk of bias",
+      judgements<-   c("Critical risk of bias",
+                       "Serious risk of bias",
                        "Moderate risk of bias",
                        "Low risk of bias",
                        "No information")
@@ -201,18 +197,73 @@ rob_forest <-
 
     }
 
+
+    if (rob_tool == "ROBINS-E") {
+      judgements<-   c("Very high risk of bias",
+                       "High risk of bias",
+                       "Some concerns",
+                       "Low risk of bias",
+                       "No information")
+      cols <- c(
+        v = rob_colours$critical_colour,
+        h = rob_colours$high_colour,
+        s = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      )
+
+      syms <- c(v = "!",
+                h = "X",
+                s = "-",
+                l = "+",
+                n = "",
+                x = "")
+
+
+      shapes <- c(v = 15,
+                  h = 15,
+                  s = 15,
+                  l = 15,
+                  n = 15,
+                  x = 15)
+
+    }
+
     rob_psize = 3
     tsize <- rob_psize * 0.3
 
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Make forest plot
 
+    if (is.null(arg$header)) {
+      arg$header = "Author(s) and Year"
+    }
+
+    if (is.null(arg$addpred)) {
+      arg$addpred = TRUE
+    }
+
+    if (is.null(arg$mlab)) {
+      arg$mlab = mlabfun("RE Model for all studies", res)
+    }
+
+    arg$x <- res
+    arg$xlim <- c(x_min, new_x_lim)
+    arg$atransf <- "exp"
+    arg$cex <- 1.2
+    arg$ylim=c(-1.5, y_max)
+    arg$rows <- rows
+    arg$textpos <- textpos
+
     ### set up forest plot (with 2x2 table counts added; the 'rows' argument is
     ### used to specify in which rows the outcomes will be plotted)
-    metafor::forest(res, xlim=c(x_min, new_x_lim), atransf=exp,
-           cex=1.2, ylim=c(-1.5, y_max), rows=rows, textpos = textpos,
-           mlab=mlabfun("RE Model for all studies", res),
-           header="Author(s) and Year", addpred = T,...)
+    # metafor::forest(res, xlim=c(x_min, new_x_lim), atransf=exp,
+    #        cex=1.2, ylim=c(-1.5, y_max), rows=rows, textpos=textpos,
+    #        mlab=mlab, addpred = addpred)
+
+    do.call(metafor::forest, arg)
+
 
     ### set font expansion factor (as in forest() above) and use a bold font
 
