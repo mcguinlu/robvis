@@ -1,10 +1,10 @@
-"Study","Random.sequence.generation.","Allocation.concealment.","Blinding.of.participants.and.personnel.","Blinding.of.outcome.assessment","Incomplete.outcome.data","Selective.reporting.","Other.sources.of.bias.","Overall"
-"Study 1","Low","Low","Low","Low","Low","Low","Unclear","Low"
-"Study 2","Unclear","Low","Low","Low","Low","Low","Unclear","High"
-"Study 3","Unclear","Low","Low","Unclear","Low","Low","Low","Unclear"
-"Study 4","Low","Low","Low","High","Low","Unclear","High","High"
-"Study 5","High","High","High","Low","Low","Unclear","Unclear","Low"
-"Study 6","Low","High","High","Unclear","Low","Low","Unclear","Unclear"
-"Study 7","Low","Unclear","Unclear","Unclear","High","Low","No information","Low"
-"Study 8","Low","Unclear","Unclear","Low","Low","Low","Low","Low"
-"Study 9","Low","Low","Low","High","Low","Low","Low","High"
+Study,Random.sequence.generation.,Allocation.concealment.,Blinding.of.participants.and.personnel.,Blinding.of.outcome.assessment,Incomplete.outcome.data,Selective.reporting.,Other.sources.of.bias.,Overall
+Study 1,Low,Low,Low,Low,Low,Low,Low,Low
+Study 2,Unclear,Low,Low,Low,Low,Low,Unclear,Unclear
+Study 3,Unclear,Low,Low,Unclear,Low,Low,Low,Unclear
+Study 4,Low,Low,Low,High,Low,Unclear,High,High
+Study 5,High,High,High,Low,Low,Unclear,Unclear,High
+Study 6,Low,High,High,Unclear,Low,Low,Unclear,High
+Study 7,Low,Unclear,Unclear,Unclear,High,Low,No information,High
+Study 8,Low,Unclear,Unclear,Low,Low,Low,Low,Unclear
+Study 9,Low,Low,Low,High,Low,Low,Low,High
