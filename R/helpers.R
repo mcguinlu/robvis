@@ -575,12 +575,35 @@ clean_data <- function(col) {
   return(col)
 }
 
-# Used in testing
-save_png <- function(code, width = 1200, height = 800) {
+# Used in testing ==============================================================
+save_png <- function(code, width = 1400, height = 800) {
   path <- tempfile(fileext = ".png")
-  png(path, width = width, height = height)
-  on.exit(dev.off())
+  grDevices::png(path, width = width, height = height)
+  on.exit(grDevices::dev.off())
   code
 
   return(path)
+}
+
+get_res <- function(tool){
+
+  dat.bcg <-
+    cbind(metadat::dat.bcg, rob_dummy(13, tool, study = FALSE))
+
+  dat <-
+    metafor::escalc(
+      measure = "RR",
+      ai = tpos,
+      bi = tneg,
+      ci = cpos,
+      di = cneg,
+      data = dat.bcg,
+      slab = paste(author, year, sep = ", ")
+    ) %>%
+    dplyr::mutate(Study = paste(author, year))
+
+  # Prep bias datasets
+  res <- metafor::rma(yi, vi, data = dat, slab = paste(author, year))
+
+  return(res)
 }
