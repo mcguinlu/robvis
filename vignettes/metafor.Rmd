@@ -26,18 +26,27 @@ First let's load the relevant packages and define our datasets:
 ```{r setup, message=FALSE, warning=FALSE}
 library(robvis)
 library(metafor)
+library(dplyr)
 
-# Define your studies, using nine studies from the of the BCG dataset included in the metafor package
-data_bcg <- metadat::dat.bcg[c(1:9),]
+# Define your studies, using the BCG dataset included in the metadat package
+dat_bcg <- metadat::dat.bcg
 
-data_bcg
+glimpse(dat_bcg)
 
-# Import the example RoB2 dataset included with robvis
-data_rob <- robvis::data_rob2
+# Create some example data for ROB2 using rob_dummy(), and add it to the BCG
+# data.
+# We don't need a "Study" column for this example, so we set `study = FALSE`
 
-data_rob
+dat_rob <- rob_dummy(13, 
+                     "ROB2",
+                     study = FALSE)
 
+dat_analysis <- cbind(dat_bcg, dat_rob)
+
+glimpse(dat_analysis)
 ```
+
+Now each row in the dataset contains a single numerical result and it's corresponding risk-of-bias assessment.
 
 ## Perform the meta-analysis
 
@@ -45,62 +54,50 @@ Let's now perform a simple random-effects meta-analysis using `metafor::rma()`:
 
 ```{r}
 # Calculate effect estimates and sampling variances for each study
-data_bcg <-
+dat_analysis <-
   metafor::escalc(
     measure = "RR",
     ai = tpos,
     bi = tneg,
     ci = cpos,
     di = cneg,
-    data = data_bcg
+    data = dat_analysis
   )
 
 # Perform the meta-analysis
 res <- metafor::rma(yi,
                     vi,
-                    data = data_bcg,
-                    slab = paste("Study", 1:9))
+                    data = dat_analysis,
+                    slab = paste(author, year))
 
 # Explore the results
 res
 ```
 
+## Create paired forest plot
 
-Note, it is important that the `slab` variable defined in `metafor::rma()` above and the `Study` variable of the risk-of-bias dataset are identical, as the data is merged on the basis of these variables in the next section. Here I have just used "Study 1" -> "Study 9", but another good option is author name and year:
-
-
-```{r}
-data_rob$Study
-
-res$slab
-
-```
-
-## Risk of bias plots
-
-### Appending risk-of-bias plots to forest plots
-
-Having performed the meta-analysis, you can now append a risk-of-bias traffic-light plot onto the standard output from `metafor::forest()` by passing the results object (`res`) and the risk-of-bias dataset (`data_rob`) to `rob_append_to_forest()`:
+Having performed the meta-analysis, you can now append a risk-of-bias traffic-light plot onto the standard output from `metafor::forest()` by simply passing the results object (`res`) to `rob_forest()`:
 
 ```{r, fig.width=10}
-rob_append_to_forest(res, data_rob)
-
+rob_forest(res)
 ```
 
-### Extract and append weights
+This function is designed to make it as easy as possible to substitute `rob_forest()` for `metafor::forest()`.
 
-Alternatively, you can extract the weights assigned to each study in the meta-analysis and append them to the risk-of-bias dataset. This weighted risk-of-bias dataset can then be passed to `rob_summary()` where the `weighted` argument is set to `TRUE` to produce summary plots which show the amount of statistical information, rather than the number of studies, that is at each level of risk of bias. 
+<!-- ### Extract and append weights -->
 
-```{r, out.height=400}
-# Extract the weights assigned to each study from the meta-analysis and append them to the risk-of-bias dataset
-data_rob <- rob_append_weights(data_rob, res)
+<!-- Alternatively, you can extract the weights assigned to each study in the meta-analysis and append them to the risk-of-bias dataset. This weighted risk-of-bias dataset can then be passed to `rob_summary()` where the `weighted` argument is set to `TRUE` to produce summary plots which show the amount of statistical information, rather than the number of studies, that is at each level of risk of bias.  -->
 
-# Pass this weighted dataset to the rob_summary() function, and set weighted = TRUE
-rob_summary(data_rob, tool = "ROB2", weighted = TRUE)
+<!-- ```{r, out.height=400} -->
+<!-- # Extract the weights assigned to each study from the meta-analysis and append them to the risk-of-bias dataset -->
+<!-- data_rob <- rob_append_weights(data_rob, res) -->
 
-# Compare this to the un-weighted bar plots (weighted = FALSE)
-rob_summary(data_rob, tool = "ROB2", weighted = FALSE)
-```
+<!-- # Pass this weighted dataset to the rob_summary() function, and set weighted = TRUE -->
+<!-- rob_summary(data_rob, tool = "ROB2", weighted = TRUE) -->
+
+<!-- # Compare this to the un-weighted bar plots (weighted = FALSE) -->
+<!-- rob_summary(data_rob, tool = "ROB2", weighted = FALSE) -->
+<!-- ``` -->
 
 
 

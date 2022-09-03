@@ -48,3 +48,15 @@
 # usethis::use_data(data_quadas, overwrite = TRUE)
 # usethis::use_data(data_robins, overwrite = TRUE)
 # usethis::use_data(data_quips, overwrite = TRUE)
+
+
+
+# data_bias_direction <-
+#     tidyr::as_tibble(read.csv(
+#       "data_raw/bias_direction.csv",
+#       stringsAsFactors = FALSE,
+#       header = TRUE,
+#       fileEncoding = "latin1"
+#     )) %>%
+#   select(-c(X,X.1))
+# usethis::use_data(data_bias_direction, overwrite = TRUE)

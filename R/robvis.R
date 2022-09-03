@@ -6,6 +6,8 @@
 #' @name robvis
 #' @keywords internal
 
+# TODO remove reliance on globalVariables
+
 globalVariables(c(
   "domain",
   "Study",
@@ -14,5 +16,17 @@ globalVariables(c(
   "data.tmp",
   ".data",
   "dat",
-  "res"
+  "res",
+  ".",
+  "Overall",
+  "author",
+  "heading",
+  "n",
+  "offset",
+  "overall",
+  "result_id",
+  "row_n",
+  "study",
+  "type",
+  "yi"
 ))

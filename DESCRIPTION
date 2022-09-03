@@ -25,26 +25,27 @@ Description: Helps users in quickly visualizing risk-of-bias
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Depends:
   R (>= 3.6)
 Imports:
     ggplot2 (>= 3.3.0),
     tidyr (>= 1.0.0),
     scales (>= 1.1.0),
-    vdiffr (>= 0.3.3),
     metafor (>= 2.4),
     ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
-    rlang (>= 0.4.9),
     stringr (>= 1.4.0),
-    grDevices,
-    metadat
+    magrittr,
+    purrr
 Suggests:
+    metadat,
+    vdiffr (>= 0.3.3),
     knitr (>= 1.28),
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),
     testthat (>= 2.3.0),
+    triangulate (>= 0.0.1),
     spelling (>= 2.2)
 VignetteBuilder: 
     knitr, 
@@ -52,3 +53,5 @@ VignetteBuilder:
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Remotes: 
+    mcguinlu/triangulate
