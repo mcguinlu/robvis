@@ -33,7 +33,6 @@ Imports:
     tidyr (>= 1.0.0),
     scales (>= 1.1.0),
     metafor (>= 2.4),
-    ggtext (>= 0.1.0),
     dplyr (>= 1.0.2),
     stringr (>= 1.4.0),
     magrittr,

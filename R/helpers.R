@@ -6,7 +6,11 @@ get_judgements <- function(tool){
   }
 
   if (tool == "ROB2-Cluster") {
-    values = c("High", "Some concerns", "Low", "No information", "Not applicable")
+    values = c("High",
+               "Some concerns",
+               "Low",
+               "No information",
+               "Not applicable")
   }
 
   if (tool == "ROBINS-I") {
@@ -17,13 +21,29 @@ get_judgements <- function(tool){
                "No information")
   }
 
+  if (tool == "ROBINS-E") {
+    values = c("Very high",
+               "High",
+               "Some concerns",
+               "Low",
+               "No information")
+  }
+
   if (tool == "QUADAS-2") {
     values = c("High", "Some concerns", "Low", "No information")
 
   }
 
   if (tool == "Generic") {
-    values = c("High", "Unclear","Some concerns", "Moderate", "Low", "No information", "Not applicable")
+    values = c(
+      "High",
+      "Unclear",
+      "Some concerns",
+      "Moderate",
+      "Low",
+      "No information",
+      "Not applicable"
+    )
   }
 
   return(values)
@@ -261,9 +281,9 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
 
   if (overall) {
     standard[["bold_overall"]] <-
-      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+      ggplot2::theme(axis.text.y = suppressWarnings(ggplot2::element_text(size = 10,
                                                             color = "black",
-                                                            face = c("bold", rep("plain",max_domain_column))))
+                                                            face = c("bold", rep("plain",max_domain_column)))))
   }
 
   return(standard)
