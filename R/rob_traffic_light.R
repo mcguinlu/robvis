@@ -203,7 +203,9 @@ rob_traffic_light_rob2 <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -219,7 +221,9 @@ rob_traffic_light_rob2 <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(trafficlightplot)
@@ -283,7 +287,9 @@ rob_traffic_light_rob2_cluster <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -299,7 +305,9 @@ rob_traffic_light_rob2_cluster <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
 
@@ -370,7 +378,9 @@ rob_traffic_light_robinsi <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -388,7 +398,9 @@ rob_traffic_light_robinsi <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(trafficlightplot)
@@ -457,7 +469,9 @@ rob_traffic_light_robinse <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -475,7 +489,9 @@ rob_traffic_light_robinse <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(trafficlightplot)
@@ -537,7 +553,9 @@ rob_traffic_light_quadas2 <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -553,7 +571,9 @@ rob_traffic_light_quadas2 <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(trafficlightplot)
@@ -616,7 +636,9 @@ rob_traffic_light_quips <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(
       values = c(
@@ -632,7 +654,9 @@ rob_traffic_light_quips <- function(data,
         l = "Low",
         n = "No information",
         x = "Not applicable"
-      )
+      ),
+      drop = TRUE,
+      limits = force
     )
 
   return(trafficlightplot)
@@ -773,7 +797,9 @@ rob_traffic_light_generic <- function(data,
         n = rob_colours$ni_colour,
         x = rob_colours$na_colour
       ),
-      labels = judgement_labels
+      labels = judgement_labels,
+      drop = TRUE,
+      limits = force
     ) +
     ggplot2::scale_shape_manual(values = c(
       l = 43,
@@ -783,7 +809,9 @@ rob_traffic_light_generic <- function(data,
       n = 63,
       x = 32
     ),
-    labels = judgement_labels)
+    labels = judgement_labels,
+    drop = TRUE,
+    limits = force)
 
   return(trafficlightplot)
 
