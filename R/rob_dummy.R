@@ -24,8 +24,8 @@ rob_dummy <- function(n, tool = "ROB2", study = TRUE){
     ncol = 5
   }
 
-  if (tool == "ROBINS-I") {
-    prob = c(.025, .5, .2, 0.1, 0.05)
+  if (tool %in% c("ROBINS-I","ROBINS-E")) {
+    prob = c(.025, .5, .5, 0.25, 0.025)
     ncol = 7
   }
 
@@ -41,7 +41,16 @@ rob_dummy <- function(n, tool = "ROB2", study = TRUE){
   dat <- matrix(nrow = n, ncol = ncol) %>%
       as.data.frame() %>%
       dplyr::mutate(dplyr::across(dplyr::everything(),
-                    ~ sample(v_values, dplyr::n(), T,prob))) %>%
+                    ~ sample(v_values, dplyr::n(), T, prob)))
+
+
+  # Probability of a low judgement in D1 of these tools is v small
+  # But need high prob of Low for other domains in these tools
+  if(tool %in% c("ROBINS-I", "ROBINS-E")){
+      dat[which(dat[,1]==2),1] <- 3
+  }
+
+  dat <- dat %>%
       dplyr::rowwise() %>%
       dplyr::mutate(Overall = max(dplyr::across(dplyr::everything()))) %>%
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) %>%
@@ -56,6 +65,8 @@ rob_dummy <- function(n, tool = "ROB2", study = TRUE){
       dplyr::ungroup() %>%
       dplyr::rename_with(~gsub("V","D",.), .cols = dplyr::starts_with("V")) %>%
       dplyr::select(dplyr::starts_with("D"),Overall)
+
+
 
   if (study) {
     dat <- dat %>%
