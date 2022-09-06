@@ -131,8 +131,8 @@ of bias in systematic reviews).
 ``` r
 rob_tools()
 #> Note: the "ROB2-Cluster" template is only available for the rob_traffic_light() function.
-#> [1] "ROB2"         "ROB2-Cluster" "ROBINS-I"     "QUADAS-2"     "QUIPS"       
-#> [6] "Generic"
+#> [1] "ROB2"         "ROB2-Cluster" "ROBINS-I"     "ROBINS-E"     "QUADAS-2"    
+#> [6] "QUIPS"        "Generic"
 ```
 
 ## Advanced usage
