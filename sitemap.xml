@@ -34,6 +34,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/data_bias_direction.html</loc>
+  </url>
+  <url>
     <loc>/reference/data_quadas.html</loc>
   </url>
   <url>
@@ -49,16 +52,28 @@
     <loc>/reference/data_rob2_cluster.html</loc>
   </url>
   <url>
-    <loc>/reference/data_robins.html</loc>
+    <loc>/reference/data_robins_e.html</loc>
+  </url>
+  <url>
+    <loc>/reference/data_robins_i.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/rob_append_to_forest.html</loc>
+    <loc>/reference/pipe.html</loc>
   </url>
   <url>
     <loc>/reference/rob_append_weights.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rob_direction.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rob_dummy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rob_forest.html</loc>
   </url>
   <url>
     <loc>/reference/rob_save.html</loc>
