@@ -8,7 +8,10 @@ reference:
   - rob_forest
 - title: Helper functions
   contents:
-  - has_concept("helper")
+  - rob_dummy
+  - rob_save
+  - rob_tools
+  - rob_append_weights
 
 navbar:
   title: "metafor"
