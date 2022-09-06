@@ -36,9 +36,6 @@ fig_count <- 1
 ## Description
 ```{r include = FALSE}
 library(robvis)
-
-library(kableExtra)
-library(magrittr)
 ```
 The `robvis` package takes the summary table from risk-of-bias assessments and produces plots formatted according to the assessment tool used.
 
