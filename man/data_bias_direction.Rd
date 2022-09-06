@@ -36,13 +36,13 @@ A data frame with 20 rows and 27 variables:
   \item{\code{overall}}{character COLUMN_DESCRIPTION}
 }
 }
+\source{
+{Created for this package}
+}
 \usage{
 data_bias_direction
 }
 \description{
 DATASET_DESCRIPTION
 }
-\details{
-DETAILS
-}
-\keyword{datasets}
+\keyword{internal}

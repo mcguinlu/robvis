@@ -2,7 +2,6 @@
 
 export("%>%")
 export(rob_append_weights)
-export(rob_direction)
 export(rob_dummy)
 export(rob_forest)
 export(rob_save)

@@ -155,5 +155,7 @@
 #'   \item{\code{d7d}}{character COLUMN_DESCRIPTION}
 #'   \item{\code{overall}}{character COLUMN_DESCRIPTION}
 #'}
-#' @details DETAILS
+#' @source {Created for this package}
+#' @keywords internal
+
 "data_bias_direction"

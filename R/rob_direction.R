@@ -17,7 +17,7 @@
 #' @param label_subgroup_summary Annotation text for subgroup label
 #' @param ... Other arguments to pass to metafor::forest
 #'
-#' @export
+#' @keywords internal
 
 rob_direction <-
   function(dat,
@@ -29,11 +29,6 @@ rob_direction <-
            grouping_levels = c("MR","NRSI","NRSE","RCT"),
            label_subgroup_summary = "RE Model for Subgroup",
            ...) {
-
-
-
-
-
 
     ### calculate log risk ratios and corresponding sampling variances (and use
     ### the 'slab' argument to store study labels as part of the data frame)
@@ -49,7 +44,7 @@ rob_direction <-
         dplyr::mutate(overall = factor(overall, levels = rob_levels)) %>%
         dplyr::arrange(type, overall, dplyr::desc(study))
 
-    dat[is.na(dat)] <- "None"
+   dat[is.na(dat)] <- "None"
 
 
     # Use this to define the gaps between different groups
