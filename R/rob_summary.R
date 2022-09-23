@@ -115,6 +115,16 @@ rob_summary <- function(data,
       ...
     )
   }
+  ### ADDED ROBIS
+  if (tool == "ROBIS") {
+    plot <- rob_summary_robis(
+      data = data,
+      tool = tool,
+      overall = overall,
+      weighted = weighted,
+      rob_colours = rob_colours
+    )
+  }
 
   plot$rec_height <- get_height(
     type = "summ"
@@ -505,5 +515,59 @@ rob_summary_generic <- function(data,
       limits = force
     )
 
+  return(plot)
+}
+
+# ROBIS ===================================================================================
+
+rob_summary_robis <- function(data,
+                             tool,
+                             overall,
+                             weighted,
+                             rob_colours) {
+  domain_names <- c(
+    "Study",
+    "Domain 1: Eligiability criteria",
+    "Domain 2: Identification and selection of studies",
+    "Domain 3: Data collection and study appraisal",
+    "Domain 4: Synthesis and findings",
+    "Overall risk of bias",
+    "Weights"
+  )
+  
+  max_domain_column <- 6
+  }
+
+  
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x", "n", "h", "s", "l"))
+  
+  # Create plot
+  plot <- ggplot2::ggplot(data = rob.tidy) +
+    rob_summ_theme(overall, max_domain_column-2) +
+    ggplot2::scale_fill_manual(
+      "Risk of Bias",
+      values = c(
+        l = rob_colours$low_colour,
+        s = rob_colours$concerns_colour,
+        h = rob_colours$high_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      ),
+      labels = c(
+        n = "  No information  ",
+        h = "  High risk       ",
+        s = "  Some concerns   ",
+        l = "  Low risk        ",
+        x = "  N/A  "
+      ),
+      drop = TRUE,
+      limits = force
+    )
+  
   return(plot)
 }
