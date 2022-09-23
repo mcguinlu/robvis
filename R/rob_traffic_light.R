@@ -127,6 +127,15 @@ rob_traffic_light <-
         ...
       )
     }
+       if (tool == "ROBIS") {
+      plot <- rob_traffic_light_robis(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize,
+        overall = overall
+      )
+    }
 
     # Add recommended saving height to the plot object
     plot$rec_height <- get_height(
@@ -815,4 +824,83 @@ rob_traffic_light_generic <- function(data,
 
   return(trafficlightplot)
 
+}
+# ROBIS ==================================================================
+
+rob_traffic_light_robis <- function(data,
+                                   tool,
+                                   get_colour,
+                                   psize,
+                                   overall) {
+  max_domain_column <- 6
+  domain_names <- c("Study", "D1", "D2", "D3", "D4", "Overall")
+  
+  rob.tidy <- tidy_data(data,
+                        max_domain_column = max_domain_column,
+                        domain_names = domain_names,
+                        overall = overall,
+                        levels = c("h", "s", "l", "n", "x"))
+  
+  ssize <- psize - (psize / 4)
+  
+  adjust_caption <- get_caption_adjustment(rob.tidy)
+  
+  trafficlightplot <-
+    ggplot2::ggplot(rob.tidy,
+                    ggplot2::aes(x = 1,
+                                 y = 1,
+                                 colour = judgement)) +
+    rob_tf_theme(rob.tidy,
+                 domain_names,
+                 psize,
+                 ssize,
+                 adjust_caption,
+                 overall) +
+    ggplot2::labs(
+      caption = "  Domains:
+  Domain 1: Eligiability criteria
+  Domain 2: Identification and selection of studies
+  Domain 3: Data collection and study appraisal
+  Domain 4: Synthesis and findings
+ "
+    ) +
+    ggplot2::scale_colour_manual(
+      values = c(
+        h = rob_colours$high_colour,
+        s = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour,
+        "black", "black", "black", "black", "black"
+      ),
+      labels = c(
+        h = "High",
+        s = "Some concerns",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      ),
+      drop = TRUE,
+      limits = force
+    ) +
+    ggplot2::scale_shape_manual(
+      values = c(
+        h = 120,
+        s = 45,
+        l = 43,
+        n = 63,
+        x = 32
+      ),
+      labels = c(
+        h = "High",
+        s = "Unclear",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      ),
+      drop = TRUE,
+      limits = force
+    )
+  
+  return(trafficlightplot)
 }
