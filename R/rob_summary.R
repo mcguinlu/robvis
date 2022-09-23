@@ -561,7 +561,7 @@ rob_summary_robis <- function(data,
       labels = c(
         n = "  No information  ",
         h = "  High risk       ",
-        s = "  Some concerns   ",
+        s = "  Unclear   ",
         l = "  Low risk        ",
         x = "  N/A  "
       ),
