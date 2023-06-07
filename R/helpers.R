@@ -258,7 +258,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
         axis.ticks.y = ggplot2::element_blank(),
         axis.line.x = ggplot2::element_line(
           colour = "black",
-          size = 0.5,
+          linewidth = 0.5,
           linetype = "solid"
         ),
         legend.position = "bottom",
@@ -313,6 +313,7 @@ rob_tf_theme <-function(rob.tidy,
         data = rob.tidy[which(rob.tidy$domain !=
                                 overall_name),],
         fill = "#ffffff",
+        color = "#ffffff",
         xmin = -Inf,
         xmax = Inf,
         ymin = -Inf,
@@ -323,6 +324,7 @@ rob_tf_theme <-function(rob.tidy,
         data = rob.tidy[which(rob.tidy$domain ==
                                 overall_name),],
         fill = "#d3d3d3",
+        color = "#d3d3d3",
         xmin = -Inf,
         xmax = Inf,
         ymin = -Inf,

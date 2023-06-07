@@ -24,12 +24,12 @@ test_that("ROB - Traffic light", {
   expect_snapshot_file(name = "TF - ROBINS-I - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_i, "ROBINS-I", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#333333"))))
   expect_snapshot_file(name = "TF - ROBINS-I - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_i[1:8], "ROBINS-I", overall = FALSE)))
 
-  expect_snapshot_file(name = "TF - ROBINS-E - Basic.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-I")))
-  expect_snapshot_file(name = "TF - ROBINS-E - Point Size.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-I", psize = 10)))
-  expect_snapshot_file(name = "TF - ROBINS-E - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-I", colour = "cochrane")))
-  expect_snapshot_file(name = "TF - ROBINS-E - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-I", colour = "colourblind")))
-  expect_snapshot_file(name = "TF - ROBINS-E - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-I", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#333333"))))
-  expect_snapshot_file(name = "TF - ROBINS-E - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e[1:8], "ROBINS-I", overall = FALSE)))
+  expect_snapshot_file(name = "TF - ROBINS-E - Basic.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-E")))
+  expect_snapshot_file(name = "TF - ROBINS-E - Point Size.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-E", psize = 10)))
+  expect_snapshot_file(name = "TF - ROBINS-E - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-E", colour = "cochrane")))
+  expect_snapshot_file(name = "TF - ROBINS-E - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-E", colour = "colourblind")))
+  expect_snapshot_file(name = "TF - ROBINS-E - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e, "ROBINS-E", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#333333"))))
+  expect_snapshot_file(name = "TF - ROBINS-E - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_robins_e[1:8], "ROBINS-E", overall = FALSE)))
 
   expect_snapshot_file(name = "TF - QUADAS - Basic.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_quadas, "QUADAS-2")))
   expect_snapshot_file(name = "TF - QUADAS - Point size.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_quadas, "QUADAS-2", psize = 10)))
