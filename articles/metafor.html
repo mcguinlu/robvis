@@ -93,22 +93,25 @@
 
       
 
-      </header><script src="metafor_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Working with metafor</h1>
-                        <h4 data-toc-skip class="author">Luke A McGuinness</h4>
+                        <h4 data-toc-skip class="author">Luke A
+McGuinness</h4>
             
-            <h4 data-toc-skip class="date">2022-09-06</h4>
+            <h4 data-toc-skip class="date">2023-06-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/robvis/blob/HEAD/vignettes/metafor.Rmd" class="external-link"><code>vignettes/metafor.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mcguinlu/robvis/blob/HEAD/vignettes/articles/metafor.Rmd" class="external-link"><code>vignettes/articles/metafor.Rmd</code></a></small>
       <div class="hidden name"><code>metafor.Rmd</code></div>
 
     </div>
 
     
     
-<p><code>robvis</code> now provides some functionality to work with the results of meta-analyses performed using the <a href="https://wviechtb.github.io/metafor/index.html" class="external-link"><code>metafor</code> package</a>.</p>
+<p><code>robvis</code> now provides some functionality to work with the
+results of meta-analyses performed using the <a href="https://wviechtb.github.io/metafor/index.html" class="external-link"><code>metafor</code>
+package</a>.</p>
 <p>First let’s load the relevant packages and define our datasets:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mcguinlu/robvis" class="external-link">robvis</a></span><span class="op">)</span></span>
@@ -153,17 +156,19 @@
 <span><span class="co">#&gt; $ cneg    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 128, 274, 209, 12619, 5761, 1079, 619, 87892, 7232, 1600, 2719…</span></span>
 <span><span class="co">#&gt; $ ablat   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 44, 55, 42, 52, 13, 44, 19, 13, 27, 42, 18, 33, 33</span></span>
 <span><span class="co">#&gt; $ alloc   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "random", "random", "random", "random", "alternate", "alternat…</span></span>
-<span><span class="co">#&gt; $ D1      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "High", "Low", "High", "Low", "Low", "Some concerns", "High", …</span></span>
-<span><span class="co">#&gt; $ D2      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "High", "Some concerns", "Some concerns", "Low", "Low",…</span></span>
-<span><span class="co">#&gt; $ D3      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "No information", "No information", "Some concerns", "Low", "S…</span></span>
-<span><span class="co">#&gt; $ D4      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "Some concerns", "Some concerns", "Low", "Low", "Low", …</span></span>
-<span><span class="co">#&gt; $ D5      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "Low", "Low", "Low", "Low", "Low", "No information", "S…</span></span>
-<span><span class="co">#&gt; $ Overall <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "High", "High", "High", "Some concerns", "Some concerns", "Som…</span></span></code></pre></div>
-<p>Now each row in the dataset contains a single numerical result and it’s corresponding risk-of-bias assessment.</p>
+<span><span class="co">#&gt; $ D1      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "No information", "Low", "Low", "Low", "Low", "No information"…</span></span>
+<span><span class="co">#&gt; $ D2      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "Low", "Some concerns", "High", "Low", "Low", "Some con…</span></span>
+<span><span class="co">#&gt; $ D3      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "Low", "Low", "Low", "Low", "High", "High", "Low", "Hig…</span></span>
+<span><span class="co">#&gt; $ D4      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Low", "No information", "Low", "Low", "Low", "Low", "High", "…</span></span>
+<span><span class="co">#&gt; $ D5      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Some concerns", "No information", "Low", "Low", "Low", "Low",…</span></span>
+<span><span class="co">#&gt; $ Overall <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Some concerns", "Low", "Some concerns", "High", "Low", "High"…</span></span></code></pre></div>
+<p>Now each row in the dataset contains a single numerical result and
+it’s corresponding risk-of-bias assessment.</p>
 <div class="section level2">
 <h2 id="perform-the-meta-analysis">Perform the meta-analysis<a class="anchor" aria-label="anchor" href="#perform-the-meta-analysis"></a>
 </h2>
-<p>Let’s now perform a simple random-effects meta-analysis using <code><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">metafor::rma()</a></code>:</p>
+<p>Let’s now perform a simple random-effects meta-analysis using
+<code><a href="https://wviechtb.github.io/metafor/reference/rma.uni.html" class="external-link">metafor::rma()</a></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate effect estimates and sampling variances for each study</span></span>
 <span><span class="va">dat_analysis</span> <span class="op">&lt;-</span></span>
@@ -206,11 +211,16 @@
 <div class="section level2">
 <h2 id="create-paired-forest-plot">Create paired forest plot<a class="anchor" aria-label="anchor" href="#create-paired-forest-plot"></a>
 </h2>
-<p>Having performed the meta-analysis, you can now append a risk-of-bias traffic-light plot onto the standard output from <code><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">metafor::forest()</a></code> by simply passing the results object (<code>res</code>) to <code><a href="../reference/rob_forest.html">rob_forest()</a></code>:</p>
+<p>Having performed the meta-analysis, you can now append a risk-of-bias
+traffic-light plot onto the standard output from
+<code><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">metafor::forest()</a></code> by simply passing the results object
+(<code>res</code>) to <code><a href="../reference/rob_forest.html">rob_forest()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_forest.html">rob_forest</a></span><span class="op">(</span><span class="va">res</span>, rob_tool <span class="op">=</span> <span class="st">"ROB2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="metafor_files/figure-html/unnamed-chunk-3-1.png" width="960"></p>
-<p>This function is designed to make it as easy as possible to substitute <code><a href="../reference/rob_forest.html">rob_forest()</a></code> for <code><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">metafor::forest()</a></code>.</p>
+<p>This function is designed to make it as easy as possible to
+substitute <code><a href="../reference/rob_forest.html">rob_forest()</a></code> for
+<code><a href="https://wviechtb.github.io/metafor/reference/forest.html" class="external-link">metafor::forest()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="risk-of-bias-due-to-missing-evidence">Risk of bias due to missing evidence<a class="anchor" aria-label="anchor" href="#risk-of-bias-due-to-missing-evidence"></a>
@@ -245,7 +255,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

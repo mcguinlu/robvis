@@ -93,13 +93,15 @@
 
       
 
-      </header><script src="Introduction_to_robvis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to <code>robvis</code>, a visualization tool for risk-of-bias assessments</h1>
-                        <h4 data-toc-skip class="author">Luke A McGuinness</h4>
+      <h1 data-toc-skip>Introduction to <code>robvis</code>, a
+visualization tool for risk-of-bias assessments</h1>
+                        <h4 data-toc-skip class="author">Luke A
+McGuinness</h4>
             
-            <h4 data-toc-skip class="date">2022-09-06</h4>
+            <h4 data-toc-skip class="date">2023-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mcguinlu/robvis/blob/HEAD/vignettes/Introduction_to_robvis.Rmd" class="external-link"><code>vignettes/Introduction_to_robvis.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction_to_robvis.Rmd</code></div>
@@ -111,15 +113,21 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <code>robvis</code> package provides functions to convert a risk-of-bias assessment summary table into a summary plot or a traffic-light plot, formatted based on the specific risk-of-bias assessment tool used.</p>
-<p><code>robvis</code> currently contains templates for the following tools:</p>
+<p>The <code>robvis</code> package provides functions to convert a
+risk-of-bias assessment summary table into a summary plot or a
+traffic-light plot, formatted based on the specific risk-of-bias
+assessment tool used.</p>
+<p><code>robvis</code> currently contains templates for the following
+tools:</p>
 <ul>
 <li>ROB2</li>
 <li>ROBINS-I</li>
 <li>QUADAS-2</li>
 <li>ROB1</li>
 </ul>
-<p>Users can find the exact assessment tool name expected by the <code>tool</code> argument of the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> functions by running:</p>
+<p>Users can find the exact assessment tool name expected by the
+<code>tool</code> argument of the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and
+<code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> functions by running:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_tools.html">rob_tools</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: the "ROB2-Cluster" template is only available for the rob_traffic_light() function.</span></span>
@@ -128,29 +136,52 @@
 <div class="section level3">
 <h3 id="loading-your-data">Loading your data<a class="anchor" aria-label="anchor" href="#loading-your-data"></a>
 </h3>
-<p><code>robvis</code> expects certain facts about the data you provide it.</p>
+<p><code>robvis</code> expects certain facts about the data you provide
+it.</p>
 <ol style="list-style-type: decimal">
 <li>The first column contains the study identifier</li>
-<li>The second-to-last column will contain the overall risk-of-bias judgments</li>
-<li>The last column will contain the weights, which can all be set to 1 if the relevant weights are not available.</li>
-<li>The first row of the data does not contain column headings. This can be achieved using the <code>header = TRUE</code> option (which indicates that the first line contains column headings) when reading in your summary table:</li>
+<li>The second-to-last column will contain the overall risk-of-bias
+judgments</li>
+<li>The last column will contain the weights, which can all be set to 1
+if the relevant weights are not available.</li>
+<li>The first row of the data does not contain column headings. This can
+be achieved using the <code>header = TRUE</code> option (which indicates
+that the first line contains column headings) when reading in your
+summary table:</li>
 </ol>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"path/to/summary_table.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>All other columns are expected to contain the results of the risk-of bias assessments for a specific domain. To elaborate, consider as an example the ROB2.0 tool which has 5 domains. The resulting data set that <code>robvis</code> would expect for this tool would have 8 columns:</p>
+<p>All other columns are expected to contain the results of the risk-of
+bias assessments for a specific domain. To elaborate, consider as an
+example the ROB2.0 tool which has 5 domains. The resulting data set that
+<code>robvis</code> would expect for this tool would have 8 columns:</p>
 <ul>
 <li>Column 1: Study identifier</li>
 <li>Column 2-6: One RoB2 domain per column</li>
 <li>Column 7: Overall risk-of-bias judgments</li>
 <li>Column 8: Weights</li>
 </ul>
-<p>The only exception to this is the <code>"Generic"</code> template, which is discussed <a href="#rob1">below.</a></p>
+<p>The only exception to this is the <code>"Generic"</code> template,
+which is discussed <a href="#rob1">below.</a></p>
 </div>
 <div class="section level3">
 <h3 id="example-data-sets">Example data sets<a class="anchor" aria-label="anchor" href="#example-data-sets"></a>
 </h3>
-<p>To help users explore <code>robvis</code>, we have included an example data set for each tool template that exists in the package. For example, the <code>data_rob2</code> data set, which contains example risk-of-bias assessments performed using the RoB2.0 tool for randomized controlled trials, is presented below:</p>
-<table class="table">
+<p>To help users explore <code>robvis</code>, we have included an
+example data set for each tool template that exists in the package. For
+example, the <code>data_rob2</code> data set, which contains example
+risk-of-bias assessments performed using the RoB2.0 tool for randomized
+controlled trials, is presented below:</p>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="9%">
+<col width="17%">
+<col width="16%">
+<col width="16%">
+<col width="5%">
+<col width="16%">
+<col width="16%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">Study</th>
 <th align="left">D1</th>
@@ -251,7 +282,9 @@
 <div class="section level2">
 <h2 id="summary-plots-rob_summary">Summary plots (<code>rob_summary()</code>)<a class="anchor" aria-label="anchor" href="#summary-plots-rob_summary"></a>
 </h2>
-<p>This function returns a <code>ggplot</code> object displaying a weighted bar-chart of the distribution of risk-of-bias judgments across the domains of the specified tool.</p>
+<p>This function returns a <code>ggplot</code> object displaying a
+weighted bar-chart of the distribution of risk-of-bias judgments across
+the domains of the specified tool.</p>
 <div class="section level3">
 <h3 id="examples">Examples:<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h3>
@@ -284,7 +317,9 @@
 <div class="section level4">
 <h4 id="overall-risk-of-bias-judgments-overall">Overall risk-of-bias judgments (<code>overall</code>)<a class="anchor" aria-label="anchor" href="#overall-risk-of-bias-judgments-overall"></a>
 </h4>
-<p>By default, a bar representing the overall risk-of-bias judgments is not included in the plot. If you would like to include this, set <code>overall = TRUE</code>. For example:</p>
+<p>By default, a bar representing the overall risk-of-bias judgments is
+not included in the plot. If you would like to include this, set
+<code>overall = TRUE</code>. For example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span><span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, overall <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
@@ -292,7 +327,11 @@
 <div class="section level4">
 <h4 id="weighted-or-un-weighted-bar-plots-weighted">Weighted or un-weighted bar plots (<code>weighted</code>)<a class="anchor" aria-label="anchor" href="#weighted-or-un-weighted-bar-plots-weighted"></a>
 </h4>
-<p>By default, the barplot is un-weighted, in that it shows the number of studies at each level of risk of bias. However, if you provide a risk-of-bias dataset that has an additional “Weights” column containing some measure of study precision, you can produce a barplot showing the amount of <em>statistical information</em> at each level of bias:</p>
+<p>By default, the barplot is un-weighted, in that it shows the number
+of studies at each level of risk of bias. However, if you provide a
+risk-of-bias dataset that has an additional “Weights” column containing
+some measure of study precision, you can produce a barplot showing the
+amount of <em>statistical information</em> at each level of bias:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_rob2_weighted</span> <span class="op">&lt;-</span> <span class="va">data_rob2</span></span>
 <span></span>
@@ -302,13 +341,20 @@
 <span><span class="co"># Produce a weighted barplot</span></span>
 <span><span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span><span class="va">data_rob2_weighted</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<p>See the <a href="metafor.html">“Working with <code>metafor</code>”</a> article for more information on how to extract the weights assigned to each study during a meta-analysis performed with <code>metafor</code></p>
+<p>See the <a href="metafor.html">“Working with
+<code>metafor</code>”</a> article for more information on how to extract
+the weights assigned to each study during a meta-analysis performed with
+<code>metafor</code></p>
 </div>
 <div class="section level4">
 <h4 id="colour-scheme-colour">Colour scheme (<code>colour</code>)<a class="anchor" aria-label="anchor" href="#colour-scheme-colour"></a>
 </h4>
-<p><strong>NB: Please note the non-US English spelling of colour</strong></p>
-<p>The <code>colour</code> argument of both plotting functions allows users to select from two predefined colour schemes, “cochrane” (default) or “colourblind”, or to define their own palette by providing a vector of hex codes.</p>
+<p><strong>NB: Please note the non-US English spelling of
+colour</strong></p>
+<p>The <code>colour</code> argument of both plotting functions allows
+users to select from two predefined colour schemes, “cochrane” (default)
+or “colourblind”, or to define their own palette by providing a vector
+of hex codes.</p>
 <p>For example, to use the predefined “colourblind” palette:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, colour <span class="op">=</span> <span class="st">"colourblind"</span><span class="op">)</span></span></code></pre></div>
@@ -317,7 +363,11 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_summary.html">rob_summary</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#f442c8"</span>,<span class="st">"#bef441"</span>,<span class="st">"#000000"</span>,<span class="st">"#557925"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
-<p>When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. “Low”/“Moderate”/“High”/“Critical”) and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. “Low” -&gt; “Critical”), with the first hex corresponding to “Low” risk of bias.</p>
+<p>When defining your own colour scheme, you must ensure that the number
+of discrete judgments (e.g. “Low”/“Moderate”/“High”/“Critical”) and the
+number of colours specified are the same. Additionally, colours must be
+specified in order of ascending risk-of-bias (e.g. “Low” -&gt;
+“Critical”), with the first hex corresponding to “Low” risk of bias.</p>
 <br><hr>
 <p><br></p>
 </div>
@@ -326,7 +376,9 @@
 <div class="section level2">
 <h2 id="traffic-light-plots-rob_traffic_light">Traffic light plots (<code>rob_traffic_light()</code>)<a class="anchor" aria-label="anchor" href="#traffic-light-plots-rob_traffic_light"></a>
 </h2>
-<p>This function returns a <code>ggplot</code> object displaying the risk-of-bias judgment in each domain for each study, as well as the overall risk-of-bias judgement for that study.</p>
+<p>This function returns a <code>ggplot</code> object displaying the
+risk-of-bias judgment in each domain for each study, as well as the
+overall risk-of-bias judgement for that study.</p>
 <div class="section level3">
 <h3 id="examples-1">Examples:<a class="anchor" aria-label="anchor" href="#examples-1"></a>
 </h3>
@@ -359,7 +411,9 @@
 <div class="section level4">
 <h4 id="point-size-psize">Point size (<code>psize</code>)<a class="anchor" aria-label="anchor" href="#point-size-psize"></a>
 </h4>
-<p>By default, the size of each point is set to 20. However, if you have a large number of studies, it is useful to be able to reduce the point size so that the resulting graphic is not too large.</p>
+<p>By default, the size of each point is set to 20. However, if you have
+a large number of studies, it is useful to be able to reduce the point
+size so that the resulting graphic is not too large.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate larger dataset</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">data_rob2</span>, <span class="va">data_rob2</span><span class="op">)</span></span>
@@ -372,8 +426,12 @@
 <div class="section level4">
 <h4 id="colour-scheme-colour-1">Colour scheme (<code>colour</code>)<a class="anchor" aria-label="anchor" href="#colour-scheme-colour-1"></a>
 </h4>
-<p><strong>NB: Please note the non-US English spelling of colour</strong></p>
-<p>The <code>colour</code> argument of both plotting functions allows users to select from two predefined colour schemes, “cochrane” (default) or “colourblind”, or to define their own palette by providing a vector of hex codes.</p>
+<p><strong>NB: Please note the non-US English spelling of
+colour</strong></p>
+<p>The <code>colour</code> argument of both plotting functions allows
+users to select from two predefined colour schemes, “cochrane” (default)
+or “colourblind”, or to define their own palette by providing a vector
+of hex codes.</p>
 <p>For example, to use the predefined “colourblind” palette:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_traffic_light.html">rob_traffic_light</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, colour <span class="op">=</span> <span class="st">"colourblind"</span><span class="op">)</span></span></code></pre></div>
@@ -382,7 +440,11 @@
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rob_traffic_light.html">rob_traffic_light</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_rob2</span>, tool <span class="op">=</span> <span class="st">"ROB2"</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#f442c8"</span>,<span class="st">"#bef441"</span>,<span class="st">"#000000"</span>,<span class="st">"#557925"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>When defining your own colour scheme, you must ensure that the number of discrete judgments (e.g. “Low”/“Moderate”/“High”/“Critical”) and the number of colours specified are the same. Additionally, colours must be specified in order of ascending risk-of-bias (e.g. “Low” -&gt; “Critical”), with the first hex corresponding to “Low” risk of bias.</p>
+<p>When defining your own colour scheme, you must ensure that the number
+of discrete judgments (e.g. “Low”/“Moderate”/“High”/“Critical”) and the
+number of colours specified are the same. Additionally, colours must be
+specified in order of ascending risk-of-bias (e.g. “Low” -&gt;
+“Critical”), with the first hex corresponding to “Low” risk of bias.</p>
 <br><hr>
 <p><br></p>
 </div>
@@ -394,18 +456,30 @@
 <div class="section level3">
 <h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h3>
-<p>This template offers increased flexibility in the domains that are included in the plot. It can handle any number of user defined domains and uses the user defined column headings as domains titles in the resulting figures.</p>
+<p>This template offers increased flexibility in the domains that are
+included in the plot. It can handle any number of user defined domains
+and uses the user defined column headings as domains titles in the
+resulting figures.</p>
 </div>
 <div class="section level3">
 <h3 id="varying-numbers-of-domains">Varying numbers of domains<a class="anchor" aria-label="anchor" href="#varying-numbers-of-domains"></a>
 </h3>
-<p>The <code>"Generic"</code> option can handle varying numbers of columns, as authors using the ROB1 assessment tool frequently add or remove bias domains within this tool. <strong>However, we would discourage authors from doing so with any tool other than ROB1.</strong> Authors using other published tools (ROB2, QUADAS-2, ROBINS-I) should use the stricter templates presented above to ensure they conform with the guidance.</p>
+<p>The <code>"Generic"</code> option can handle varying numbers of
+columns, as authors using the ROB1 assessment tool frequently add or
+remove bias domains within this tool. <strong>However, we would
+discourage authors from doing so with any tool other than ROB1.</strong>
+Authors using other published tools (ROB2, QUADAS-2, ROBINS-I) should
+use the stricter templates presented above to ensure they conform with
+the guidance.</p>
 </div>
 <div class="section level3">
 <h3 id="domain-names">Domain names<a class="anchor" aria-label="anchor" href="#domain-names"></a>
 </h3>
-<p>For the other tools listed above, the names of the columns containing the domain-level risk of bias judgments are not important. However, this is not the case when using the <code>"Generic"</code> template.</p>
-<p>Compare for example, the first row of the <code>data_rob2</code> and the <code>data_rob1</code>, and the resulting figures.</p>
+<p>For the other tools listed above, the names of the columns containing
+the domain-level risk of bias judgments are not important. However, this
+is not the case when using the <code>"Generic"</code> template.</p>
+<p>Compare for example, the first row of the <code>data_rob2</code> and
+the <code>data_rob1</code>, and the resulting figures.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">data_rob2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Study"   "D1"      "D2"      "D3"      "D4"      "D5"      "Overall"</span></span>
@@ -420,8 +494,17 @@
 <span><span class="co">#&gt; [7] "Selective.reporting."                   </span></span>
 <span><span class="co">#&gt; [8] "Other.sources.of.bias."                 </span></span>
 <span><span class="co">#&gt; [9] "Overall"</span></span></code></pre></div>
-<p>The domain columns (Columns 2-6) in the ROB2 example have been given arbitrary names of D1-D5, as they will be overwritten by the function to correspond to the correct domain titles as per the ROB2 guidance.</p>
-<p>In contrast, the domain columns (Columns 2-8) in the ROB1 example use their true title as the column heading, as these will be used in the figures produced by <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>. As an example, suppose we change the name of the “Random.sequence.generation” column to something else. In the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> figure, the title of the first bar is changed, while in the <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> figure, the caption is updated to reflect this change.</p>
+<p>The domain columns (Columns 2-6) in the ROB2 example have been given
+arbitrary names of D1-D5, as they will be overwritten by the function to
+correspond to the correct domain titles as per the ROB2 guidance.</p>
+<p>In contrast, the domain columns (Columns 2-8) in the ROB1 example use
+their true title as the column heading, as these will be used in the
+figures produced by <code><a href="../reference/rob_summary.html">rob_summary()</a></code> and
+<code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code>. As an example, suppose we change the
+name of the “Random.sequence.generation” column to something else. In
+the <code><a href="../reference/rob_summary.html">rob_summary()</a></code> figure, the title of the first bar is
+changed, while in the <code><a href="../reference/rob_traffic_light.html">rob_traffic_light()</a></code> figure, the
+caption is updated to reflect this change.</p>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
 <p><img src="Introduction_to_robvis_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -445,7 +528,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
