@@ -669,6 +669,7 @@ rob_traffic_light_generic <- function(data,
                                       rob_colours,
                                       psize,
                                       overall,
+                                      domain_shortcodes = "standard",
                                       x_title = "Risk of bias domains",
                                       y_title = "Study",
                                       judgement_title = "Judgement",
@@ -722,14 +723,45 @@ rob_traffic_light_generic <- function(data,
                                          fixed = TRUE))
   }
 
+
+  # Generate the shortcodes if necessary, and check user-provided shortcodes
+  if (length(domain_shortcodes) == 1 &&
+      domain_shortcodes == "standard") {
+    domain_shortcodes <- paste0("D", 2:max_domain_column - 1)
+  } else {
+    if (length(domain_shortcodes) != max_domain_column - 1) {
+      stop(
+        paste0(
+          "You have not specified the correct number of shortcodes. ",
+          "The expected number of shortcodes is ",
+          max_domain_column - 1,
+          "; you have provided ",
+          length(domain_shortcodes),
+          "."
+        )
+
+      )
+    }
+
+    if (length(domain_shortcodes) != length(unique(domain_shortcodes))) {
+      stop(
+        paste0(
+          "The shortcodes you have specified contain duplicates. ",
+          "All shortcodes must be unique."
+        )
+      )
+    }
+
+  }
+
   # Create caption vector, and add line breaks to maintain spacing
   captiondf <- data.frame(V1 = rep("", 8), stringsAsFactors = FALSE)
   for (i in 2:max_domain_column) {
     if (i == 2) {
-      captiondf[i - 1, 1] <- paste0(" D", i - 1,
+      captiondf[i - 1, 1] <- paste0(" ", domain_shortcodes[i - 1],
                                     ": ", names(data.tmp)[i], "\n")
     } else {
-      captiondf[i - 1, 1] <- paste0("D", i - 1, ": ",
+      captiondf[i - 1, 1] <- paste0(domain_shortcodes[i - 1], ": ",
                                     names(data.tmp)[i], "\n")
     }
   }
@@ -740,7 +772,7 @@ rob_traffic_light_generic <- function(data,
   # Rename columns headings
   names(data.tmp)[1] <- "Study"
   for (i in 2:max_domain_column) {
-    names(data.tmp)[i] <- paste0("D", i - 1)
+    names(data.tmp)[i] <- domain_shortcodes[i - 1]
   }
 
   # Convert to long format

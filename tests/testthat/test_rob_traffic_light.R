@@ -53,5 +53,6 @@ test_that("ROB - Traffic light", {
   expect_snapshot_file(name = "TF - ROBG - Label x axis.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_rob2, tool = "Generic", x_title = "ROB domains")))
   expect_snapshot_file(name = "TF - ROBG - Label y axis.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_rob2, tool = "Generic", y_title = "Trial")))
   expect_snapshot_file(name = "TF - ROBG - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_rob2[1:6], "Generic", overall = FALSE)))
+  expect_snapshot_file(name = "TF - ROBG - Domain Labels.png", rob_save(file = tempfile(fileext = ".png"), rob_traffic_light(data_rob1[1:6], "Generic", overall = FALSE, domain_shortcodes = c("R1","R2","R3", "A1","A2"))))
 
 })
