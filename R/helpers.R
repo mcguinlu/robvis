@@ -44,6 +44,12 @@ get_judgements <- function(tool){
       "No information",
       "Not applicable"
     )
+  if (tool == "ROBIS") { ## ADDED ROBIS
+    values = c(
+      "High",
+      "Unclear",
+      "Low",
+      "No information"
   }
 
   return(values)
@@ -412,7 +418,7 @@ check_data <- function(data){
 # Check colours
 check_colour <- function(tool, colour) {
   if(!(colour[1] %in% c("cochrane","colourblind"))){
-    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
+    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2" || tool == "ROBIS") { ##ADDED ROBIS
       if(length(colour)!=4){
         stop(paste("Wrong number of colours specified.",
                    "This template expects 4 colours."))
@@ -433,7 +439,7 @@ get_colour <- function(tool, colour) {
 
   rob_colours$na_colour <- "#cccccc"
 
-  if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
+  if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2" || tool = "ROBIS") { ##ADDED ROBIS
     if (length(colour) > 1) {
       rob_colours$low_colour <- colour[c(1)]
       rob_colours$concerns_colour <- colour[c(2)]
