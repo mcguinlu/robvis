@@ -231,15 +231,7 @@ fig_count <- fig_count + 1
 
 ## Examples of `robvis` in published papers
 
-* Perivoliotis, Konstantinos, et al. "[Comparing the efficacy and safety of laparoscopic and robotic adrenalectomy: a meta-analysis and trial sequential analysis.](https://link.springer.com/article/10.1007/s00423-020-01860-9)" Langenbeck's Archives of Surgery (2020): 1-11.
-* Adile, Ashley A., et al. "[Salvage therapy for progressive, treatment-refractory or recurrent pediatric medulloblastoma: a systematic review protocol.](https://systematicreviewsjournal.biomedcentral.com/articles/10.1186/s13643-020-01307-8)" Systematic Reviews 9.1 (2020): 1-9.
-* Tanneru, Karthik, et al. "[Meta-analysis and systematic review of intermediate-term follow-up of prostatic urethral lift for benign prostatic hyperplasia.](https://link.springer.com/article/10.1007/s11255-020-02408-y)" International Urology and Nephrology (2020): 1-10.
-* Veloso, Andreia, et al.. "[Effectiveness of Cognitive Training for School-Aged Children and Adolescents With Attention Deficit/Hyperactivity Disorder: A Systematic Review.](https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02983/full)" Frontiers in Psychology 10 (2020): 2983.
-* Simillis, Constantinos, et al. "[Postoperative chemotherapy improves survival in patients with resected high‐risk stage II colorectal cancer: results of a systematic review and meta‐analysis.](https://onlinelibrary.wiley.com/doi/pdf/10.1111/codi.14994)" Colorectal Disease (2020).
-* Habadi, Mohammed Ibrahim, et al. "[Prevalence of Panic Disorders in the Primary Health Care Setting: A Systematic Review and Meta-Analysis.](https://www.ecronicon.com/ecmi/pdf/prevalence-of-panic-disorders-in-the-primary-health-care-setting-a-systematic-review-and-meta-analysis.pdf)" EC Microbiology 16.1 (2019): 01-09.
-* Gibb, Kate, et al. "[The consistent burden in published estimates of delirium occurrence in medical inpatients over four decades: a systematic review and meta-analysis study.](https://www.medrxiv.org/content/medrxiv/early/2019/08/29/19005165.full.pdf)" medRxiv (2019): 19005165.
-
-See more [here](https://scholar.google.com/scholar?cites=12564214960529060925&as_sdt=2005&sciodt=0,5&hl=en). 
+To date, `robvis` has been cited in more than 1500 academic articles - these can be explored [here](https://scholar.google.com/scholar?cites=12564214960529060925&as_sdt=2005&sciodt=0,5&hl=en). 
 
 ## Code of conduct
 
@@ -256,12 +248,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 * The `rob_summary()` function was based on code forwarded by a colleague. I recently discovered that this code was adapted from that presented in the wonderful "[Doing Meta-Analysis in R](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/plotting-the-summary.html)" guide, so I would like to acknowledge the authors here. 
 * [Emily Kothe](https://github.com/ekothe) for help in fixing `ggplot2` coding issues.
 * [Eliza Grames](https://github.com/elizagrames) for creating the `robvis` hex sticker.
-
-
-### Research notice
-
-Please note that this repository is participating in a study into sustainability of open source projects. Data will be gathered about this repository for approximately the next 12 months, starting from June 2021.
-
-Data collected will include number of contributors, number of PRs, time taken to close/merge these PRs, and issues closed.
-
-For more information, please visit [the informational page](https://sustainable-open-science-and-software.github.io/) or download the [participant information sheet](https://sustainable-open-science-and-software.github.io/assets/PIS_sustainable_software.pdf).
