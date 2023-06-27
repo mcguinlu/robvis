@@ -49,8 +49,8 @@ rob_traffic_light <-
            ...) {
 
     check_tool(tool)
-    check_data(data)
-    colour <- weird_spelling(colour)
+    check_first_row(data)
+    colour <- clean_colour_spelling(colour)
 
     check_colour(tool = tool, colour = colour)
 
@@ -157,7 +157,7 @@ rob_traffic_light_rob2 <- function(data,
   max_domain_column <- 7
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -172,7 +172,7 @@ rob_traffic_light_rob2 <- function(data,
                     ggplot2::aes(x = 1,
                                  y = 1,
                                  colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -241,7 +241,7 @@ rob_traffic_light_rob2_cluster <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D1b", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -255,7 +255,7 @@ rob_traffic_light_rob2_cluster <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -329,7 +329,7 @@ rob_traffic_light_robinsi <- function(data,
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -343,7 +343,7 @@ rob_traffic_light_robinsi <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -420,7 +420,7 @@ rob_traffic_light_robinse <- function(data,
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -434,7 +434,7 @@ rob_traffic_light_robinse <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -509,7 +509,7 @@ rob_traffic_light_quadas2 <- function(data,
   max_domain_column <- 6
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -523,7 +523,7 @@ rob_traffic_light_quadas2 <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -591,7 +591,7 @@ rob_traffic_light_quips <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -605,7 +605,7 @@ rob_traffic_light_quips <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -680,7 +680,7 @@ rob_traffic_light_generic <- function(data,
                                                            "No information",
                                                            "Not applicable")) {
 
-  rob1_warning(tool)
+  check_rob1(tool)
 
   # Determine if the uploaded dataset contains weights
   if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
@@ -816,7 +816,7 @@ rob_traffic_light_generic <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
