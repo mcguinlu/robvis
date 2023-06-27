@@ -47,24 +47,20 @@ rob_tools()
 `robvis` expects certain facts about the data you provide it.
 
 1. The first column contains the study identifier 
-1. The second-to-last column will contain the overall risk-of-bias judgments
-1. The last column will contain the weights, which can all be set to 1 if the relevant weights are not available.
+1. The last column will contain the overall risk-of-bias judgments
 1. The first row of the data does not contain column headings. This can be achieved using the `header = TRUE` option (which indicates that the first line contains column headings) when reading in your summary table:
 
 ```{r, eval=FALSE}
 data <- read.csv("path/to/summary_table.csv", header = TRUE)
 ```
 
-All other columns are expected to contain the results of the risk-of bias assessments for a specific domain. To elaborate, consider as an example the ROB2.0 tool which has 5 domains. The resulting data set that `robvis` would expect for this tool would have 8 columns:
+All other columns are expected to contain the results of the risk-of bias assessments for a specific domain. To elaborate, consider as an example the ROB2.0 tool which has 5 domains. The resulting data set that `robvis` would expect for this tool would have 7 columns:
 
   * Column 1: Study identifier
   * Column 2-6: One RoB2 domain per column
   * Column 7: Overall risk-of-bias judgments
-  * Column 8: Weights
-  
   
 The only exception to this is the `"Generic"` template, which is discussed [below.](#rob1)
-
 
 ## Example data sets {#example-data-sets}
 
