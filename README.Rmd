@@ -37,7 +37,10 @@ fig_count <- 1
 ```{r include = FALSE}
 library(robvis)
 ```
-The `robvis` package takes the summary table from risk-of-bias assessments and produces plots formatted according to the assessment tool used.
+
+The `robvis` (Risk-Of-Bias VISualization) package facilitates the rapid production of publication-quality risk-of-bias assessment figures, correctly formatted according to the assessment tool used.
+
+The motivation for this package is more fully described in the (open access) article introducing the tool, available [here](https://doi.org/10.1002/jrsm.1411).
 
 ## Getting started
 
