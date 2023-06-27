@@ -6,8 +6,8 @@
 #'   column containing the first domain of your assessments, and the final
 #'   column containing a weight to assign to each study. The function assumes
 #'   that the data includes a column for overall risk-of-bias. For example, a
-#'   ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain
-#'   level judgments, 1 for overall judgements, and 1 for weights, in that
+#'   ROB2.0 dataset would have 7 columns (1 for study details, 5 for domain
+#'   level judgments, 1 for overall judgements, in that
 #'   order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
 #'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
@@ -47,8 +47,8 @@ rob_summary <- function(data,
                         colour = "cochrane",
                         ...) {
   check_tool(tool)
-  check_data(data)
-  colour <- weird_spelling(colour)
+  check_first_row(data)
+  colour <- clean_colour_spelling(colour)
 
   check_colour(tool = tool, colour = colour)
 
@@ -159,7 +159,7 @@ rob_summary_rob2 <- function(data,
 
   # Create plot
   plot <- ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column-2) +
+    theme_rob_summ(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -216,7 +216,7 @@ rob_summary_robinsi <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       values = c(
         l = rob_colours$low_colour,
@@ -271,7 +271,7 @@ rob_summary_robinse <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       values = c(
         n = rob_colours$ni_colour,
@@ -325,7 +325,7 @@ rob_summary_quadas2 <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -378,7 +378,7 @@ rob_summary_quips <- function(data,
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column - 2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -412,7 +412,7 @@ rob_summary_generic <- function(data,
                                                      "High risk of bias",
                                                      "Critical risk of bias",
                                                      "No information")) {
-  rob1_warning(tool)
+  check_rob1(tool)
 
   max_domain_column <- ncol(data) - 1
 
@@ -490,7 +490,7 @@ rob_summary_generic <- function(data,
   # Create plot
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    rob_summ_theme(overall, max_domain_column-2) +
+    theme_rob_summ(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(

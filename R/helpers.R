@@ -1,54 +1,66 @@
-get_judgements <- function(tool){
-  # TODO Need to double check the options for each tool
+# Check inputs =================================================================
+# Functions in this section do not return a value
+# Instead, they either print an informative (error) message to the console
+# Functions in this category should start with the `check_` prefix
 
-  if (tool == "ROB2") {
-    values = c("High", "Some concerns", "Low", "No information")
+# Check that the specified tool is supported
+check_tool <- function(tool, forest = FALSE) {
+
+  if (forest) {
+    tools <- c(suppressMessages(rob_tools(forest = TRUE)))
+    message_content <- "rob_tools(forest = TRUE)"
+  }else {
+    tools <- c(suppressMessages(rob_tools()), "ROB1")
+    message_content <- "rob_tools()"
   }
 
-  if (tool == "ROB2-Cluster") {
-    values = c("High",
-               "Some concerns",
-               "Low",
-               "No information",
-               "Not applicable")
+  if ((tool %in% tools) == FALSE) {
+    stop(
+      paste0(
+        "\nTool name \"",
+        tool,
+        "\" not recognised \nAcceptable values for the \"tool\" " ,
+        "parameter include ",
+        paste0("\"",paste0(tools, collapse = "\", \""),"\".")
+      )
+    )
   }
+}
 
-  if (tool == "ROBINS-I") {
-    values = c("Critical",
-               "Serious",
-               "Moderate",
-               "Low",
-               "No information")
-  }
+# Check the first row of the data for column titles
+check_first_row <- function(data){
 
-  if (tool == "ROBINS-E") {
-    values = c("Very high",
-               "High",
-               "Some concerns",
-               "Low",
-               "No information")
-  }
+  header <- stringr::str_to_lower(data[1,])
 
-  if (tool == "QUADAS-2") {
-    values = c("High", "Some concerns", "Low", "No information")
-
-  }
-
-  if (tool == "Generic") {
-    values = c(
-      "High",
-      "Unclear",
-      "Some concerns",
-      "Moderate",
-      "Low",
-      "No information",
-      "Not applicable"
+  if (any(c("study","overall", "weight") %in% header)) {
+    stop(paste("It looks like the first row of your dataset contains column",
+               "headings (e.g. \"Study\", \"Overall\"). Did you set ",
+               "\"header = TRUE\" when reading in your data?")
     )
   }
 
-  return(values)
 }
 
+# Check user-provided colours
+check_colour <- function(tool, colour) {
+  if(!(colour[1] %in% c("cochrane","colourblind"))){
+    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
+      if(length(colour)!=4){
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 4 colours."))
+      }
+
+    } else{
+      if(length(colour)!=5){
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 5 colours."))
+      }
+    }
+  }
+}
+
+# Checks that the number of observed columns equals the number of expected
+# columns, given function arguments
 check_cols <- function(data,
                        max_domain_column,
                        overall,
@@ -116,32 +128,70 @@ check_cols <- function(data,
       )
     }} else {
       if (ncol(data) != expected_col) {
-      stop(
-        "The number of columns in your data (",
-        ncol(data),
-        ") does not match the number expected for this",
-        " tool when using overall = ", overall, weighted_text,
-        ". The expected number of columns is ",
-        domain_text
-      )}
+        stop(
+          "The number of columns in your data (",
+          ncol(data),
+          ") does not match the number expected for this",
+          " tool when using overall = ", overall, weighted_text,
+          ". The expected number of columns is ",
+          domain_text
+        )}
     }
+}
+
+# Checks that specified file type is supported
+check_extension <- function(file){
+
+  ex <- strsplit(basename(file), split="\\.")[[1]]
+
+  if (!(ex[-1] %in% c("png","jpeg","tiff","eps"))) {
+    stop(paste0("Saving to this file type is not supported by robvis. ",
+                "Acceptable file types are \".png\", \".jpeg\", ",
+                " \".tiff\", and \".eps\". "))
   }
+}
+
+# Give depreciated warning if "ROB1" specified
+check_rob1 <- function(tool) {
+  if (tool == "ROB1") {
+    message(
+      paste0(
+        "Note: In future versions of robvis, the 'tool = \"ROB1\"' ",
+        "argument will be depreciated.\n",
+        "Please use 'tool = \"Generic\"' instead."
+      )
+    )
+  }
+}
 
 
-tidy_data <- function(data,
+
+# Return cleaned data ==========================================================
+# Functions in this section return "cleaned" versions of their inputs
+
+# Covert US spelling of "colorblind" to "colourblind"
+clean_colour_spelling <- function(colour) {
+  colour <- ifelse(colour == "colorblind", "colourblind", colour)
+  return(colour)
+}
+
+
+# Sub-helper function used in the tidy_ functions
+clean_data <- function(col) {
+  col <- gsub("\\b(\\pL)\\pL{1,}|.", "\\U\\1", col, perl = TRUE)
+  col <- trimws(tolower(col))
+  col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
+  col <- substr(col, 0, 1)
+  return(col)
+}
+
+
+# Convert to long tidy format
+tidy_data_tf <- function(data,
                       max_domain_column,
                       domain_names,
                       overall,
                       levels) {
-
-  # Deal with legacy versions of the example datasets
-  # if (ncol(data) == max_domain_column + 1) {
-  #   if (overall == FALSE) {
-  #     data <- data[,c(1:(ncol(data)-2))]
-  #   } else {
-  #     data <- data[,-ncol(data)]
-  #   }
-  # }
 
   check_cols(data = data,
              max_domain_column = max_domain_column,
@@ -160,7 +210,7 @@ tidy_data <- function(data,
   names(data.tmp) <- domain_names
 
   rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                 domain, judgement,-Study))
+                                             domain, judgement,-Study))
 
 
   rob.tidy$Study <-
@@ -174,12 +224,14 @@ tidy_data <- function(data,
   rob.tidy
 }
 
+
+# Convert to long tidy format
 tidy_data_summ <- function(data,
-                      max_domain_column,
-                      overall,
-                      weighted,
-                      domain_names,
-                      levels) {
+                           max_domain_column,
+                           overall,
+                           weighted,
+                           domain_names,
+                           levels) {
 
   # Deal with legacy versions of the example datasets
   if (ncol(data) == max_domain_column + 1) {
@@ -211,8 +263,8 @@ tidy_data_summ <- function(data,
 
   data.tmp <-
     cbind(data[,1],data.frame(lapply(data[, 2:max_domain_column], clean_data),
-                                data[, ncol(data)],
-                                stringsAsFactors = F))
+                              data[, ncol(data)],
+                              stringsAsFactors = F))
 
   names(data.tmp) <- domain_names
 
@@ -234,7 +286,18 @@ tidy_data_summ <- function(data,
 }
 
 
-rob_summ_theme <- function(overall = TRUE, max_domain_column){
+
+
+
+
+
+
+
+
+# Return ggplot themes =========================================================
+# Functions in this section return a ggplot2 theme object
+
+theme_rob_summ <- function(overall = TRUE, max_domain_column){
   standard <- list(
     ggplot2::geom_bar(
       mapping = ggplot2::aes(
@@ -289,8 +352,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
   return(standard)
 }
 
-
-rob_tf_theme <-function(rob.tidy,
+theme_rob_tf <-function(rob.tidy,
                         domain_names,
                         psize,
                         ssize,
@@ -391,41 +453,78 @@ rob_tf_theme <-function(rob.tidy,
 
 }
 
+# Return tool-specific values ==================================================
+# Functions in this section return specific values based on user-defined inputs.
+# This includes tool-specific values (judgement labels, colours) based on the
+# selected tool; and plot adjustment/saving values based on the dimensions of
+# the user-defined data.
+# All functions in this section start with the get_ prefix
 
+
+# Get acceptable judgements by tool
+get_judgements <- function(tool){
+  # TODO Need to double check the options for each tool
+
+  if (tool == "ROB2") {
+    values = c("High",
+               "Some concerns",
+               "Low",
+               "No information")
+  }
+
+  if (tool == "ROB2-Cluster") {
+    values = c("High",
+               "Some concerns",
+               "Low",
+               "No information",
+               "Not applicable")
+  }
+
+  if (tool == "ROBINS-I") {
+    values = c("Critical",
+               "Serious",
+               "Moderate",
+               "Low",
+               "No information")
+  }
+
+  if (tool == "ROBINS-E") {
+    values = c("Very high",
+               "High",
+               "Some concerns",
+               "Low",
+               "No information")
+  }
+
+  if (tool == "QUADAS-2") {
+    values = c("High",
+               "Some concerns",
+               "Low",
+               "No information")
+
+  }
+
+  if (tool == "Generic") {
+    values = c(
+      "High",
+      "Unclear",
+      "Some concerns",
+      "Moderate",
+      "Low",
+      "No information",
+      "Not applicable"
+    )
+  }
+
+  return(values)
+}
+
+
+# Define caption adjustment value, based on number of unique judgements
 get_caption_adjustment <- function(data){
   -0.7 + length(unique(data$judgement)) * -0.6
 }
 
-check_data <- function(data){
-
-  header <- stringr::str_to_lower(data[1,])
-
-  if (any(c("study","overall", "weight") %in% header)) {
-    stop(paste("It looks like the first row of your dataset contains column",
-               "headings (e.g. \"Study\", \"Overall\"). Did you set ",
-               "\"header = TRUE\" when reading in your data?")
-    )
-  }
-
-}
-
-# Check colours
-check_colour <- function(tool, colour) {
-  if(!(colour[1] %in% c("cochrane","colourblind"))){
-    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
-      if(length(colour)!=4){
-        stop(paste("Wrong number of colours specified.",
-                   "This template expects 4 colours."))
-      }
-
-    } else{
-      if(length(colour)!=5){
-        stop(paste("Wrong number of colours specified.",
-                   "This template expects 5 colours."))
-      }
-    }
-  }
-}
 
 # Define colours used
 get_colour <- function(tool, colour) {
@@ -481,42 +580,6 @@ get_colour <- function(tool, colour) {
   return(rob_colours)
 }
 
-# Make sure specified tool is allowed
-check_tool <- function(tool, forest = FALSE) {
-
-  if (forest) {
-  tools <- c(suppressMessages(rob_tools(forest = TRUE)))
-  message_content <- "rob_tools(forest = TRUE)"
-  }else {
-  tools <- c(suppressMessages(rob_tools()), "ROB1")
-  message_content <- "rob_tools()"
-  }
-
-  if ((tool %in% tools) == FALSE) {
-    stop(
-      paste(
-        "\nTool name \"",
-        tool,
-        "\" not recognised \nAcceptable tools" ,
-        "names can be found by running",
-        message_content
-      )
-    )
-  }
-}
-
-# Give depreciated warning if "ROB1" specified
-rob1_warning <- function(tool) {
-  if (tool == "ROB1") {
-    message(
-      paste0(
-        "Note: In future versions of robvis, the 'tool = \"ROB1\"' ",
-        "argument will be depreciated.\n",
-        "Please use 'tool = \"Generic\"' instead."
-      )
-    )
-  }
-}
 
 # Get recommended height of figure, used by rob_save
 get_height <- function(data, tool, psize, type = "tf") {
@@ -529,6 +592,7 @@ get_height <- function(data, tool, psize, type = "tf") {
   }
   return(height)
 }
+
 
 # Get recommended width of figure, used by rob_save
 get_width <- function(data, psize, type = "tf") {
@@ -548,36 +612,11 @@ get_width <- function(data, psize, type = "tf") {
   return(width)
 }
 
-# Allow for US spelling of "colourblind"
-weird_spelling <- function(colour) {
-  colour <- ifelse(colour == "colorblind", "colourblind", colour)
-  return(colour)
-}
 
-# Acceptable file extensions for saving
+# Used only in testing =========================================================
+# Functions in this section are used solely to enable testing of the package.
+# YOU ALMOST CERTAINLY DO NOT NEED TO EDIT FUNCTIONS IN THIS SECTION.
 
-get_extension <- function(file){
-  ex <- strsplit(basename(file), split="\\.")[[1]]
-  return(ex[-1])
-}
-
-check_extension <- function(file){
-  if (!(get_extension(file) %in% c("png","jpeg","tiff","eps"))) {
-    stop(paste0("Saving to this file type is not supported by robvis. ",
-                "Acceptable file types are \".png\", \".jpeg\", ",
-                " \".tiff\", and \".eps\". "))
-  }
-}
-
-clean_data <- function(col) {
-  col <- gsub("\\b(\\pL)\\pL{1,}|.", "\\U\\1", col, perl = TRUE)
-  col <- trimws(tolower(col))
-  col <- ifelse(col %in% c("na", "n") | is.na(col), "x", col)
-  col <- substr(col, 0, 1)
-  return(col)
-}
-
-# Used in testing ==============================================================
 save_png <- function(code, width = 1400, height = 800) {
   path <- tempfile(fileext = ".png")
   grDevices::png(path, width = width, height = height)

@@ -19,8 +19,8 @@ assessments, with the first column containing the study details, the second
 column containing the first domain of your assessments, and the final
 column containing a weight to assign to each study. The function assumes
 that the data includes a column for overall risk-of-bias. For example, a
-ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain
-level judgments, 1 for overall judgements, and 1 for weights, in that
+ROB2.0 dataset would have 7 columns (1 for study details, 5 for domain
+level judgments, 1 for overall judgements, in that
 order).}
 
 \item{tool}{The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),

@@ -3,18 +3,19 @@
 \docType{data}
 \name{data_robins_i}
 \alias{data_robins_i}
-\title{Example ROBINS-I assessment}
+\title{Example ROBINS-I assessment dataset}
 \format{
-A data frame:
+A data frame with the following 9 columns:
+
 \describe{
-  \item{Study}{Study details}
-  \item{D1}{Domain 1}
-  \item{D2}{Domain 2}
-  \item{D3}{Domain 3}
-  \item{D4}{Domain 4}
-  \item{D5}{Domain 5}
-  \item{D6}{Domain 6}
-  \item{D7}{Domain 7}
+  \item{Study}{Study identifier}
+  \item{D1}{Domain 1 - Bias due to confounding}
+  \item{D2}{Domain 2 - Bias due to selection of participants}
+  \item{D3}{Domain 3 - Bias in classification of interventions}
+  \item{D4}{Domain 4 - Bias due to deviations from intended interventions}
+  \item{D5}{Domain 5 - Bias due to missing data}
+  \item{D6}{Domain 6 - Bias in measurement of outcomes}
+  \item{D7}{Domain 7 - Bias in selection of the reported result}
   \item{Overall}{Overall risk of bias}
          }
 }
@@ -25,6 +26,7 @@ A data frame:
 data_robins_i
 }
 \description{
-Example ROBINS-I assessment
+A data frame containing 10 example assessments performed using
+the ROBINS-I (Risk Of Bias In Non-randomised Studies - of Interventions) tool.
 }
 \keyword{internal}
