@@ -101,7 +101,7 @@ visualization tool for risk-of-bias assessments</h1>
                         <h4 data-toc-skip class="author">Luke A
 McGuinness</h4>
             
-            <h4 data-toc-skip class="date">2023-06-08</h4>
+            <h4 data-toc-skip class="date">2023-06-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mcguinlu/robvis/blob/HEAD/vignettes/Introduction_to_robvis.Rmd" class="external-link"><code>vignettes/Introduction_to_robvis.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction_to_robvis.Rmd</code></div>
@@ -140,10 +140,7 @@ tools:</p>
 it.</p>
 <ol style="list-style-type: decimal">
 <li>The first column contains the study identifier</li>
-<li>The second-to-last column will contain the overall risk-of-bias
-judgments</li>
-<li>The last column will contain the weights, which can all be set to 1
-if the relevant weights are not available.</li>
+<li>The last column will contain the overall risk-of-bias judgments</li>
 <li>The first row of the data does not contain column headings. This can
 be achieved using the <code>header = TRUE</code> option (which indicates
 that the first line contains column headings) when reading in your
@@ -154,12 +151,11 @@ summary table:</li>
 <p>All other columns are expected to contain the results of the risk-of
 bias assessments for a specific domain. To elaborate, consider as an
 example the ROB2.0 tool which has 5 domains. The resulting data set that
-<code>robvis</code> would expect for this tool would have 8 columns:</p>
+<code>robvis</code> would expect for this tool would have 7 columns:</p>
 <ul>
 <li>Column 1: Study identifier</li>
 <li>Column 2-6: One RoB2 domain per column</li>
 <li>Column 7: Overall risk-of-bias judgments</li>
-<li>Column 8: Weights</li>
 </ul>
 <p>The only exception to this is the <code>"Generic"</code> template,
 which is discussed <a href="#rob1">below.</a></p>
@@ -485,14 +481,14 @@ the <code>data_rob1</code>, and the resulting figures.</p>
 <span><span class="co">#&gt; [1] "Study"   "D1"      "D2"      "D3"      "D4"      "D5"      "Overall"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">data_rob1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Study"                                  </span></span>
-<span><span class="co">#&gt; [2] "Random.sequence.generation."            </span></span>
-<span><span class="co">#&gt; [3] "Allocation.concealment."                </span></span>
-<span><span class="co">#&gt; [4] "Blinding.of.participants.and.personnel."</span></span>
-<span><span class="co">#&gt; [5] "Blinding.of.outcome.assessment"         </span></span>
-<span><span class="co">#&gt; [6] "Incomplete.outcome.data"                </span></span>
-<span><span class="co">#&gt; [7] "Selective.reporting."                   </span></span>
-<span><span class="co">#&gt; [8] "Other.sources.of.bias."                 </span></span>
+<span><span class="co">#&gt; [1] "Study"                                 </span></span>
+<span><span class="co">#&gt; [2] "Random.sequence.generation"            </span></span>
+<span><span class="co">#&gt; [3] "Allocation.concealment"                </span></span>
+<span><span class="co">#&gt; [4] "Blinding.of.participants.and.personnel"</span></span>
+<span><span class="co">#&gt; [5] "Blinding.of.outcome.assessment"        </span></span>
+<span><span class="co">#&gt; [6] "Incomplete.outcome.data"               </span></span>
+<span><span class="co">#&gt; [7] "Selective.reporting"                   </span></span>
+<span><span class="co">#&gt; [8] "Other.sources.of.bias"                 </span></span>
 <span><span class="co">#&gt; [9] "Overall"</span></span></code></pre></div>
 <p>The domain columns (Columns 2-6) in the ROB2 example have been given
 arbitrary names of D1-D5, as they will be overwritten by the function to
