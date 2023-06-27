@@ -3,16 +3,16 @@
 \docType{data}
 \name{data_rob2}
 \alias{data_rob2}
-\title{Example ROB2.0 assessment}
+\title{Example ROB2.0 assessment dataset}
 \format{
-A data frame:
+A data frame with the following 7 columns:
 \describe{
-  \item{Study}{Study details}
-  \item{D1}{Domain 1}
-  \item{D2}{Domain 2}
-  \item{D3}{Domain 3}
-  \item{D4}{Domain 4}
-  \item{D5}{Domain 5}
+  \item{Study}{Study identifier}
+  \item{D1}{Domain 1 - Bias arising from the randomization process}
+  \item{D2}{Domain 2 - Bias due to deviations from intended intervention}
+  \item{D3}{Domain 3 - Bias due to missing outcome data}
+  \item{D4}{Domain 4 - Bias in measurement of the outcome}
+  \item{D5}{Domain 5 - Bias in selection of the reported result}
   \item{Overall}{Overall risk of bias}
          }
 }
@@ -23,6 +23,7 @@ A data frame:
 data_rob2
 }
 \description{
-Example ROB2.0 assessment
+A data frame containing 9 example assessments performed using
+the RoB 2.0 tool for randomised controlled trials.
 }
 \keyword{internal}

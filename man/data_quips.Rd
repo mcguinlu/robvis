@@ -3,17 +3,17 @@
 \docType{data}
 \name{data_quips}
 \alias{data_quips}
-\title{Example QUIPS assessment}
+\title{Example QUIPS assessment dataset}
 \format{
-A data frame:
+A data frame with the following 8 columns:
 \describe{
-  \item{Study}{Study details}
-  \item{D1}{Domain 1}
-  \item{D2}{Domain 2}
-  \item{D3}{Domain 3}
-  \item{D4}{Domain 4}
-  \item{D5}{Domain 5}
-  \item{D6}{Domain 6}
+  \item{Study}{Study identifier}
+  \item{D1}{Domain 1 - Bias due to participation}
+  \item{D2}{Domain 2 - Bias due to attrition}
+  \item{D3}{Domain 3 - Bias due to prognostic factor measurement}
+  \item{D4}{Domain 4 - Bias due to outcome measurement}
+  \item{D5}{Domain 5 - Bias due to confounding}
+  \item{D6}{Domain 6 - Bias in statistical analysis and reporting}
   \item{Overall}{Overall risk of bias}
          }
 }
@@ -24,6 +24,7 @@ A data frame:
 data_quips
 }
 \description{
-Example QUIPS assessment
+A data frame containing 12 example assessments performed using
+the QUIPS (Quality In Prognosis Studies) tool.
 }
 \keyword{internal}

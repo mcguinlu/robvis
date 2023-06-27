@@ -3,15 +3,15 @@
 \docType{data}
 \name{data_quadas}
 \alias{data_quadas}
-\title{Example QUADAS-2 assessment}
+\title{Example QUADAS-2 assessment dataset}
 \format{
-A data frame:
+A data frame with the following 6 columns:
 \describe{
-  \item{Study}{Study details}
-  \item{D1}{Domain 1}
-  \item{D2}{Domain 2}
-  \item{D3}{Domain 3}
-  \item{D4}{Domain 4}
+  \item{Study}{Study identifier}
+  \item{D1}{Domain 1 - Patient Selection}
+  \item{D2}{Domain 2 - Index Test}
+  \item{D3}{Domain 3 - Reference Standard}
+  \item{D4}{Domain 4 -  Flow & Timing}
   \item{Overall}{Overall risk of bias}
          }
 }
@@ -22,6 +22,8 @@ A data frame:
 data_quadas
 }
 \description{
-Example QUADAS-2 assessment
+A data frame containing 12 example assessments performed using
+the risk-of-bias portion of the QUADAS-2 tool for the assessment of
+diagnostic accuracy studies.
 }
 \keyword{internal}
