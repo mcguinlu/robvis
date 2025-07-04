@@ -14,7 +14,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_quadas"
 
 #' Example QUIPS assessment dataset
@@ -34,7 +33,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_quips"
 
 #' Example ROB1 assessment dataset
@@ -61,7 +59,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 
 "data_rob1"
 
@@ -81,7 +78,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_rob2"
 
 #' Example ROB2.0 (cluster variant) assessment dataset
@@ -102,7 +98,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 
 "data_rob2_cluster"
 
@@ -125,8 +120,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
-
 "data_robins_i"
 
 #' Example ROBINS-E assessment
@@ -148,7 +141,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 
 "data_robins_e"
 
@@ -188,6 +180,5 @@
 #'   \item{\code{overall}}{character COLUMN_DESCRIPTION}
 #'}
 #'@source {Created for this package}
-#'@keywords internal
 
 "data_bias_direction"
