@@ -59,7 +59,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-
 "data_rob1"
 
 #' Example ROB2.0 assessment dataset
@@ -98,7 +97,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-
 "data_rob2_cluster"
 
 #' Example ROBINS-I assessment dataset
@@ -141,15 +139,14 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-
 "data_robins_e"
 
 # TODO Update data documentation for this dataframe
 
-#'@title Example directional risk-of-bias dataset
-#'@description This dataset is include to support experimental aspects of the
+#' @title Example directional risk-of-bias dataset
+#' @description This dataset is include to support experimental aspects of the
 #'  package.
-#'@format A data frame with 20 rows and 27 variables:
+#' @format A data frame with 20 rows and 27 variables:
 #' \describe{
 #'   \item{\code{result_id}}{integer COLUMN_DESCRIPTION}
 #'   \item{\code{study}}{character COLUMN_DESCRIPTION}
@@ -178,7 +175,6 @@
 #'   \item{\code{d7t}}{character COLUMN_DESCRIPTION}
 #'   \item{\code{d7d}}{character COLUMN_DESCRIPTION}
 #'   \item{\code{overall}}{character COLUMN_DESCRIPTION}
-#'}
-#'@source {Created for this package}
-
+#' }
+#' @source {Created for this package}
 "data_bias_direction"
