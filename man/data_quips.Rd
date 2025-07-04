@@ -27,4 +27,4 @@ data_quips
 A data frame containing 12 example assessments performed using
 the QUIPS (Quality In Prognosis Studies) tool.
 }
-\keyword{internal}
+\keyword{datasets}

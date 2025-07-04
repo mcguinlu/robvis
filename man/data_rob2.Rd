@@ -26,4 +26,4 @@ data_rob2
 A data frame containing 9 example assessments performed using
 the RoB 2.0 tool for randomised controlled trials.
 }
-\keyword{internal}
+\keyword{datasets}

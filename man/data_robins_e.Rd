@@ -29,4 +29,4 @@ data_robins_e
 A data frame containing 10 example assessments performed using
   the ROBINS-E (Risk Of Bias In Non-randomised Studies - of Exposures) tool.
 }
-\keyword{internal}
+\keyword{datasets}

@@ -26,4 +26,4 @@ A data frame containing 12 example assessments performed using
 the risk-of-bias portion of the QUADAS-2 tool for the assessment of
 diagnostic accuracy studies.
 }
-\keyword{internal}
+\keyword{datasets}

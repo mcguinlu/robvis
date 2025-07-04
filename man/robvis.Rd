@@ -2,6 +2,7 @@
 % Please edit documentation in R/robvis.R
 \docType{package}
 \name{robvis}
+\alias{-package}
 \alias{robvis}
 \title{robvis: A package for producing risk-of-bias assessment figures.}
 \description{
