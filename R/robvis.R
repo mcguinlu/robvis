@@ -2,9 +2,8 @@
 #'
 #' The robvis package is designed to help users produce publication quality
 #' risk-of-bias assessment figures.
-#' @docType package
-#' @name robvis
 #' @keywords internal
+"_PACKAGE"
 
 # TODO remove reliance on globalVariables
 
