@@ -4,5 +4,5 @@ test_that("Correct number of colours returned", {
 })
 
 test_that("Convert weird spelling of colour", {
-  expect_equal(weird_spelling("colorblind"), "colourblind")
+  expect_equal(clean_colour_spelling("colorblind"), "colourblind")
 })

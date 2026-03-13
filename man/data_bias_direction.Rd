@@ -3,7 +3,7 @@
 \docType{data}
 \name{data_bias_direction}
 \alias{data_bias_direction}
-\title{DATASET_TITLE}
+\title{Example directional risk-of-bias dataset}
 \format{
 A data frame with 20 rows and 27 variables:
 \describe{
@@ -43,6 +43,7 @@ A data frame with 20 rows and 27 variables:
 data_bias_direction
 }
 \description{
-DATASET_DESCRIPTION
+This dataset is include to support experimental aspects of the
+ package.
 }
 \keyword{internal}

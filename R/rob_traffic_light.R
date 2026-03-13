@@ -7,9 +7,9 @@
 #'   column containing the first domain of your assessments, and the final
 #'   column containing a weight to assign to each study. The function assumes
 #'   that the data includes a column for overall risk-of-bias. For example, a
-#'   ROB2.0 dataset would have 8 columns (1 for study details, 5 for domain
-#'   level judgments, 1 for overall judgements, and 1 for weights, in that
-#'   order).
+#'   ROB2.0 dataset would have 7 columns (1 for study details, 5 for domain
+#'   level judgments, and 1 for overall judgement, in that
+#'   order). See
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
 #'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
@@ -49,8 +49,8 @@ rob_traffic_light <-
            ...) {
 
     check_tool(tool)
-    check_data(data)
-    colour <- weird_spelling(colour)
+    check_first_row(data)
+    colour <- clean_colour_spelling(colour)
 
     check_colour(tool = tool, colour = colour)
 
@@ -166,7 +166,7 @@ rob_traffic_light_rob2 <- function(data,
   max_domain_column <- 7
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -181,7 +181,7 @@ rob_traffic_light_rob2 <- function(data,
                     ggplot2::aes(x = 1,
                                  y = 1,
                                  colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -250,7 +250,7 @@ rob_traffic_light_rob2_cluster <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D1b", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -264,7 +264,7 @@ rob_traffic_light_rob2_cluster <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -338,7 +338,7 @@ rob_traffic_light_robinsi <- function(data,
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -352,7 +352,7 @@ rob_traffic_light_robinsi <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -429,7 +429,7 @@ rob_traffic_light_robinse <- function(data,
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -443,7 +443,7 @@ rob_traffic_light_robinse <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -518,7 +518,7 @@ rob_traffic_light_quadas2 <- function(data,
   max_domain_column <- 6
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -532,7 +532,7 @@ rob_traffic_light_quadas2 <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -600,7 +600,7 @@ rob_traffic_light_quips <- function(data,
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
 
-  rob.tidy <- tidy_data(data,
+  rob.tidy <- tidy_data_tf(data,
                         max_domain_column = max_domain_column,
                         domain_names = domain_names,
                         overall = overall,
@@ -614,7 +614,7 @@ rob_traffic_light_quips <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,
@@ -678,6 +678,7 @@ rob_traffic_light_generic <- function(data,
                                       rob_colours,
                                       psize,
                                       overall,
+                                      domain_shortcodes = "standard",
                                       x_title = "Risk of bias domains",
                                       y_title = "Study",
                                       judgement_title = "Judgement",
@@ -688,7 +689,7 @@ rob_traffic_light_generic <- function(data,
                                                            "No information",
                                                            "Not applicable")) {
 
-  rob1_warning(tool)
+  check_rob1(tool)
 
   # Determine if the uploaded dataset contains weights
   if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
@@ -713,7 +714,14 @@ rob_traffic_light_generic <- function(data,
     }
   }
 
-  max_domain_column <- dim(data)[2] - 1
+  # Deal with scenarios that don't have overall column
+  if(overall == FALSE){
+    col_adjust = 0
+  } else {
+    col_adjust = 1
+  }
+
+  max_domain_column <- dim(data)[2] - col_adjust
 
   data.tmp <- data
 
@@ -724,14 +732,45 @@ rob_traffic_light_generic <- function(data,
                                          fixed = TRUE))
   }
 
+
+  # Generate the shortcodes if necessary, and check user-provided shortcodes
+  if (length(domain_shortcodes) == 1 &&
+      domain_shortcodes == "standard") {
+    domain_shortcodes <- paste0("D", 2:max_domain_column - 1)
+  } else {
+    if (length(domain_shortcodes) != max_domain_column - 1) {
+      stop(
+        paste0(
+          "You have not specified the correct number of shortcodes. ",
+          "The expected number of shortcodes is ",
+          max_domain_column - 1,
+          "; you have provided ",
+          length(domain_shortcodes),
+          "."
+        )
+
+      )
+    }
+
+    if (length(domain_shortcodes) != length(unique(domain_shortcodes))) {
+      stop(
+        paste0(
+          "The shortcodes you have specified contain duplicates. ",
+          "All shortcodes must be unique."
+        )
+      )
+    }
+
+  }
+
   # Create caption vector, and add line breaks to maintain spacing
   captiondf <- data.frame(V1 = rep("", 8), stringsAsFactors = FALSE)
   for (i in 2:max_domain_column) {
     if (i == 2) {
-      captiondf[i - 1, 1] <- paste0(" D", i - 1,
+      captiondf[i - 1, 1] <- paste0(" ", domain_shortcodes[i - 1],
                                     ": ", names(data.tmp)[i], "\n")
     } else {
-      captiondf[i - 1, 1] <- paste0("D", i - 1, ": ",
+      captiondf[i - 1, 1] <- paste0(domain_shortcodes[i - 1], ": ",
                                     names(data.tmp)[i], "\n")
     }
   }
@@ -742,7 +781,7 @@ rob_traffic_light_generic <- function(data,
   # Rename columns headings
   names(data.tmp)[1] <- "Study"
   for (i in 2:max_domain_column) {
-    names(data.tmp)[i] <- paste0("D", i - 1)
+    names(data.tmp)[i] <- domain_shortcodes[i - 1]
   }
 
   # Convert to long format
@@ -786,7 +825,7 @@ rob_traffic_light_generic <- function(data,
                                       ggplot2::aes(x = 1,
                                                    y = 1,
                                                    colour = judgement)) +
-    rob_tf_theme(rob.tidy,
+    theme_rob_tf(rob.tidy,
                  domain_names,
                  psize,
                  ssize,

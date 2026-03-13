@@ -59,6 +59,12 @@ test_that("Data contains headers", {
   expect_error(rob_traffic_light(data_header, "ROB2"))
 })
 
+test_that("Expected number of domain shortcodes", {
+  expect_error(rob_traffic_light(data_rob1, "Generic", domain_shortcodes = c("R1")))
+  expect_error(rob_traffic_light(data_rob1[,1:3], "Generic", overall = FALSE, domain_shortcodes = c("R1", "R1")))
+})
+
+
 #-#-#-#
 
 res <- c()

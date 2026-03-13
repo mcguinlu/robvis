@@ -5,16 +5,17 @@
 \alias{data_robins_e}
 \title{Example ROBINS-E assessment}
 \format{
-A data frame:
+A data frame with the following 9 columns:
+
 \describe{
-  \item{Study}{Study details}
-  \item{D1}{Domain 1}
-  \item{D2}{Domain 2}
-  \item{D3}{Domain 3}
-  \item{D4}{Domain 4}
-  \item{D5}{Domain 5}
-  \item{D6}{Domain 6}
-  \item{D7}{Domain 7}
+  \item{Study}{Study identifier}
+  \item{D1}{Domain 1 - Bias due to confounding}
+  \item{D2}{Domain 2 - Bias arising from measurement of the exposure}
+  \item{D3}{Domain 3 - Bias in selection of participants into the study (or into the analysis)}
+  \item{D4}{Domain 4 - Bias due to post-exposure interventions}
+  \item{D5}{Domain 5 - Bias due to missing data}
+  \item{D6}{Domain 6 - Bias arising from measurement of the outcome}
+  \item{D7}{Domain 7 - Bias in selection of the reported result}
   \item{Overall}{Overall risk of bias}
          }
 }
@@ -25,6 +26,7 @@ A data frame:
 data_robins_e
 }
 \description{
-Example ROBINS-E assessment
+A data frame containing 10 example assessments performed using
+  the ROBINS-E (Risk Of Bias In Non-randomised Studies - of Exposures) tool.
 }
 \keyword{internal}
