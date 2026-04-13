@@ -410,7 +410,7 @@ theme_rob_tf <-function(rob.tidy,
       ),
       ggplot2::scale_x_discrete(position = "top", name = x_title),
         ggplot2::scale_y_continuous(
-          limits = c(1, 1),
+          limits = c(0.5, 1.5),
           labels = NULL,
           breaks = NULL,
           name = y_title,
