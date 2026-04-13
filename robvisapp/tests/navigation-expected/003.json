@@ -1,0 +1,94 @@
+{
+  "input": {
+    "barplotcolour": "cochrane",
+    "data": null,
+    "data_help": 0,
+    "enter_manually": 0,
+    "gen_plots": 0,
+    "gotoabout": 1,
+    "gotodata": 0,
+    "mytabsetpanel": "Home",
+    "new_row": 0,
+    "overall": true,
+    "psize": 15,
+    "reset": 0,
+    "results-subpanel": "tf-panel",
+    "shinyjs-resettable-data": {
+
+    },
+    "sum_help": 0,
+    "summarydownloadformat": "png",
+    "tf_help": 0,
+    "tool": "",
+    "tool_help": 0,
+    "trafficcolour": "cochrane",
+    "trafficdownloadformat": "png",
+    "traffictextsize": "12",
+    "weights": true
+  },
+  "output": {
+    "data_text": "Using tool template: ",
+    "image": {
+      "src": "[image data sha1: 7d5bf0838b25f25b0f35da4d8fb4044427659382]"
+    },
+    "mytable": {
+      "x": null,
+      "evals": [
+
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.19",
+          "src": {
+            "href": "dt-core-1.10.19"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.0.0",
+          "src": {
+            "href": "crosstalk-1.0.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

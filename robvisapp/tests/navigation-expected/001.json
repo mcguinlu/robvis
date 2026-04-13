@@ -1,0 +1,37 @@
+{
+  "input": {
+    "barplotcolour": "cochrane",
+    "data": null,
+    "data_help": 0,
+    "enter_manually": 0,
+    "gen_plots": 0,
+    "gotoabout": 1,
+    "gotodata": 0,
+    "mytabsetpanel": "about",
+    "new_row": 0,
+    "overall": true,
+    "psize": 15,
+    "reset": 0,
+    "results-subpanel": "tf-panel",
+    "shinyjs-resettable-data": {
+
+    },
+    "sum_help": 0,
+    "summarydownloadformat": "png",
+    "tf_help": 0,
+    "tool": "",
+    "tool_help": 0,
+    "trafficcolour": "cochrane",
+    "trafficdownloadformat": "png",
+    "traffictextsize": "12",
+    "weights": true
+  },
+  "output": {
+    "image": {
+      "src": "[image data sha1: 7d5bf0838b25f25b0f35da4d8fb4044427659382]"
+    }
+  },
+  "export": {
+
+  }
+}

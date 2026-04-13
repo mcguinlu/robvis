@@ -1,0 +1,26 @@
+TY  - JOUR
+T1  - Risk-of-bias VISualization (robvis): An R package and Shiny web app for visualizing risk-of-bias assessments
+AU  - McGuinness, Luke A.
+AU  - Higgins, Julian P. T.
+Y1  - 2020/04/26
+PY  - 2020
+DA  - 2020/04/26
+N1  - doi: 10.1002/jrsm.1411
+DO  - 10.1002/jrsm.1411
+T2  - Research Synthesis Methods
+JF  - Research Synthesis Methods
+JO  - Research Synthesis Methods
+JA  - Res Syn Meth
+VL  - n/a
+IS  - n/a
+KW  - data visualization
+KW  - evidence synthesis
+KW  - R
+KW  - risk of bias
+PB  - John Wiley & Sons, Ltd
+SN  - 1759-2879
+M3  - doi: 10.1002/jrsm.1411
+UR  - https://doi.org/10.1002/jrsm.1411
+Y2  - 2020/05/21
+N2  - Despite a major increase in the range and number of software offerings now available to help researchers produce evidence syntheses, there is currently no generic tool for producing figures to display and explore the risk-of-bias assessments that routinely take place as part of systematic review. However, tools such as the R programming environment and Shiny (an R package for building interactive web apps) have made it straightforward to produce new tools to help in producing evidence syntheses. We present a new tool, robvis (Risk-Of-Bias VISualization), available as an R package and web app, which facilitates rapid production of publication-quality risk-of-bias assessment figures. We present a timeline of the tool's development and its key functionality.
+ER  - 
