@@ -1415,6 +1415,7 @@ server <- function(session, input, output) {
                             rob_save(
                               file = file, 
                               rob_object = trafficlightplotInput(),
+                              height = nrowsin(),
                               dpi = 600
                             )
                             
