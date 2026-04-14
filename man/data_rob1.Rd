@@ -34,4 +34,4 @@ A data frame containing 9 example assessments performed using
   the column names of the provided dataset to define the domain names for
   these custom plots.
 }
-\keyword{internal}
+\keyword{datasets}

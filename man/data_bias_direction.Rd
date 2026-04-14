@@ -46,4 +46,4 @@ data_bias_direction
 This dataset is include to support experimental aspects of the
  package.
 }
-\keyword{internal}
+\keyword{datasets}

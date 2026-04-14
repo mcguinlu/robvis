@@ -28,4 +28,4 @@ data_rob2_cluster
 A data frame containing 9 example assessments performed using
 the cluster-randomised version of the RoB 2.0 tool.
 }
-\keyword{internal}
+\keyword{datasets}

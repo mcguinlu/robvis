@@ -25,7 +25,7 @@ Description: Helps users in quickly visualizing risk-of-bias
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends:
   R (>= 3.6)
 Imports:
@@ -44,7 +44,6 @@ Suggests:
     rmarkdown (>= 2.3),
     covr (>= 3.5.1),
     testthat (>= 2.3.0),
-    triangulate (>= 0.0.1),
     spelling (>= 2.2)
 VignetteBuilder: 
     knitr, 
@@ -53,5 +52,3 @@ Config/testthat/edition: 3
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
-Remotes: 
-    mcguinlu/triangulate

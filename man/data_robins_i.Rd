@@ -29,4 +29,4 @@ data_robins_i
 A data frame containing 10 example assessments performed using
 the ROBINS-I (Risk Of Bias In Non-randomised Studies - of Interventions) tool.
 }
-\keyword{internal}
+\keyword{datasets}

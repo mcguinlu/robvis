@@ -14,7 +14,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_quadas"
 
 #' Example QUIPS assessment dataset
@@ -34,7 +33,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_quips"
 
 #' Example ROB1 assessment dataset
@@ -61,8 +59,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
-
 "data_rob1"
 
 #' Example ROB2.0 assessment dataset
@@ -81,7 +77,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
 "data_rob2"
 
 #' Example ROB2.0 (cluster variant) assessment dataset
@@ -102,8 +97,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
-
 "data_rob2_cluster"
 
 #' Example ROBINS-I assessment dataset
@@ -125,8 +118,6 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
-
 "data_robins_i"
 
 #' Example ROBINS-E assessment
@@ -148,16 +139,14 @@
 #'   \item{Overall}{Overall risk of bias}
 #'          }
 #' @source {Created for this package}
-#' @keywords internal
-
 "data_robins_e"
 
 # TODO Update data documentation for this dataframe
 
-#'@title Example directional risk-of-bias dataset
-#'@description This dataset is include to support experimental aspects of the
+#' @title Example directional risk-of-bias dataset
+#' @description This dataset is include to support experimental aspects of the
 #'  package.
-#'@format A data frame with 20 rows and 27 variables:
+#' @format A data frame with 20 rows and 27 variables:
 #' \describe{
 #'   \item{\code{result_id}}{integer COLUMN_DESCRIPTION}
 #'   \item{\code{study}}{character COLUMN_DESCRIPTION}
@@ -186,8 +175,6 @@
 #'   \item{\code{d7t}}{character COLUMN_DESCRIPTION}
 #'   \item{\code{d7d}}{character COLUMN_DESCRIPTION}
 #'   \item{\code{overall}}{character COLUMN_DESCRIPTION}
-#'}
-#'@source {Created for this package}
-#'@keywords internal
-
+#' }
+#' @source {Created for this package}
 "data_bias_direction"
