@@ -993,6 +993,23 @@ server <- function(session, input, output) {
       rv$new_row = rv$data
     }
     
+    if (input$tool == "ROBINS-E") {
+      rv$data = data.frame(
+        Study   = "Click to edit",
+        D1      = "Click to edit",
+        D2      = "Click to edit",
+        D3      = "Click to edit",
+        D4      = "Click to edit",
+        D5      = "Click to edit",
+        D6      = "Click to edit",
+        D7      = "Click to edit",
+        Overall = "Click to edit",
+        Weights = 1,
+        stringsAsFactors = FALSE
+      )
+      rv$new_row = rv$data
+    }
+    
     
     
   })
