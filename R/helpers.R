@@ -410,7 +410,7 @@ theme_rob_tf <-function(rob.tidy,
       ),
       ggplot2::scale_x_discrete(position = "top", name = x_title),
         ggplot2::scale_y_continuous(
-          limits = c(1, 1),
+          limits = c(0.5, 1.5),
           labels = NULL,
           breaks = NULL,
           name = y_title,
@@ -587,6 +587,12 @@ get_height <- function(data, tool, psize, type = "tf") {
     tool_adj <- ifelse(tool %in% c("ROBINS-I", "Generic"), 2.5, 2)
     nrows <- nrow(data)
     height <- tool_adj + nrows * .4 / (10 / psize)
+    # For Generic/ROB1, the caption lists every domain by name. The tool_adj of 2.5
+    # inches covers ~9 columns; each additional column adds ~0.15 inches (~14px at
+    # 96 dpi) to accommodate the extra caption line.
+    if (tool %in% c("Generic", "ROB1")) {
+      height <- height + max(0, ncol(data) - 9) * 0.15
+    }
   } else {
     height <- 2.41
   }
