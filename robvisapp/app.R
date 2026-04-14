@@ -1362,7 +1362,15 @@ server <- function(session, input, output) {
     req(input$tool)
     trafficdf <- rv$data
     nrows <- nrow(trafficdf)
-    nrows <- (nrows * (60 / (15 / input$psize))) + 200
+    # For Generic/ROB1 the caption lists every domain by name. The 200px base
+    # offset covers up to ~9 columns; each extra column needs ~14px (~0.15in at
+    # 96 dpi) for the additional caption line.
+    domain_height_adj <- if (input$tool %in% c("Generic", "ROB1")) {
+      max(0, ncol(trafficdf) - 9) * 14
+    } else {
+      0
+    }
+    nrows <- (nrows * (60 / (15 / input$psize))) + 200 + domain_height_adj
     return(nrows)
   })
   
@@ -1378,9 +1386,17 @@ server <- function(session, input, output) {
   # Define height of downloaded plot dynamically
   nrowsin <- reactive({
     trafficdf <- rv$data
-    tool <- ifelse(input$tool %in% c("ROBINS-I","Generic"), 2.5, 2)
+    tool_adj <- ifelse(input$tool %in% c("ROBINS-I","Generic"), 2.5, 2)
     nrows <- nrow(trafficdf)
-    nrows <- tool + nrows * .75 / (15 / input$psize)
+    # For Generic/ROB1 the caption lists every domain by name. The tool_adj base
+    # covers up to ~9 columns; each extra column adds ~0.15in (~14px at 96 dpi)
+    # for the additional caption line.
+    domain_height_adj <- if (input$tool %in% c("Generic", "ROB1")) {
+      max(0, ncol(trafficdf) - 9) * 0.15
+    } else {
+      0
+    }
+    nrows <- tool_adj + nrows * .75 / (15 / input$psize) + domain_height_adj
     return(nrows)
   })
   
