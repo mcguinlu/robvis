@@ -12,6 +12,8 @@ jobs:
   deploy:
     name: Deploy to shinyapps.io
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
