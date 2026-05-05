@@ -120,6 +120,27 @@
 #' @source {Created for this package}
 "data_robins_i"
 
+#' Example ROBINS-I-V2 assessment dataset
+#'
+#' @description A data frame containing 10 example assessments performed using
+#' the ROBINS-I (Risk Of Bias In Non-randomised Studies - of Interventions) tool, version 2.
+#'
+#' @format A data frame with the following 9 columns:
+#'
+#' \describe{
+#'   \item{Study}{Study identifier}
+#'   \item{D1}{Domain 1 - Bias due to confounding}
+#'   \item{D2}{Domain 2 - Bias in classification of interventions}
+#'   \item{D3}{Domain 3 - Bias due to selection of into the study}
+#'   \item{D4}{Domain 4 - Bias due to missing data}
+#'   \item{D5}{Domain 5 - Bias in measurement of outcomes}
+#'   \item{D6}{Domain 6 - Bias in selection of reported result}
+#'   \item{Overall}{Overall risk of bias}
+#'          }
+#' @source {Created for this package}
+"data_robins_i_v2"
+
+
 #' Example ROBINS-E assessment
 #'
 #' @description A data frame containing 10 example assessments performed using
