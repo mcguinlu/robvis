@@ -81,6 +81,16 @@ rob_traffic_light <-
       )
     }
 
+    if (tool == "ROBINS-I-V2") {
+      plot <- rob_traffic_light_robinsiv2(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize,
+        overall = overall
+      )
+    }
+
     if (tool == "ROBINS-E") {
       plot <- rob_traffic_light_robinse(
         data = data,
