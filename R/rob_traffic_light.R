@@ -41,13 +41,7 @@
 #' @export
 
 rob_traffic_light <-
-  function(data,
-           tool,
-           colour = "cochrane",
-           psize = 10,
-           overall = TRUE,
-           ...) {
-
+  function(data, tool, colour = "cochrane", psize = 10, overall = TRUE, ...) {
     check_tool(tool)
     check_first_row(data)
     colour <- clean_colour_spelling(colour)
@@ -137,9 +131,7 @@ rob_traffic_light <-
     )
 
     # Add recommended saving width to the plot object
-    plot$rec_width <- get_width(data = data,
-                                psize = psize,
-                                type = "tf")
+    plot$rec_width <- get_width(data = data, psize = psize, type = "tf")
 
     plot$rob_type <- "traffic"
 
@@ -148,36 +140,32 @@ rob_traffic_light <-
 
 # ROB-2=========================================================================
 
-rob_traffic_light_rob2 <- function(data,
-                                   tool,
-                                   rob_colours,
-                                   psize,
-                                   overall) {
-
+rob_traffic_light_rob2 <- function(data, tool, rob_colours, psize, overall) {
   max_domain_column <- 7
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("h", "s", "l", "n", "x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("h", "s", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
   trafficlightplot <-
-    ggplot2::ggplot(rob.tidy,
-                    ggplot2::aes(x = 1,
-                                 y = 1,
-                                 colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+    ggplot2::ggplot(rob.tidy, ggplot2::aes(x = 1, y = 1, colour = judgement)) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1: Bias arising from the randomization process.
@@ -231,36 +219,40 @@ rob_traffic_light_rob2 <- function(data,
 
 # ROB-2 Cluster=================================================================
 
-rob_traffic_light_rob2_cluster <- function(data,
-                                           tool,
-                                           rob_colours,
-                                           psize,
-                                           overall) {
-
-
+rob_traffic_light_rob2_cluster <- function(
+  data,
+  tool,
+  rob_colours,
+  psize,
+  overall
+) {
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D1b", "D2", "D3", "D4", "D5", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("h", "s", "l", "n", "x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("h", "s", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1 :  Bias arising from the randomization process.
@@ -310,45 +302,41 @@ rob_traffic_light_rob2_cluster <- function(data,
       limits = force
     )
 
-
   return(trafficlightplot)
 }
 
 
-
 # ROBINS-I======================================================================
 
-rob_traffic_light_robinsi <- function(data,
-                                      tool,
-                                      rob_colours,
-                                      psize,
-                                      overall) {
-
-
+rob_traffic_light_robinsi <- function(data, tool, rob_colours, psize, overall) {
   max_domain_column <- 9
   domain_names <-
     c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("c", "s", "m", "l", "n", "x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("c", "s", "m", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1: Bias due to confounding.
@@ -405,41 +393,131 @@ rob_traffic_light_robinsi <- function(data,
 
   return(trafficlightplot)
 }
+# ROBINS-I-V2======================================================================
 
-
-# ROBINS-E======================================================================
-
-rob_traffic_light_robinse <- function(data,
-                                      tool,
-                                      rob_colours,
-                                      psize,
-                                      overall) {
-
-
-  max_domain_column <- 9
+rob_traffic_light_robinsiv2 <- function(
+  data,
+  tool,
+  rob_colours,
+  psize,
+  overall
+) {
+  max_domain_column <- 8
   domain_names <-
-    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
+    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("v", "h", "s", "l", "n", "x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("c", "s", "m", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
+    ggplot2::labs(
+      caption = "  Domains:
+  D1: Bias due to confounding.
+  D2: Bias in classification of interventions.
+  D3: Bias due to selection into the study.
+  D5: Bias due to missing data.
+  D6: Bias in measurement of outcomes.
+  D7: Bias in selection of the reported result.
+
+
+                  "
+    ) +
+    ggplot2::scale_colour_manual(
+      values = c(
+        c = rob_colours$critical_colour,
+        s = rob_colours$high_colour,
+        m = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      ),
+      labels = c(
+        c = "Critical",
+        s = "Serious",
+        m = "Moderate",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      ),
+      drop = TRUE,
+      limits = force
+    ) +
+    ggplot2::scale_shape_manual(
+      values = c(
+        c = 33,
+        s = 120,
+        m = 45,
+        l = 43,
+        n = 63,
+        x = 32
+      ),
+      labels = c(
+        c = "Critical",
+        s = "Serious",
+        m = "Moderate",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      ),
+      drop = TRUE,
+      limits = force
+    )
+
+  return(trafficlightplot)
+}
+
+
+# ROBINS-E======================================================================
+
+rob_traffic_light_robinse <- function(data, tool, rob_colours, psize, overall) {
+  max_domain_column <- 9
+  domain_names <-
+    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "Overall")
+
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("v", "h", "s", "l", "n", "x")
+  )
+
+  ssize <- psize - (psize / 4)
+
+  adjust_caption <- get_caption_adjustment(rob.tidy)
+
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1: Bias due to confounding.
@@ -499,36 +577,34 @@ rob_traffic_light_robinse <- function(data,
 
 # QUADAS-2======================================================================
 
-
-rob_traffic_light_quadas2 <- function(data,
-                                      tool,
-                                      rob_colours,
-                                      psize,
-                                      overall) {
-
+rob_traffic_light_quadas2 <- function(data, tool, rob_colours, psize, overall) {
   max_domain_column <- 6
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("h", "s", "l", "n", "x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("h", "s", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1: Patient selection.
@@ -581,36 +657,34 @@ rob_traffic_light_quadas2 <- function(data,
 
 # QUIPS ========================================================================
 
-
-rob_traffic_light_quips <- function(data,
-                                      tool,
-                                      rob_colours,
-                                      psize,
-                                    overall) {
-
+rob_traffic_light_quips <- function(data, tool, rob_colours, psize, overall) {
   max_domain_column <- 8
   domain_names <- c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
 
-  rob.tidy <- tidy_data_tf(data,
-                        max_domain_column = max_domain_column,
-                        domain_names = domain_names,
-                        overall = overall,
-                        levels = c("h", "m", "l", "n","x"))
+  rob.tidy <- tidy_data_tf(
+    data,
+    max_domain_column = max_domain_column,
+    domain_names = domain_names,
+    overall = overall,
+    levels = c("h", "m", "l", "n", "x")
+  )
 
   ssize <- psize - (psize / 4)
 
   adjust_caption <- get_caption_adjustment(rob.tidy)
 
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall
+    ) +
     ggplot2::labs(
       caption = "  Domains:
   D1: Bias due to participation.
@@ -664,27 +738,32 @@ rob_traffic_light_quips <- function(data,
 
 # ROB-1/Generic=================================================================
 
-rob_traffic_light_generic <- function(data,
-                                      tool,
-                                      rob_colours,
-                                      psize,
-                                      overall,
-                                      domain_shortcodes = "standard",
-                                      x_title = "Risk of bias domains",
-                                      y_title = "Study",
-                                      judgement_title = "Judgement",
-                                      judgement_labels = c("Critical",
-                                                           "High",
-                                                           "Unclear",
-                                                           "Low",
-                                                           "No information",
-                                                           "Not applicable")) {
-
+rob_traffic_light_generic <- function(
+  data,
+  tool,
+  rob_colours,
+  psize,
+  overall,
+  domain_shortcodes = "standard",
+  x_title = "Risk of bias domains",
+  y_title = "Study",
+  judgement_title = "Judgement",
+  judgement_labels = c(
+    "Critical",
+    "High",
+    "Unclear",
+    "Low",
+    "No information",
+    "Not applicable"
+  )
+) {
   check_rob1(tool)
 
   # Determine if the uploaded dataset contains weights
-  if (unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$",
-                   data[[ncol(data)]])) == TRUE) {
+  if (
+    unique(grepl("^[-]{0,1}[0-9]{0,}.{0,1}[0-9]{1,}$", data[[ncol(data)]])) ==
+      TRUE
+  ) {
     for (i in 2:(ncol(data) - 1)) {
       # Convert "serious" to "high" so that it maps appropriately
       data[[i]] <- gsub("\\bse", "High", stringr::str_to_lower(data[[i]]))
@@ -706,7 +785,7 @@ rob_traffic_light_generic <- function(data,
   }
 
   # Deal with scenarios that don't have overall column
-  if(overall == FALSE){
+  if (overall == FALSE) {
     col_adjust = 0
   } else {
     col_adjust = 1
@@ -718,15 +797,19 @@ rob_traffic_light_generic <- function(data,
 
   # Remove dots from column names
   for (i in 1:(ncol(data.tmp))) {
-    names(data.tmp)[i] <- invisible(gsub(".", " ",
-                                         names(data.tmp)[i],
-                                         fixed = TRUE))
+    names(data.tmp)[i] <- invisible(gsub(
+      ".",
+      " ",
+      names(data.tmp)[i],
+      fixed = TRUE
+    ))
   }
 
-
   # Generate the shortcodes if necessary, and check user-provided shortcodes
-  if (length(domain_shortcodes) == 1 &&
-      domain_shortcodes == "standard") {
+  if (
+    length(domain_shortcodes) == 1 &&
+      domain_shortcodes == "standard"
+  ) {
     domain_shortcodes <- paste0("D", 2:max_domain_column - 1)
   } else {
     if (length(domain_shortcodes) != max_domain_column - 1) {
@@ -739,7 +822,6 @@ rob_traffic_light_generic <- function(data,
           length(domain_shortcodes),
           "."
         )
-
       )
     }
 
@@ -751,18 +833,26 @@ rob_traffic_light_generic <- function(data,
         )
       )
     }
-
   }
 
   # Create caption vector, and add line breaks to maintain spacing
   captiondf <- data.frame(V1 = rep("", 8), stringsAsFactors = FALSE)
   for (i in 2:max_domain_column) {
     if (i == 2) {
-      captiondf[i - 1, 1] <- paste0(" ", domain_shortcodes[i - 1],
-                                    ": ", names(data.tmp)[i], "\n")
+      captiondf[i - 1, 1] <- paste0(
+        " ",
+        domain_shortcodes[i - 1],
+        ": ",
+        names(data.tmp)[i],
+        "\n"
+      )
     } else {
-      captiondf[i - 1, 1] <- paste0(domain_shortcodes[i - 1], ": ",
-                                    names(data.tmp)[i], "\n")
+      captiondf[i - 1, 1] <- paste0(
+        domain_shortcodes[i - 1],
+        ": ",
+        names(data.tmp)[i],
+        "\n"
+      )
     }
   }
 
@@ -776,8 +866,12 @@ rob_traffic_light_generic <- function(data,
   }
 
   # Convert to long format
-  rob.tidy <- suppressWarnings(tidyr::gather(data.tmp,
-                                             domain, judgement,-Study))
+  rob.tidy <- suppressWarnings(tidyr::gather(
+    data.tmp,
+    domain,
+    judgement,
+    -Study
+  ))
 
   # Relevel rob.tidy$domain
   for (i in 1:(ncol(data.tmp))) {
@@ -812,20 +906,22 @@ rob_traffic_light_generic <- function(data,
   overall_name <- names(data.tmp)[length(names(data.tmp))]
 
   # PLot graph
-  trafficlightplot <- ggplot2::ggplot(rob.tidy,
-                                      ggplot2::aes(x = 1,
-                                                   y = 1,
-                                                   colour = judgement)) +
-    theme_rob_tf(rob.tidy,
-                 domain_names,
-                 psize,
-                 ssize,
-                 adjust_caption,
-                 overall,
-                 judgement_title,
-                 overall_name,
-                 x_title,
-                 y_title) +
+  trafficlightplot <- ggplot2::ggplot(
+    rob.tidy,
+    ggplot2::aes(x = 1, y = 1, colour = judgement)
+  ) +
+    theme_rob_tf(
+      rob.tidy,
+      domain_names,
+      psize,
+      ssize,
+      adjust_caption,
+      overall,
+      judgement_title,
+      overall_name,
+      x_title,
+      y_title
+    ) +
     ggplot2::labs(caption = caption) +
     ggplot2::scale_colour_manual(
       values = c(
@@ -840,18 +936,19 @@ rob_traffic_light_generic <- function(data,
       drop = TRUE,
       limits = force
     ) +
-    ggplot2::scale_shape_manual(values = c(
-      l = 43,
-      s = 45,
-      h = 120,
-      c = 33,
-      n = 63,
-      x = 32
-    ),
-    labels = judgement_labels,
-    drop = TRUE,
-    limits = force)
+    ggplot2::scale_shape_manual(
+      values = c(
+        l = 43,
+        s = 45,
+        h = 120,
+        c = 33,
+        n = 63,
+        x = 32
+      ),
+      labels = judgement_labels,
+      drop = TRUE,
+      limits = force
+    )
 
   return(trafficlightplot)
-
 }
