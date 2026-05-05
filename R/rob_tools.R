@@ -23,6 +23,7 @@ rob_tools <- function(forest = FALSE) {
       "ROB2",
       "ROB2-Cluster",
       "ROBINS-I",
+      "ROBINS-I-V2",
       "ROBINS-E",
       "QUADAS-2",
       "QUIPS",
