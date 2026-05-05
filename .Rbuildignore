@@ -30,3 +30,5 @@ cran-comments.md
 
 
 ^vignettes/articles$
+^\.positai$
+^\.claude$
