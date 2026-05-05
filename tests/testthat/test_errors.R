@@ -16,8 +16,17 @@ test_that("ROB1 gives message", {
 })
 
 test_that("Colour errors", {
-          expect_error(rob_summary(data_rob2, "ROB2", colour = c("#FFFFFF")))
-          expect_error(rob_traffic_light(data_robins_i,"ROBINS-I", colour = c("#FFFFFF")))
+  expect_error(rob_summary(data_rob2, "ROB2", colour = c("#FFFFFF")))
+  expect_error(rob_traffic_light(
+    data_robins_i,
+    "ROBINS-I",
+    colour = c("#FFFFFF")
+  ))
+  expect_error(rob_traffic_light(
+    data_robins_i_v2,
+    "ROBINS-I-V2",
+    colour = c("#FFFFFF")
+  ))
 })
 
 test_sum <- data_rob2[, c(1:6)]
@@ -37,6 +46,13 @@ test_that("Too few columns", {
   expect_error(rob_traffic_light(data_rob2[, 1:7], tool = "ROB2-Cluster"))
 })
 
+test_sum <- data_robins_i_v2[, c(1:7)]
+test_tf <- data_robins_i_v2[, c(1:7)]
+
+test_that("Too few columns", {
+  expect_error(rob_summary(test_sum, "ROBINS-I-V2"))
+  expect_error(rob_traffic_light(test_tf, "ROBINS-I-V2"))
+})
 test_sum <- data_quadas[, c(1:6)]
 test_tf <- data_quadas[, c(1:5)]
 
@@ -45,14 +61,14 @@ test_that("Too few columns", {
   expect_error(rob_traffic_light(test_tf, "QUADAS-2"))
 })
 
-test_that("Error on saving with wrong file ext",{
-  expect_error(rob_save(rob_fig,"test.pgg"))
+test_that("Error on saving with wrong file ext", {
+  expect_error(rob_save(rob_fig, "test.pgg"))
 })
 
 # Need to add specific test for ROB1
 
 data_header <- data_rob2
-data_header[1,] <- as.list(names(data_header))
+data_header[1, ] <- as.list(names(data_header))
 
 test_that("Data contains headers", {
   expect_error(rob_summary(data_header, "ROB2"))
@@ -60,8 +76,17 @@ test_that("Data contains headers", {
 })
 
 test_that("Expected number of domain shortcodes", {
-  expect_error(rob_traffic_light(data_rob1, "Generic", domain_shortcodes = c("R1")))
-  expect_error(rob_traffic_light(data_rob1[,1:3], "Generic", overall = FALSE, domain_shortcodes = c("R1", "R1")))
+  expect_error(rob_traffic_light(
+    data_rob1,
+    "Generic",
+    domain_shortcodes = c("R1")
+  ))
+  expect_error(rob_traffic_light(
+    data_rob1[, 1:3],
+    "Generic",
+    overall = FALSE,
+    domain_shortcodes = c("R1", "R1")
+  ))
 })
 
 
@@ -73,4 +98,3 @@ test_that("Check class of results object ", {
   expect_error(rob_append_weights(data_rob2, res))
   expect_error(rob_append_to_forest(res, data_rob2))
 })
-
