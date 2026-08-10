@@ -62,8 +62,8 @@ data <- data.frame(
 rob_traffic_light(data, "ROB2")
 }
 \seealso{
-Other main:
-\code{\link[=rob_forest]{rob_forest()}},
-\code{\link[=rob_summary]{rob_summary()}}
+Other main: 
+\code{\link{rob_forest}()},
+\code{\link{rob_summary}()}
 }
 \concept{main}

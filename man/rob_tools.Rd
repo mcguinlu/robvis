@@ -18,9 +18,9 @@ rob_tools() will list the risk-of-bias assessment tools for
 rob_tools()
 }
 \seealso{
-Other helper:
-\code{\link[=rob_append_weights]{rob_append_weights()}},
-\code{\link[=rob_dummy]{rob_dummy()}},
-\code{\link[=rob_save]{rob_save()}}
+Other helper: 
+\code{\link{rob_append_weights}()},
+\code{\link{rob_dummy}()},
+\code{\link{rob_save}()}
 }
 \concept{helper}

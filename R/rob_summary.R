@@ -76,6 +76,7 @@ rob_summary <- function(
       rob_colours = rob_colours
     )
   }
+
   if (tool == 'ROBINS-I-V2') {
     plot <- rob_summary_robinsiv2(
       data = data,
@@ -298,7 +299,6 @@ rob_summary_robinsiv2 <- function(data, tool, overall, weighted, rob_colours) {
 
   return(plot)
 }
-
 
 # ROBINS-E======================================================================
 
