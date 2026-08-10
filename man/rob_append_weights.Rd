@@ -40,9 +40,9 @@ rob_summary(rob_weighted_data, tool = "ROB2", weighted = TRUE)
 }
 }
 \seealso{
-Other helper: 
-\code{\link{rob_dummy}()},
-\code{\link{rob_save}()},
-\code{\link{rob_tools}()}
+Other helper:
+\code{\link[=rob_dummy]{rob_dummy()}},
+\code{\link[=rob_save]{rob_save()}},
+\code{\link[=rob_tools]{rob_tools()}}
 }
 \concept{helper}

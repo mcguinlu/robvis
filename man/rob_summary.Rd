@@ -24,7 +24,7 @@ level judgments, 1 for overall judgements, in that
 order).}
 
 \item{tool}{The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
+ROBINS-I (tool='ROBINS-I'), ROBINS-I-V2 (tool='ROBINS-I-V2') and QUADAS-2 (tool='QUADAS-2') are currently
 supported.}
 
 \item{overall}{An option to include a bar for overall risk-of-bias in the
@@ -64,8 +64,8 @@ data <- data.frame(
 rob_summary(data, "ROB2")
 }
 \seealso{
-Other main: 
-\code{\link{rob_forest}()},
-\code{\link{rob_traffic_light}()}
+Other main:
+\code{\link[=rob_forest]{rob_forest()}},
+\code{\link[=rob_traffic_light]{rob_traffic_light()}}
 }
 \concept{main}

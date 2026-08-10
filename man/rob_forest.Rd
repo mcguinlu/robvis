@@ -47,8 +47,8 @@ A wrapper for metafor::forest function, which adds a risk of
   of metafor::forest() to TRUE.
 }
 \seealso{
-Other main: 
-\code{\link{rob_summary}()},
-\code{\link{rob_traffic_light}()}
+Other main:
+\code{\link[=rob_summary]{rob_summary()}},
+\code{\link[=rob_traffic_light]{rob_traffic_light()}}
 }
 \concept{main}

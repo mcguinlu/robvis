@@ -25,7 +25,6 @@ Description: Helps users in quickly visualizing risk-of-bias
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
 Depends:
   R (>= 3.6)
 Imports:
@@ -52,3 +51,4 @@ Config/testthat/edition: 3
 BugReports: https://github.com/mcguinlu/robvis
 URL: https://github.com/mcguinlu/robvis 
 Language: en-US
+Config/roxygen2/version: 8.1.0
