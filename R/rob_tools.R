@@ -12,12 +12,7 @@
 
 rob_tools <- function(forest = FALSE) {
   if (forest) {
-    tools <- c(
-      "ROB2",
-      "ROBINS-I",
-      "ROBINS-I-V2",
-      "ROBINS-E"
-    )
+    tools <- c("ROB2", "ROBINS-I", "ROBINS-I-V2", "ROBINS-E")
   } else {
     tools <- c(
       "ROB2",
