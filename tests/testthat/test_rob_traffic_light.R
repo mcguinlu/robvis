@@ -148,7 +148,7 @@ test_that("ROB - Traffic light", {
   )
 
   expect_snapshot_file(
-    # name = "TF - ROBINS-I-V2 - Basic.png",
+    name = "TF - ROBINS-I-V2 - Basic.png",
     rob_save(
       file = tempfile(fileext = ".png"),
       rob_traffic_light(data_robins_i_v2, "ROBINS-I-V2")
