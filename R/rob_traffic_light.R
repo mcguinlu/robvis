@@ -11,7 +11,7 @@
 #'   level judgments, and 1 for overall judgement, in that
 #'   order). See
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-#'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
+#'   ROBINS-I (tool='ROBINS-I'), ROBINS-I-V2 (tool='ROBINS-I-V2'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default
 #'   is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
@@ -79,6 +79,16 @@ rob_traffic_light <-
 
     if (tool == "ROBINS-I") {
       plot <- rob_traffic_light_robinsi(
+        data = data,
+        tool = tool,
+        rob_colours = rob_colours,
+        psize = psize,
+        overall = overall
+      )
+    }
+
+    if (tool == "ROBINS-I-V2") {
+      plot <- rob_traffic_light_robinsiv2(
         data = data,
         tool = tool,
         rob_colours = rob_colours,
@@ -406,6 +416,86 @@ rob_traffic_light_robinsi <- function(data,
   return(trafficlightplot)
 }
 
+# ROBINS-I-V2==================================================================
+
+rob_traffic_light_robinsiv2 <- function(data, tool, rob_colours, psize, overall) {
+  max_domain_column <- 8
+  domain_names <-
+    c("Study", "D1", "D2", "D3", "D4", "D5", "D6", "Overall")
+
+  rob.tidy <- tidy_data_tf(data,
+                           max_domain_column = max_domain_column,
+                           domain_names = domain_names,
+                           overall = overall,
+                           levels = c("c", "s", "m", "l", "n", "x"))
+
+  ssize <- psize - (psize / 4)
+
+  adjust_caption <- get_caption_adjustment(rob.tidy)
+
+  trafficlightplot <- ggplot2::ggplot(rob.tidy,
+                                      ggplot2::aes(x = 1,
+                                                   y = 1,
+                                                   colour = judgement)) +
+    theme_rob_tf(rob.tidy,
+                 domain_names,
+                 psize,
+                 ssize,
+                 adjust_caption,
+                 overall) +
+    ggplot2::labs(
+      caption = "  Domains:
+  D1: Bias due to confounding.
+  D2: Bias in classification of interventions.
+  D3: Bias due to selection into the study.
+  D4: Bias due to missing data.
+  D5: Bias in measurement of outcomes.
+  D6: Bias in selection of the reported result.
+
+
+                  "
+    ) +
+    ggplot2::scale_colour_manual(
+      values = c(
+        c = rob_colours$critical_colour,
+        s = rob_colours$high_colour,
+        m = rob_colours$concerns_colour,
+        l = rob_colours$low_colour,
+        n = rob_colours$ni_colour,
+        x = rob_colours$na_colour
+      ),
+      labels = c(
+        c = "Critical",
+        s = "Serious",
+        m = "Moderate",
+        l = "Low",
+        n = "No information",
+        x = "Not applicable"
+      ),
+      drop = TRUE,
+      limits = force
+    ) +
+    ggplot2::scale_shape_manual(values = c(
+      c = 33,
+      s = 120,
+      m = 45,
+      l = 43,
+      n = 63,
+      x = 32
+    ),
+    labels = c(
+      c = "Critical",
+      s = "Serious",
+      m = "Moderate",
+      l = "Low",
+      n = "No information",
+      x = "Not applicable"
+    ),
+    drop = TRUE,
+    limits = force)
+
+  return(trafficlightplot)
+}
 
 # ROBINS-E======================================================================
 
