@@ -11,26 +11,26 @@
 #' @export
 
 rob_tools <- function(forest = FALSE) {
+
   if (forest) {
-    tools <- c("ROB2", "ROBINS-I", "ROBINS-I-V2", "ROBINS-E")
+    tools <- c("ROB2",
+               "ROBINS-I",
+               "ROBINS-E")
   } else {
-    tools <- c(
-      "ROB2",
-      "ROB2-Cluster",
-      "ROBINS-I",
-      "ROBINS-I-V2",
-      "ROBINS-E",
-      "QUADAS-2",
-      "QUIPS",
-      "Generic"
+    tools <- c("ROB2",
+               "ROB2-Cluster",
+               "ROBINS-I",
+               "ROBINS-E",
+               "QUADAS-2",
+               "QUIPS",
+               "Generic"
     )
-    message(
-      paste0(
-        "Note: the \"ROB2-Cluster\" template is only available ",
-        "for the rob_traffic_light() function."
-      )
-    )
+      message(
+    paste0("Note: the \"ROB2-Cluster\" template is only available ",
+           "for the rob_traffic_light() function.")
+  )
   }
+
 
   return(tools)
 }
@@ -71,19 +71,16 @@ rob_tools <- function(forest = FALSE) {
 #' rob_summary(rob_weighted_data, tool = "ROB2", weighted = TRUE)
 #' }
 
-rob_append_weights <- function(data, res) {
+rob_append_weights <- function(data, res){
+
   if (!("rma" %in% class(res))) {
-    stop(
-      "Result objects need to be of class \"meta\" - output from metafor package functions"
-    )
+    stop("Result objects need to be of class \"meta\" - output from metafor package functions")
   }
 
   # Extract weights
-  weights <- data.frame(
-    Study = names(stats::weights(res)),
-    Weight = stats::weights(res),
-    row.names = NULL
-  )
+  weights <- data.frame(Study = names(stats::weights(res)),
+                        Weight = stats::weights(res),
+                        row.names = NULL)
 
   # Merge by Study name to create new dataframe
   rob_df <- dplyr::left_join(data, weights, by = "Study")
@@ -91,12 +88,11 @@ rob_append_weights <- function(data, res) {
   # Employ check to see if data has merged properly If a merge has failed, one
   # of the Weight cells will be NA, meaning the sum will also be NA
   if (is.na(sum(rob_df$Weight))) {
-    stop(paste0(
-      "Problem with matching - weights do not equal 100. ",
-      "Check that the names of studies are the same in the ROB ",
-      "data and the res object (stored in slab)"
-    ))
+    stop(paste0("Problem with matching - weights do not equal 100. ",
+                "Check that the names of studies are the same in the ROB ",
+                "data and the res object (stored in slab)"))
   }
 
   return(rob_df)
 }
+

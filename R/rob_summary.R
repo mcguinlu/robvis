@@ -10,7 +10,7 @@
 #'   level judgments, 1 for overall judgements, in that
 #'   order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-#'   ROBINS-I (tool='ROBINS-I'), ROBINS-I-V2 (tool='ROBINS-I-V2') and QUADAS-2 (tool='QUADAS-2') are currently
+#'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param overall An option to include a bar for overall risk-of-bias in the
 #'   figure. Default is TRUE
@@ -40,14 +40,12 @@
 #' rob_summary(data, "ROB2")
 #' @export
 
-rob_summary <- function(
-  data,
-  tool,
-  overall = TRUE,
-  weighted = FALSE,
-  colour = "cochrane",
-  ...
-) {
+rob_summary <- function(data,
+                        tool,
+                        overall = TRUE,
+                        weighted = FALSE,
+                        colour = "cochrane",
+                        ...) {
   check_tool(tool)
   check_first_row(data)
   colour <- clean_colour_spelling(colour)
@@ -69,16 +67,6 @@ rob_summary <- function(
 
   if (tool == "ROBINS-I") {
     plot <- rob_summary_robinsi(
-      data = data,
-      tool = tool,
-      overall = overall,
-      weighted = weighted,
-      rob_colours = rob_colours
-    )
-  }
-
-  if (tool == 'ROBINS-I-V2') {
-    plot <- rob_summary_robinsiv2(
       data = data,
       tool = tool,
       overall = overall,
@@ -143,7 +131,12 @@ rob_summary <- function(
 
 # ROB2 ======================================================================
 
-rob_summary_rob2 <- function(data, tool, overall, weighted, rob_colours) {
+rob_summary_rob2 <- function(data,
+                             tool,
+                             overall,
+                             weighted,
+                             rob_colours) {
+
   domain_names <- c(
     "Study",
     "Bias arising from the randomization process",
@@ -157,18 +150,16 @@ rob_summary_rob2 <- function(data, tool, overall, weighted, rob_colours) {
 
   max_domain_column <- 7
 
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "h", "s", "l")
-  )
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x", "n", "h", "s", "l"))
 
   # Create plot
   plot <- ggplot2::ggplot(data = rob.tidy) +
-    theme_rob_summ(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
@@ -193,85 +184,35 @@ rob_summary_rob2 <- function(data, tool, overall, weighted, rob_colours) {
 }
 
 
+
+
 # ROBINS-I======================================================================
 
-rob_summary_robinsi <- function(data, tool, overall, weighted, rob_colours) {
-  domain_names <- c(
-    "Study",
-    "Bias due to confounding",
-    "Bias due to selection of participants",
-    "Bias in classification of interventions",
-    "Bias due to deviations from intended interventions",
-    "Bias due to missing data",
-    "Bias in measurement of outcomes",
-    "Bias in selection of the reported result",
-    "Overall risk of bias",
-    "Weights"
-  )
+rob_summary_robinsi <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours) {
+
+  domain_names <- c("Study",
+                    "Bias due to confounding",
+                    "Bias due to selection of participants",
+                    "Bias in classification of interventions",
+                    "Bias due to deviations from intended interventions",
+                    "Bias due to missing data",
+                    "Bias in measurement of outcomes",
+                    "Bias in selection of the reported result",
+                    "Overall risk of bias",
+                    "Weights")
 
   max_domain_column <- 9
 
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "c", "s", "m", "l")
-  )
-
-  plot <-
-    ggplot2::ggplot(data = rob.tidy) +
-    theme_rob_summ(overall, max_domain_column - 2) +
-    ggplot2::scale_fill_manual(
-      values = c(
-        l = rob_colours$low_colour,
-        x = rob_colours$na_colour,
-        n = rob_colours$ni_colour,
-        c = rob_colours$critical_colour,
-        s = rob_colours$high_colour,
-        m = rob_colours$concerns_colour
-      ),
-      labels = c(
-        l = " Low risk  ",
-        m = " Moderate risk ",
-        s = " Serious risk  ",
-        c = " Critical risk  ",
-        n = " No information ",
-        x = " N/A "
-      ),
-      drop = TRUE,
-      limits = force
-    )
-
-  return(plot)
-}
-
-# ROBINS-I-V2======================================================================
-
-rob_summary_robinsiv2 <- function(data, tool, overall, weighted, rob_colours) {
-  domain_names <- c(
-    "Study",
-    "Bias due to confounding",
-    "Bias in classification of interventions",
-    "Bias due to selection into the study",
-    "Bias due to missing data",
-    "Bias in measurement of outcomes",
-    "Bias in selection of the reported result",
-    "Overall risk of bias",
-    "Weights"
-  )
-
-  max_domain_column <- 8
-
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "c", "s", "m", "l")
-  )
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x","n","c","s","m","l"))
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
@@ -302,30 +243,31 @@ rob_summary_robinsiv2 <- function(data, tool, overall, weighted, rob_colours) {
 
 # ROBINS-E======================================================================
 
-rob_summary_robinse <- function(data, tool, overall, weighted, rob_colours) {
-  domain_names <- c(
-    "Study",
-    "Bias due to confounding",
-    "Bias arising from measurement of the exposure",
-    "Bias in selection of participants into the study (or into the analysis)",
-    "Bias due to post-exposure interventions",
-    "Bias due to missing data",
-    "Bias arising from measurement of the outcome",
-    "Bias in selection of the reported result",
-    "Overall risk of bias",
-    "Weights"
-  )
+rob_summary_robinse <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours) {
+
+  domain_names <- c("Study",
+                    "Bias due to confounding",
+                    "Bias arising from measurement of the exposure",
+                    "Bias in selection of participants into the study (or into the analysis)",
+                    "Bias due to post-exposure interventions",
+                    "Bias due to missing data",
+                    "Bias arising from measurement of the outcome",
+                    "Bias in selection of the reported result",
+                    "Overall risk of bias",
+                    "Weights")
 
   max_domain_column <- 9
 
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "v", "h", "s", "l")
-  )
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x","n","v","h","s","l"))
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
@@ -356,7 +298,12 @@ rob_summary_robinse <- function(data, tool, overall, weighted, rob_colours) {
 
 # QUADAS-2======================================================================
 
-rob_summary_quadas2 <- function(data, tool, overall, weighted, rob_colours) {
+rob_summary_quadas2 <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours) {
+
   domain_names <- c(
     "Study",
     "Patient selection",
@@ -369,14 +316,12 @@ rob_summary_quadas2 <- function(data, tool, overall, weighted, rob_colours) {
 
   max_domain_column <- 6
 
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "h", "s", "l")
-  )
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x","n","h","s","l"))
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
@@ -404,7 +349,12 @@ rob_summary_quadas2 <- function(data, tool, overall, weighted, rob_colours) {
 
 # QUIPS ======================================================================
 
-rob_summary_quips <- function(data, tool, overall, weighted, rob_colours) {
+rob_summary_quips <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours) {
+
   domain_names <- c(
     "Study",
     "Bias due to participation",
@@ -419,14 +369,12 @@ rob_summary_quips <- function(data, tool, overall, weighted, rob_colours) {
 
   max_domain_column <- 8
 
-  rob.tidy <- tidy_data_summ(
-    data,
-    max_domain_column,
-    overall,
-    weighted,
-    domain_names,
-    levels = c("x", "n", "h", "m", "l")
-  )
+  rob.tidy <- tidy_data_summ(data,
+                             max_domain_column,
+                             overall,
+                             weighted,
+                             domain_names,
+                             levels = c("x","n", "h", "m", "l"))
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
@@ -454,20 +402,16 @@ rob_summary_quips <- function(data, tool, overall, weighted, rob_colours) {
 
 # Generic=================================================================
 
-rob_summary_generic <- function(
-  data,
-  tool,
-  overall,
-  weighted,
-  rob_colours,
-  judgement_labels = c(
-    "Low risk of bias",
-    "Some concerns",
-    "High risk of bias",
-    "Critical risk of bias",
-    "No information"
-  )
-) {
+rob_summary_generic <- function(data,
+                                tool,
+                                overall,
+                                weighted,
+                                rob_colours,
+                                judgement_labels = c("Low risk of bias",
+                                                     "Some concerns",
+                                                     "High risk of bias",
+                                                     "Critical risk of bias",
+                                                     "No information")) {
   check_rob1(tool)
 
   max_domain_column <- ncol(data) - 1
@@ -476,7 +420,7 @@ rob_summary_generic <- function(
   # column if TRUE
   if (weighted == FALSE) {
     if (is.numeric(data[2, ncol(data)]) == FALSE) {
-      data[, ncol(data) + 1] <- rep(1, length(nrow(data)))
+      data[, ncol(data)+1] <- rep(1, length(nrow(data)))
       max_domain_column <- max_domain_column + 1
     } else {
       data[, ncol(data)] <- rep(1, length(nrow(data)))
@@ -501,12 +445,11 @@ rob_summary_generic <- function(
     data[[i]] <- gsub("m", "s", data[[i]])
   }
 
+
   # Clean and rename column headings, as needed
   data.tmp <- data
   for (i in 2:(ncol(data) - 1)) {
-    names(data.tmp)[i] <- invisible(gsub(
-      ".",
-      " ",
+    names(data.tmp)[i] <- invisible(gsub(".", " ",
       names(data.tmp)[i],
       fixed = TRUE
     ))
@@ -518,12 +461,11 @@ rob_summary_generic <- function(
   # Gather data, convert to factors and set levels
   rob.tidy <- suppressWarnings(tidyr::gather(
     data.tmp,
-    domain,
-    judgement,
-    -Weights
+    domain, judgement, -Weights
   ))
 
-  judgement_levels <- c("n", "c", "h", "s", "l")
+  judgement_levels <- c("n","c", "h", "s", "l")
+
 
   rob.tidy$judgement <-
     factor(rob.tidy$judgement, levels = judgement_levels)
@@ -548,7 +490,7 @@ rob_summary_generic <- function(
   # Create plot
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
-    theme_rob_summ(overall, max_domain_column - 2) +
+    theme_rob_summ(overall, max_domain_column-2) +
     ggplot2::scale_fill_manual(
       "Risk of Bias",
       values = c(
