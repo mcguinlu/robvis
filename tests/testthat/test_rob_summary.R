@@ -1,314 +1,46 @@
 test_that("ROB - Summary", {
-  expect_snapshot_file(
-    name = "ROB2 - Basic.png",
-    rob_save(file = tempfile(fileext = ".png"), rob_summary(data_rob2, "ROB2"))
-  )
-  expect_snapshot_file(
-    name = "ROB2 - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob2[1:6], "ROB2", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB2 - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob2, "ROB2", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB2 - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob2, "ROB2", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB2 - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_rob2,
-        "ROB2",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441")
-      )
-    )
-  )
+  expect_snapshot_file(name = "ROB2 - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob2, "ROB2")))
+  expect_snapshot_file(name = "ROB2 - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob2[1:6], "ROB2", overall = FALSE)))
+  expect_snapshot_file(name = "ROB2 - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob2, "ROB2", colour = "cochrane")))
+  expect_snapshot_file(name = "ROB2 - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob2, "ROB2", colour = "colourblind")))
+  expect_snapshot_file(name = "ROB2 - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob2, "ROB2", colour = c("#f442c8", "#bef441", "#000000", "#bef441"))))
 
-  expect_snapshot_file(
-    name = "ROB1 - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob1, "Generic")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob1[1:8], "Generic", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob1, "Generic", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_rob1, "Generic", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_rob1,
-        "Generic",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7")
-      )
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - Judgement Labels.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_rob1,
-        "Generic",
-        judgement_labels = c("Test1", "Test2", "Test3", "Test4", "NI")
-      )
-    )
-  )
-  expect_snapshot_file(
-    name = "ROB1 - ROBINS-I Judgement Labels.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_robins_i,
-        "Generic",
-        judgement_labels = c("Test1", "Test2", "Test3", "Test4", "NI"),
-        overall = TRUE
-      )
-    )
-  )
+  expect_snapshot_file(name = "ROB1 - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1, "Generic")))
+  expect_snapshot_file(name = "ROB1 - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1[1:8], "Generic", overall = FALSE)))
+  expect_snapshot_file(name = "ROB1 - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1, "Generic", colour = "cochrane")))
+  expect_snapshot_file(name = "ROB1 - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1, "Generic", colour = "colourblind")))
+  expect_snapshot_file(name = "ROB1 - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1, "Generic", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
+  expect_snapshot_file(name = "ROB1 - Judgement Labels.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_rob1, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"))))
+  expect_snapshot_file(name = "ROB1 - ROBINS-I Judgement Labels.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"), overall = TRUE)))
 
-  expect_snapshot_file(
-    name = "ROBINS-I - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i, "ROBINS-I")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i[1:8], "ROBINS-I", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i, "ROBINS-I", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i, "ROBINS-I", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_robins_i,
-        "ROBINS-I",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7")
-      )
-    )
-  )
+  expect_snapshot_file(name = "ROBINS-I - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I")))
+  expect_snapshot_file(name = "ROBINS-I - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i[1:8], "ROBINS-I", overall = FALSE)))
+  expect_snapshot_file(name = "ROBINS-I - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I", colour = "cochrane")))
+  expect_snapshot_file(name = "ROBINS-I - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I", colour = "colourblind")))
+  expect_snapshot_file(name = "ROBINS-I - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
 
-  expect_snapshot_file(
-    name = "ROBINS-E - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_e, "ROBINS-E")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-E - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_e[1:8], "ROBINS-E", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-E - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_e, "ROBINS-E", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-E - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_e, "ROBINS-E", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-E - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_robins_e,
-        "ROBINS-E",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7")
-      )
-    )
-  )
+  expect_snapshot_file(name = "ROBINS-I-V2 - Basic.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2[1:7], "ROBINS-I-V2", overall = FALSE)))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "cochrane")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "colourblind")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
+  expect_snapshot_file(name = "ROB1 - ROBINS-I-V2 Judgement Labels.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"), overall = TRUE)))
 
-  #TODO: tests for ROBINS-I-V2
-  expect_snapshot_file(
-    name = "ROB1 - ROBINS-I-V2 Judgement Labels.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_robins_i_v2,
-        "Generic",
-        judgement_labels = c("Test1", "Test2", "Test3", "Test4", "NI"),
-        overall = TRUE
-      )
-    )
-  )
+  expect_snapshot_file(name = "ROBINS-E - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E")))
+  expect_snapshot_file(name = "ROBINS-E - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e[1:8], "ROBINS-E", overall = FALSE)))
+  expect_snapshot_file(name = "ROBINS-E - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E", colour = "cochrane")))
+  expect_snapshot_file(name = "ROBINS-E - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E", colour = "colourblind")))
+  expect_snapshot_file(name = "ROBINS-E - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
 
-  expect_snapshot_file(
-    name = "ROBINS-I-V2 - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i_v2, "ROBINS-I-V2")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I-V2 - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i_v2[1:7], "ROBINS-I-V2", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I-V2 - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I-V2 - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "ROBINS-I-V2 - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_robins_i_v2,
-        "ROBINS-I-V2",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7")
-      )
-    )
-  )
-  expect_snapshot_file(
-    name = "QUIPS - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quips, "QUIPS")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUIPS - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quips[1:7], "QUIPS", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "QUIPS - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quips, "QUIPS", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUIPS - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quips, "QUIPS", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUIPS - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_quips,
-        "QUIPS",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7")
-      )
-    )
-  )
+  expect_snapshot_file(name = "QUIPS - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quips, "QUIPS")))
+  expect_snapshot_file(name = "QUIPS - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quips[1:7], "QUIPS", overall = FALSE)))
+  expect_snapshot_file(name = "QUIPS - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quips, "QUIPS", colour = "cochrane")))
+  expect_snapshot_file(name = "QUIPS - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quips, "QUIPS", colour = "colourblind")))
+  expect_snapshot_file(name = "QUIPS - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quips, "QUIPS", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
 
-  expect_snapshot_file(
-    name = "QUADAS - Basic.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quadas, "QUADAS-2")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUADAS - Overall.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quadas[1:5], "QUADAS-2", overall = FALSE)
-    )
-  )
-  expect_snapshot_file(
-    name = "QUADAS - Colour - cochrane.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quadas, "QUADAS-2", colour = "cochrane")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUADAS - Colour - colourblind.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(data_quadas, "QUADAS-2", colour = "colourblind")
-    )
-  )
-  expect_snapshot_file(
-    name = "QUADAS - Colour - custom.png",
-    rob_save(
-      file = tempfile(fileext = ".png"),
-      rob_summary(
-        data_quadas,
-        "QUADAS-2",
-        colour = c("#f442c8", "#bef441", "#000000", "#bef441")
-      )
-    )
-  )
+  expect_snapshot_file(name = "QUADAS - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quadas, "QUADAS-2")))
+  expect_snapshot_file(name = "QUADAS - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quadas[1:5], "QUADAS-2", overall = FALSE)))
+  expect_snapshot_file(name = "QUADAS - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quadas, "QUADAS-2", colour = "cochrane")))
+  expect_snapshot_file(name = "QUADAS - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quadas, "QUADAS-2", colour = "colourblind")))
+  expect_snapshot_file(name = "QUADAS - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_quadas, "QUADAS-2", colour = c("#f442c8", "#bef441", "#000000", "#bef441"))))
 })
