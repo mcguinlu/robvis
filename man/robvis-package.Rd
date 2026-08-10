@@ -20,11 +20,6 @@ Useful links:
 \author{
 \strong{Maintainer}: Luke McGuinness \email{luke.mcguinness@bristol.ac.uk}
 
-Authors:
-\itemize{
-  \item Luke McGuinness \email{luke.mcguinness@bristol.ac.uk}
-}
-
 Other contributors:
 \itemize{
   \item Emily Kothe [contributor]
