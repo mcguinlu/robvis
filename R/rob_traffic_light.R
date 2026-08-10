@@ -11,7 +11,7 @@
 #'   level judgments, and 1 for overall judgement, in that
 #'   order). See
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-#'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
+#'   ROBINS-I (tool='ROBINS-I'), ROBINS-I-V2 (tool='ROBINS-I_V2') and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param colour An argument to specify the colour scheme for the plot. Default
 #'   is 'cochrane' which used the ubiquitous Cochrane colours, while a preset
@@ -403,7 +403,8 @@ rob_traffic_light_robinsi <- function(data, tool, rob_colours, psize, overall) {
 
   return(trafficlightplot)
 }
-# ROBINS-I-V2======================================================================
+
+# ROBINS-I-V2==================================================================
 
 rob_traffic_light_robinsiv2 <- function(
   data,
@@ -445,9 +446,9 @@ rob_traffic_light_robinsiv2 <- function(
   D1: Bias due to confounding.
   D2: Bias in classification of interventions.
   D3: Bias due to selection into the study.
-  D5: Bias due to missing data.
-  D6: Bias in measurement of outcomes.
-  D7: Bias in selection of the reported result.
+  D4: Bias due to missing data.
+  D5: Bias in measurement of outcomes.
+  D6: Bias in selection of the reported result.
 
 
                   "
@@ -495,7 +496,6 @@ rob_traffic_light_robinsiv2 <- function(
 
   return(trafficlightplot)
 }
-
 
 # ROBINS-E======================================================================
 
