@@ -11,3 +11,4 @@ docs/
 /*.png
 *.xlsx
 R/rob_paired_plot.R
+.positai

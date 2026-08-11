@@ -19,6 +19,13 @@ test_that("ROB - Summary", {
   expect_snapshot_file(name = "ROBINS-I - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I", colour = "colourblind")))
   expect_snapshot_file(name = "ROBINS-I - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_i, "ROBINS-I", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
 
+  expect_snapshot_file(name = "ROBINS-I-V2 - Basic.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Overall.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2[1:7], "ROBINS-I-V2", overall = FALSE)))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "cochrane")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - colourblind.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = "colourblind")))
+  expect_snapshot_file(name = "ROBINS-I-V2 - Colour - custom.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "ROBINS-I-V2", colour = c("#f442c8", "#bef441", "#000000", "#bef441", "#4EA1F7"))))
+  expect_snapshot_file(name = "ROB1 - ROBINS-I-V2 Judgement Labels.png", rob_save(file = tempfile(fileext = ".png"), rob_summary(data_robins_i_v2, "Generic", judgement_labels = c("Test1","Test2","Test3","Test4","NI"), overall = TRUE)))
+
   expect_snapshot_file(name = "ROBINS-E - Basic.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E")))
   expect_snapshot_file(name = "ROBINS-E - Overall.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e[1:8], "ROBINS-E", overall = FALSE)))
   expect_snapshot_file(name = "ROBINS-E - Colour - cochrane.png", rob_save(file = tempfile(fileext = ".png"),  rob_summary(data_robins_e, "ROBINS-E", colour = "cochrane")))

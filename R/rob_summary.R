@@ -10,7 +10,7 @@
 #'   level judgments, 1 for overall judgements, in that
 #'   order).
 #' @param tool The risk of bias assessment tool used. RoB2.0 (tool='ROB2'),
-#'   ROBINS-I (tool='ROBINS-I'), and QUADAS-2 (tool='QUADAS-2') are currently
+#'   ROBINS-I (tool='ROBINS-I'), ROBINS-I-V2 (tool='ROBINS-I-V2'), and QUADAS-2 (tool='QUADAS-2') are currently
 #'   supported.
 #' @param overall An option to include a bar for overall risk-of-bias in the
 #'   figure. Default is TRUE
@@ -75,6 +75,15 @@ rob_summary <- function(data,
     )
   }
 
+  if (tool == 'ROBINS-I-V2') {
+    plot <- rob_summary_robinsiv2(
+      data = data,
+      tool = tool,
+      overall = overall,
+      weighted = weighted,
+      rob_colours = rob_colours
+    )
+  }
   if (tool == "ROBINS-E") {
     plot <- rob_summary_robinse(
       data = data,
@@ -213,6 +222,59 @@ rob_summary_robinsi <- function(data,
                              weighted,
                              domain_names,
                              levels = c("x","n","c","s","m","l"))
+
+  plot <-
+    ggplot2::ggplot(data = rob.tidy) +
+    theme_rob_summ(overall, max_domain_column - 2) +
+    ggplot2::scale_fill_manual(
+      values = c(
+        l = rob_colours$low_colour,
+        x = rob_colours$na_colour,
+        n = rob_colours$ni_colour,
+        c = rob_colours$critical_colour,
+        s = rob_colours$high_colour,
+        m = rob_colours$concerns_colour
+      ),
+      labels = c(
+        l = " Low risk  ",
+        m = " Moderate risk ",
+        s = " Serious risk  ",
+        c = " Critical risk  ",
+        n = " No information ",
+        x = " N/A "
+      ),
+      drop = TRUE,
+      limits = force
+    )
+
+  return(plot)
+}
+
+# ROBINS-I-V2======================================================================
+
+rob_summary_robinsiv2 <- function(data, tool, overall, weighted, rob_colours) {
+  domain_names <- c(
+    "Study",
+    "Bias due to confounding",
+    "Bias in classification of interventions",
+    "Bias due to selection into the study",
+    "Bias due to missing data",
+    "Bias in measurement of outcomes",
+    "Bias in selection of the reported result",
+    "Overall risk of bias",
+    "Weights"
+  )
+
+  max_domain_column <- 8
+
+  rob.tidy <- tidy_data_summ(
+    data,
+    max_domain_column,
+    overall,
+    weighted,
+    domain_names,
+    levels = c("x", "n", "c", "s", "m", "l")
+  )
 
   plot <-
     ggplot2::ggplot(data = rob.tidy) +
