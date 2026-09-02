@@ -371,7 +371,7 @@ theme_rob_tf <-function(rob.tidy,
       ggplot2::geom_point(size = 4,
                           colour = "black",
                           ggplot2::aes(shape = judgement)),
-      ggplot2::geom_rect(
+      ggplot2::geom_rect(x=1, y=1,
         data = rob.tidy[which(rob.tidy$domain !=
                                 overall_name),],
         fill = "#ffffff",
@@ -382,7 +382,7 @@ theme_rob_tf <-function(rob.tidy,
         ymax = Inf,
         show.legend = FALSE
       ),
-      overall_name = ggplot2::geom_rect(
+      overall_name = ggplot2::geom_rect(x=1, y=1,
         data = rob.tidy[which(rob.tidy$domain ==
                                 overall_name),],
         fill = "#d3d3d3",
@@ -394,7 +394,7 @@ theme_rob_tf <-function(rob.tidy,
         show.legend = FALSE
       ),
       ggplot2::geom_point(size = psize, show.legend = FALSE),
-      ggplot2::geom_point(
+      ggplot2::geom_point(x=1, y=1,
         data = rob.tidy[which(rob.tidy$judgement !=
                                 "x"),],
         shape = 1,
