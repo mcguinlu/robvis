@@ -37,6 +37,12 @@ check_first_row <- function(data){
                "headings (e.g. \"Study\", \"Overall\"). Did you set ",
                "\"header = TRUE\" when reading in your data?")
     )
+  if (tool == "ROBIS") { ## ADDED ROBIS
+    values = c(
+      "High",
+      "Unclear",
+      "Low",
+      "No information"
   }
 
 }
@@ -515,10 +521,24 @@ get_judgements <- function(tool){
       "Not applicable"
     )
   }
-
+  if (tool == "ROBIS") {
+    values = c(
+      "High",
+      "Unclear",
+      "Low"
+     )
+   }
   return(values)
 }
 
+# Check colours
+check_colour <- function(tool, colour) {
+  if(!(colour[1] %in% c("cochrane","colourblind"))){
+    if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2" || tool == "ROBIS") { ##ADDED ROBIS
+      if(length(colour)!=4){
+        stop(paste("Wrong number of colours specified.",
+                   "This template expects 4 colours."))
+      }
 
 # Define caption adjustment value, based on number of unique judgements
 get_caption_adjustment <- function(data){
@@ -532,7 +552,7 @@ get_colour <- function(tool, colour) {
 
   rob_colours$na_colour <- "#cccccc"
 
-  if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2") {
+  if (tool == "ROB2" || tool == "ROB2-Cluster" || tool == "QUADAS-2" || tool = "ROBIS") { ##ADDED ROBIS
     if (length(colour) > 1) {
       rob_colours$low_colour <- colour[c(1)]
       rob_colours$concerns_colour <- colour[c(2)]
