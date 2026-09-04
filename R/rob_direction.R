@@ -21,12 +21,11 @@
 
 rob_direction <-
   function(dat,
-           vi = NULL,
            sei = NULL,
            title = NULL,
            legend_cex = 0.9,
            grouping = "type",
-           grouping_levels = c("MR","NRSI","NRSE","RCT"),
+           grouping_levels = c("MR","NRSI","Obs","RCT"),
            label_subgroup_summary = "RE Model for Subgroup",
            ...) {
 
@@ -40,11 +39,11 @@ rob_direction <-
     rob_levels = c("Low","Moderate","High","Critical")
 
     dat <- dat %>%
-        dplyr::mutate(type = factor(type, levels = grouping_levels)) %>%
-        dplyr::mutate(overall = factor(overall, levels = rob_levels)) %>%
-        dplyr::arrange(type, overall, dplyr::desc(study))
+      dplyr::mutate(type = factor(type, levels = grouping_levels)) %>%
+      dplyr::mutate(overall = factor(overall, levels = rob_levels)) %>%
+      dplyr::arrange(type, overall, dplyr::desc(study))
 
-   dat[is.na(dat)] <- "None"
+    #dat[is.na(dat)] <- "None"
 
 
     # Use this to define the gaps between different groups
@@ -58,8 +57,8 @@ rob_direction <-
       dplyr::mutate(offset = seq(1,length(unique(.$type))*offset_n,by=offset_n)) %>%
       dplyr::mutate(min = min+offset, max =max+offset, heading = max+1, stats = min-1.25) %>%
       dplyr::mutate(min = ifelse(n==1,min-1,min),
-             max = ifelse(n==1,max-1,max),
-             heading = ifelse(n==1,heading-1,heading))
+                    max = ifelse(n==1,max-1,max),
+                    heading = ifelse(n==1,heading-1,heading))
 
     if (length(unique(dat$type))==1) {
       dat_rob_vec <- dat_rob_vec %>%
@@ -105,7 +104,7 @@ rob_direction <-
       }
     }
 
-    x_pos <- seq(x_max, by = 0.45, length.out = 9 - 2)
+    x_pos <- seq(x_max-0.5, by = 0.45, length.out = 9 - 2)
 
     x_overall_pos <- max(x_pos) + 1
 
@@ -117,12 +116,21 @@ rob_direction <-
     # New right-hand x-axis limit
     new_x_lim <- x_overall_pos + .5
 
-    rob_colours <- get_colour("ROBINS-I", "cochrane")
+    # Setting colours (changed)
+    rob_colours <- c()
+    rob_colours$na_colour <- "#cccccc"
+    rob_colours$low_colour <- "#02C100"
+    rob_colours$concerns_colour <- "#E2DF07"
+    rob_colours$high_colour <- "#BF0000"
+    rob_colours$critical_colour <- "#820000"
+    rob_colours$ni_colour <- "#4EA1F7"
 
-    judgements<-   c(  "High risk of bias",
-                       "Moderate risk of bias",
-                       "Low risk of bias")
+    judgements<-c("Very high risk",  #changed
+                  "High risk",
+                  "Moderate risk",
+                  "Low risk")
     cols <- c(
+      c = rob_colours$critical_colour, #changed
       h = rob_colours$high_colour,
       m = rob_colours$concerns_colour,
       l = rob_colours$low_colour,
@@ -142,6 +150,7 @@ rob_direction <-
               x = "")
 
     shapes <- c(c = 15,
+                v = 15,
                 h = 15,
                 m = 15,
                 l = 15,
@@ -155,22 +164,25 @@ rob_direction <-
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
     # Make forest plot
 
+    res_all <- rma(yi, vi, data=dat)
+
     ### set up forest plot (with 2x2 table counts added; the 'rows' argument is
     ### used to specify in which rows the outcomes will be plotted)
-    metafor::forest(x = dat$yi,
-                    vi = vi,
-                    sei = sei,
-           xlim=c(x_min, new_x_lim),
-           atransf=exp,
-           slab = paste0("  ", dat$study),
-           cex=1.2,
-           ylim=c(-1.5, y_max),
-           rows=rows,
-           textpos = textpos,
-           # mlab = "",
-           header="Studies",
-           ...
-)
+    metafor::forest(res_all,
+                    #x = dat$yi,
+                    #vi = dat$vi,
+                    #sei = sei,
+                    xlim=c(x_min, new_x_lim),
+                    atransf=exp,
+                    slab = paste0("  ", dat$study),
+                    cex=1.2,
+                    ylim=c(-1.5, y_max),
+                    rows=rows,
+                    textpos = textpos,
+                    mlab = mlabfun("RE Model for All Studies", res_all),
+                    header="Studies",
+                    ...
+    )
 
     ### set font expansion factor (as in forest() above) and use a bold font
     op <- graphics::par(font=2)
@@ -234,7 +246,7 @@ rob_direction <-
         vi,
         subset = (type == x),
         data = dat,
-        method = "DL"
+        #method = "DL"  ### CHANGE to have "REML" the default rma
       )
     }
 
@@ -318,24 +330,25 @@ rob_direction <-
     #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     graphics::legend(
-      legend_pos-1.625,
-      -1.7,
+      legend_pos-2,                         #changed
+      -1.5,                                   #changed
       c(judgements),
-      pch = c(15,15,15,16,50),
+      pch = c(15,15,15,15,16,50),           #changed
       xjust = 0.5,
-      col = c(cols[1:3],"white","white"),
+      col = c(cols[1:4],"white","white"),   #changed
       xpd = TRUE,
       title = parse(text = "bold(\"Extent of bias\")"),
       title.adj = 0.05,
       cex = legend_cex,
       pt.cex = legend_cex-.1,
-      y.intersp = 0.7
+      y.intersp = 0.6,                     #changed
+      box.col = "white",
     )
 
     graphics::legend(
-      legend_pos+0.95,
-      -1.7,
-      c("\U2190  \U2192  Additive bias  ","  <   >   Proportional bias", "    ?     Unpredictable"),
+      legend_pos+1.5,                    #changed
+      -1.5,                                #changed
+      c("\U2190  \U2192  Additive","  <   >   Proportional", "    ?     Unpredictable"),
       xjust = 0.5,
       xpd = TRUE,
       adj = 0.15,
@@ -343,7 +356,8 @@ rob_direction <-
       title.adj = 0.05,
       cex = legend_cex,
       pt.cex = legend_cex,
-      y.intersp = 0.7
+      y.intersp = 0.6,
+      box.col = "white"
     )
 
 
